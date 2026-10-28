@@ -104,6 +104,34 @@ no mezclar tres actividades en un mismo scroll. El quiz por módulo corre en
 **tandas de diez** con cierre explícito, en vez de una barra que avanza sobre
 cincuenta.
 
+## Accesibilidad · auditoría WCAG 2.1 AA
+
+Medida con cálculo de luminancia relativa sobre toda la paleta, no a ojo.
+
+| Qué se revisó | Resultado |
+|---|---|
+| Texto normal contra su fondo (4.5:1) | 16 pares, todos pasan |
+| Chips de módulo sobre su propio fondo | 10 pares, todos pasan |
+| Componentes de interfaz y gráficos (3:1) | 9 pares, todos pasan |
+
+Correcciones aplicadas:
+
+- **`--m5`** pasó de `#0071ba` a `#006cb0`: el chip daba 4.45:1, por debajo del
+  mínimo de 4.5. Ahora da 4.80.
+- **Nuevo token `--border-ui` (`#7e8c99`, 3.44:1 sobre blanco)** para los bordes
+  que delimitan controles interactivos y gráficos con significado: pestañas,
+  opciones de quiz, tarjetas de modo, botones de ajustes, nodos y aristas del
+  mapa, bordes de tabla y contornos de figura. El `--border` original (1.56:1)
+  queda solo para separadores decorativos, que no son normativos.
+- **Criterio 1.4.1, uso del color**: el acierto y el error en el quiz se
+  distinguían únicamente por color de borde y de fondo. Ahora llevan además
+  símbolo y etiqueta («✓ correcta», «✗ tu respuesta») y borde de doble grosor.
+- **Foco visible** (2.4.7) explícito en todos los controles: enlaces, botones,
+  `summary` de los acordeones, opciones de quiz y nodos del mapa.
+- **ARIA de pestañas**: las subpestañas de módulo se anunciaban como `tablist`
+  sin controlar ningún panel. Ahora los 42 `tab` tienen `aria-selected` y un
+  `aria-controls` que apunta a un `tabpanel` existente.
+
 ## Seguimiento del progreso
 
 El navegador guarda en `localStorage`, bajo la clave `efc_prog_v2`, qué reactivos

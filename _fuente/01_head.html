@@ -13,12 +13,12 @@
   Psychological Science in the Public Interest 14(1), 4-58).
 */
 :root{
-  --bg:#ffffff; --surface:#ffffff; --surface-2:#eef1f4; --border:#c7d0d9;
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#eef1f4; --border:#c7d0d9; --border-ui:#7e8c99;
   --ink:#16222e; --ink-dim:#57687a;
   --m2:#0b6b5f;  --m2-bg:#e0efec;
   --m3:#6b4a7a;  --m3-bg:#efe8f3;
   --m4:#003f6c;  --m4-bg:#e1ebf3;
-  --m5:#0071ba;  --m5-bg:#e3f0fa;
+  --m5:#006cb0;  --m5-bg:#e3f0fa;
   --m6:#4a5c6b;  --m6-bg:#e9edf0;
   --m7:#8a5a1f;  --m7-bg:#f5ebdd;
   --m8:#1a5e8a;  --m8-bg:#e2eef5;
@@ -46,7 +46,7 @@ header.top p{color:var(--ink-dim);font-size:.92rem;margin-top:6px;line-height:1.
 .topnote a{color:var(--accent)}
 
 nav.tabs{display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--border);margin-bottom:18px}
-nav.tabs button{font-family:var(--font-body);font-weight:600;font-size:.85rem;border:1px solid var(--border);background:var(--surface);color:var(--ink-dim);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
+nav.tabs button{font-family:var(--font-body);font-weight:600;font-size:.85rem;border:1px solid var(--border-ui);background:var(--surface);color:var(--ink-dim);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
 nav.tabs button:hover{border-color:var(--accent);color:var(--ink)}
 nav.tabs button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -95,7 +95,7 @@ section.block h3 .n{font-family:var(--font-mono);font-size:.7rem;color:var(--ink
 .eq{font-family:var(--font-mono);font-size:.88rem;background:var(--surface-2);border-radius:7px;padding:9px 12px;margin:8px 0;overflow-x:auto;white-space:nowrap}
 
 table.data{width:100%;border-collapse:collapse;font-size:.86rem;margin:8px 0}
-table.data th,table.data td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top;line-height:1.45}
+table.data th,table.data td{border:1px solid var(--border-ui);padding:6px 9px;text-align:left;vertical-align:top;line-height:1.45}
 table.data th{background:var(--surface-2);font-weight:700;font-size:.8rem}
 table.data td code{font-family:var(--font-mono);font-size:.82rem}
 .tscroll{overflow-x:auto}
@@ -215,7 +215,7 @@ details.caso-rev .inner{padding:4px 0 0}
 .mapa-lienzo{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow-x:auto;padding:8px}
 #mapasvg{min-width:1020px;width:100%;height:auto;display:block}
 text.mcol{font-family:var(--font-mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;fill:var(--ink-dim)}
-.mnodo rect{fill:var(--surface-2);stroke:var(--border);stroke-width:1;transition:fill .15s,stroke .15s}
+.mnodo rect{fill:var(--surface-2);stroke:var(--border-ui);stroke-width:1;transition:fill .15s,stroke .15s}
 .mnodo text{font-family:var(--font-body);font-size:11.5px;fill:var(--ink);pointer-events:none}
 .mnodo{cursor:pointer}
 .mnodo:hover rect{stroke:var(--accent)}
@@ -224,7 +224,7 @@ text.mcol{font-family:var(--font-mono);font-size:9px;letter-spacing:.09em;text-t
 .mnodo.sel text{fill:var(--accent-ink);font-weight:600}
 .mnodo.vec rect{stroke:var(--accent);stroke-width:1.6}
 .mnodo.apag{opacity:.32}
-path.marista{stroke:var(--border);stroke-width:1;fill:none;transition:stroke .15s,opacity .15s}
+path.marista{stroke:var(--border-ui);stroke-width:1;fill:none;transition:stroke .15s,opacity .15s}
 path.marista.on{stroke:var(--accent);stroke-width:1.8;opacity:1}
 path.marista.off{opacity:.18}
 .mapa-panel{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:16px;position:sticky;top:76px;max-height:76vh;overflow-y:auto}
@@ -243,7 +243,7 @@ path.marista.off{opacity:.18}
 .qreloj.apremio{background:#fdecea;color:var(--bad)}
 .qtiempo{margin-bottom:14px;padding:12px 14px;border-radius:10px;background:#fdecea;color:var(--bad);font-size:.9rem;line-height:1.55;font-weight:600}
 .modos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:4px 0 14px}
-button.modo{display:flex;flex-direction:column;gap:5px;text-align:left;padding:16px 16px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;font:inherit;transition:border-color .15s,transform .1s}
+button.modo{display:flex;flex-direction:column;gap:5px;text-align:left;padding:16px 16px 14px;border:1px solid var(--border-ui);border-radius:10px;background:var(--surface);cursor:pointer;font:inherit;transition:border-color .15s,transform .1s}
 button.modo:hover{border-color:var(--accent)}
 button.modo:active{transform:translateY(1px)}
 .mo-n{font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--accent);line-height:1}
@@ -282,7 +282,7 @@ html[data-mov="reducido"] *,html[data-mov="reducido"] *::before,html[data-mov="r
 html[data-mov="reducido"] .flashcard .inner{transition:none!important}
 
 /* densidad: solo lo esencial */
-button.mas-desarrollo{display:none;margin:2px 0 12px;background:none;border:1px dashed var(--border);border-radius:8px;padding:7px 13px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
+button.mas-desarrollo{display:none;margin:2px 0 12px;background:none;border:1px dashed var(--border-ui);border-radius:8px;padding:7px 13px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
 button.mas-desarrollo:hover{border-color:var(--accent);color:var(--accent)}
 html[data-densidad="esencial"] button.mas-desarrollo{display:inline-block}
 html[data-densidad="esencial"] section.block > .card.desarrollo{display:none}
@@ -292,13 +292,13 @@ html[data-densidad="esencial"] section.block.abierta details.deep{display:block}
 
 /* panel de ajustes */
 .ajustes{margin-top:14px}
-button.aj-btn{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
+button.aj-btn{background:var(--surface);border:1px solid var(--border-ui);border-radius:999px;padding:7px 15px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
 button.aj-btn:hover{border-color:var(--accent);color:var(--accent)}
 .aj-panel{margin-top:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:16px 18px}
 .aj-g{margin-bottom:14px}
 .aj-t{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
 .aj-o{display:flex;gap:7px;flex-wrap:wrap}
-.aj-o button{background:var(--surface-2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font:inherit;font-size:.84rem;color:var(--ink-dim);cursor:pointer}
+.aj-o button{background:var(--surface-2);border:1px solid var(--border-ui);border-radius:7px;padding:6px 12px;font:inherit;font-size:.84rem;color:var(--ink-dim);cursor:pointer}
 .aj-o button:hover{border-color:var(--accent)}
 .aj-o button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 .aj-nota{font-size:.82rem;line-height:1.6;color:var(--ink-dim);border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
@@ -315,6 +315,16 @@ nav.subtabs button .cnt{font-family:var(--font-mono);font-size:.68rem;color:var(
 
 /* final visible de la tanda */
 .tanda-fin{margin:16px 0 0;padding:14px 16px;border:1px solid var(--border);border-left:3px solid var(--good);border-radius:10px;background:var(--surface-2);font-size:.9rem;line-height:1.65;color:var(--ink)}
+
+/* ---- foco visible en todos los controles (WCAG 2.4.7 y 1.4.11) ---- */
+a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.opt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+details.deep>summary:focus-visible,details.prob>summary:focus-visible,details.caso-rev>summary:focus-visible{
+  outline:3px solid var(--accent);outline-offset:3px}
+/* en el mapa el foco va sobre el rectángulo, no sobre el grupo */
+.mnodo:focus-visible{outline:none}
+.mnodo:focus-visible rect{stroke:var(--accent);stroke-width:3}
 </style>
 </head>
 <body>

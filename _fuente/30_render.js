@@ -62,19 +62,19 @@ function panelModulo(m){
         '<div class="prio" id="pri-'+m.id+'"></div>'+
         '<div class="section-progress"><i style="width:0%"></i></div>';
   h+='<nav class="subtabs" role="tablist" aria-label="Actividades de '+m.id+'">'+
-       '<button class="active" data-sp="leer">Leer<span class="cnt">'+m.sec.length+' secciones</span></button>'+
-       '<button data-sp="tarjetas">Tarjetas<span class="cnt">'+m.flash.length+'</span></button>'+
-       '<button data-sp="quiz">Quiz<span class="cnt" id="qn-'+m.id+'"></span></button>'+
+       '<button class="active" role="tab" aria-selected="true" id="st-'+m.id+'-leer" aria-controls="sp-'+m.id+'-leer" data-sp="leer">Leer<span class="cnt">'+m.sec.length+' secciones</span></button>'+
+       '<button role="tab" aria-selected="false" id="st-'+m.id+'-tarjetas" aria-controls="sp-'+m.id+'-tarjetas" data-sp="tarjetas">Tarjetas<span class="cnt">'+m.flash.length+'</span></button>'+
+       '<button role="tab" aria-selected="false" id="st-'+m.id+'-quiz" aria-controls="sp-'+m.id+'-quiz" data-sp="quiz">Quiz<span class="cnt" id="qn-'+m.id+'"></span></button>'+
        '</nav>';
 
-  h+='<div class="subpanel active" data-sp="leer">';
+  h+='<div class="subpanel active" role="tabpanel" id="sp-'+m.id+'-leer" aria-labelledby="st-'+m.id+'-leer" data-sp="leer">';
   m.sec.forEach(function(S,i){
     h+='<section class="block"><h3><span class="n">'+(i+1)+'</span>'+esc(S.t)+'</h3>'+
        S.b.map(function(b){return bloque(b,m.id)}).join('')+'</section>';
   });
   h+='</div>';
 
-  h+='<div class="subpanel" data-sp="tarjetas">';
+  h+='<div class="subpanel" role="tabpanel" id="sp-'+m.id+'-tarjetas" aria-labelledby="st-'+m.id+'-tarjetas" data-sp="tarjetas">';
   h+='<div class="fc-head"><h3>Flashcards de '+m.id+'</h3><span>'+m.flash.length+' tarjetas · clic para voltear</span></div><div class="fcgrid">';
   m.flash.forEach(function(f){
     h+='<div class="flashcard" tabindex="0" role="button" aria-label="Flashcard, pulsa para ver la respuesta">'+
@@ -83,7 +83,7 @@ function panelModulo(m){
   });
   h+='</div></div>';
 
-  h+='<div class="subpanel" data-sp="quiz">'+
+  h+='<div class="subpanel" role="tabpanel" id="sp-'+m.id+'-quiz" aria-labelledby="st-'+m.id+'-quiz" data-sp="quiz">'+
      '<div class="fc-head"><h3>Quiz de '+m.id+'</h3><span id="qd-'+m.id+'">tandas de diez</span></div>'+
      '<div class="cobertura" id="cob-'+m.id+'"></div>'+
      '<div class="quiz-wrap" id="quizwrap-'+m.id+'"></div></div>';
@@ -122,9 +122,11 @@ var TABS=G.map(function(m){return [m.id,m.id]}).concat([['MAPA','Mapa'],['QUIZ',
 TABS.forEach(function(t,i){
   var b=el('button',i===0?'active':'',t[1]);
   b.setAttribute('role','tab');
+  b.setAttribute('aria-selected',String(i===0));
+  b.setAttribute('aria-controls','p-'+t[0]);
   b.onclick=function(){
-    Array.prototype.forEach.call(tabs.children,function(x){x.className=''});
-    b.className='active';
+    Array.prototype.forEach.call(tabs.children,function(x){x.className='';x.setAttribute('aria-selected','false')});
+    b.className='active';b.setAttribute('aria-selected','true');
     Array.prototype.forEach.call(cont.children,function(x){x.className=x.className.replace(' active','')});
     var pan=document.getElementById('p-'+t[0]);
     pan.className+=' active';
@@ -140,7 +142,10 @@ document.addEventListener('click',function(e){
   var b=e.target.closest?e.target.closest('nav.subtabs button'):null;
   if(!b)return;
   var nav=b.parentElement, pan=nav.parentElement, k=b.getAttribute('data-sp');
-  Array.prototype.forEach.call(nav.children,function(x){x.classList.toggle('active',x===b)});
+  Array.prototype.forEach.call(nav.children,function(x){
+    x.classList.toggle('active',x===b);
+    x.setAttribute('aria-selected',String(x===b));
+  });
   Array.prototype.forEach.call(pan.querySelectorAll(':scope > .subpanel'),function(s){
     s.classList.toggle('active',s.getAttribute('data-sp')===k);
   });

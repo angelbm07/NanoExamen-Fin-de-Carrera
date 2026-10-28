@@ -7,14 +7,21 @@
 .qmeta .tag{font-family:var(--font-mono);font-size:.7rem;padding:3px 8px;border-radius:5px;font-weight:700}
 .qmeta .counter{font-family:var(--font-mono);font-size:.75rem;color:var(--ink-dim)}
 .qtext{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:12px}
-.opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 14px;margin-bottom:8px;font-family:var(--font-body);font-size:.92rem;line-height:1.45;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
+.opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border-ui);border-radius:9px;padding:11px 14px;margin-bottom:8px;font-family:var(--font-body);font-size:.92rem;line-height:1.45;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
 .opt:hover:not(:disabled){border-color:var(--accent)}
 .opt:disabled{cursor:default}
 .opt .letra{font-family:var(--font-mono);font-weight:700;font-size:.78rem;color:var(--ink-dim);margin-right:8px}
-.opt.correct{border-color:var(--good);background:#eaf5ef}
+.opt.correct{border-color:var(--good);background:#eaf5ef;border-width:2px;padding:10px 13px}
 .opt.correct .letra{color:var(--good)}
-.opt.incorrect{border-color:var(--bad);background:#fbeceb}
+.opt.incorrect{border-color:var(--bad);background:#fbeceb;border-width:2px;padding:10px 13px}
 .opt.incorrect .letra{color:var(--bad)}
+/* 1.4.1 Uso del color: el resultado no puede depender solo del color.
+   Se añade un símbolo y su lectura para lector de pantalla. */
+.opt.correct::after,.opt.incorrect::after{float:right;margin-left:10px;font-weight:700;font-size:1.05em;line-height:1.3}
+.opt.correct::after{content:"✓ correcta";color:var(--good);font-size:.8em;letter-spacing:.02em}
+.opt.incorrect::after{content:"✗ tu respuesta";color:var(--bad);font-size:.8em;letter-spacing:.02em}
+.rev-item .opt.correct::after{content:"✓ correcta"}
+.rev-item .opt.incorrect::after{content:"✗ marcaste esta"}
 .opt.chosen{box-shadow:inset 0 0 0 1px var(--border)}
 .explain{display:none;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 8px 8px 0;padding:11px 14px;margin-top:10px;font-size:.89rem;line-height:1.55}
 .explain.show{display:block}

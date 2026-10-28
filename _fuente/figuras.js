@@ -90,7 +90,7 @@ FIG.sem={t:'Volumen de interacción en microscopía electrónica',svg:
 '<svg viewBox="0 0 440 200" role="img" aria-label="Pera de interacción del haz de electrones y las señales que genera">'+
 '<g transform="translate(30,12)">'+
 '<path class="sl" d="M150,0 L150,38" stroke-width="2"/><text class="txs" x="156" y="12">haz incidente</text>'+
-'<rect x="20" y="38" width="260" height="110" class="fa" stroke="var(--border)"/>'+
+'<rect x="20" y="38" width="260" height="110" class="fa" stroke="var(--border-ui)"/>'+
 '<text class="txs" x="24" y="52">muestra</text>'+
 '<path d="M150,38 C112,60 104,96 118,120 C132,146 168,146 182,120 C196,96 188,60 150,38 Z" fill="var(--m7)" opacity=".16" stroke="var(--m7)" stroke-dasharray="3 3"/>'+
 '<path d="M150,38 C136,48 132,58 138,64 C146,70 156,70 162,64 C168,58 164,48 150,38 Z" fill="var(--m7)" opacity=".4"/>'+
@@ -108,7 +108,7 @@ FIG.flujos={t:'Perfil de velocidad: presión contra electroósmosis',svg:
 ['Flujo por presión','Flujo electroosmótico'].map(function(n,k){
  var x=16+k*222, par=k===0;
  var g='<g transform="translate('+x+',16)">'+
- '<rect x="0" y="18" width="190" height="62" class="fa" stroke="var(--border)"/>';
+ '<rect x="0" y="18" width="190" height="62" class="fa" stroke="var(--border-ui)"/>';
  for(var i=0;i<6;i++){
   var y=24+i*10;
   var L=par?(170*(1-Math.pow((y-49)/31,2))*0.92+12):150;
@@ -159,7 +159,7 @@ FIG.emulsion={t:'Cuatro formas de fracasar de una emulsión',svg:
 '<svg viewBox="0 0 480 170" role="img" aria-label="Cremado, floculación, coalescencia y maduración de Ostwald">'+
 [['Cremado','reversible'],['Floculación','reversible'],['Coalescencia','irreversible'],['Ostwald','irreversible']].map(function(c,k){
  var x=14+k*118, g='<g transform="translate('+x+',12)">'+
- '<rect x="0" y="0" width="92" height="84" rx="4" class="fa" stroke="var(--border)"/>';
+ '<rect x="0" y="0" width="92" height="84" rx="4" class="fa" stroke="var(--border-ui)"/>';
  if(k===0){[[22,14],[46,10],[70,16],[34,26],[60,28]].forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--m10)" opacity=".5"/>'});g+='<path class="sd" d="M4,42 L88,42"/>'}
  if(k===1){[[26,36],[40,30],[38,46],[54,38],[64,28]].forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--m10)" opacity=".5"/>'})}
  if(k===2){g+='<circle cx="34" cy="38" r="7" fill="var(--m10)" opacity=".5"/><circle cx="62" cy="40" r="13" fill="var(--m10)" opacity=".5"/>'}
