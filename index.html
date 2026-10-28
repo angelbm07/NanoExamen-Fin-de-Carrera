@@ -2981,7 +2981,7 @@ function crearQuiz(cont,fuente,opc){
   opc=opc||{};
   var W=(typeof cont==='string')?document.getElementById(cont):cont;
   if(!W)return null;
-  var orden=[],i=0,resp=[];
+  var orden=[],i=0,resp=[],previo=[];
 
   function pool(){ return (typeof fuente==='function')?fuente():fuente }
 
@@ -3000,6 +3000,7 @@ function crearQuiz(cont,fuente,opc){
   function arrancar(){
     orden=opc.muestra?muestraEquilibrada(pool(),opc.muestra):porPrioridad(pool());
     i=0;resp=new Array(orden.length).fill(null);
+    previo=orden.map(function(q){return PROG.estado(q)});
     pintar();pintarCobertura();
   }
   function tagHTML(t){
@@ -3014,9 +3015,9 @@ function crearQuiz(cont,fuente,opc){
     if(!orden.length){W.innerHTML='<div class="result"><div class="pct">Sin reactivos disponibles.</div></div>';return}
     var q=orden[i];
     var ya=resp[i]!==null;
-    var prev=PROG.estado(q);
+    var prev=previo[i];                      /* estado ANTES de esta tanda, no el recién guardado */
     var marca=!prev?'<span class="qnuevo">nuevo</span>'
-             :(prev.a===0?'<span class="qfallado">lo fallaste antes</span>':'');
+             :(prev.a===0?'<span class="qfallado">lo fallaste antes</span>':'<span class="qnuevo">repaso</span>');
     var h='<div class="quiz-bar"><i style="width:'+Math.round(100*(i+1)/orden.length)+'%"></i></div>'+
       '<div class="qmeta">'+tagHTML(q.tag)+marca+'<span class="counter">'+(i+1)+' / '+orden.length+
       ' · contestadas '+resp.filter(function(x){return x!==null}).length+'</span></div>'+
