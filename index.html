@@ -407,6 +407,120 @@ var M=(function(){
   };
 })();
 
+
+/* ============================================================
+   CONVERSOR  texto → MathML
+   Gramática restringida, la que de hecho usan los formularios.
+   Si algo no encaja, devuelve null y el llamador deja el texto
+   original: nunca se arriesga a maquetar mal una fórmula.
+   ============================================================ */
+function aMathML(src){
+  try{
+    var s=String(src)
+      .replace(/<sub>(.*?)<\/sub>/g,function(_,x){return '_{'+x+'}'})
+      .replace(/<sup>(.*?)<\/sup>/g,function(_,x){return '^{'+x+'}'})
+      .replace(/<\/?b>/g,'');
+    if(/[<>]/.test(s))return null;                 /* queda HTML sin tratar */
+
+    var i=0, FUN={sen:1,cos:1,tan:1,log:1,ln:1,exp:1,max:1,min:1};
+    var CTE={R:1,F:1,N:1,k:0,h:0};
+
+    function ws(){ while(i<s.length && s[i]===' ')i++ }
+    function fin(){ ws(); return i>=s.length }
+    function ver(){ ws(); return s[i] }
+
+    function esLetra(c){ return c && /[A-Za-zÀ-ÿĀ-ſα-ωΑ-Ωµ∞′″\u0300-\u036f°]/.test(c) }
+    function esDig(c){ return c && /[0-9]/.test(c) }
+    function esSupSub(c){ return c && /[⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻ᵃ-ᶻⁿⁱ₀₁₂₃₄₅₆₇₈₉₊₋ₐ-ₜ]/.test(c) }
+
+    function grupo(){                               /* {...} o un átomo */
+      ws();
+      if(s[i]==='{'){
+        var d=1,j=++i;
+        while(j<s.length&&d>0){ if(s[j]==='{')d++; if(s[j]==='}')d--; j++ }
+        var dentro=s.slice(i,j-1); i=j;
+        var sub=aMathML(dentro);
+        return sub?sub.replace(/^<math[^>]*>|<\/math>$/g,''):'<mi>'+dentro+'</mi>';
+      }
+      return atomo();
+    }
+
+    function atomo(){
+      ws();
+      var c=s[i];
+      if(c===undefined)throw 0;
+      if(c==='('){ i++; var e=expr(); ws(); if(s[i]!==')')throw 0; i++; return M.par(e) }
+      if(c==='['){ i++; var e2=expr(); ws(); if(s[i]!==']')throw 0; i++; return '<mrow><mo>[</mo>'+e2+'<mo>]</mo></mrow>' }
+      if(c==='|'){ i++; var a=expr(); ws(); if(s[i]!=='|')throw 0; i++; return M.abs(a) }
+      if(c==='√'){ i++; return M.sqrt(grupo()) }
+      if(c==='Σ'||c==='∫'||c==='∏'){ i++; return '<mo stretchy="false">'+c+'</mo>'+potencia() }
+      if(esDig(c)){
+        var n='';
+        while(i<s.length&&/[0-9.,]/.test(s[i])&&!(s[i]===','&&!esDig(s[i+1])))n+=s[i++];
+        while(esSupSub(s[i]))n+=s[i++];
+        return M.n(n);
+      }
+      if(esLetra(c)){
+        var w='';
+        while(i<s.length&&esLetra(s[i]))w+=s[i++];
+        while(esSupSub(s[i]))w+=s[i++];
+        if(FUN[w])return '<mi class="fun">'+w+'</mi>';
+        if(w.length>2)return M.t(w);                /* palabra: texto recto */
+        return CTE[w]?M.k(w):M.i(w);
+      }
+      throw 0;
+    }
+
+    function potencia(){
+      var a=atomo(), g;
+      while(true){
+        if(esSupSub(s[i])){                      /* ² ³ ⁻¹ pegados al cierre */
+          var u='';while(esSupSub(s[i]))u+=s[i++];
+          a=M.sup(a,M.n(u)); continue;
+        }
+        ws();
+        if(s[i]==='^'){ i++; g=grupo(); a=M.sup(a,g) }
+        else if(s[i]==='_'){ i++; g=grupo(); a=M.sub(a,g) }
+        else break;
+      }
+      return a;
+    }
+
+    function producto(){
+      ws();
+      var signo='';
+      if(s[i]==='−'||s[i]==='-'||s[i]==='+'){ signo=M.o(s[i]==='-'?'−':s[i]); i++ }
+      var a=signo+potencia();
+      while(true){
+        ws();
+        var c=s[i];
+        if(c==='/'){ i++; a=M.frac(a,potencia()) }
+        else if(c==='·'&&s[i-1]===' '&&s[i+1]===' '&&s[i+2]===' '){ break }
+        else if(c==='·'||c==='×'||c==='*'){ i++; a=a+M.o(c==='*'?'·':c)+potencia() }
+        else if(c==='('||esLetra(c)||esDig(c)||c==='√'){ a=a+potencia() }   /* yuxtaposición */
+        else break;
+      }
+      return a;
+    }
+
+    function expr(){
+      var a=producto();
+      while(true){
+        ws();
+        var c=s[i];
+        if(c==='·'&&s[i+1]===' '&&s[i+2]===' '){ i++; a=a+M.esp()+(fin()?'':producto()) }
+        else if('=+−-≈∝⇒⇔→<>≤≥≠,;±∓%'.indexOf(c)>=0 && c!==undefined){ i++; a=a+M.o(c==='-'?'−':c)+(fin()?'':producto()) }
+        else break;
+      }
+      return a;
+    }
+
+    var cuerpo=expr();
+    if(!fin())return null;                          /* sobró algo: no arriesgar */
+    return '<math xmlns="http://www.w3.org/1998/Math/MathML">'+cuerpo+'</math>';
+  }catch(e){ return null }
+}
+
 var EQ={};
 (function(){
   var i=M.i,n=M.n,o=M.o,t=M.t,k=M.k,r=M.r,f=M.frac,sq=M.sqrt,up=M.sup,lo=M.sub,p=M.par,E=M.esp,ma=M.math;
@@ -3423,7 +3537,10 @@ function bloque(b,mid){
   if(b.fig)out.push('<figure class="fig"><div class="ftit">'+esc(b.fig.t)+'</div>'+b.fig.svg+
     (b.fig.pie?'<figcaption>'+b.fig.pie+'</figcaption>':'')+'</figure>');
   if(b.form)out.push('<div class="formulario"><div class="ftit">Formulario del tema</div>'+
-    b.form.map(function(f){return '<div class="fr"><div class="fx'+(/^<math/.test(f[0])?' fx-math':'')+'">'+f[0]+'</div><div class="fn">'+f[1]+'</div>'+
+    b.form.map(function(f){
+      var mm=(/^<math/.test(f[0]))?f[0]:(typeof aMathML==='function'?aMathML(f[0]):null);
+      var celda=mm?('<div class="fx fx-math">'+mm+'</div>'):('<div class="fx">'+f[0]+'</div>');
+      return '<div class="fr">'+celda+'<div class="fn">'+f[1]+'</div>'+
       (f[2]?'<div class="fu">'+f[2]+'</div>':'')+'</div>'}).join('')+'</div>');
   if(b.prob)out.push('<details class="prob"><summary>'+esc(b.prob.t)+'</summary><div class="inner">'+
     '<div class="pdatos"><b>Datos. </b>'+b.prob.d+'</div>'+
