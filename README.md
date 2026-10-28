@@ -14,10 +14,10 @@ Nanotecnología (Tec de Monterrey). Nueve módulos técnicos, 10 % cada uno.
 
 ## Guía compacta: qué contiene
 
-- 38 secciones de contenido repartidas en los nueve módulos, unas 14.000 palabras
+- 43 secciones de contenido repartidas en los nueve módulos, unas 17.500 palabras
 - 10 bloques plegables para profundizar sin saturar la vista
 - 115 flashcards con datos puntuales del tipo que se pregunta en examen
-- 21 tablas de datos y 22 ecuaciones
+- 23 tablas de datos, 24 ecuaciones y 13 figuras vectoriales dibujadas a medida
 - Simulacro de 200 reactivos, 22 por módulo (23 en M7 y M10), remezclados en cada intento
 
 Sobre el simulacro: las preguntas son de aplicación, comparación o detección
@@ -40,8 +40,10 @@ mismos conceptos.
 
 ## Fuentes
 
-Contenido derivado de los materiales de los cursos disciplinares en Canvas y
-de literatura de referencia y libros de texto. Constantes según CODATA 2022
+Contenido derivado de los materiales de los cursos disciplinares en Canvas,
+de los quizzes del taller WA3062 y de literatura de referencia y libros de
+texto. Las figuras son SVG dibujados a medida para esta guía, inline y sin
+dependencias externas. Constantes según CODATA 2022
 (NIST); símbolos y unidades según el Green Book de IUPAC. No se usó Wikipedia
 ni sitios de divulgación.
 

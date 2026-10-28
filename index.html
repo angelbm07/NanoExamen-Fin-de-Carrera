@@ -107,6 +107,18 @@ details.deep .inner p{margin:0 0 7px;line-height:1.58;font-size:.91rem}
 details.deep .inner p:last-child{margin-bottom:0}
 details.deep .inner ul,details.deep .inner ol{font-size:.9rem;line-height:1.6;padding-left:20px;margin:6px 0}
 
+.fig{margin:14px 0;border:1px solid var(--border);border-radius:10px;padding:14px 16px 10px;background:var(--surface)}
+.fig svg{display:block;width:100%;height:auto;max-width:560px;margin:0 auto}
+.fig figcaption{font-size:.84rem;color:var(--ink-dim);line-height:1.5;margin-top:10px;text-align:left}
+.fig figcaption b{color:var(--ink)}
+.fig .ftit{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+svg .sl{stroke:var(--ink);fill:none;stroke-width:1.4}
+svg .sl2{stroke:var(--ink-dim);fill:none;stroke-width:1.1}
+svg .sd{stroke:var(--ink-dim);fill:none;stroke-width:1;stroke-dasharray:4 3}
+svg .tx{font-family:var(--font-body);font-size:11px;fill:var(--ink)}
+svg .txs{font-family:var(--font-body);font-size:9.5px;fill:var(--ink-dim)}
+svg .txm{font-family:var(--font-mono);font-size:10px;fill:var(--ink)}
+svg .fa{fill:var(--surface-2)}
 .fc-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:26px 0 10px;flex-wrap:wrap}
 .fc-head h3{font-size:1rem}
 .fc-head span{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-dim)}
@@ -184,6 +196,245 @@ details.deep .inner ul,details.deep .inner ol{font-size:.9rem;line-height:1.6;pa
 
 <nav class="tabs" id="tabs" role="tablist" aria-label="Módulos"></nav>
 <script>
+/* ============================================================
+   FIGURAS · SVG dibujadas a medida, sin dependencias externas.
+   Usan las variables de color del tema, así que se adaptan solas.
+   ============================================================ */
+var FIG={};
+
+FIG.celdas={t:'Las tres celdas cúbicas',svg:
+'<svg viewBox="0 0 520 170" role="img" aria-label="Celdas cúbica simple, centrada en el cuerpo y centrada en las caras">'+
+['SC','BCC','FCC'].map(function(n,k){
+ var x=20+k*172;
+ var c='<g transform="translate('+x+',18)">'+
+ '<path class="sl" d="M20,30 L90,30 L90,100 L20,100 Z"/>'+
+ '<path class="sl2" d="M20,30 L45,10 L115,10 L90,30"/>'+
+ '<path class="sl2" d="M90,100 L115,80 L115,10"/>'+
+ '<path class="sd" d="M20,100 L45,80 L115,80 M45,80 L45,10"/>';
+ var v=[[20,30],[90,30],[20,100],[90,100],[45,10],[115,10],[45,80],[115,80]];
+ v.forEach(function(p){c+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="var(--m4)"/>'});
+ if(n==='BCC')c+='<circle cx="67" cy="55" r="5.5" fill="var(--m5)"/>';
+ if(n==='FCC'){[[55,30],[55,80],[20,65],[90,65],[67,20],[67,90]].forEach(function(p){
+   c+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5" fill="var(--m5)"/>'})}
+ c+='<text class="tx" x="67" y="128" text-anchor="middle" font-weight="600">'+n+'</text>';
+ c+='<text class="txs" x="67" y="142" text-anchor="middle">'+({SC:'1 átomo · CN 6 · 0.52',BCC:'2 átomos · CN 8 · 0.68',FCC:'4 átomos · CN 12 · 0.74'}[n])+'</text>';
+ return c+'</g>';
+}).join('')+'</svg>',
+pie:'Los átomos de los <b>vértices</b> se comparten entre ocho celdas y aportan 1/8 cada uno; los de <b>cara</b> entre dos y aportan 1/2; el del <b>centro del cuerpo</b> pertenece entero a la celda. De ahí salen 1, 2 y 4 átomos por celda. Ojo con no confundir átomos por celda con número de coordinación (CN), que son los vecinos más próximos.'};
+
+FIG.miller={t:'Índices de Miller: el plano (210)',svg:
+'<svg viewBox="0 0 440 180" role="img" aria-label="Construcción de los índices de Miller para el plano 210">'+
+'<g transform="translate(40,20)">'+
+'<path class="sl" d="M0,120 L0,10 M0,120 L150,120"/>'+
+'<path class="sd" d="M0,120 L-28,145"/>'+
+'<text class="txm" x="-6" y="8">z</text><text class="txm" x="156" y="124">x</text><text class="txm" x="-38" y="155">y</text>'+
+'<circle cx="55" cy="120" r="4" fill="var(--m4)"/><text class="txs" x="46" y="138">a/2</text>'+
+'<circle cx="0" cy="40" r="4" fill="var(--m4)"/><text class="txs" x="-24" y="44">a</text>'+
+'<path class="sl" d="M55,120 L0,40" stroke="var(--m4)" stroke-width="2"/>'+
+'<path class="fa" d="M55,120 L0,40 L0,120 Z" opacity=".55"/>'+
+'<text class="txs" x="92" y="62">paralelo a y</text>'+
+'</g>'+
+'<g transform="translate(235,28)">'+
+'<text class="tx" x="0" y="10" font-weight="600">1. Intersecciones</text>'+
+'<text class="txm" x="0" y="28">1/2 ,  ∞ ,  1</text>'+
+'<text class="tx" x="0" y="52" font-weight="600">2. Recíprocos</text>'+
+'<text class="txm" x="0" y="70">2 ,  0 ,  1</text>'+
+'<text class="tx" x="0" y="94" font-weight="600">3. Enteros mínimos</text>'+
+'<text class="txm" x="0" y="112" fill="var(--m4)" font-weight="700">(2 1 0)</text>'+
+'</g></svg>',
+pie:'El recíproco existe para que un plano <b>paralelo a un eje</b> —que lo corta en el infinito— dé índice <b>cero</b> en vez de infinito. Los índices nunca llevan fracciones, y el orden de los ejes importa.'};
+
+FIG.titulacion={t:'Las cuatro regiones de una curva de titulación',svg:
+'<svg viewBox="0 0 480 220" role="img" aria-label="Curva de titulación de ácido débil con base fuerte">'+
+'<g transform="translate(44,14)">'+
+'<path class="sl2" d="M0,180 L0,0 M0,180 L400,180"/>'+
+'<text class="txm" x="-36" y="6">pH 14</text><text class="txm" x="-20" y="184">0</text>'+
+'<text class="txs" x="160" y="204">volumen de titulante añadido</text>'+
+'<path class="sd" d="M0,90 L400,90"/><text class="txs" x="404" y="93">7</text>'+
+'<path d="M0,150 C40,140 70,126 100,120 C140,112 170,106 200,100 C214,97 222,60 232,40 C244,20 260,16 300,12 C340,9 370,8 400,8" fill="none" stroke="var(--m2)" stroke-width="2.4"/>'+
+'<circle cx="100" cy="120" r="5" fill="var(--m2)"/><text class="txs" x="58" y="112">semiequivalencia</text><text class="txs" x="74" y="100" font-weight="700">pH = pKa</text>'+
+'<circle cx="222" cy="68" r="5" fill="var(--bad)"/><text class="txs" x="236" y="72" fill="var(--bad)">equivalencia: pH &gt; 7</text>'+
+'<path class="sd" d="M100,120 L100,180"/><path class="sd" d="M222,68 L222,180"/>'+
+'<rect x="30" y="104" width="150" height="26" fill="var(--m2)" opacity=".10"/>'+
+'<text class="txs" x="34" y="150">① solo analito</text>'+
+'<text class="txs" x="110" y="150" font-weight="700">② zona tampón</text>'+
+'<text class="txs" x="206" y="150">③ salto</text>'+
+'<text class="txs" x="300" y="150">④ exceso de base</text>'+
+'<rect x="246" y="16" width="150" height="20" fill="var(--m2)" opacity=".10"/>'+
+'<text class="txs" x="252" y="30">fenolftaleína vira 8.2–10</text>'+
+'</g></svg>',
+pie:'La <b>pendiente mínima</b> está en la zona tampón, donde añadir titulante solo cambia la razón entre ácido y base conjugada. En la <b>equivalencia</b> de un ácido débil con base fuerte solo queda la base conjugada, que hidroliza: el pH cae por encima de 7, y por eso pide fenolftaleína y no naranja de metilo.'};
+
+FIG.nucleacion={t:'Barrera de nucleación: volumen contra superficie',svg:
+'<svg viewBox="0 0 460 210" role="img" aria-label="Energía libre frente al radio en nucleación homogénea">'+
+'<g transform="translate(46,14)">'+
+'<path class="sl2" d="M0,150 L380,150 M0,10 L0,190"/>'+
+'<text class="txm" x="-34" y="14">ΔG</text><text class="txm" x="384" y="154">r</text>'+
+'<path class="sd" d="M0,70 L380,70" opacity=".4"/>'+
+'<path d="M0,70 C50,20 110,-10 170,-14 C240,-18 300,8 380,54" fill="none" stroke="var(--m6)" stroke-width="1.3" stroke-dasharray="4 3"/>'+
+'<text class="txs" x="300" y="34" fill="var(--m6)">+4πr²γ  (superficie)</text>'+
+'<path d="M0,70 C60,78 120,98 190,130 C260,164 320,188 380,205" fill="none" stroke="var(--m5)" stroke-width="1.3" stroke-dasharray="4 3"/>'+
+'<text class="txs" x="268" y="192" fill="var(--m5)">−(4/3)πr³ΔGv  (volumen)</text>'+
+'<path d="M0,70 C40,44 80,26 120,22 C160,18 196,38 240,80 C284,122 330,160 380,186" fill="none" stroke="var(--m4)" stroke-width="2.6"/>'+
+'<circle cx="124" cy="22" r="5" fill="var(--bad)"/>'+
+'<path class="sd" d="M124,22 L124,150"/>'+
+'<text class="txm" x="117" y="166" fill="var(--bad)">r*</text>'+
+'<path class="sd" d="M0,22 L124,22"/><text class="txs" x="2" y="16">ΔG*</text>'+
+'<text class="txs" x="30" y="100">se disuelve</text>'+
+'<text class="txs" x="190" y="60">crece</text>'+
+'</g></svg>',
+pie:'La superficie consume energía como <b>r²</b> y el volumen la libera como <b>r³</b>, así que a radios pequeños domina la primera y la curva sube. El máximo marca el <b>radio crítico</b>: por debajo el núcleo reduce su energía disolviéndose y por encima creciendo. Más sobresaturación aumenta ΔGv, lo que baja r* y hunde la barrera, que va con 1/ΔGv².'};
+
+FIG.sem={t:'Volumen de interacción en microscopía electrónica',svg:
+'<svg viewBox="0 0 440 200" role="img" aria-label="Pera de interacción del haz de electrones y las señales que genera">'+
+'<g transform="translate(30,12)">'+
+'<path class="sl" d="M150,0 L150,38" stroke-width="2"/><text class="txs" x="156" y="12">haz incidente</text>'+
+'<rect x="20" y="38" width="260" height="110" class="fa" stroke="var(--border)"/>'+
+'<text class="txs" x="24" y="52">muestra</text>'+
+'<path d="M150,38 C112,60 104,96 118,120 C132,146 168,146 182,120 C196,96 188,60 150,38 Z" fill="var(--m7)" opacity=".16" stroke="var(--m7)" stroke-dasharray="3 3"/>'+
+'<path d="M150,38 C136,48 132,58 138,64 C146,70 156,70 162,64 C168,58 164,48 150,38 Z" fill="var(--m7)" opacity=".4"/>'+
+'<path class="sl2" d="M150,40 L92,8"/><text class="txs" x="40" y="10">SE: topografía (pocos nm)</text>'+
+'<path class="sl2" d="M152,56 L232,20"/><text class="txs" x="236" y="18">BSE: contraste por Z</text>'+
+'<path class="sl2" d="M150,96 L292,72"/><text class="txs" x="296" y="70">rayos X: EDS</text>'+
+'<path class="sd" d="M150,120 L150,168"/><text class="txs" x="156" y="166">transmitidos: TEM</text>'+
+'<path class="sl2" d="M300,38 L300,148" stroke-dasharray="3 3"/>'+
+'<text class="txs" x="306" y="96">1–3 µm</text>'+
+'</g></svg>',
+pie:'El haz se dispersa dentro de la muestra formando una <b>pera de interacción</b> de uno a tres micrómetros, mucho mayor que el diámetro del haz. Por eso al analizar por EDS una partícula de decenas de nanómetros sobre un sustrato, buena parte de la señal viene del sustrato. Cada señal nace a una profundidad distinta: los secundarios de los primeros nanómetros, los retrodispersados más abajo y los rayos X de todo el volumen.'};
+
+FIG.flujos={t:'Perfil de velocidad: presión contra electroósmosis',svg:
+'<svg viewBox="0 0 440 150" role="img" aria-label="Perfil parabólico frente a perfil de tapón">'+
+['Flujo por presión','Flujo electroosmótico'].map(function(n,k){
+ var x=16+k*222, par=k===0;
+ var g='<g transform="translate('+x+',16)">'+
+ '<rect x="0" y="18" width="190" height="62" class="fa" stroke="var(--border)"/>';
+ for(var i=0;i<6;i++){
+  var y=24+i*11;
+  var L=par?(170*(1-Math.pow((y-49)/31,2))*0.92+12):150;
+  g+='<path class="sl2" d="M14,'+y+' L'+(14+L*0.8)+','+y+'" stroke="var(--m8)" stroke-width="1.6"/>'+
+     '<path d="M'+(14+L*0.8)+','+y+' l-5,-3 l0,6 Z" fill="var(--m8)"/>';
+ }
+ g+='<path d="'+(par?'M14,24 C50,36 50,62 14,74':'M26,24 L26,74')+'" fill="none" stroke="var(--m4)" stroke-width="2"/>';
+ g+='<text class="tx" x="95" y="100" text-anchor="middle" font-weight="600">'+n+'</text>';
+ g+='<text class="txs" x="95" y="114" text-anchor="middle">'+(par?'parabólico':'plano, en tapón')+'</text>';
+ return g+'</g>';
+}).join('')+'</svg>',
+pie:'El flujo por presión tiene velocidad máxima en el centro y cero en la pared, así que una banda de analito se <b>ensancha</b> al avanzar. En el electroosmótico la fuerza impulsora se aplica en la doble capa junto a la pared y el resto del fluido se arrastra en bloque: el perfil es plano y no dispersa. Esa es la ventaja decisiva en separaciones por electroforesis capilar.'};
+
+FIG.bandas={t:'Bandas, gap y dopaje',svg:
+'<svg viewBox="0 0 480 190" role="img" aria-label="Diagrama de bandas de metal, semiconductor, aislante y silicio dopado">'+
+['Metal','Semiconductor','Aislante','Tipo n','Tipo p'].map(function(n,k){
+ var x=12+k*94, gap={Metal:8,Semiconductor:48,'Aislante':92,'Tipo n':48,'Tipo p':48}[n];
+ var top=24, bvTop=top+40+gap;
+ var g='<g transform="translate('+x+',8)">'+
+ '<rect x="6" y="'+top+'" width="68" height="26" fill="var(--m4)" opacity=".18" stroke="var(--m4)"/>'+
+ '<rect x="6" y="'+bvTop+'" width="68" height="26" fill="var(--m4)" opacity=".45" stroke="var(--m4)"/>';
+ if(n==='Metal')g+='<rect x="6" y="'+(top+18)+'" width="68" height="18" fill="var(--m4)" opacity=".45"/>';
+ if(n==='Tipo n')g+='<path class="sd" d="M14,'+(top+34)+' L66,'+(top+34)+'" stroke="var(--m5)"/><text class="txs" x="18" y="'+(top+31)+'" fill="var(--m5)">donador</text>';
+ if(n==='Tipo p')g+='<path class="sd" d="M14,'+(bvTop-8)+' L66,'+(bvTop-8)+'" stroke="var(--m10)"/><text class="txs" x="18" y="'+(bvTop-11)+'" fill="var(--m10)">aceptor</text>';
+ if(gap>12)g+='<text class="txs" x="40" y="'+(top+34+gap/2)+'" text-anchor="middle">Eg</text>';
+ g+='<text class="txs" x="40" y="'+(bvTop+42)+'" text-anchor="middle" font-weight="600">'+n+'</text>';
+ return g+'</g>';
+}).join('')+
+'<text class="txs" x="6" y="36">BC</text><text class="txs" x="6" y="170">BV</text></svg>',
+pie:'La banda superior es la de <b>conducción</b> y la inferior la de <b>valencia</b>. En un metal se solapan o la de valencia está parcialmente llena, así que hay portadores sin coste. El dopaje <b>no cambia el ancho del gap</b>: introduce un nivel donador justo bajo la banda de conducción, o uno aceptor justo sobre la de valencia, a unos 0.045 eV, que la energía térmica de 0.026 eV basta para activar.'};
+
+FIG.acv={t:'Las cuatro fases de un análisis de ciclo de vida',svg:
+'<svg viewBox="0 0 480 160" role="img" aria-label="Fases del análisis de ciclo de vida según ISO 14040">'+
+[['1','Definición de\u00a0objetivo y alcance','unidad funcional,\nfronteras'],['2','Análisis de\u00a0inventario','entradas y salidas\nde cada etapa'],['3','Evaluación de\u00a0impacto','categorías:\nclima, agua, tox.'],['4','Interpretación','conclusiones y\nrecomendaciones']].map(function(c,k){
+ var x=10+k*120;
+ return '<g transform="translate('+x+',16)">'+
+ '<rect x="0" y="0" width="104" height="72" rx="8" fill="var(--m9-bg)" stroke="var(--m9)"/>'+
+ '<circle cx="16" cy="16" r="9" fill="var(--m9)"/><text class="txm" x="16" y="20" text-anchor="middle" fill="#fff">'+c[0]+'</text>'+
+ '<text class="txs" x="52" y="38" text-anchor="middle" font-weight="700">'+c[1].split('\u00a0').join(' ')+'</text>'+
+ c[2].split('\n').map(function(l,i){return '<text class="txs" x="52" y="'+(52+i*11)+'" text-anchor="middle">'+l+'</text>'}).join('')+
+ (k<3?'<path class="sl2" d="M104,36 L118,36"/><path d="M118,36 l-5,-3 l0,6 Z" fill="var(--ink-dim)"/>':'')+
+ '</g>';
+}).join('')+
+'<path class="sd" d="M62,100 L62,118 L422,118 L422,100"/><text class="txs" x="242" y="134" text-anchor="middle">la interpretación realimenta a todas las fases anteriores</text></svg>',
+pie:'La <b>unidad funcional</b> es la referencia cuantificada a la que se refieren todas las entradas y salidas: no es «un envase» sino «contener y proteger un litro de bebida durante seis meses». Sin ella dos estudios no son comparables. Las <b>fronteras</b> definen hasta dónde llega el análisis: de la cuna a la puerta, de la cuna a la tumba o de la cuna a la cuna.'};
+
+FIG.emulsion={t:'Cuatro formas de fracasar de una emulsión',svg:
+'<svg viewBox="0 0 480 170" role="img" aria-label="Cremado, floculación, coalescencia y maduración de Ostwald">'+
+[['Cremado','reversible'],['Floculación','reversible'],['Coalescencia','irreversible'],['Ostwald','irreversible']].map(function(c,k){
+ var x=14+k*118, g='<g transform="translate('+x+',12)">'+
+ '<rect x="0" y="0" width="92" height="84" rx="4" class="fa" stroke="var(--border)"/>';
+ if(k===0){[[22,14],[46,10],[70,16],[34,26],[60,28]].forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--m10)" opacity=".5"/>'});g+='<path class="sd" d="M4,42 L88,42"/>'}
+ if(k===1){[[26,36],[40,30],[38,46],[54,38],[64,28]].forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--m10)" opacity=".5"/>'})}
+ if(k===2){g+='<circle cx="34" cy="38" r="7" fill="var(--m10)" opacity=".5"/><circle cx="62" cy="40" r="13" fill="var(--m10)" opacity=".5"/>'}
+ if(k===3){g+='<circle cx="26" cy="40" r="4" fill="var(--m10)" opacity=".5"/><circle cx="64" cy="38" r="15" fill="var(--m10)" opacity=".5"/><path class="sd" d="M32,40 L47,39"/><path d="M47,39 l-5,-3 l0,6 Z" fill="var(--ink-dim)"/>'}
+ g+='<text class="txs" x="46" y="100" text-anchor="middle" font-weight="700">'+c[0]+'</text>'+
+    '<text class="txs" x="46" y="113" text-anchor="middle" fill="'+(c[1]==='reversible'?'var(--good)':'var(--bad)')+'">'+c[1]+'</text>';
+ return g+'</g>';
+}).join('')+
+'<text class="txs" x="240" y="158" text-anchor="middle">si al agitar se recupera, fue cremado o floculación; si no, hubo coalescencia o maduración</text></svg>',
+pie:'Los dos primeros solo <b>separan o agrupan</b> gotas que conservan su identidad, y por eso se deshacen agitando. La coalescencia <b>funde</b> gotas y la maduración de Ostwald <b>transfiere material</b> de las pequeñas a las grandes sin que lleguen a tocarse. Cada uno se combate distinto: radio menor y viscosidad para el cremado, repulsión para la floculación, película interfacial robusta para la coalescencia y un atrapador osmótico insoluble para Ostwald.'};
+
+FIG.poynting={t:'Onda electromagnética y vector de Poynting',svg:
+'<svg viewBox="0 0 460 170" role="img" aria-label="Campos E y B perpendiculares y vector de Poynting en la dirección de propagación">'+
+'<g transform="translate(36,86)">'+
+'<path class="sl2" d="M0,0 L360,0"/><path d="M360,0 l-7,-4 l0,8 Z" fill="var(--ink-dim)"/>'+
+'<path d="M0,0 C20,-46 40,-46 60,0 C80,46 100,46 120,0 C140,-46 160,-46 180,0 C200,46 220,46 240,0 C260,-46 280,-46 300,0" fill="none" stroke="var(--m8)" stroke-width="2.2"/>'+
+'<text class="txm" x="58" y="-50" fill="var(--m8)">E</text>'+
+'<path d="M0,0 C20,-22 40,-22 60,0 C80,22 100,22 120,0 C140,-22 160,-22 180,0 C200,22 220,22 240,0 C260,-22 280,-22 300,0" fill="none" stroke="var(--m6)" stroke-width="1.8" transform="skewX(-28) translate(14,0)"/>'+
+'<text class="txm" x="44" y="-14" fill="var(--m6)">B</text>'+
+'<path class="sl" d="M310,0 L352,0" stroke="var(--bad)" stroke-width="2.6"/><path d="M352,0 l-8,-5 l0,10 Z" fill="var(--bad)"/>'+
+'<text class="txm" x="316" y="-10" fill="var(--bad)">S = E × B / µ₀</text>'+
+'<text class="txs" x="316" y="18" fill="var(--bad)">W·m⁻²</text>'+
+'</g></svg>',
+pie:'El <b>vector de Poynting</b> apunta en la dirección en que fluye la densidad de energía de la onda y su magnitud es la <b>intensidad óptica</b>, en vatios por metro cuadrado. E, B y S son mutuamente perpendiculares. Lo que un detector mide es el promedio temporal de S, no el campo instantáneo.'};
+
+FIG.lamer={t:'Modelo de LaMer: separar nucleación de crecimiento',svg:
+'<svg viewBox="0 0 460 190" role="img" aria-label="Concentración de monómero frente al tiempo en el modelo de LaMer">'+
+'<g transform="translate(44,14)">'+
+'<path class="sl2" d="M0,150 L380,150 M0,4 L0,150"/>'+
+'<text class="txs" x="-38" y="20">[monómero]</text><text class="txs" x="330" y="168">tiempo</text>'+
+'<path class="sd" d="M0,40 L380,40"/><text class="txs" x="300" y="34">C_nucleación</text>'+
+'<path class="sd" d="M0,104 L380,104"/><text class="txs" x="316" y="98">C_saturación</text>'+
+'<path d="M0,140 C40,110 70,66 100,36 C112,24 124,22 134,34 C146,50 152,74 162,88 C190,116 280,126 380,130" fill="none" stroke="var(--m6)" stroke-width="2.6"/>'+
+'<rect x="100" y="4" width="62" height="146" fill="var(--m6)" opacity=".10"/>'+
+'<text class="txs" x="30" y="76" >Ⅰ acumula</text>'+
+'<text class="txs" x="106" y="18" font-weight="700">Ⅱ estallido</text>'+
+'<text class="txs" x="220" y="116">Ⅲ solo crecimiento</text>'+
+'</g></svg>',
+pie:'En la etapa Ⅰ el monómero se acumula sin que pase nada, porque la barrera aún no se supera. Al cruzar el umbral se nuclea <b>de golpe</b>, y ese estallido consume monómero tan rápido que la concentración cae por debajo del umbral y <b>la nucleación se detiene sola</b>. Todo lo que sigue es crecimiento sobre núcleos que nacieron a la vez: de ahí la distribución estrecha. Añadir el precursor lentamente solaparía las etapas Ⅱ y Ⅲ y daría polidispersidad alta.'};
+
+FIG.michaelis={t:'Michaelis-Menten y los dos tipos de inhibidor',svg:
+'<svg viewBox="0 0 460 200" role="img" aria-label="Curva de saturación con inhibidor competitivo y no competitivo">'+
+'<g transform="translate(44,14)">'+
+'<path class="sl2" d="M0,150 L370,150 M0,4 L0,150"/>'+
+'<text class="txs" x="-30" y="12">v</text><text class="txs" x="316" y="170">[S]</text>'+
+'<path class="sd" d="M0,24 L370,24"/><text class="txs" x="330" y="20">Vmax</text>'+
+'<path class="sd" d="M0,87 L120,87"/><path class="sd" d="M120,87 L120,150"/>'+
+'<text class="txs" x="-34" y="91">Vmax/2</text><text class="txm" x="112" y="166">Km</text>'+
+'<path d="M0,150 C40,104 80,66 140,48 C210,30 290,26 370,24" fill="none" stroke="var(--m3)" stroke-width="2.6"/>'+
+'<text class="txs" x="286" y="40" fill="var(--m3)">sin inhibidor</text>'+
+'<path d="M0,150 C56,120 110,90 180,70 C250,52 310,32 370,26" fill="none" stroke="var(--m5)" stroke-width="1.8" stroke-dasharray="5 3"/>'+
+'<text class="txs" x="196" y="86" fill="var(--m5)">competitivo: Km ↑, Vmax igual</text>'+
+'<path d="M0,150 C40,122 80,100 140,90 C210,80 290,78 370,76" fill="none" stroke="var(--m10)" stroke-width="1.8" stroke-dasharray="5 3"/>'+
+'<text class="txs" x="236" y="94" fill="var(--m10)">no competitivo: Vmax ↓</text>'+
+'<text class="txs" x="18" y="128">1er orden</text><text class="txs" x="250" y="14">orden cero</text>'+
+'</g></svg>',
+pie:'La curva recorre <b>dos regímenes</b>: a [S] muy por debajo de Km la velocidad crece proporcionalmente (primer orden) y a [S] muy por encima se estanca en Vmax (orden cero). El <b>competitivo</b> se vence con más sustrato, así que la curva acaba alcanzando el mismo techo pero necesita más [S]: Km aparente sube. El <b>no competitivo</b> retira enzima funcional, así que baja el techo y Km no cambia. La misma hipérbola describe la isoterma de Langmuir y la ocupación de receptor.'};
+
+FIG.fases={t:'Diagrama de fases: el agua es la excepción',svg:
+'<svg viewBox="0 0 460 180" role="img" aria-label="Diagramas de fases de una sustancia normal y del agua">'+
+[['Sustancia normal',1],['Agua',-1]].map(function(c,k){
+ var x=18+k*226, pend=c[1];
+ var g='<g transform="translate('+x+',12)">'+
+ '<path class="sl2" d="M0,118 L0,6 M0,118 L186,118"/>'+
+ '<text class="txs" x="-12" y="10">P</text><text class="txs" x="182" y="134">T</text>'+
+ '<path d="M66,70 C96,48 130,30 176,18" fill="none" stroke="var(--m5)" stroke-width="2"/>'+
+ '<path d="M66,70 C50,84 36,100 28,118" fill="none" stroke="var(--m5)" stroke-width="2"/>'+
+ '<path d="M66,70 L'+(66+pend*22)+',8" fill="none" stroke="var(--m5)" stroke-width="2.4"/>'+
+ '<circle cx="66" cy="70" r="4" fill="var(--bad)"/><text class="txs" x="44" y="66">triple</text>'+
+ '<text class="txs" x="24" y="40">sólido</text><text class="txs" x="100" y="58">líquido</text><text class="txs" x="110" y="104">gas</text>'+
+ '<text class="txs" x="93" y="150" text-anchor="middle" font-weight="700">'+c[0]+'</text>'+
+ '<text class="txs" x="93" y="163" text-anchor="middle">pendiente '+(pend>0?'positiva':'negativa')+'</text>';
+ return g+'</g>';
+}).join('')+'</svg>',
+pie:'La línea sólido-líquido del <b>agua se inclina al revés</b> que en casi todas las sustancias, porque el hielo es <b>menos denso</b> que el líquido: comprimir a temperatura constante funde el hielo en lugar de solidificar el agua. El origen está en que cada molécula forma cuatro puentes de hidrógeno en geometría tetraédrica, y esa disposición deja huecos.'};
+</script><script>
 var G=[
 /* ===================== M2 ===================== */
 {id:'M2',nom:'Análisis químico',sesion:'Sesión 3 del taller',
@@ -211,6 +462,7 @@ var G=[
    {p:['Titular es contar moles mediante una reacción de estequiometría conocida. Dos conceptos que no son sinónimos: el <b>punto de equivalencia</b> es estequiométrico y teórico; el <b>punto final</b> es lo que se observa con el indicador. Su diferencia es el error de titulación.']},
    {p:['El pH en la equivalencia <b>solo vale 7 si ambos son fuertes</b>. Ácido débil con base fuerte deja la base conjugada, que hidroliza: pH mayor que 7, y exige fenolftaleína (vira 8.2–10). Usar naranja de metilo (3.1–4.4) en ese caso hace virar el indicador mucho antes de la equivalencia, el volumen registrado es menor que el correcto y la concentración sale <b>subestimada</b>. El sesgo es sistemático y siempre en la misma dirección, así que repetir no lo revela.']},
    {eq:'pH = pKa + log([A⁻]/[HA])     ·     en la semiequivalencia [A⁻] = [HA] ⇒ pH = pKa'},
+   {fig:FIG.titulacion},
    {p:['La curva de titulación tiene cuatro regiones. Antes de titulante, el pH lo fija el analito solo. En la zona intermedia, si el analito es débil, coexisten ácido y base conjugada: es la <b>meseta tampón</b>, donde la pendiente es mínima porque añadir titulante solo cambia la razón entre ambas formas. En la equivalencia ocurre el salto más brusco. Después manda el exceso de titulante.']},
    {p:['De ahí dos lecturas prácticas. El punto de semiequivalencia da <b>el pKa leído directamente</b> de una curva experimental. Y para elegir tampón se busca un ácido cuyo <b>pKa esté a menos de una unidad del pH objetivo</b>: para amortiguar a pH 9.2, el amonio con pKa 9.25 funciona y el acético con 4.76 no, por muy débil que sea, porque exigiría una razón extrema entre las dos formas donde el sistema ya casi no amortigua.']},
    {p:['Cuando un buffer de acetato a pH igual a su pKa recibe una pequeña adición de HCl, el acetato capta los protones y se convierte en ácido acético. La razón entre las dos formas cambia poco, el logaritmo cambia aún menos, y <b>el pH baja muy poco</b>. El tampón solo se agota cuando una de las dos formas se consume.']},
@@ -321,6 +573,7 @@ var G=[
   ]},
   {t:'Bioquímica: enzimas, proteínas y ácidos nucleicos',b:[
    {eq:'v = Vmax[S]/(Km + [S])     ·     cuando [S] = Km ⇒ v = Vmax/2'},
+   {fig:FIG.michaelis},
    {p:['La curva recorre dos regímenes. A <b>[S] muy por debajo de Km</b> el denominador se aproxima a Km y la velocidad crece proporcionalmente al sustrato: comportamiento de <b>primer orden</b>. A <b>[S] muy por encima de Km</b> el denominador se aproxima a [S] y la velocidad se estanca en Vmax: comportamiento de <b>orden cero</b>, porque toda la enzima está ocupada y añadir más sustrato no cambia nada.']},
    {tabla:{th:['Inhibidor','Dónde se une','Vmax','Km aparente','¿Se vence con más sustrato?'],tr:[
      ['Competitivo','Sitio activo','Igual','Sube','Sí'],
@@ -377,6 +630,8 @@ G.push(
      ['CdS','2.4','517 nm','Amarillo-naranja'],
      ['Si','1.12','1107 nm (IR)','Gris oscuro: absorbe todo el visible']]}},
    {p:['El color observado es el <b>complementario</b> de lo absorbido, y ese paso es el que más se falla. Un Eg de 2.0 eV da umbral en 620 nm: absorbe violeta, azul y verde, y se ve rojo-anaranjado.']},
+   {fig:FIG.bandas},
+   {p:['Dos piezas que sostienen el modelo. Por el <b>principio de exclusión de Pauli</b>, en un mismo estado orbital caben como máximo <b>dos electrones</b>, y solo si difieren en el espín: es lo que impide que todos los electrones se amontonen en el nivel más bajo y lo que obliga a llenar las bandas de abajo hacia arriba. Y en un <b>semiconductor intrínseco</b>, puro, cada electrón que cruza el gap deja atrás un hueco, de modo que <b>n = p</b> exactamente. Dopar rompe esa igualdad: en tipo n los electrones son mayoritarios y en tipo p lo son los huecos.']},
    {p:['De la tabla sale el procedimiento completo para predecir color: calcular el umbral con λ = 1240/Eg, ver qué parte del visible queda por debajo (eso se absorbe) y concluir que el color observado es <b>el complementario de lo absorbido</b>. Un material que absorbe por debajo de 517 nm tiene Eg = 1240/517 = <b>2.4 eV</b>, se come violeta, azul y verde, y se ve <b>amarillo-anaranjado</b>. Un material transparente e incoloro no absorbe nada del visible, así que su gap debe superar <b>3.1 eV</b>, el extremo violeta.']},
    {p:['Ese mismo 1240 conecta con las transiciones atómicas. En el hidrógeno la separación entre niveles crece al subir, así que el salto <b>4→2 libera más energía que el 3→2</b>: mayor frecuencia y por tanto <b>menor longitud de onda</b>, ya que E = hc/λ.']},
    {p:['El dopaje <b>no cambia el ancho del gap</b>: introduce niveles dentro de él. El fósforo en silicio deja un nivel donador a unos 0.045 eV bajo la banda de conducción, y como kT a temperatura ambiente vale 0.026 eV, ese electrón se libera con facilidad. Resultado: tipo n. El boro deja un nivel aceptor cerca de la banda de valencia: tipo p.']},
@@ -388,6 +643,15 @@ G.push(
      {p:['De aquí sale una medición diagnóstica barata: si la resistencia de una muestra desconocida baja al calentarla, es semiconductora.']}
    ]}}
   ]},
+  {t:'Estado sólido: red, base y celda',b:[
+   {p:['Un cristal se define como una <b>red</b> más una <b>base</b>. La red es el conjunto infinito de puntos equivalentes generado por traslación, un objeto puramente matemático. La <b>base</b> es el átomo o grupo de átomos que se coloca <b>idénticamente en cada punto de red</b>. Decir que la base es «el plano inferior que sostiene la estructura» es un distractor frecuente y es falso: no tiene nada que ver con soporte físico.']},
+   {eq:"r′ = n₁·a₁ + n₂·a₂ + n₃·a₃      con n₁, n₂, n₃ enteros"},
+   {p:['Esa es la condición de equivalencia: a partir de los <b>vectores de traslación</b> a₁, a₂ y a₃, el vector de posición de cualquier punto equivalente se obtiene con coeficientes <b>enteros</b>. Si los coeficientes pudieran ser fraccionarios la estructura no sería periódica, y es exactamente lo que distingue una red de un conjunto cualquiera de puntos.']},
+   {p:['Según el orden que presenten, los materiales se clasifican así. <b>Monocristalino</b>: un solo arreglo periódico en todo el volumen, sin fronteras de grano. <b>Policristalino</b>: muchos cristales pequeños con orientaciones distintas, separados por fronteras de grano. <b>Amorfo</b>: sin ordenamiento periódico de largo alcance, aunque puede conservar orden local entre vecinos inmediatos. Esa es la razón de que un amorfo dé un halo ancho en difracción y no picos.']},
+   {p:['La distinción entre <b>celda primitiva</b> y <b>celda convencional</b> se pregunta tal cual. La primitiva contiene <b>exactamente un punto de red</b> y es la de menor volumen posible; la convencional puede contener varios —dos en BCC, cuatro en FCC— y se prefiere porque <b>refleja la simetría cúbica</b> del cristal, que la primitiva oculta. Se gana claridad geométrica a cambio de usar una celda mayor.']},
+   {fig:FIG.celdas},
+   {p:['Un último concepto del espacio recíproco: la <b>primera zona de Brillouin</b> es la celda primitiva de la red recíproca construida por el método de Wigner-Seitz, es decir la región más próxima a un punto recíproco que a cualquier otro. Su importancia es que <b>contiene toda la información no redundante</b> sobre los estados electrónicos y vibracionales: cualquier vector de onda fuera de ella equivale a uno de dentro. No es una distancia que recorra un rayo X ni un volumen del cristal real.']}
+  ]},
   {t:'Cristalografía: contar bien y nombrar bien',b:[
    {tabla:{th:['Estructura','Átomos/celda','Coordinación','Empaquetamiento'],tr:[
      ['Cúbica simple','1','6','0.52'],
@@ -398,7 +662,10 @@ G.push(
    {eq:'d = a / √(h² + k² + l²)     ·     ρ_teórica = (n · M) / (N_A · a³)'},
    {p:['La densidad teórica exige cuidado con las unidades. Para aluminio FCC con a = 0.405 nm: la masa de la celda es 4 × 26.98 / 6.022×10²³ = 1.792×10⁻²² g, y el volumen es a³ con <b>a convertido a centímetros</b>, es decir 4.05×10⁻⁸ cm, lo que da 6.64×10⁻²³ cm³ y una densidad de 2.70 g/cm³. Si el resultado sale desviado por 10⁶ el diagnóstico es inmediato: <b>no se elevó al cubo el factor de conversión</b>, porque (10²)³ = 10⁶.']},
    {p:['Comparar la densidad calculada con la medida es un diagnóstico de defectos. Si la medida es <b>menor</b>, hay <b>vacancias</b>: mismo volumen de celda, menos masa. Si es <b>mayor</b>, hay <b>átomos intersticiales</b> que añaden masa sin cambiar el volumen. El número de coordinación no entra en el cálculo.']},
+   {fig:FIG.miller},
    {p:['Los <b>índices de Miller</b> se obtienen tomando los recíprocos de las intersecciones y reduciendo a los enteros más pequeños. Un plano que corta en 1/2, 1 e infinito da recíprocos 2, 1 y 0, es decir <b>(210)</b>. Se usan recíprocos por una razón concreta: un plano paralelo a un eje lo corta en el infinito, y su recíproco es cero en lugar de infinito. Los índices nunca llevan fracciones y el orden de los ejes importa.']},
+   {eq:'nλ = 2d·sen θ      ·      con λ = 1.54 Å, n = 1 y θ = 30°:  d = 1.54/(2 × 0.5) = 1.54 Å'},
+   {p:['La ley de Bragg se usa principalmente para <b>determinar distancias interplanares y, con ellas, la estructura cristalina</b> a partir de los ángulos donde aparece interferencia constructiva. Conviene recordar que θ es el ángulo entre el haz y el plano, es decir la mitad del 2θ que reporta el equipo.']},
    {p:['Al indexar un difractograma cúbico, la secuencia de h²+k²+l² identifica la red: <b>3, 4, 8, 11</b> es FCC (índices todos pares o todos impares) y <b>2, 4, 6, 8</b> es BCC (h+k+l par). La cúbica simple no tiene extinciones y da 1, 2, 3, 4.']},
    {p:['Y los defectos no son fallas sino el mecanismo: la deformación plástica ocurre por <b>movimiento de dislocaciones</b>. Endurecer un metal consiste en obstaculizarlas, y el <b>trabajo en frío</b> lo logra multiplicando su densidad hasta que se estorban entre sí. Las otras vías son solución sólida, precipitados y frontera de grano según Hall-Petch.']}
   ]},
@@ -411,6 +678,8 @@ G.push(
   {t:'La cuántica que sí se pregunta',b:[
    {eq:'E_n = n²h² / (8mL²)   ·   partícula en una caja'},
    {p:['Tres conclusiones, y la tercera es la rentable. La energía está cuantizada; el estado fundamental <b>nunca vale cero</b> por el principio de incertidumbre; y <b>E escala como 1/L²</b>, así que reducir la caja a la mitad cuadruplica la energía. Esa dependencia es exactamente el confinamiento cuántico de los puntos cuánticos.']},
+   {p:['Para identificar un orbital a partir de sus números cuánticos hay que respetar los tres rangos: n entero desde 1; <b>l de 0 a n−1</b>; y <b>m_l de −l a +l</b>. Un orbital <b>4f</b> tiene n = 4 y l = 3, así que m_l solo puede ir de −3 a +3: una combinación con m_l = −4 es imposible y se descarta sin más análisis.']},
+   {p:['Las <b>series espectrales del hidrógeno</b> se nombran por el nivel al que <b>cae</b> el electrón, no por el de partida: Lyman termina en n = 1 (ultravioleta), Balmer en n = 2 (visible), Paschen en n = 3, Brackett en n = 4 y <b>Pfund en n = 5</b>, ya en el infrarrojo lejano. Cuanto mayor el nivel final, menor la energía del fotón emitido y mayor su longitud de onda.']},
    {p:['Los cuatro números cuánticos no son convención: cada uno sale de imponer que la función de onda sea aceptable en una dimensión del problema. El azimutal l va de 0 a n−1, y de ahí que no exista un orbital 1p. Las 2, 6, 10 y 14 columnas de los bloques s, p, d y f son exactamente 2(2l+1).']},
    {p:['Bohr es exacto para hidrógeno e hidrogenoides y falla para todo lo demás, porque ignora la repulsión entre electrones y el apantallamiento. Ese apantallamiento rompe la degeneración y hace que la energía dependa también de l: de ahí que el 4s se llene antes que el 3d, algo que en hidrógeno no tendría sentido.']},
    {p:['Y en cálculo computacional: <b>Hartree-Fock ignora la correlación electrónica</b>; DFT la aproxima mediante un funcional cuya elección afecta los resultados. Al expandir en un conjunto base finito, el problema se vuelve matricial de valores propios, det(H − ES) = 0.']}
@@ -437,6 +706,7 @@ G.push(
    {p:['La jerarquía típica por par de moléculas es ion-dipolo > puente de hidrógeno > dipolo-dipolo > London. Pero hay una excepción que el examen explota: las <b>fuerzas de London crecen con la polarizabilidad</b>, que crece con el número de electrones. Por eso el yodo, que solo tiene London, es sólido, mientras que el HF, que tiene puentes de hidrógeno, es gas.']},
    {p:['Regla operativa: si las masas son parecidas, decide el tipo de fuerza (etanol 78 °C frente a dimetil éter −24 °C, misma fórmula C₂H₆O). Si las masas son muy distintas, revisa si el tamaño alcanza para que London compense.']},
    {p:['El agua y sus anomalías salen de un solo hecho geométrico: cada molécula puede formar <b>cuatro</b> puentes, dos como donadora y dos como aceptora. De ahí el punto de ebullición anómalo, la capacidad calorífica alta y que el hielo flote. Y de ahí que la línea sólido-líquido del agua tenga <b>pendiente negativa</b> en el diagrama de fases, al revés que casi todas las sustancias.']},
+   {fig:FIG.fases},
    {p:['Comparar disoluciones exige contar partículas, no moles de soluto. Glucosa 0.10 m tiene i = 1 y da 0.10 m efectivos; CaCl₂ 0.10 m tiene i ≈ 3 y da 0.30 m, así que <b>baja tres veces más</b> el punto de congelación. Pero glucosa 0.20 m y NaCl 0.10 m llegan los dos a 0.20 m de partículas y producen <b>el mismo descenso</b>: el resultado depende del producto i·m, no de ninguno por separado.']},
    {p:['Las propiedades coligativas dependen del <b>número de partículas</b>: sin el factor i de van’t Hoff el resultado está mal, y el valor sin corregir suele coincidir exactamente con uno de los distractores. Se expresan en molalidad y no en molaridad porque la molalidad no depende de la temperatura, que es justo la variable en estudio.']}
   ]},
@@ -503,6 +773,7 @@ G.push(
  sub:'Por qué la nanoescala es distinta, nucleación y crecimiento, rutas químicas y rutas físicas. Es el módulo con más dependencias externas: quince de sus conceptos se apoyan en M5.',
  sec:[
   {t:'Los tres efectos que hacen distinta a la nanoescala',b:[
+   {p:['Antes de los efectos conviene fijar la definición. Un <b>nanomaterial</b> es aquel en el que al menos una de sus dimensiones, o la de alguno de sus componentes o estructuras internas, se encuentra por debajo de los <b>100 nanómetros</b>. Lo decisivo es que a esa escala aparecen propiedades que el material masivo no tiene, no el tamaño como cifra arbitraria.']},
    {p:['No es un efecto único: son tres mecanismos con umbrales distintos, y el examen espera que sepas cuál aplica.']},
    {tabla:{th:['Efecto','Umbral','Qué explica'],tr:[
      ['Superficie','Por debajo de ~100 nm, continuo','Reactividad catalítica, descenso del punto de fusión, mayor solubilidad'],
@@ -522,8 +793,10 @@ G.push(
   ]},
   {t:'Nucleación, crecimiento y forma',b:[
    {p:['La barrera de nucleación existe por una competencia de potencias: el volumen libera energía como r³ y la superficie la consume como r². A radios pequeños domina el término de área y la energía sube; a radios grandes domina el de volumen y baja. El máximo es la barrera.']},
+   {fig:FIG.nucleacion},
    {eq:'r* = 2γ/ΔGv      ΔG* = 16πγ³/(3ΔGv²)'},
    {p:['Por debajo de r* un núcleo reduce su energía <b>disolviéndose</b>; por encima, creciendo. Más sobresaturación implica r* menor y barrera mucho menor (va con el inverso del cuadrado), de ahí que nuclee masivamente y dé partículas pequeñas.']},
+   {fig:FIG.lamer},
    {p:['El modelo de <b>LaMer</b> dice que la monodispersidad no se logra controlando el crecimiento, sino <b>separándolo en el tiempo de la nucleación</b>: una nucleación explosiva que se autodetiene al consumir el monómero, y después solo crecimiento. De ahí la inyección caliente y el crecimiento sobre semillas.']},
    {p:['<b>Ostwald no es agregación</b>. La maduración transporta material disuelto desde las partículas pequeñas (más solubles por curvatura) hacia las grandes, sin que lleguen a tocarse; se combate bajando temperatura o solubilidad, no con estabilizantes. La agregación es por contacto y choque browniano; esa sí se combate estabilizando.']},
    {p:['La <b>sobresaturación</b> es la palanca que decide el tamaño final. Como r* = 2γ/ΔGv y la barrera va con el inverso del cuadrado de ΔGv, aumentarla reduce drásticamente ambos: se nuclea masivamente, el monómero se reparte entre muchísimos núcleos y las partículas salen pequeñas. Bajarla produce pocos núcleos que crecen mucho.']},
@@ -535,8 +808,9 @@ G.push(
      ['Sol-gel','Homogeneidad molecular, recubrimientos y monolitos porosos','Producto <b>amorfo</b>: exige calcinar, lo que sinteriza y destruye área'],
      ['Hidrotermal / solvotermal','Cristalinidad <b>sin calcinar</b>, control de fase y morfología','Equipo a presión, tiempos largos'],
      ['Coprecipitación','Simple, barata, escalable','Distribución de tamaños ancha'],
-     ['Microemulsión','Nanorreactores que limitan el tamaño','Rendimiento bajo, mucho surfactante que eliminar']]}},
-   {p:['El <b>sol-gel</b> transcurre en dos etapas que conviene distinguir: la <b>hidrólisis</b> consume agua para convertir los alcóxidos en hidroxilos, y la <b>condensación</b> une dos hidroxilos <b>liberando agua</b> y formando el puente metal-oxígeno-metal que construye la red. Si en una reacción se observa que se expulsa agua al unirse dos grupos, la etapa es la condensación.']},
+     ['Microemulsión','Nanorreactores que limitan el tamaño','Rendimiento bajo, mucho surfactante que eliminar'],
+     ['Electroquímica','Control fino por corriente y potencial; útil para metales','Requiere electrolito conductor y electrodos adecuados']]}},
+   {p:['El <b>sol-gel</b> transcurre en dos etapas que conviene distinguir, y el agua aparece en las dos con papeles opuestos: la <b>hidrólisis</b> consume agua para convertir los alcóxidos en hidroxilos, y la <b>condensación</b> une dos hidroxilos <b>liberando agua</b> y formando el puente metal-oxígeno-metal que construye la red. Si en una reacción se observa que se expulsa agua al unirse dos grupos, la etapa es la condensación, y a esa agua exudada se la llama <b>agua de condensación</b>: no es agua de solvatación ni de hidratación, que son cosas distintas.']},
    {p:['Para elegir ruta ante un caso concreto conviene preguntarse qué variable hay que controlar. <b>Homogeneidad</b> entre varios cationes: coprecipitación simultánea, porque los mezcla a escala molecular antes de que se forme el sólido; molerlos ya formados solo los junta a escala de partícula. <b>Tamaño fino</b>: microemulsión, donde la gota acuosa actúa de nanorreactor y su tamaño limita el de la partícula, ajustable con la razón agua-surfactante. <b>Fase cristalina sin calcinar</b>: hidrotermal.']},
    {p:['El TiO₂ ilustra el costo de calcinar: por encima de unos 600 °C transita de anatasa a <b>rutilo</b>, menos activo fotocatalíticamente, y además crece el grano y cae el área superficial. Dos efectos que bajan la actividad a la vez.']},
    {p:['Hay dos formas de estabilizar y se distinguen por cómo fallan. La <b>estabilización electrostática</b> depende de la doble capa eléctrica, así que funciona en agua destilada y se desploma al subir la fuerza iónica: una suspensión que aguanta en agua y se agrega en suero fisiológico estaba estabilizada así. La <b>estérica</b>, con cadenas poliméricas ancladas, impide el acercamiento por un mecanismo físico que no depende del apantallamiento y resiste a 150 mM.']},
@@ -604,6 +878,9 @@ G.push(
   ]},
   {t:'Microscopía: qué limita a cada una',b:[
    {p:['Los electrones ven más porque su longitud de onda de de Broglie es miles de veces menor que la de la luz visible, y el límite de resolución escala con λ.']},
+   {fig:FIG.sem},
+   {p:['El haz de electrones genera varias señales a la vez, y cada una responde una pregunta distinta. Los <b>electrones secundarios</b> son de baja energía y escapan solo de los primeros nanómetros: dan <b>topografía</b>. Los <b>retrodispersados</b> vienen de interacciones elásticas con el núcleo, cuya probabilidad crece con Z: dan <b>contraste por composición</b>, donde lo pesado brilla. Los <b>rayos X característicos</b> nacen de todo el volumen de interacción y dan <b>composición elemental</b> por EDS. Y en TEM, los <b>transmitidos</b> atraviesan una muestra delgada y revelan el interior con resolución atómica.']},
+   {p:['De ahí el reparto de tareas que se pregunta como caso: para <b>superficie tridimensional sin preparación adicional</b>, AFM, que además mide fuerzas e interacciones; para <b>interior de muestra delgada con resolución atómica</b>, TEM; para <b>superficie con información de composición</b>, SEM con EDS.']},
    {ul:['<b>SEM</b>: electrones secundarios dan topografía con gran profundidad de campo; retrodispersados dan contraste por número atómico (lo pesado se ve más brillante).',
         '<b>TEM</b>: transmisión a través de muestra ultradelgada. Resolución atómica, estructura interna, interfases core-shell, y difracción de electrones de una partícula individual.',
         '<b>AFM</b>: mide fuerzas con una punta en micropalanca. Funciona en aire y en líquido, sin vacío ni metalización, y da resolución vertical subnanométrica.']},
@@ -655,9 +932,14 @@ G.push(
  sub:'Luz y materia, microfluídica, MEMS y sensores electroquímicos. Integra materiales de M4, nanoestructuras de M6 y métodos de medición de M7.',
  sec:[
   {t:'Luz y materia: del oscilador al plasmón',b:[
+   {fig:FIG.poynting},
+   {p:['El <b>vector de Poynting</b>, S = (E × B)/µ₀, indica la dirección en que fluye la densidad de energía transportada por la onda electromagnética, y su magnitud es la <b>intensidad óptica</b>, con unidades de <b>vatios por metro cuadrado</b>. E, B y S son mutuamente perpendiculares, y lo que un detector registra es el promedio temporal de S.']},
+   {p:['El <b>momento dipolar eléctrico</b> se define como el producto de la carga por el vector de separación entre cargas, p = q·d. De ahí que <b>aumentar la separación aumente el momento dipolar</b> proporcionalmente, con la carga fija.']},
+   {p:['En el <b>modelo de Lorentz</b> el electrón se trata como un <b>oscilador armónico amortiguado</b> sometido a una fuerza restauradora elástica que lo liga al núcleo, forzado por el campo de la luz. El modelo describe la <b>respuesta dieléctrica</b> de los materiales —cómo varían el índice de refracción y la absorción con la frecuencia—, no su conductividad térmica. El modelo de Drude es su caso límite para electrones libres, sin fuerza restauradora.']},
    {p:['La función dieléctrica sale de tratar a los electrones como <b>osciladores forzados</b> por el campo de la luz: el modelo de Lorentz para electrones ligados y el de Drude para los libres de un metal.']},
    {p:['De ahí la explicación del brillo metálico: por debajo de la frecuencia de plasma ω_p la parte real de ε es <b>negativa</b> y el metal refleja; por encima se vuelve transparente. Es la razón de que los metales sean espejos en el visible y transparentes en el ultravioleta lejano.']},
    {p:['De ahí el <b>brillo metálico</b> y su límite: por debajo de la frecuencia de plasma la parte real de la función dieléctrica es negativa y el metal refleja; por encima los electrones ya no responden lo bastante rápido al campo y el material se vuelve transparente, lo que ocurre en el ultravioleta lejano.']},
+   {p:['Los <b>plasmones polaritones de superficie</b> solo existen en modo <b>TM</b> (transversal magnético, también llamado p). La razón es que la oscilación de carga en la superficie exige una componente del campo eléctrico <b>perpendicular</b> a la interfaz, y el modo TE no la tiene. Por eso en una configuración de Kretschmann la luz debe estar polarizada p para excitarlos.']},
    {p:['En interfaces, las ecuaciones de Fresnel dan reflexión y transmisión, y por encima del ángulo crítico hay reflexión total interna. Lo que sobrevive del otro lado es una <b>onda evanescente</b> que penetra típicamente 100 a 200 nm: por eso los sensores de superficie ignoran el resto de la muestra, lo que es exactamente la ventaja que se busca.']},
    {p:['Un LED, una celda solar y un fotodetector son el mismo objeto en sentidos distintos: una unión p-n cuyo campo de agotamiento separa o recombina pares electrón-hueco. El color de un LED lo fija el gap vía λ = 1240/Eg, y de ahí que el LED azul necesitara nitruro de galio.']},
    {deep:{t:'Directo contra indirecto, y el límite de Shockley-Queisser',b:[
@@ -675,6 +957,7 @@ G.push(
         'La relación superficie-volumen enorme hace que la <b>adsorción de proteínas en las paredes</b> deje de ser despreciable, y obliga a pasivar.']},
    {p:['Dos consecuencias cuantitativas que se preguntan. El caudal es proporcional a <b>r⁴</b> pero solo inversamente proporcional a <b>L</b>: reducir el radio a la mitad lo divide entre dieciséis, mientras que duplicar la longitud solo lo divide entre dos. Y como el flujo es laminar siempre, para mezclar no sirve subir el caudal buscando turbulencia —exigiría velocidades inviables— sino <b>diseñar geometría que pliegue las corrientes</b>, con canales serpenteantes y surcos, o trabajar en gotas.']},
    {p:['La analogía con circuitos es formal y útil: R = 8µL/(πr⁴) y ΔP = QR, con presión como voltaje y caudal como corriente. Resistencias en serie se suman.']},
+   {fig:FIG.flujos},
    {p:['Dos fenómenos que se confunden. La <b>electroforesis</b> mueve una partícula cargada respecto al fluido y separa según carga y tamaño. La <b>electroósmosis</b> mueve el fluido completo respecto a la pared, porque la pared cargada atrae contraiones que al migrar arrastran el líquido por viscosidad. Su perfil de velocidad es <b>plano</b>, en tapón, mientras que el de presión es parabólico: esa diferencia es la que evita el ensanchamiento de bandas y decide la resolución de una separación. En un mismo experimento ocurren los dos y se observa la suma.']}
   ]},
   {t:'MEMS: leyes de escala',b:[
@@ -746,9 +1029,32 @@ G.push(
      {p:['De ahí la regla de asignación de esfuerzo: identifica la mayor fuente de incertidumbre y trabaja sobre ella. Comprar un instrumento más preciso para la variable que ya medías bien es dinero desperdiciado, y es exactamente el tipo de decisión que plantea un reactivo de caso.']}
    ]}}
   ]},
+  {t:'Planta piloto y los cuatro tipos de similaridad',b:[
+   {p:['Escalar un proceso o un equipo consiste en <b>agrandarlo</b> desde su escala de investigación —laboratorio o piloto— hasta escala industrial. Y una <b>planta piloto</b> es un conjunto de partes específicas ensambladas que operan como un todo armónico, con el propósito de reproducir a escala procesos productivos. En ella intervienen termodinámica, flujo de fluidos, transferencia de masa y energía, reacción química y control de procesos a la vez, que es justo lo que no se puede estudiar en un matraz aislado.']},
+   {p:['Sus dos propósitos principales se formulan así: <b>predecir</b> el comportamiento de una planta industrial usando las condiciones más similares posibles, y <b>estudiar</b> el comportamiento de plantas industriales ya construidas, usándola entonces como modelo para diagnosticar o mejorar.']},
+   {p:['La pregunta de fondo del escalamiento es cómo garantizar que el equipo grande se comporte como el pequeño. La respuesta clásica, en la formulación de Anaya y Gutiérrez, son <b>cuatro tipos de similaridad</b>, y van encadenados: cada uno presupone el anterior.']},
+   {tabla:{th:['Similaridad','Qué exige','Consecuencia práctica'],tr:[
+     ['<b>Geométrica</b>','Que todas las razones de longitudes se conserven entre modelo y prototipo','Es la base de todas las demás. Si la forma cambia, nada de lo que sigue es comparable'],
+     ['<b>Mecánica</b>','Que las razones de fuerzas, velocidades o tiempos correspondientes se mantengan','Se subdivide en estática, cinemática y dinámica. Aquí entran Reynolds y los demás adimensionales'],
+     ['<b>Térmica</b>','Que los <b>flujos de calor correspondientes</b> guarden una relación constante','Exige similaridad geométrica y mecánica previas; si el mezclado difiere, los perfiles de temperatura también'],
+     ['<b>Química</b>','Que las <b>diferencias de concentración</b> correspondientes mantengan una relación constante','Solo puede afirmarse en sistemas que ya son geométrica y térmicamente similares']]}},
+   {p:['El encadenamiento explica por qué el escalamiento es tan difícil: conservar la similaridad química exige haber conservado la térmica, que exige la mecánica, que exige la geométrica. Y, como se vio arriba, la geométrica <b>destruye</b> por sí sola la razón área-volumen, que es justo lo que gobierna la transferencia de calor.']},
+   {p:['De ahí que escalar un reactor exotérmico conservando la forma obligue a rediseñarla: alargar el recipiente, añadir serpentines internos o pasar a configuración tubular, precisamente para recuperar el área que la similaridad geométrica pura habría perdido.']}
+  ]},
+  {t:'Análisis de ciclo de vida',b:[
+   {p:['El <b>análisis de ciclo de vida</b> cuantifica las cargas ambientales de un producto a lo largo de toda su existencia, y es la herramienta que convierte la factibilidad ambiental en números comparables en lugar de afirmaciones.']},
+   {fig:FIG.acv},
+   {p:['Dos decisiones condicionan todo el estudio y por eso se toman en la primera fase.']},
+   {ul:['La <b>unidad funcional</b> es la referencia cuantificada a la que se refieren todas las entradas y salidas. No es «un envase» sino «contener y proteger un litro de bebida durante seis meses». Dos estudios con unidades funcionales distintas <b>no son comparables</b>, por muy rigurosos que sean cada uno por su lado.',
+        'Las <b>fronteras del sistema</b> fijan hasta dónde llega el análisis: de la cuna a la puerta (hasta salir de fábrica), de la cuna a la tumba (incluyendo uso y disposición) o de la cuna a la cuna (cerrando el ciclo con reciclaje).']},
+   {p:['Sobre la <b>duración</b> del tiempo abarcado, la respuesta correcta es que cubre todas las etapas del ciclo desde la extracción de materias primas hasta la disposición final o el reciclaje: materia prima, manufactura, distribución, uso y fin de vida. No se limita a la fase de fabricación.']},
+   {p:['En <b>factibilidad ambiental</b> los factores que se consideran incluyen la ubicación de la planta, el consumo de recursos (agua, energía, materias primas), las emisiones y residuos generados, los impactos sobre ecosistemas y comunidades, y el cumplimiento normativo. El instrumento formal en México es la <b>evaluación de impacto ambiental</b>, que se materializa en un <b>Manifiesto de Impacto Ambiental</b>.']}
+  ]},
   {t:'Ingeniería económica y factibilidad',b:[
    {p:['Apareció en once preguntas de los quizzes del taller, así que conviene no dejarlo fuera. La idea de fondo es que <b>el dinero tiene valor en el tiempo</b>: mil pesos hoy no equivalen a mil pesos dentro de tres años, porque los de hoy pueden invertirse.']},
    {eq:'Valor futuro: VF = VP·(1 + i)ⁿ      ·      interés simple: VF = VP·(1 + i·n)'},
+   {p:['El <b>interés compuesto</b> se compone de tres partes que conviene nombrar por separado, porque el examen las pide así: el <b>capital o monto invertido</b>, la <b>tasa de interés</b> acordada y el <b>número de periodos</b> durante los que capitaliza. La diferencia con el simple es que el compuesto paga intereses sobre los intereses ya generados.']},
+   {p:['El aspecto central en que se basa la ingeniería económica es precisamente ese: <b>el valor del dinero en el tiempo</b>. La premisa de los métodos de evaluación de proyectos es que los flujos de efectivo que ocurren en momentos distintos no son directamente comparables y deben llevarse a un mismo instante antes de sumarse.']},
    {p:['La diferencia entre ambos es que el <b>interés compuesto capitaliza sobre el saldo acumulado</b> y el simple solo sobre el capital inicial. Casi toda la evaluación de proyectos usa el compuesto, y confundirlos es un distractor habitual.']},
    {tabla:{th:['Criterio','Qué mide','Regla de decisión'],tr:[
      ['<b>VPN</b> (valor presente neto)','Suma de flujos descontados menos la inversión','Aceptar si VPN > 0 a la tasa de descuento de la empresa'],
@@ -758,7 +1064,8 @@ G.push(
    {deep:{t:'Escalar costos: índices y la regla de los seis décimos',b:[
      {p:['Dos herramientas distintas que suelen confundirse, y las dos aparecieron en el taller.'],},
      {p:['<b>Índice de costos.</b> Traslada el costo de un equipo de un año a otro sin volver a cotizar: C_hoy = C_antes × (índice_hoy / índice_antes). El más usado en proceso es el CEPCI. Si un equipo costó 2 millones con índice 400 y hoy el índice vale 600, el costo actualizado es 3 millones.'],},
-     {eq:'C₂ = C₁ · (Q₂/Q₁)^n     con n ≈ 0.6 para muchos equipos de proceso'},
+       {p:['Ejemplo numérico del índice: un reactor de 150 L costaba 10 000 dólares cuando el CEPCI valía 200, y hoy el índice vale 300. El costo actualizado es 10 000 × (300/200) = <b>15 000 dólares</b>. La razón de índices actualiza por inflación de equipos, nada más: si además cambiara la capacidad, haría falta aplicar también el factor de escala.'],},
+   {eq:'C₂ = C₁ · (Q₂/Q₁)^n     con n ≈ 0.6 para muchos equipos de proceso'},
      {p:['<b>Regla de los seis décimos.</b> Escala el costo con la capacidad, no con el tiempo. Como el exponente es menor que uno, multiplicar por seis la capacidad multiplica el costo solo por 6^0.6 ≈ 2.9. Esa es la economía de escala: el costo por unidad producida baja al crecer el equipo, y es el argumento económico que sostiene buena parte del escalamiento industrial.'],},
      {p:['Ojo con el orden: si hay que escalar <b>y</b> actualizar, se aplican los dos factores, cada uno con su propia base.']}
    ]}},
@@ -806,6 +1113,7 @@ G.push(
    {p:['Una emulsión <b>nunca</b> es termodinámicamente estable: separar dos fases inmiscibles crea área interfacial y eso cuesta energía. Lo que se busca es <b>estabilidad cinética</b>, es decir que tarde mucho.']},
    {p:['El <b>HLB</b> resume en un número de 0 a 20 la afinidad del surfactante por el agua. La regla que decide el tipo de emulsión es la de <b>Bancroft</b>: la fase continua será aquella en la que el surfactante sea más soluble. Así, HLB alto (8–18) da aceite en agua y HLB bajo (3–6) da agua en aceite.']},
    {eq:'HLB_mezcla = x₁·HLB₁ + x₂·HLB₂   ·   promedio ponderado por fracción másica'},
+   {fig:FIG.emulsion},
    {tabla:{th:['Mecanismo de fallo','Qué ocurre','¿Reversible agitando?','Cómo se combate'],tr:[
      ['Cremado','Las gotas migran por densidad (Stokes)','Sí','Reducir radio (entra al cuadrado), espesar, igualar densidades'],
      ['Floculación','Se agrupan sin fusionarse','Sí','Más repulsión: carga o impedimento estérico'],
@@ -831,6 +1139,28 @@ G.push(
    {p:['En farmacocinética, el <b>corte de filtración glomerular</b> ronda los 6 nm: por debajo de ese tamaño la partícula pasa directamente a la orina y se elimina en minutos. Aumentar el tamaño o recubrir con polietilenglicol prolonga la circulación, que es el segundo problema que resuelve la nanomedicina.']},
    {p:['Y el concepto que más cambia la forma de razonar: <b>la célula no ve tu nanopartícula, ve su corona proteica</b>. En milisegundos el objeto queda recubierto de proteínas plasmáticas, así que su identidad biológica difiere de la sintética y un ligando de direccionamiento cuidadosamente injertado puede quedar enterrado. Eso explica buena parte de la brecha entre resultados in vitro, con poca proteína en el medio, y resultados in vivo. El PEG reduce la corona, no la elimina: su función real es ralentizar el reconocimiento, no volver la partícula invisible.']},
    {p:['Sobre el efecto <b>EPR</b>, conviene poder expresar el matiz: es direccionamiento <b>pasivo</b>, bien documentado en modelos murinos, y su magnitud y consistencia en tumores humanos es objeto de debate considerable en la literatura. Los productos aprobados basan buena parte de su beneficio en <b>reducir toxicidad</b> más que en multiplicar eficacia.']}
+  ]},
+  {t:'Diseño de producto, innovación y Design Thinking',b:[
+   {p:['<b>Innovación</b> es la creación de un producto o servicio nuevo <b>y viable</b> que resuelve un problema real. Las tres condiciones importan: algo nuevo que no resuelve nada es una curiosidad, algo que resuelve pero no es viable es un prototipo, y algo viable que ya existía no es innovación.']},
+   {p:['El <b>diseño de un producto</b> abarca entender la necesidad, generar y seleccionar conceptos, especificar, prototipar, validar con usuarios e iterar. Lo que <b>no</b> le corresponde son las actividades de operación rutinaria una vez el producto ya está definido, como la producción en serie o la distribución.']},
+   {p:['Entre los <b>factores de éxito</b> al diseñar e innovar están entender al usuario real, la diferenciación frente a lo existente, la factibilidad técnica, el encaje con las capacidades de la organización y el momento de entrada al mercado. No lo es, en cambio, la mera sofisticación tecnológica por sí misma: un producto más complejo no es por ello mejor recibido.']},
+   {p:['Una <b>megatendencia</b> es una dirección que toman simultáneamente varios aspectos de la sociedad —tecnología, sistemas de producción, nuevos productos, preferencias de consumo, comportamientos— cuyo impacto es perceptible para un segmento importante de la sociedad durante un periodo largo. No es una moda pasajera ni un cambio sectorial aislado: lo que la define es la <b>simultaneidad</b> entre ámbitos y la <b>persistencia</b> en el tiempo.']},
+   {p:['El <b>Design Thinking</b> es una metodología de diseño que proporciona un enfoque <b>basado en soluciones</b> para resolver problemáticas, centrado en las personas y marcadamente iterativo. Se recorre en cinco fases, y conviene no confundirlas:']},
+   {ol:['<b>Empatizar</b>: comprender a la persona usuaria en profundidad, sus motivaciones y frustraciones.',
+        '<b>Observación</b>: ver el problema en su <b>ambiente real</b>. Su valor está precisamente ahí: las personas no siempre saben o dicen lo que hacen, y el contexto revela restricciones, apaños y comportamientos que una entrevista fuera de sitio nunca sacaría.',
+        '<b>Definir</b>: sintetizar lo observado en un enunciado de problema accionable.',
+        '<b>Idear</b>: generar el mayor número de alternativas antes de converger.',
+        '<b>Prototipar y probar</b>: construir rápido y barato para aprender, y volver a empezar con lo aprendido.']},
+   {p:['Y el <b>TRL</b> mide grado de madurez, no calidad ni superioridad. Un producto en <b>TRL 3</b> apenas tiene prueba de concepto experimental: está lejos de su madurez máxima, que es el 9. Afirmar lo contrario es falso, y es una pregunta de verdadero o falso que aparece tal cual.']}
+  ]},
+  {t:'Riesgo, regulación y ética',b:[
+   {p:['Existen dos filosofías regulatorias opuestas y conviene saber cuál se está aplicando, porque invierten la carga de la prueba.']},
+   {tabla:{th:['Modelo','Supuesto de partida','Quién prueba qué'],tr:[
+     ['<b>Bajo o no riesgo</b>','Asume que <b>no hay riesgo</b> hasta que se demuestre lo contrario','El regulador debe probar el daño para restringir'],
+     ['<b>Precautorio</b>','Asume que puede haber riesgo mientras no se demuestre seguridad','El fabricante debe probar la seguridad para comercializar']]}},
+   {p:['La diferencia es decisiva para un material nuevo sin historial toxicológico: bajo el primer modelo entra al mercado y bajo el segundo no. Y conecta con el principio que ya vimos: <b>ausencia de evidencia de daño no es evidencia de ausencia de daño</b>.']},
+   {p:['Sobre cuándo es <b>ética y técnicamente aceptable</b> incorporar nanotecnología a un producto comercial, el criterio es que aporte una función que de otro modo no se consigue, o que mejore de forma demostrable el desempeño, la seguridad o el impacto ambiental, siempre con caracterización y evaluación de riesgo proporcionadas al uso. No lo es usarla como argumento de marketing sin función real, ni para sustituir una solución convencional igual de buena introduciendo incertidumbre toxicológica nueva.']},
+   {p:['Y la nanoescala, recordemos, <b>no crea una categoría regulatoria propia</b> en la mayoría de jurisdicciones: el producto se regula por su uso previsto, con requisitos adicionales de caracterización.']}
   ]},
   {t:'Del laboratorio al producto',b:[
    {p:['Una restricción de proceso acaba convirtiéndose en especificación de producto. Si la formulación <b>no tolera autoclave</b>, la vía viable es la filtración estéril, y el filtro estándar de <b>0.22 µm</b> impone entonces un tamaño máximo y una exigencia de no agregarse. El requisito no nació del desempeño sino de la fabricabilidad.']},
@@ -1296,6 +1626,8 @@ function bloque(b,mid){
     b.tabla.th.map(function(h){return '<th>'+h+'</th>'}).join('')+'</tr></thead><tbody>'+
     b.tabla.tr.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>'}).join('')+'</tr>'}).join('')+
     '</tbody></table></div>');
+  if(b.fig)out.push('<figure class="fig"><div class="ftit">'+esc(b.fig.t)+'</div>'+b.fig.svg+
+    (b.fig.pie?'<figcaption>'+b.fig.pie+'</figcaption>':'')+'</figure>');
   if(b.deep){
     out.push('<details class="deep"><summary>'+esc(b.deep.t)+'</summary><div class="inner">'+
       b.deep.b.map(function(x){return bloque(x,mid)}).join('')+'</div></details>');
