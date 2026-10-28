@@ -13,12 +13,12 @@
   Psychological Science in the Public Interest 14(1), 4-58).
 */
 :root{
-  --bg:#ffffff; --surface:#ffffff; --surface-2:#eef1f4; --border:#c7d0d9;
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#eef1f4; --border:#c7d0d9; --border-ui:#7e8c99;
   --ink:#16222e; --ink-dim:#57687a;
   --m2:#0b6b5f;  --m2-bg:#e0efec;
   --m3:#6b4a7a;  --m3-bg:#efe8f3;
   --m4:#003f6c;  --m4-bg:#e1ebf3;
-  --m5:#0071ba;  --m5-bg:#e3f0fa;
+  --m5:#006cb0;  --m5-bg:#e3f0fa;
   --m6:#4a5c6b;  --m6-bg:#e9edf0;
   --m7:#8a5a1f;  --m7-bg:#f5ebdd;
   --m8:#1a5e8a;  --m8-bg:#e2eef5;
@@ -46,7 +46,7 @@ header.top p{color:var(--ink-dim);font-size:.92rem;margin-top:6px;line-height:1.
 .topnote a{color:var(--accent)}
 
 nav.tabs{display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--border);margin-bottom:18px}
-nav.tabs button{font-family:var(--font-body);font-weight:600;font-size:.85rem;border:1px solid var(--border);background:var(--surface);color:var(--ink-dim);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
+nav.tabs button{font-family:var(--font-body);font-weight:600;font-size:.85rem;border:1px solid var(--border-ui);background:var(--surface);color:var(--ink-dim);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .15s}
 nav.tabs button:hover{border-color:var(--accent);color:var(--ink)}
 nav.tabs button.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -95,7 +95,7 @@ section.block h3 .n{font-family:var(--font-mono);font-size:.7rem;color:var(--ink
 .eq{font-family:var(--font-mono);font-size:.88rem;background:var(--surface-2);border-radius:7px;padding:9px 12px;margin:8px 0;overflow-x:auto;white-space:nowrap}
 
 table.data{width:100%;border-collapse:collapse;font-size:.86rem;margin:8px 0}
-table.data th,table.data td{border:1px solid var(--border);padding:6px 9px;text-align:left;vertical-align:top;line-height:1.45}
+table.data th,table.data td{border:1px solid var(--border-ui);padding:6px 9px;text-align:left;vertical-align:top;line-height:1.45}
 table.data th{background:var(--surface-2);font-weight:700;font-size:.8rem}
 table.data td code{font-family:var(--font-mono);font-size:.82rem}
 .tscroll{overflow-x:auto}
@@ -215,7 +215,7 @@ details.caso-rev .inner{padding:4px 0 0}
 .mapa-lienzo{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow-x:auto;padding:8px}
 #mapasvg{min-width:1020px;width:100%;height:auto;display:block}
 text.mcol{font-family:var(--font-mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;fill:var(--ink-dim)}
-.mnodo rect{fill:var(--surface-2);stroke:var(--border);stroke-width:1;transition:fill .15s,stroke .15s}
+.mnodo rect{fill:var(--surface-2);stroke:var(--border-ui);stroke-width:1;transition:fill .15s,stroke .15s}
 .mnodo text{font-family:var(--font-body);font-size:11.5px;fill:var(--ink);pointer-events:none}
 .mnodo{cursor:pointer}
 .mnodo:hover rect{stroke:var(--accent)}
@@ -224,7 +224,7 @@ text.mcol{font-family:var(--font-mono);font-size:9px;letter-spacing:.09em;text-t
 .mnodo.sel text{fill:var(--accent-ink);font-weight:600}
 .mnodo.vec rect{stroke:var(--accent);stroke-width:1.6}
 .mnodo.apag{opacity:.32}
-path.marista{stroke:var(--border);stroke-width:1;fill:none;transition:stroke .15s,opacity .15s}
+path.marista{stroke:var(--border-ui);stroke-width:1;fill:none;transition:stroke .15s,opacity .15s}
 path.marista.on{stroke:var(--accent);stroke-width:1.8;opacity:1}
 path.marista.off{opacity:.18}
 .mapa-panel{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:16px;position:sticky;top:76px;max-height:76vh;overflow-y:auto}
@@ -243,7 +243,7 @@ path.marista.off{opacity:.18}
 .qreloj.apremio{background:#fdecea;color:var(--bad)}
 .qtiempo{margin-bottom:14px;padding:12px 14px;border-radius:10px;background:#fdecea;color:var(--bad);font-size:.9rem;line-height:1.55;font-weight:600}
 .modos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:4px 0 14px}
-button.modo{display:flex;flex-direction:column;gap:5px;text-align:left;padding:16px 16px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;font:inherit;transition:border-color .15s,transform .1s}
+button.modo{display:flex;flex-direction:column;gap:5px;text-align:left;padding:16px 16px 14px;border:1px solid var(--border-ui);border-radius:10px;background:var(--surface);cursor:pointer;font:inherit;transition:border-color .15s,transform .1s}
 button.modo:hover{border-color:var(--accent)}
 button.modo:active{transform:translateY(1px)}
 .mo-n{font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--accent);line-height:1}
@@ -282,7 +282,7 @@ html[data-mov="reducido"] *,html[data-mov="reducido"] *::before,html[data-mov="r
 html[data-mov="reducido"] .flashcard .inner{transition:none!important}
 
 /* densidad: solo lo esencial */
-button.mas-desarrollo{display:none;margin:2px 0 12px;background:none;border:1px dashed var(--border);border-radius:8px;padding:7px 13px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
+button.mas-desarrollo{display:none;margin:2px 0 12px;background:none;border:1px dashed var(--border-ui);border-radius:8px;padding:7px 13px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
 button.mas-desarrollo:hover{border-color:var(--accent);color:var(--accent)}
 html[data-densidad="esencial"] button.mas-desarrollo{display:inline-block}
 html[data-densidad="esencial"] section.block > .card.desarrollo{display:none}
@@ -292,13 +292,13 @@ html[data-densidad="esencial"] section.block.abierta details.deep{display:block}
 
 /* panel de ajustes */
 .ajustes{margin-top:14px}
-button.aj-btn{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
+button.aj-btn{background:var(--surface);border:1px solid var(--border-ui);border-radius:999px;padding:7px 15px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
 button.aj-btn:hover{border-color:var(--accent);color:var(--accent)}
 .aj-panel{margin-top:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:16px 18px}
 .aj-g{margin-bottom:14px}
 .aj-t{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
 .aj-o{display:flex;gap:7px;flex-wrap:wrap}
-.aj-o button{background:var(--surface-2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font:inherit;font-size:.84rem;color:var(--ink-dim);cursor:pointer}
+.aj-o button{background:var(--surface-2);border:1px solid var(--border-ui);border-radius:7px;padding:6px 12px;font:inherit;font-size:.84rem;color:var(--ink-dim);cursor:pointer}
 .aj-o button:hover{border-color:var(--accent)}
 .aj-o button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 .aj-nota{font-size:.82rem;line-height:1.6;color:var(--ink-dim);border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
@@ -315,6 +315,16 @@ nav.subtabs button .cnt{font-family:var(--font-mono);font-size:.68rem;color:var(
 
 /* final visible de la tanda */
 .tanda-fin{margin:16px 0 0;padding:14px 16px;border:1px solid var(--border);border-left:3px solid var(--good);border-radius:10px;background:var(--surface-2);font-size:.9rem;line-height:1.65;color:var(--ink)}
+
+/* ---- foco visible en todos los controles (WCAG 2.4.7 y 1.4.11) ---- */
+a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.opt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+details.deep>summary:focus-visible,details.prob>summary:focus-visible,details.caso-rev>summary:focus-visible{
+  outline:3px solid var(--accent);outline-offset:3px}
+/* en el mapa el foco va sobre el rectángulo, no sobre el grupo */
+.mnodo:focus-visible{outline:none}
+.mnodo:focus-visible rect{stroke:var(--accent);stroke-width:3}
 </style>
 </head>
 <body>
@@ -327,14 +337,21 @@ nav.subtabs button .cnt{font-family:var(--font-mono);font-size:.68rem;color:var(
 .qmeta .tag{font-family:var(--font-mono);font-size:.7rem;padding:3px 8px;border-radius:5px;font-weight:700}
 .qmeta .counter{font-family:var(--font-mono);font-size:.75rem;color:var(--ink-dim)}
 .qtext{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:12px}
-.opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 14px;margin-bottom:8px;font-family:var(--font-body);font-size:.92rem;line-height:1.45;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
+.opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border-ui);border-radius:9px;padding:11px 14px;margin-bottom:8px;font-family:var(--font-body);font-size:.92rem;line-height:1.45;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
 .opt:hover:not(:disabled){border-color:var(--accent)}
 .opt:disabled{cursor:default}
 .opt .letra{font-family:var(--font-mono);font-weight:700;font-size:.78rem;color:var(--ink-dim);margin-right:8px}
-.opt.correct{border-color:var(--good);background:#eaf5ef}
+.opt.correct{border-color:var(--good);background:#eaf5ef;border-width:2px;padding:10px 13px}
 .opt.correct .letra{color:var(--good)}
-.opt.incorrect{border-color:var(--bad);background:#fbeceb}
+.opt.incorrect{border-color:var(--bad);background:#fbeceb;border-width:2px;padding:10px 13px}
 .opt.incorrect .letra{color:var(--bad)}
+/* 1.4.1 Uso del color: el resultado no puede depender solo del color.
+   Se añade un símbolo y su lectura para lector de pantalla. */
+.opt.correct::after,.opt.incorrect::after{float:right;margin-left:10px;font-weight:700;font-size:1.05em;line-height:1.3}
+.opt.correct::after{content:"✓ correcta";color:var(--good);font-size:.8em;letter-spacing:.02em}
+.opt.incorrect::after{content:"✗ tu respuesta";color:var(--bad);font-size:.8em;letter-spacing:.02em}
+.rev-item .opt.correct::after{content:"✓ correcta"}
+.rev-item .opt.incorrect::after{content:"✗ marcaste esta"}
 .opt.chosen{box-shadow:inset 0 0 0 1px var(--border)}
 .explain{display:none;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 8px 8px 0;padding:11px 14px;margin-top:10px;font-size:.89rem;line-height:1.55}
 .explain.show{display:block}
@@ -1019,7 +1036,7 @@ FIG.sem={t:'Volumen de interacción en microscopía electrónica',svg:
 '<svg viewBox="0 0 440 200" role="img" aria-label="Pera de interacción del haz de electrones y las señales que genera">'+
 '<g transform="translate(30,12)">'+
 '<path class="sl" d="M150,0 L150,38" stroke-width="2"/><text class="txs" x="156" y="12">haz incidente</text>'+
-'<rect x="20" y="38" width="260" height="110" class="fa" stroke="var(--border)"/>'+
+'<rect x="20" y="38" width="260" height="110" class="fa" stroke="var(--border-ui)"/>'+
 '<text class="txs" x="24" y="52">muestra</text>'+
 '<path d="M150,38 C112,60 104,96 118,120 C132,146 168,146 182,120 C196,96 188,60 150,38 Z" fill="var(--m7)" opacity=".16" stroke="var(--m7)" stroke-dasharray="3 3"/>'+
 '<path d="M150,38 C136,48 132,58 138,64 C146,70 156,70 162,64 C168,58 164,48 150,38 Z" fill="var(--m7)" opacity=".4"/>'+
@@ -1037,7 +1054,7 @@ FIG.flujos={t:'Perfil de velocidad: presión contra electroósmosis',svg:
 ['Flujo por presión','Flujo electroosmótico'].map(function(n,k){
  var x=16+k*222, par=k===0;
  var g='<g transform="translate('+x+',16)">'+
- '<rect x="0" y="18" width="190" height="62" class="fa" stroke="var(--border)"/>';
+ '<rect x="0" y="18" width="190" height="62" class="fa" stroke="var(--border-ui)"/>';
  for(var i=0;i<6;i++){
   var y=24+i*10;
   var L=par?(170*(1-Math.pow((y-49)/31,2))*0.92+12):150;
@@ -1088,7 +1105,7 @@ FIG.emulsion={t:'Cuatro formas de fracasar de una emulsión',svg:
 '<svg viewBox="0 0 480 170" role="img" aria-label="Cremado, floculación, coalescencia y maduración de Ostwald">'+
 [['Cremado','reversible'],['Floculación','reversible'],['Coalescencia','irreversible'],['Ostwald','irreversible']].map(function(c,k){
  var x=14+k*118, g='<g transform="translate('+x+',12)">'+
- '<rect x="0" y="0" width="92" height="84" rx="4" class="fa" stroke="var(--border)"/>';
+ '<rect x="0" y="0" width="92" height="84" rx="4" class="fa" stroke="var(--border-ui)"/>';
  if(k===0){[[22,14],[46,10],[70,16],[34,26],[60,28]].forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--m10)" opacity=".5"/>'});g+='<path class="sd" d="M4,42 L88,42"/>'}
  if(k===1){[[26,36],[40,30],[38,46],[54,38],[64,28]].forEach(function(p){g+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--m10)" opacity=".5"/>'})}
  if(k===2){g+='<circle cx="34" cy="38" r="7" fill="var(--m10)" opacity=".5"/><circle cx="62" cy="40" r="13" fill="var(--m10)" opacity=".5"/>'}
@@ -3576,19 +3593,19 @@ function panelModulo(m){
         '<div class="prio" id="pri-'+m.id+'"></div>'+
         '<div class="section-progress"><i style="width:0%"></i></div>';
   h+='<nav class="subtabs" role="tablist" aria-label="Actividades de '+m.id+'">'+
-       '<button class="active" data-sp="leer">Leer<span class="cnt">'+m.sec.length+' secciones</span></button>'+
-       '<button data-sp="tarjetas">Tarjetas<span class="cnt">'+m.flash.length+'</span></button>'+
-       '<button data-sp="quiz">Quiz<span class="cnt" id="qn-'+m.id+'"></span></button>'+
+       '<button class="active" role="tab" aria-selected="true" id="st-'+m.id+'-leer" aria-controls="sp-'+m.id+'-leer" data-sp="leer">Leer<span class="cnt">'+m.sec.length+' secciones</span></button>'+
+       '<button role="tab" aria-selected="false" id="st-'+m.id+'-tarjetas" aria-controls="sp-'+m.id+'-tarjetas" data-sp="tarjetas">Tarjetas<span class="cnt">'+m.flash.length+'</span></button>'+
+       '<button role="tab" aria-selected="false" id="st-'+m.id+'-quiz" aria-controls="sp-'+m.id+'-quiz" data-sp="quiz">Quiz<span class="cnt" id="qn-'+m.id+'"></span></button>'+
        '</nav>';
 
-  h+='<div class="subpanel active" data-sp="leer">';
+  h+='<div class="subpanel active" role="tabpanel" id="sp-'+m.id+'-leer" aria-labelledby="st-'+m.id+'-leer" data-sp="leer">';
   m.sec.forEach(function(S,i){
     h+='<section class="block"><h3><span class="n">'+(i+1)+'</span>'+esc(S.t)+'</h3>'+
        S.b.map(function(b){return bloque(b,m.id)}).join('')+'</section>';
   });
   h+='</div>';
 
-  h+='<div class="subpanel" data-sp="tarjetas">';
+  h+='<div class="subpanel" role="tabpanel" id="sp-'+m.id+'-tarjetas" aria-labelledby="st-'+m.id+'-tarjetas" data-sp="tarjetas">';
   h+='<div class="fc-head"><h3>Flashcards de '+m.id+'</h3><span>'+m.flash.length+' tarjetas · clic para voltear</span></div><div class="fcgrid">';
   m.flash.forEach(function(f){
     h+='<div class="flashcard" tabindex="0" role="button" aria-label="Flashcard, pulsa para ver la respuesta">'+
@@ -3597,7 +3614,7 @@ function panelModulo(m){
   });
   h+='</div></div>';
 
-  h+='<div class="subpanel" data-sp="quiz">'+
+  h+='<div class="subpanel" role="tabpanel" id="sp-'+m.id+'-quiz" aria-labelledby="st-'+m.id+'-quiz" data-sp="quiz">'+
      '<div class="fc-head"><h3>Quiz de '+m.id+'</h3><span id="qd-'+m.id+'">tandas de diez</span></div>'+
      '<div class="cobertura" id="cob-'+m.id+'"></div>'+
      '<div class="quiz-wrap" id="quizwrap-'+m.id+'"></div></div>';
@@ -3636,9 +3653,11 @@ var TABS=G.map(function(m){return [m.id,m.id]}).concat([['MAPA','Mapa'],['QUIZ',
 TABS.forEach(function(t,i){
   var b=el('button',i===0?'active':'',t[1]);
   b.setAttribute('role','tab');
+  b.setAttribute('aria-selected',String(i===0));
+  b.setAttribute('aria-controls','p-'+t[0]);
   b.onclick=function(){
-    Array.prototype.forEach.call(tabs.children,function(x){x.className=''});
-    b.className='active';
+    Array.prototype.forEach.call(tabs.children,function(x){x.className='';x.setAttribute('aria-selected','false')});
+    b.className='active';b.setAttribute('aria-selected','true');
     Array.prototype.forEach.call(cont.children,function(x){x.className=x.className.replace(' active','')});
     var pan=document.getElementById('p-'+t[0]);
     pan.className+=' active';
@@ -3654,7 +3673,10 @@ document.addEventListener('click',function(e){
   var b=e.target.closest?e.target.closest('nav.subtabs button'):null;
   if(!b)return;
   var nav=b.parentElement, pan=nav.parentElement, k=b.getAttribute('data-sp');
-  Array.prototype.forEach.call(nav.children,function(x){x.classList.toggle('active',x===b)});
+  Array.prototype.forEach.call(nav.children,function(x){
+    x.classList.toggle('active',x===b);
+    x.setAttribute('aria-selected',String(x===b));
+  });
   Array.prototype.forEach.call(pan.querySelectorAll(':scope > .subpanel'),function(s){
     s.classList.toggle('active',s.getAttribute('data-sp')===k);
   });
