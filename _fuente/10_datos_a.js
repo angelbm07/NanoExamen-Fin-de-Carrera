@@ -1,0 +1,311 @@
+<script>
+var G=[
+/* ===================== M2 ===================== */
+{id:'M2',nom:'Análisis químico',sesion:'Sesión 3 del taller',
+ sub:'La cadena analítica completa: del mol al resultado con incertidumbre declarada. Estequiometría, volumetría, electroquímica, instrumental, separaciones y estadística del dato.',
+ sec:[
+  {t:'La cadena analítica y las unidades de concentración',b:[
+   {p:['Un análisis tiene cuatro eslabones: muestreo, preparación, medición y tratamiento del dato. La exactitud del resultado la limita <b>el más débil</b>, no el instrumento: un ICP-MS impecable sobre una muestra mal homogeneizada entrega un número precisísimo y falso.']},
+   {p:['Cada unidad de concentración responde a una pregunta distinta y no son intercambiables sin datos extra. La <b>molaridad</b> (mol por litro de disolución) es la del laboratorio porque se miden volúmenes, y su defecto es que depende de la temperatura. La <b>molalidad</b> (mol por kilogramo de disolvente) no depende de la temperatura, y por eso las propiedades coligativas se expresan así. Las <b>ppm</b> son masa entre masa por un millón, y en agua diluida equivalen a mg/L solo porque la densidad vale 1 g/mL. La <b>normalidad</b> multiplica la molaridad por los equivalentes: protones intercambiables en un ácido, hidroxilos en una base, electrones en una redox.']},
+   {eq:'C₁V₁ = C₂V₂     ·     para preparar 500 mL de HCl 0.10 M desde una madre 2.0 M: V₁ = (0.10 × 500)/2.0 = 25 mL'},
+   {p:['El factor de dilución es la razón entre concentraciones, aquí 20, y el volumen de madre es el final dividido entre ese factor. Al convertir entre unidades hace falta la <b>densidad de la disolución</b>, no la del soluto ni la del disolvente, y ese dato olvidado es el origen de muchos errores de preparación.']},
+   {p:['Un detalle que se pregunta tal cual: en <b>0.0500 M hay tres cifras significativas</b>. Los ceros a la izquierda del primer dígito distinto de cero solo sitúan el punto decimal; los de la derecha, con punto decimal presente, sí comunican precisión.']}
+  ,
+   {form:[
+ ['M = n / V','<b>Molaridad</b>: moles de soluto por litro de disolución.','n en mol, V en L, M en mol/L'],
+ ['m = n / kg<sub>disolvente</sub>','<b>Molalidad</b>: no cambia con la temperatura, a diferencia de la molaridad.','m en mol/kg'],
+ ['C₁V₁ = C₂V₂','<b>Dilución</b>: los moles se conservan al añadir disolvente.','C en cualquier unidad, igual en ambos lados'],
+ ['ppm = mg soluto / kg disolución','<b>Partes por millón</b>. En disolución acuosa diluida, 1 ppm ≈ 1 mg/L.','ppb = µg/kg; 1 ppm = 1000 ppb'],
+ ['% m/m = (m<sub>soluto</sub>/m<sub>disolución</sub>) × 100','<b>Porcentaje en masa</b>. El denominador es la disolución, no el disolvente.','adimensional'],
+ ['N = M × n<sub>eq</sub>','<b>Normalidad</b>: equivalentes por litro. n<sub>eq</sub> es protones, hidroxilos o electrones intercambiados.','N en eq/L']
+]},
+   {prob:{t:'Preparar una disolución por dilución en serie',
+ d:'Partes de HCl concentrado 12.0 M y necesitas 250 mL de HCl 0.0150 M. Material disponible: matraces aforados de 100, 250 y 500 mL y pipetas de 1, 5 y 10 mL.',
+ p:['Calcula el volumen de madre necesario en un solo paso: V₁ = C₂V₂/C₁ = (0.0150 × 250)/12.0 = <b>0.3125 mL</b>.',
+    'Ese volumen no se puede medir con exactitud con el material disponible, así que hay que diluir en dos etapas. El factor de dilución total es 12.0/0.0150 = 800.',
+    'Reparte el factor: 800 = 40 × 20. Primera etapa, de 12.0 M a 0.300 M: toma 5.00 mL con pipeta y lleva a 200 mL… como no hay aforado de 200, usa 2.50 mL a 100 mL, que también da factor 40.',
+    'Primera etapa: 2.50 mL de 12.0 M llevados a 100 mL ⇒ C = 12.0 × (2.50/100) = <b>0.300 M</b>.',
+    'Segunda etapa, factor 20: V₁ = (0.0150 × 250)/0.300 = <b>12.5 mL</b> de la intermedia llevados a 250 mL.'],
+ r:'Dos etapas: 2.50 mL de madre a 100 mL, y de ahí 12.5 mL a 250 mL. Concentración final 0.0150 M.',
+ x:'El factor de dilución total es el <b>producto</b> de los factores de cada etapa, no su suma. Y la incertidumbre relativa también se acumula: cada etapa añade la suya en cuadratura, así que repartir en dos pasos razonables es mejor que forzar una medida de 0.31 mL con una pipeta de 1 mL.'}}]},
+  {t:'Exactitud, precisión y tratamiento del dato',b:[
+   {p:['<b>Exactitud</b> es cercanía al valor verdadero; <b>precisión</b> es cercanía entre réplicas. Son independientes, y la combinación observada dice qué error domina y por tanto qué hacer.']},
+   {tabla:{th:['Lo que observas','Error dominante','Qué procede'],tr:[
+     ['Réplicas muy juntas pero desviadas del certificado','Sistemático','Material de referencia, adición de estándar, método independiente. <b>Promediar más réplicas no lo corrige</b>'],
+     ['Réplicas dispersas con media correcta','Aleatorio','Aumentar n: la desviación de la media baja con √n'],
+     ['Un valor suelto muy alejado','Grosero','Prueba Q de Dixon, con criterio fijado <b>de antemano</b>'],
+     ['Dos métodos independientes discrepan','Interferencia específica','Buscar la causa en cada uno. Promediar oculta el problema']]}},
+   {p:['Ejemplo típico: el analista A obtiene 4.52, 4.51 y 4.53 sobre un certificado de 4.50, y el B obtiene 4.38, 4.71 y 4.49. A es preciso y exacto. B acierta en promedio pero su rango de 0.33 delata error aleatorio grande. Que el rango de B «cubra» el valor real no es criterio de confiabilidad.']},
+   {p:['Un método con <b>103 % de recuperación reproducible</b> tiene sesgo, no ruido: hay que encontrar la fuente, porque repetir no lo moverá. Ante un valor atípico como el 11.8 en la serie 10.2, 10.3, 10.1, 10.2, la prueba Q compara su distancia al vecino más próximo contra el rango total, y el criterio debe declararse antes de mirar los datos. Descartar porque un dato incomoda es mala práctica; conservar un error grosero evidente también distorsiona.']},
+   {p:['Cifras significativas: en <b>suma y resta</b> manda el menor número de decimales, así que 12.11 + 8.4 + 1.234 = 21.7 porque el 8.4 solo tiene uno. En <b>multiplicación y división</b> manda el menor número de cifras significativas. Son dos reglas distintas y confundirlas es el error de cálculo más barato de evitar.']}
+  ,
+   {form:[
+ ['x̄ = Σxᵢ / n','<b>Media aritmética</b>: estimador de la exactitud frente al valor verdadero.',''],
+ ['s = √[ Σ(xᵢ − x̄)² / (n − 1) ]','<b>Desviación estándar muestral</b>: estimador de la precisión. El n−1 son los grados de libertad.','mismas unidades que x'],
+ ['RSD = (s / x̄) × 100','<b>Desviación estándar relativa</b> o coeficiente de variación. Permite comparar precisiones entre magnitudes distintas.','en %'],
+ ['Q = |x<sub>sosp</sub> − x<sub>vecino</sub>| / (x<sub>máx</sub> − x<sub>mín</sub>)','<b>Prueba Q de Dixon</b> para un dato sospechoso. Se descarta si Q &gt; Q<sub>crítico</sub> tabulado.','adimensional'],
+ ['IC = x̄ ± t·s/√n','<b>Intervalo de confianza</b> de la media. t depende del nivel de confianza y de n−1.',''],
+ ['LOD = 3σ<sub>blanco</sub> / m','<b>Límite de detección</b>; m es la pendiente de la calibración. El LOQ usa 10σ en vez de 3σ.','mismas unidades que la concentración'],
+ ['E<sub>rel</sub> = (x<sub>medido</sub> − x<sub>verdadero</sub>)/x<sub>verdadero</sub>','<b>Error relativo</b>. Un sesgo constante en todas las réplicas indica error sistemático.','en % si se multiplica por 100']
+]},
+   {prob:{t:'Aplicar la prueba Q y reportar con su intervalo',
+ d:'Cinco réplicas de hierro en un material certificado: 10.2, 10.3, 10.1, 10.2 y 11.8 mg/L. Q crítico para n = 5 al 95 % es 0.710. t para 4 grados de libertad al 95 % es 2.776.',
+ p:['Ordena los datos: 10.1, 10.2, 10.2, 10.3, 11.8. El sospechoso es 11.8 y su vecino más próximo es 10.3.',
+    'Rango total = 11.8 − 10.1 = <b>1.7</b>.',
+    'Q = |11.8 − 10.3| / 1.7 = 1.5/1.7 = <b>0.88</b>.',
+    'Como 0.88 &gt; 0.710, el dato se descarta con el criterio declarado de antemano.',
+    'Con los cuatro restantes: x̄ = (10.1+10.2+10.2+10.3)/4 = <b>10.20 mg/L</b>.',
+    's = √[((0.01)+(0)+(0)+(0.01))/3] = √(0.02/3) = <b>0.082 mg/L</b>; RSD = 0.80 %.',
+    'IC = 10.20 ± 2.776 × 0.082/√4 = 10.20 ± <b>0.11 mg/L</b>.'],
+ r:'Se reporta 10.20 ± 0.11 mg/L (n = 4, 95 %), declarando que se descartó un valor por la prueba Q.',
+ x:'El criterio estadístico debe fijarse <b>antes</b> de ver los datos. Y al recalcular tras descartar, cambian n, s y los grados de libertad de t: usar el t de n = 5 sobre cuatro datos subestima el intervalo.'}}]},
+  {t:'Volumetría, buffers y equilibrios en disolución',b:[
+   {p:['Titular es contar moles mediante una reacción de estequiometría conocida. Dos conceptos que no son sinónimos: el <b>punto de equivalencia</b> es estequiométrico y teórico; el <b>punto final</b> es lo que se observa con el indicador. Su diferencia es el error de titulación.']},
+   {p:['El pH en la equivalencia <b>solo vale 7 si ambos son fuertes</b>. Ácido débil con base fuerte deja la base conjugada, que hidroliza: pH mayor que 7, y exige fenolftaleína (vira 8.2–10). Usar naranja de metilo (3.1–4.4) en ese caso hace virar el indicador mucho antes de la equivalencia, el volumen registrado es menor que el correcto y la concentración sale <b>subestimada</b>. El sesgo es sistemático y siempre en la misma dirección, así que repetir no lo revela.']},
+   {eq:'pH = pKa + log([A⁻]/[HA])     ·     en la semiequivalencia [A⁻] = [HA] ⇒ pH = pKa'},
+   {fig:FIG.titulacion},
+   {p:['La curva de titulación tiene cuatro regiones. Antes de titulante, el pH lo fija el analito solo. En la zona intermedia, si el analito es débil, coexisten ácido y base conjugada: es la <b>meseta tampón</b>, donde la pendiente es mínima porque añadir titulante solo cambia la razón entre ambas formas. En la equivalencia ocurre el salto más brusco. Después manda el exceso de titulante.']},
+   {p:['De ahí dos lecturas prácticas. El punto de semiequivalencia da <b>el pKa leído directamente</b> de una curva experimental. Y para elegir tampón se busca un ácido cuyo <b>pKa esté a menos de una unidad del pH objetivo</b>: para amortiguar a pH 9.2, el amonio con pKa 9.25 funciona y el acético con 4.76 no, por muy débil que sea, porque exigiría una razón extrema entre las dos formas donde el sistema ya casi no amortigua.']},
+   {p:['Cuando un buffer de acetato a pH igual a su pKa recibe una pequeña adición de HCl, el acetato capta los protones y se convierte en ácido acético. La razón entre las dos formas cambia poco, el logaritmo cambia aún menos, y <b>el pH baja muy poco</b>. El tampón solo se agota cuando una de las dos formas se consume.']},
+   {p:['En <b>volumetría de precipitación</b>, el método de Mohr determina cloruro con plata usando cromato como indicador. La estequiometría es <b>1 a 1</b> porque el AgCl se forma mol a mol, y el cromato solo precipita, rojizo, cuando el cloruro se agotó. En <b>complexometría</b>, el EDTA forma complejos 1:1 sin importar la carga del metal, porque es hexadentado y ocupa por sí solo las seis posiciones de coordinación.']},
+   {deep:{t:'Por qué el EDTA exige tampón y por qué Nernst cambia con la temperatura',b:[
+     {p:['<b>EDTA.</b> Es un ácido tetraprótico y solo la especie completamente desprotonada, Y⁴⁻, forma el complejo. Al bajar el pH esa fracción se desploma y con ella la constante condicional de formación, de modo que el salto en el punto final se difumina. A pH 5 muchos complejos ya no se forman de manera cuantitativa. Por eso cada valoración con EDTA especifica su pH de trabajo y se realiza tamponada.'],},
+     {eq:'E = E° − (RT/nF)·ln Q      (teórica)        E = E° − (0.0592/n)·log Q      (práctica a 25 °C)'},
+     {p:['<b>Nernst.</b> El 0.0592 V es (2.303·R·298.15)/F: lleva dentro la temperatura de 25 °C y el factor que convierte logaritmo natural en decimal. A 37 °C el coeficiente sube a <b>0.0616 V</b>, es decir la pendiente de un electrodo selectivo pasa de 59 a 62 mV por década. Calibrar a 25 °C y medir a 37 sin recalibrar introduce un sesgo sistemático que crece cuanto más lejos esté la muestra del punto de calibración.'],},
+     {p:['Y la trampa de unidades: usar 0.0592 con un logaritmo natural, o RT/F con uno decimal, deja el resultado mal por un factor de 2.303.']}
+   ]}}
+  ,
+   {form:[
+ ['pH = pK<sub>a</sub> + log([A⁻]/[HA])','<b>Henderson-Hasselbalch</b>. Capacidad máxima en pH = pK<sub>a</sub>, útil en pK<sub>a</sub> ± 1.',''],
+ ['pH = −log[H₃O⁺]  ·  pK<sub>w</sub> = pH + pOH = 14.00','<b>Escala de pH</b> a 25 °C.',''],
+ ['[H₃O⁺] = √(K<sub>a</sub>·C)','<b>Ácido débil monoprótico</b>, válido si la disociación es menor al 5 %.','C en mol/L'],
+ ['K<sub>a</sub> · K<sub>b</sub> = K<sub>w</sub>','Relación entre un ácido y su <b>base conjugada</b>.','K<sub>w</sub> = 1.0×10⁻¹⁴ a 25 °C'],
+ ['M<sub>A</sub>V<sub>A</sub>·n<sub>A</sub> = M<sub>B</sub>V<sub>B</sub>·n<sub>B</sub>','<b>Punto de equivalencia</b>; n es el número de protones intercambiados por fórmula.',''],
+ ['α<sub>Y⁴⁻</sub> · K<sub>f</sub> = K<sub>f</sub>′','<b>Constante condicional</b> del EDTA. α depende fuertemente del pH y es lo que hace difuso el punto final en medio ácido.','']
+]},
+   {prob:{t:'Diseñar un buffer y verificar su capacidad',
+ d:'Se necesitan 500 mL de buffer a pH 4.50. Disponibles: ácido acético 1.00 M (pK<sub>a</sub> = 4.76) y acetato de sodio sólido (M = 82.03 g/mol). La concentración total de buffer debe ser 0.200 M.',
+ p:['De Henderson-Hasselbalch: log([A⁻]/[HA]) = pH − pK<sub>a</sub> = 4.50 − 4.76 = <b>−0.26</b>.',
+    'Razón: [A⁻]/[HA] = 10^(−0.26) = <b>0.550</b>. Hay más ácido que base, coherente con estar por debajo del pK<sub>a</sub>.',
+    'Con [A⁻] + [HA] = 0.200 M: [HA](1 + 0.550) = 0.200 ⇒ [HA] = <b>0.129 M</b> y [A⁻] = <b>0.0710 M</b>.',
+    'Volumen de ácido: n = 0.129 × 0.500 = 0.0645 mol ⇒ V = 0.0645/1.00 = <b>64.5 mL</b>.',
+    'Masa de acetato: n = 0.0710 × 0.500 = 0.0355 mol ⇒ m = 0.0355 × 82.03 = <b>2.91 g</b>.'],
+ r:'64.5 mL de ácido acético 1.00 M más 2.91 g de acetato de sodio, aforado a 500 mL.',
+ x:'El pH queda a 0.26 unidades del pK<sub>a</sub>, bien dentro del intervalo útil de ±1. Si el objetivo hubiera sido pH 6.5, la razón exigida sería de 55 a 1 y el sistema prácticamente no amortiguaría, aunque el pH nominal se alcanzara.'}}]},
+  {t:'Análisis instrumental: espectroscopía y separaciones',b:[
+   {p:['La ley de Beer-Lambert sale de integrar una absorción fraccional constante a lo largo del camino óptico: es un decaimiento exponencial en el espacio, y por eso la absorbancia, que es un logaritmo, resulta lineal con la concentración.']},
+   {eq:'A = ε·b·c         LOD ≈ 3σ_blanco / pendiente         LOQ ≈ 10σ_blanco / pendiente'},
+   {ul:['<b>Intervalo de trabajo: A entre 0.1 y 1.0.</b> Por encima la linealidad se pierde por luz parásita, anchura de banda finita e interacción entre absorbentes, y el detector recibe muy poca luz. Ante una lectura de A = 1.85 lo que procede es <b>diluir</b>, no extrapolar la calibración.',
+        'Medir en el máximo de absorción: ahí ε varía poco dentro de la banda del monocromador y la sensibilidad es máxima.',
+        'Para bajar el LOD solo hay dos palancas: subir la pendiente o <b>bajar el ruido del blanco</b>. Más réplicas mejoran la precisión de una medida pero no desplazan el umbral de detección.',
+        'Entre LOD y LOQ corresponde reportar que el analito se detectó pero no se cuantifica, nunca el número crudo.']},
+   {p:['Un <b>R² de 0.9998 no descarta sesgo</b>. El coeficiente mide lo bien que los estándares se ajustan a una recta, nada más. Si la matriz de la muestra realza o suprime la señal respecto a los estándares en disolvente puro, el ajuste sigue siendo excelente y el resultado sale desviado: eso es <b>efecto de matriz</b>, y se resuelve con adición de estándar, que calibra dentro de la propia muestra.']},
+   {p:['En espectroscopía atómica la elección es de alcance. La <b>AAS de llama</b> es esencialmente monoelemental: hay que cambiar de lámpara para cada analito y llega a partes por millón. El <b>ICP</b> excita todos los elementos a la vez en el plasma, y acoplado a espectrometría de masas alcanza partes por billón. Para diez metales traza en agua, la diferencia en tiempo y en sensibilidad decide.']},
+   {tabla:{th:['Parámetro cromatográfico','Expresión','Lectura'],tr:[
+     ['Factor de retardo','Rf = d_analito / d_frente','Capa fina. Entre 0 y 1; zona útil 0.3–0.7'],
+     ['Factor de retención','k′ = (t_R − t_M)/t_M','<b>Restar el tiempo muerto</b> es el paso que más se omite'],
+     ['Selectividad','α = k′₂/k′₁','Siempre ≥ 1. Mide si los dos picos se separan en absoluto'],
+     ['Resolución','R = 2(t_R2 − t_R1)/(w₁ + w₂)','R ≥ 1.5 es separación completa a línea base'],
+     ['Eficiencia','N = 16(t_R/w)²','Platos teóricos: cuánto ensancha la columna']]}},
+   {p:['Ejemplo de la trampa de k′: un pico que sale a 9.0 min con tiempo muerto de 1.5 min tiene k′ = (9.0 − 1.5)/1.5 = 5.0. Reportar 6.0 equivale a calcular 9.0/1.5, es decir olvidar la resta.']},
+   {p:['Y el ajuste más común en capa fina: si dos manchas salen con Rf de 0.72 y 0.75 y no se separan, es porque a Rf alto los analitos pasan casi todo el tiempo en la fase móvil y apenas interactúan con la estacionaria, que es donde ocurre la discriminación. <b>Bajando la polaridad del eluyente</b> se los lleva a la zona media, donde el reparto entre fases sí los separa.']}
+  ,
+   {fig:FIG.cromatogramas},
+   {form:[
+ ['A = ε · b · c','<b>Ley de Beer-Lambert</b>. Lineal solo en el intervalo de A ≈ 0.1 a 1.0.','ε en L·mol⁻¹·cm⁻¹, b en cm, c en mol/L'],
+ ['A = −log(T) = −log(I/I₀)','Relación entre <b>absorbancia y transmitancia</b>. T = 0.01 equivale a A = 2.',''],
+ ["k′ = (t<sub>R</sub> − t<sub>M</sub>) / t<sub>M</sub>",'<b>Factor de retención</b>. El óptimo práctico está entre 2 y 10.','adimensional; t<sub>M</sub> es el tiempo muerto'],
+ ['α = k′₂ / k′₁','<b>Selectividad</b> del par. Si α = 1 no hay separación posible por mucho que se alargue la columna.','adimensional'],
+ ['R<sub>s</sub> = 2(t<sub>R2</sub> − t<sub>R1</sub>)/(w₁ + w₂)','<b>Resolución</b>. R<sub>s</sub> ≥ 1.5 es separación a línea base.','w es el ancho de pico en la base'],
+ ['N = 16 (t<sub>R</sub>/w)²','<b>Número de platos teóricos</b>. Con el ancho a media altura: N = 5.54 (t<sub>R</sub>/w<sub>1/2</sub>)².','adimensional'],
+ ['H = L / N','<b>Altura de plato</b>. La ecuación de van Deemter da H = A + B/u + C·u.','H y L en cm'],
+ ['R<sub>f</sub> = d<sub>mancha</sub> / d<sub>frente</sub>','<b>Factor de retardo</b> en capa fina. Zona útil de trabajo: 0.3 a 0.7.','adimensional']
+]},
+   {prob:{t:'De absorbancia a concentración, con dilución de por medio',
+ d:'Una muestra da A = 1.92, fuera del rango lineal. Se diluye tomando 5.00 mL y llevando a 50.0 mL, y la nueva lectura es A = 0.384. La curva de calibración es A = 0.0240·c con c en mg/L, y la celda es de 1.00 cm.',
+ p:['La primera lectura se descarta: por encima de A ≈ 1 la ley de Beer se desvía por luz parásita y por el poco flujo que llega al detector.',
+    'Con la lectura válida: c<sub>diluida</sub> = A/m = 0.384/0.0240 = <b>16.0 mg/L</b>.',
+    'Factor de dilución: 50.0/5.00 = <b>10</b>.',
+    'c<sub>original</sub> = 16.0 × 10 = <b>160 mg/L</b>.',
+    'Comprobación: con 160 mg/L la absorbancia predicha sería 3.84, lo que confirma que la primera lectura estaba muy fuera del intervalo lineal y que el 1.92 observado ya venía comprimido por la desviación.'],
+ r:'La concentración de la muestra original es 160 mg/L.',
+ x:'Multiplicar por el factor de dilución, no dividir. Y no intentar “rescatar” la lectura de 1.92 extrapolando la curva: la desviación no es un problema de calibración sino de física del instrumento.'}}]},
+  {t:'Gravimetría y análisis redox',b:[
+   {p:['En gravimetría el <b>precipitado es un intermedio analítico</b>: la herramienta con la que se aísla y se pesa el analito. El porcentaje se reporta siempre respecto a la masa de <b>muestra original</b>, porque es ella la que se analiza. Si en un análisis de 0.2711 g de muestra que produce 1.1682 g de precipitado alguien reporta 1.66 % de fósforo en lugar de 7.11 %, lo que hizo fue usar el precipitado como denominador: el resultado baja por un factor de 4.3 sin que el cálculo parezca mal.']},
+   {p:['Se calcina antes de pesar para llevar el precipitado a una forma de <b>composición definida y constante</b>, eliminando agua y especies volátiles. Lo que se busca no es más masa, sino masa cuya fórmula se conozca con certeza, porque el cálculo pasa por su masa molar.']},
+   {p:['Leer subíndices con cuidado: si se obtienen n moles de fósforo, los moles de P₂O₅ son n/2, porque cada molécula lleva dos. La regla general es contar el elemento en la fórmula y multiplicar o dividir según la dirección.']},
+   {p:['En <b>redox la estequiometría sale de igualar electrones</b>, no de los coeficientes aparentes. El MnO₄⁻ pasa de Mn(VII) a Mn(II) ganando cinco electrones y cada Fe²⁺ cede uno, de modo que la relación es 1 a 5. Con 18.40 mL de KMnO₄ 0.0200 M se consumen 3.68×10⁻⁴ mol de permanganato, que corresponden a 1.84×10⁻³ mol de hierro; en 25.00 mL eso da <b>0.0736 M</b>. Usar relación 1:1 daría 0.0147 M, que es justo uno de los distractores.']},
+   {p:['El permanganato en medio ácido es <b>autoindicador</b>: el Mn²⁺ producto es casi incoloro, así que la disolución permanece transparente hasta que sobra permanganato sin reaccionar y la primera gota en exceso la colorea. Por eso la bureta se lee por el borde superior del menisco, que queda oscuro.']}
+  ,
+   {form:[
+ ['% analito = (m<sub>analito</sub> / m<sub>muestra</sub>) × 100','<b>Porcentaje gravimétrico</b>. El denominador es siempre la <b>muestra</b>, nunca el precipitado.','en %'],
+ ['F = (a·M<sub>analito</sub>) / (b·M<sub>precipitado</sub>)','<b>Factor gravimétrico</b>: convierte masa de precipitado en masa de analito. a y b salen de la estequiometría.','adimensional'],
+ ['n<sub>oxidante</sub> · e⁻<sub>ganados</sub> = n<sub>reductor</sub> · e⁻<sub>cedidos</sub>','<b>Balance de electrones</b> en volumetría redox. De ahí sale la relación molar, que casi nunca es 1:1.',''],
+ ['K<sub>ps</sub> = [Aᵐ⁺]ⁿ[Bⁿ⁻]ᵐ','<b>Producto de solubilidad</b>. Precipita cuando Q &gt; K<sub>ps</sub>.',''],
+ ['S = (K<sub>ps</sub>/(nⁿmᵐ))^(1/(n+m))','<b>Solubilidad molar</b> a partir del K<sub>ps</sub> para AₘBₙ.','en mol/L']
+]},
+   {prob:{t:'Determinación gravimétrica de fósforo',
+ d:'Se analizan 0.2711 g de muestra y se obtienen 1.1682 g de fosfomolibdato de amonio seco, (NH₄)₃PO₄·12MoO₃, de masa molar 1876.3 g/mol. Masa atómica del fósforo: 30.974 g/mol.',
+ p:['Moles de precipitado: 1.1682/1876.3 = 6.226×10⁻⁴ mol.',
+    'La estequiometría es <b>1 a 1</b>: cada fórmula del precipitado contiene un átomo de fósforo. Moles de P = 6.226×10⁻⁴ mol.',
+    'Masa de fósforo: 6.226×10⁻⁴ × 30.974 = <b>0.01928 g</b>.',
+    'Porcentaje: (0.01928 / 0.2711) × 100 = <b>7.11 %</b>.',
+    'Por el atajo del factor gravimétrico: F = 30.974/1876.3 = 0.016508, y % = (1.1682 × 0.016508 / 0.2711) × 100 = 7.11 %.'],
+ r:'La muestra contiene 7.11 % de fósforo.',
+ x:'Usar los 1.1682 g del precipitado como denominador da 1.66 %, que es el distractor clásico. El precipitado es el <b>intermedio con el que mides</b>, no el objeto del análisis: el denominador es siempre la masa de muestra pesada al inicio.'}}]}
+ ],
+ flash:[
+  ['¿Qué pH esperas en la equivalencia al titular ácido acético con NaOH?','Mayor que 7. Solo queda acetato, base conjugada de un ácido débil, que hidroliza y libera OH⁻. Pide fenolftaleína.'],
+  ['¿Qué se cumple en el punto de semiequivalencia?','pH = pKa, porque [A⁻] = [HA] y el término logarítmico de Henderson-Hasselbalch se anula. Es la lectura directa del pKa.'],
+  ['Expresiones de LOD y LOQ','LOD ≈ 3σ del blanco / pendiente. LOQ ≈ 10σ / pendiente. El LOQ es siempre mayor; los factores 3 y 10 son convenciones.'],
+  ['Réplicas muy juntas pero todas desviadas del valor certificado: ¿qué error es?','Sistemático. Alta precisión con baja exactitud. No se corrige promediando más réplicas: hay que encontrar la fuente.'],
+  ['Factor de retención en HPLC','k′ = (t_R − t_M)/t_M. Hay que restar el tiempo muerto de la columna; omitirlo es el error típico.'],
+  ['Resolución cromatográfica y su umbral','R = 2(t_R2 − t_R1)/(w₁ + w₂). Con R ≥ 1.5 la separación es completa a línea base.'],
+  ['¿Respecto a qué masa se reporta un porcentaje gravimétrico?','A la masa de la muestra original. El precipitado es solo el intermedio con el que se mide.'],
+  ['Relación estequiométrica MnO₄⁻ : Fe²⁺ en medio ácido','1 a 5. El permanganato gana 5 electrones (Mn VII → Mn II) y cada Fe²⁺ cede 1. Sale de igualar electrones.'],
+  ['¿Por qué el EDTA exige tampón?','Solo la forma Y⁴⁻ completamente desprotonada acompleja. Al bajar el pH esa fracción cae y la constante condicional se desploma.'],
+  ['Cifras significativas: suma frente a multiplicación','En suma y resta manda el menor número de decimales. En multiplicación y división, el menor número de cifras significativas.'],
+  ['Pendiente de un electrodo selectivo a 25 y a 37 °C','59 mV por década a 25 °C y 62 mV a 37 °C. El coeficiente de Nernst lleva la temperatura dentro.'],
+  ['R² alto pero resultados sesgados: ¿qué ocurre?','Efecto de matriz. La linealidad no garantiza exactitud. Se corrige con adición de estándar, que calibra dentro de la muestra.'],
+  ['Intervalo fiable de absorbancia y qué hacer fuera de él','Entre 0.1 y 1.0. Por encima hay que diluir, no extrapolar la calibración.'],
+  ['AAS de llama frente a ICP-MS','AAS: monoelemental, ppm. ICP-MS: multielemental simultáneo y partes por billón.'],
+  ['Dos manchas de TLC con Rf de 0.72 y 0.75 no separan: ¿qué ajustas?','La polaridad del eluyente, para bajarlas a la zona 0.3–0.7 donde sí interactúan con la fase estacionaria.'],
+  ['Estequiometría del método de Mohr','1 a 1 entre Ag⁺ y Cl⁻: el AgCl se forma mol a mol. El cromato solo vira cuando el cloruro se agotó.']
+ ]},
+/* ===================== M3 ===================== */
+{id:'M3',nom:'Química orgánica, bioquímica y nanomedicina',sesion:'Sesión 4 del taller',
+ sub:'Estructura y estereoquímica, grupos funcionales, los cuatro mecanismos que explican casi todo, macromoléculas, enzimas y biología molecular.',
+ sec:[
+  {t:'Estructura: hibridación, geometría y sus consecuencias',b:[
+   {p:['Un solo procedimiento da hibridación, geometría y ángulos de una vez: contar regiones de densidad electrónica alrededor del átomo central, sumando enlaces (sencillo, doble o triple cuentan uno cada uno) y pares libres.']},
+   {tabla:{th:['Regiones','Hibridación','Geometría','Ángulo','Carácter s'],tr:[
+     ['4','sp³','Tetraédrica','109.5°','25 %'],
+     ['3','sp²','Trigonal plana','120°','33 %'],
+     ['2','sp','Lineal','180°','50 %']]}},
+   {p:['De la última columna sale una cadena que el examen recorre entera. Más carácter s significa orbital más concentrado cerca del núcleo, enlace <b>más corto y más fuerte</b>, y mayor electronegatividad efectiva del carbono. Por eso la longitud del enlace carbono-carbono baja de sencillo a doble a triple.']},
+   {p:['Y por eso la <b>acidez crece en el orden etano &lt; eteno &lt; etino</b>. La acidez refleja la estabilidad de la base conjugada: el carbanión del alquino aloja su par libre en un orbital sp con 50 % de carácter s, mucho más estable que el sp³ del alcano. No es que el alquino tenga «menos hidrógenos»: es dónde queda el par cuando se va el protón.']},
+   {p:['Advertencia que se pregunta siempre: <b>enlaces polares no implica molécula polar</b>. El CCl₄ tiene cuatro enlaces muy polares y momento dipolar nulo, porque la geometría tetraédrica simétrica cancela los vectores. El CHCl₃ sí es polar porque sustituir un cloro rompe la simetría. El momento dipolar molecular es una suma vectorial, así que primero se determina la geometría y después se suma.']},
+   {p:['La misma lógica explica la <b>solubilidad</b>. Butanol y butano tienen masas parecidas, pero el butanol se disuelve en agua y el butano no: el grupo hidroxilo dona y acepta puentes de hidrógeno, de modo que puede sustituir las interacciones agua-agua que desplaza. La cadena del butano solo ofrece fuerzas de London y obliga al agua a reorganizarse a su alrededor con costo entrópico.']}
+  ,
+   {form:[
+ ['GI = (2C + 2 + N − H − X)/2','<b>Grados de insaturación</b>. Cada anillo o enlace pi suma uno; un triple suma dos.','C, N, H, X son conteos de átomos'],
+ ['Carácter s = 1/(1+n) para spⁿ','sp = 50 %, sp² = 33 %, sp³ = 25 %. Más carácter s acerca el par al núcleo: enlace más corto y mayor acidez.',''],
+ ['µ = Σ µ<sub>enlace</sub> (suma vectorial)','<b>Momento dipolar molecular</b>. Una geometría simétrica lo anula aunque los enlaces sean muy polares.','en debyes (D)'],
+ ['PE = σ + π','Regla práctica: la <b>geometría electrónica</b> la fijan los dominios totales; la <b>molecular</b> solo los enlazantes.','']
+]},
+   {prob:{t:'Deducir la estructura a partir de la fórmula y el espectro',
+ d:'Un compuesto tiene fórmula C₈H₈O₂. En el infrarrojo presenta una banda ancha centrada en 3000 cm⁻¹ y otra intensa a 1690 cm⁻¹.',
+ p:['Grados de insaturación: GI = (2×8 + 2 − 8)/2 = (16 + 2 − 8)/2 = <b>5</b>. El oxígeno no entra en la fórmula.',
+    'Cinco insaturaciones con ocho carbonos apunta de inmediato a un <b>anillo aromático</b>, que por sí solo aporta cuatro: tres enlaces pi más un anillo.',
+    'Queda <b>una insaturación</b> para el resto de la molécula.',
+    'La banda ancha en 3000 cm⁻¹ es un OH asociado por puentes de hidrógeno y la intensa a 1690 cm⁻¹ un carbonilo: juntas son la firma del <b>ácido carboxílico</b>, que consume justamente esa insaturación restante y los dos oxígenos.',
+    'Balance: C₆H₅– (anillo) + –COOH (ácido) = C₇H₆O₂. Falta un CH₂, así que la estructura es C₆H₅–CH₂–COOH.'],
+ r:'Ácido fenilacético, C₆H₅CH₂COOH.',
+ x:'El carbonilo del ácido aparece hacia 1710 cm⁻¹ y el de una amida más abajo, hacia 1650. El valor de 1690 está desplazado por <b>conjugación con el anillo</b>, lo que es información adicional, no una contradicción.'}}]},
+  {t:'Isomería, quiralidad y por qué importa en fármacos',b:[
+   {ul:['<b>Constitucional</b>: distinto orden de conexión. Incluye isomería de cadena, de posición y de función. El C₂H₆O tiene dos isómeros de función: etanol y dimetil éter.',
+        '<b>Diastereómeros</b>: misma conectividad, distinta disposición espacial, pero <b>no</b> son imágenes especulares. Propiedades físicas distintas, así que se separan por métodos convencionales.',
+        '<b>Enantiómeros</b>: imágenes especulares no superponibles. Propiedades físicas <b>idénticas</b> salvo el signo de la rotación óptica, y comportamiento distinto solo frente a otras moléculas quirales.']},
+   {p:['De ahí un diagnóstico directo: dos isómeros que funden a <b>132 y 158 °C</b> y ambos son ópticamente activos no pueden ser enantiómeros, porque esos comparten punto de fusión. Son <b>diastereómeros</b>. Y un compuesto con dos centros estereogénicos que no desvía la luz es una <b>forma meso</b>: tiene plano de simetría interno y es superponible con su imagen especular.']},
+   {p:['Para asignar configuración se usan las reglas CIP: prioridades por número atómico, el sustituyente de menor prioridad hacia atrás, y el giro de 1 a 2 a 3 da R si es horario y S si es antihorario. Conviene recordar que <b>R y S no predicen el signo de la rotación óptica</b>: no hay correspondencia sistemática, y el signo se mide en el polarímetro.']},
+   {deep:{t:'Por qué la quiralidad decide si un fármaco cura o daña',b:[
+     {p:['El entorno biológico es quiral: las proteínas están hechas de L-aminoácidos y los ácidos nucleicos de D-azúcares. Un sitio de unión tiene una forma tridimensional definida, y encajar en él es como meter una mano en un guante.'],},
+     {p:['La consecuencia es que <b>cada enantiómero puede actuar sobre un blanco distinto</b>: uno da el efecto terapéutico y el otro se une a otro receptor o se metaboliza por otra vía y genera toxicidad. Un racémico que produce el efecto buscado más una toxicidad inesperada se explica casi siempre así, y no por solubilidad ni por degradación, porque en entorno aquiral las propiedades de ambos son idénticas.'],},
+     {p:['El caso que cambió la regulación farmacéutica mundial fue la talidomida, comercializada como mezcla racémica: un enantiómero tenía la actividad sedante y el otro resultó teratogénico.'],},
+     {p:['Por eso, para fabricar un solo enantiómero, la ruta con mejor economía atómica es la <b>síntesis asimétrica con catalizador quiral</b>, que construye preferentemente el deseado. Resolver un racémico por cristalización o por cromatografía quiral funciona, pero descarta al menos la mitad del material que ya se fabricó.'],},
+     {p:['Matiz que complica el asunto: algunos enantiómeros se interconvierten in vivo por racemización enzimática, de modo que administrar solo el activo no garantiza que el organismo no genere el otro.']}
+   ]}}
+  ]},
+  {t:'Los cuatro mecanismos y el árbol de decisión',b:[
+   {p:['SN1, SN2, E1 y E2 compiten por el mismo sustrato. Cuatro variables deciden, y conviene revisarlas en ese orden.']},
+   {tabla:{th:['Variable','SN2','SN1 / E1','E2'],tr:[
+     ['Sustrato','Primario','Terciario','Terciario'],
+     ['Nucleófilo o base','Nucleófilo fuerte, poco básico','Nucleófilo débil: agua, alcohol','Base fuerte y voluminosa'],
+     ['Disolvente','Aprótico polar: DMSO, acetona','Prótico polar: agua, etanol','—'],
+     ['Temperatura','Baja','—','Alta: ΔS favorece']]}},
+   {p:['Dos casos que resumen la tabla. Un <b>halogenuro terciario en agua</b>, sin base añadida, a temperatura ambiente: el impedimento estérico bloquea el ataque por detrás, el carbocatión terciario es estable y el agua es nucleófilo débil y disolvente prótico. Son las condiciones canónicas de <b>SN1</b>. En cambio, <b>2-bromobutano con etóxido de sodio a 70 °C</b>: el etóxido es base fuerte, no solo nucleófilo, y la eliminación produce más partículas y mayor entropía, que el término TΔS favorece al calentar. Domina <b>E2</b> y sale alqueno.']},
+   {p:['El dato estereoquímico cierra el diagnóstico. <b>SN2 da inversión completa</b>, porque el nucleófilo entra por la cara opuesta en un paso concertado. <b>SN1 pasa por un carbocatión plano</b> atacable por ambas caras, así que un sustrato ópticamente puro como el 2-butanol da una <b>mezcla casi racémica</b>, con un ligero exceso del invertido porque el grupo saliente estorba una cara mientras se aleja.']},
+   {p:['En <b>adición a alquenos</b>, la hidratación en medio ácido coloca el hidroxilo en el <b>carbono más sustituido</b>, porque el protón se adiciona primero generando el carbocatión más estable y el agua ataca ahí. Eso es Markovnikov visto por su mecanismo, no como receta. Pero <b>con peróxidos el HBr cambia a mecanismo radicalario</b> y la regioselectividad se invierte: el mismo alqueno en un frasco limpio y en otro contaminado da productos distintos.']},
+   {p:['En <b>aromáticos</b> el sustituyente presente decide dónde entra el siguiente. Los donadores por resonancia (OH, OR, NH₂) y los alquilos activan el anillo y dirigen a orto y para. Los atractores (NO₂, CN, carbonilos) desactivan y dirigen a meta: nitrar un anillo que ya lleva un nitro es <b>más lento y da meta</b>. Los halógenos son el caso mixto: desactivan por inducción pero dirigen orto-para porque sus pares libres estabilizan el ion arenio solo en esas posiciones.']}
+  ]},
+  {t:'Macromoléculas: polímeros y sus transiciones',b:[
+   {p:['Dos formas de crecer. La <b>adición</b> suma monómeros insaturados sin perder átomos, por mecanismo en cadena, y las cadenas alcanzan su peso final casi de inmediato: lo que aumenta con el tiempo es cuántas hay. La <b>condensación</b> libera una molécula pequeña y crece por pasos. El nailon 6,6 se forma de una diamina y un diácido liberando <b>agua</b> en cada enlace amida.']},
+   {p:['La diferencia mecanística tiene una consecuencia que se pregunta: en crecimiento por pasos cualquier par de moléculas con grupos complementarios puede unirse, y el peso molecular medio solo se dispara en el último tramo de conversión, según la ecuación de Carothers. Una policondensación detenida al <b>92 % da peso molecular bajo</b>, porque el sistema aún está lleno de oligómeros. Por eso el control estequiométrico es crítico en condensación y casi irrelevante en adición.']},
+   {p:['Un polímero no tiene <i>un</i> peso molecular sino una distribución. La <b>polidispersidad</b> es la razón entre el promedio en peso y el promedio en número, y mide la <b>anchura de esa distribución</b>: dos materiales pueden compartir promedio y diferir mucho en homogeneidad, lo que cambia propiedades mecánicas y de procesado.']},
+   {tabla:{th:['','Tm','Tg'],tr:[
+     ['Orden de la transición','Primero','Segundo'],
+     ['Fase donde ocurre','Regiones cristalinas','Fase amorfa'],
+     ['Señal en DSC','Pico endotérmico','Escalón en la línea base'],
+     ['¿La ve el TGA?','No, salvo degradación','<b>No</b>: no hay cambio de masa']]}},
+   {p:['De ahí el diagnóstico: un polímero con <b>escalón en DSC a 105 °C y ningún pico endotérmico</b> es <b>amorfo</b>, porque sin regiones cristalinas no hay nada que fundir. Y si el TGA no registra nada antes de la degradación, es consistente: la transición vítrea no implica cambio de masa.']},
+   {p:['Un éster hidrolizado en <b>medio básico</b> da la sal del ácido y el alcohol, y el proceso se llama <b>saponificación</b>. Es irreversible, a diferencia de la hidrólisis ácida, porque el carboxilato desprotonado ya no puede volver atrás. De ahí su uso para fabricar jabones a partir de triglicéridos.']}
+  ,
+   {form:[
+ ['X̄<sub>n</sub> = 1/(1 − p)','<b>Ecuación de Carothers</b> para crecimiento por pasos. p es la conversión de grupos funcionales.','adimensional'],
+ ['M̄<sub>n</sub> = Σn<sub>i</sub>M<sub>i</sub> / Σn<sub>i</sub>','<b>Masa promedio en número</b>: la media aritmética por cadena.','en g/mol'],
+ ['M̄<sub>w</sub> = Σn<sub>i</sub>M<sub>i</sub>² / Σn<sub>i</sub>M<sub>i</sub>','<b>Masa promedio en peso</b>: pondera por masa, así que siempre M̄<sub>w</sub> ≥ M̄<sub>n</sub>.','en g/mol'],
+ ['Đ = M̄<sub>w</sub> / M̄<sub>n</sub>','<b>Polidispersidad</b>. Đ = 1 es monodisperso; la policondensación ideal tiende a Đ = 2.','adimensional'],
+ ['T<sub>g</sub> ≈ T<sub>g∞</sub> − K/M̄<sub>n</sub>','<b>Ecuación de Fox-Flory</b>: las cadenas cortas tienen más extremos libres y bajan la T<sub>g</sub>.','T en K'],
+ ['1/T<sub>g</sub> = w₁/T<sub>g1</sub> + w₂/T<sub>g2</sub>','<b>Regla de Fox</b> para mezclas y copolímeros; w son fracciones másicas.','T en K']
+]},
+   {prob:{t:'Cuánta conversión hace falta para un polímero útil',
+ d:'Una policondensación estequiométrica de diácido y diamina, con masa de unidad repetitiva de 226 g/mol. Se requiere M̄<sub>n</sub> de al menos 20 000 g/mol para que el material tenga propiedades mecánicas útiles.',
+ p:['Grado de polimerización necesario: X̄<sub>n</sub> = 20 000/226 = <b>88.5</b>, redondeando a 89.',
+    'De Carothers, X̄<sub>n</sub> = 1/(1 − p) ⇒ p = 1 − 1/X̄<sub>n</sub> = 1 − 1/88.5 = <b>0.9887</b>.',
+    'Es decir, hace falta una conversión del <b>98.87 %</b> de los grupos funcionales.',
+    'Compara con 92 % de conversión: X̄<sub>n</sub> = 1/0.08 = 12.5, apenas 2 800 g/mol. Un oligómero quebradizo.',
+    'Y con 99.9 %: X̄<sub>n</sub> = 1000, es decir 226 000 g/mol.'],
+ r:'Se necesita 98.9 % de conversión. El peso molecular solo se dispara en el último 2 % de la reacción.',
+ x:'Esa sensibilidad extrema explica dos exigencias industriales de la policondensación: <b>estequiometría exactísima</b> (un exceso del 1 % de un monómero limita X̄<sub>n</sub> a unos 200) y <b>eliminación eficaz del subproducto</b>, porque el equilibrio frena la conversión justo donde más duele.'}}]},
+  {t:'Bioquímica: enzimas, proteínas y ácidos nucleicos',b:[
+   {eq:'v = Vmax[S]/(Km + [S])     ·     cuando [S] = Km ⇒ v = Vmax/2'},
+   {fig:FIG.michaelis},
+   {p:['La curva recorre dos regímenes. A <b>[S] muy por debajo de Km</b> el denominador se aproxima a Km y la velocidad crece proporcionalmente al sustrato: comportamiento de <b>primer orden</b>. A <b>[S] muy por encima de Km</b> el denominador se aproxima a [S] y la velocidad se estanca en Vmax: comportamiento de <b>orden cero</b>, porque toda la enzima está ocupada y añadir más sustrato no cambia nada.']},
+   {tabla:{th:['Inhibidor','Dónde se une','Vmax','Km aparente','¿Se vence con más sustrato?'],tr:[
+     ['Competitivo','Sitio activo','Igual','Sube','Sí'],
+     ['No competitivo','Otro sitio','<b>Baja</b>','Igual','No']]}},
+   {p:['Un inhibidor que baja Vmax un 40 % y deja Km intacto es <b>no competitivo</b>: reduce la cantidad de enzima funcional y duplicar el sustrato no lo desplaza, porque no compiten por el mismo lugar.']},
+   {p:['Una proteína que pierde actividad a 70 °C <b>conservando su secuencia</b> se <b>desnaturalizó</b>: los enlaces peptídicos siguen intactos y lo que se deshizo es la estructura tridimensional sostenida por puentes de hidrógeno, interacciones hidrofóbicas y puentes disulfuro. Como la función depende de la forma del sitio activo, la actividad desaparece aunque la cadena esté completa.']},
+   {p:['En ácidos nucleicos, el par <b>G-C forma tres puentes de hidrógeno</b> y el A-T solo dos, así que una secuencia rica en guanina y citosina exige más energía para separarse y su temperatura de fusión es mayor. Es la base de calcular la Tm de un cebador a partir de su composición.']},
+   {p:['Y en <b>PCR la especificidad la definen los cebadores</b>, que delimitan por complementariedad la región que se copia. El magnesio, la temperatura de hibridación y el número de ciclos afectan la eficiencia y el rigor, y mal ajustados generan productos inespecíficos, pero no deciden qué secuencia es el blanco.']},
+   {p:['Para identificar grupos funcionales por infrarrojo, la combinación de una banda <b>muy ancha cerca de 3300 cm⁻¹</b>, del OH asociado por puentes de hidrógeno, con una <b>intensa a 1710 cm⁻¹</b>, del carbonilo, es la firma del <b>ácido carboxílico</b>. Una amida mostraría el carbonilo desplazado a número de onda menor.']}
+  ,
+   {form:[
+ ['v = V<sub>max</sub>[S] / (K<sub>m</sub> + [S])','<b>Michaelis-Menten</b>. Si [S] = K<sub>m</sub>, entonces v = V<sub>max</sub>/2.','v en M/s, K<sub>m</sub> en M'],
+ ['1/v = (K<sub>m</sub>/V<sub>max</sub>)(1/[S]) + 1/V<sub>max</sub>','<b>Lineweaver-Burk</b>: la ordenada al origen da 1/V<sub>max</sub> y la pendiente K<sub>m</sub>/V<sub>max</sub>.',''],
+ ['k<sub>cat</sub> = V<sub>max</sub> / [E]<sub>T</sub>','<b>Número de recambio</b>: moléculas de sustrato convertidas por sitio activo y por segundo.','en s⁻¹'],
+ ['k<sub>cat</sub>/K<sub>m</sub>','<b>Eficiencia catalítica</b>; el límite por difusión está en 10⁸–10⁹ M⁻¹s⁻¹.','en M⁻¹s⁻¹'],
+ ['T<sub>m</sub> ≈ 2(A+T) + 4(G+C)','<b>Temperatura de fusión</b> de un cebador corto. El par G-C tiene tres puentes de hidrógeno y el A-T dos.','en °C, válida para menos de 20 bases'],
+ ['N<sub>final</sub> = N₀ · (1 + E)ⁿ','<b>Amplificación por PCR</b>; E es la eficiencia por ciclo y n el número de ciclos. Con E = 1 la amplificación es 2ⁿ.','']
+]},
+   {prob:{t:'Distinguir el tipo de inhibición a partir de los datos',
+ d:'Una enzima sin inhibidor: V<sub>max</sub> = 60 µM/min y K<sub>m</sub> = 25 µM. Con inhibidor A: V<sub>max</sub> = 60 y K<sub>m</sub> = 100 µM. Con inhibidor B: V<sub>max</sub> = 36 y K<sub>m</sub> = 25 µM.',
+ p:['<b>Inhibidor A</b>: V<sub>max</sub> intacto y K<sub>m</sub> multiplicado por cuatro. Esa es la firma del inhibidor <b>competitivo</b>: compite por el sitio activo, así que aparenta menos afinidad, pero con sustrato suficiente se le desplaza y se recupera la velocidad máxima.',
+    '<b>Inhibidor B</b>: V<sub>max</sub> cae un 40 % y K<sub>m</sub> no se mueve. Firma del <b>no competitivo</b>: se une fuera del sitio activo y retira enzima funcional del juego, sin afectar la afinidad de la que queda.',
+    'Velocidad con A a [S] = 100 µM: v = 60×100/(100+100) = <b>30 µM/min</b>.',
+    'Velocidad con A a [S] = 1000 µM: v = 60×1000/(100+1000) = <b>54.5 µM/min</b>, ya cerca de los 60 originales.',
+    'Velocidad con B a [S] = 1000 µM: v = 36×1000/(25+1000) = <b>35.1 µM/min</b>, que no pasará nunca de 36.'],
+ r:'A es competitivo y se vence con exceso de sustrato; B es no competitivo y no se vence de ninguna manera.',
+ x:'Leer solo la velocidad a una concentración puede llevar a conclusiones opuestas. Lo que identifica el mecanismo es <b>qué parámetro cambió</b>: K<sub>m</sub>, V<sub>max</sub> o ambos (que sería acompetitivo, con los dos divididos por el mismo factor).'}}]}
+ ],
+ flash:[
+  ['Un compuesto con dos centros estereogénicos no es ópticamente activo. ¿Por qué?','Es una forma meso: tiene plano de simetría interno y es superponible con su imagen especular.'],
+  ['Dos isómeros funden a temperaturas distintas y ambos son ópticamente activos. ¿Qué son?','Diastereómeros. Los enantiómeros comparten todas las propiedades físicas salvo el signo de la rotación.'],
+  ['Evidencia estereoquímica que distingue SN1 de SN2','SN2 da inversión completa (ataque por la cara opuesta, paso concertado). SN1 da racemización (carbocatión plano).'],
+  ['HBr sobre un alqueno, con y sin peróxidos','Sin peróxidos: Markovnikov, mecanismo iónico. Con peróxidos: radicalario y regioselectividad invertida.'],
+  ['¿Por qué el cloro desactiva el anillo pero dirige orto-para?','Desactiva por inducción al ser electronegativo; dirige orto-para porque sus pares libres estabilizan el ion arenio en esas posiciones.'],
+  ['¿Por qué el TGA no detecta la Tg?','La transición vítrea no implica cambio de masa. El TGA solo ve pérdidas o ganancias; la Tg se ve por DSC como escalón.'],
+  ['Inhibidor que reduce Vmax y deja Km igual','No competitivo: se une fuera del sitio activo y reduce la enzima funcional disponible. No se vence con más sustrato.'],
+  ['¿Por qué la condensación exige control estequiométrico y la adición no?','Crece por pasos: el peso alto llega solo cerca del 100 % de conversión. Un exceso de un monómero termina las cadenas.'],
+  ['Regiones de densidad electrónica y geometría','4 → sp³ tetraédrica 109.5°. 3 → sp² trigonal plana 120°. 2 → sp lineal 180°.'],
+  ['Orden de acidez de etano, eteno y etino','Etano < eteno < etino. Más carácter s en la base conjugada la estabiliza más: sp tiene 50 %.'],
+  ['¿Qué significa la polidispersidad de un polímero?','La anchura de la distribución de longitudes de cadena: razón entre el promedio en peso y el promedio en número.'],
+  ['Hidrólisis de un éster en medio básico','Saponificación: da la sal del ácido y el alcohol, y es irreversible porque el carboxilato no vuelve atrás.'],
+  ['¿Qué secuencia de DNA resiste más temperatura?','La rica en G-C: tres puentes de hidrógeno por par frente a dos del A-T. Mayor Tm.'],
+  ['¿Qué define la especificidad de una PCR?','Los cebadores, que delimitan por complementariedad la región copiada. El magnesio y la temperatura afectan el rigor, no el blanco.'],
+  ['Bandas IR a 3300 cm⁻¹ ancha y 1710 cm⁻¹ intensa','Ácido carboxílico: OH asociado por puentes más carbonilo. En una amida el carbonilo sale a menor número de onda.'],
+  ['Michaelis-Menten a [S] mucho mayor que Km','Orden cero: la enzima está saturada y la velocidad se estanca en Vmax. Por debajo de Km es primer orden.'],
+  ['Ruta con mejor economía atómica para un solo enantiómero','Síntesis asimétrica con catalizador quiral: construye el deseado en vez de fabricar ambos y descartar la mitad.']
+ ]}
+];
+</script>

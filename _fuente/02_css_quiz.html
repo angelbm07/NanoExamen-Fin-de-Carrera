@@ -1,0 +1,62 @@
+<style>
+/* ---- quiz ---- */
+.quiz-wrap{max-width:680px}
+.quiz-bar{height:5px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.quiz-bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.qmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.qmeta .tag{font-family:var(--font-mono);font-size:.7rem;padding:3px 8px;border-radius:5px;font-weight:700}
+.qmeta .counter{font-family:var(--font-mono);font-size:.75rem;color:var(--ink-dim)}
+.qtext{font-size:1rem;font-weight:600;line-height:1.5;margin-bottom:12px}
+.opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 14px;margin-bottom:8px;font-family:var(--font-body);font-size:.92rem;line-height:1.45;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt .letra{font-family:var(--font-mono);font-weight:700;font-size:.78rem;color:var(--ink-dim);margin-right:8px}
+.opt.correct{border-color:var(--good);background:#eaf5ef}
+.opt.correct .letra{color:var(--good)}
+.opt.incorrect{border-color:var(--bad);background:#fbeceb}
+.opt.incorrect .letra{color:var(--bad)}
+.opt.chosen{box-shadow:inset 0 0 0 1px var(--border)}
+.explain{display:none;border-left:3px solid var(--accent);background:var(--surface-2);border-radius:0 8px 8px 0;padding:11px 14px;margin-top:10px;font-size:.89rem;line-height:1.55}
+.explain.show{display:block}
+.explain b{color:var(--ink)}
+.qnav{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn{font-family:var(--font-body);font-weight:600;font-size:.88rem;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:9px 16px;cursor:pointer;transition:filter .15s}
+.btn:hover{filter:brightness(1.12)}
+.btn.ghost{background:var(--surface);color:var(--ink-dim);border-color:var(--border)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--ink);filter:none}
+.btn:disabled{opacity:.42;cursor:default;filter:none}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+
+.result{text-align:center;padding:10px 0 4px}
+.result .score{font-family:var(--font-display);font-size:3rem;line-height:1;margin-bottom:4px}
+.result .pct{font-family:var(--font-mono);font-size:.95rem;color:var(--ink-dim)}
+.result .veredicto{font-size:.93rem;color:var(--ink-dim);margin-top:10px;line-height:1.55;text-align:left;background:var(--surface-2);border-radius:9px;padding:12px 14px}
+.bymod{margin-top:20px;text-align:left}
+.bymod h3{font-size:.95rem;margin-bottom:10px}
+.modrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.87rem}
+.modrow .tag{font-family:var(--font-mono);font-size:.68rem;padding:2px 7px;border-radius:4px;font-weight:700;min-width:38px;text-align:center;flex-shrink:0}
+.modrow .bar{flex:1;height:7px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.modrow .bar i{display:block;height:100%;border-radius:99px}
+.modrow .num{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-dim);min-width:52px;text-align:right;flex-shrink:0}
+
+.revisar{margin-top:18px}
+.rev-item{border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin-bottom:11px}
+.rev-item .rq{font-weight:600;font-size:.93rem;line-height:1.48;margin:7px 0 10px}
+.rev-item .opt{cursor:default;margin-bottom:6px;font-size:.88rem;padding:8px 12px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:560px){
+  header.top h1{font-size:1.4rem}
+  .fcgrid{grid-template-columns:1fr}
+  .result .score{font-size:2.4rem}
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">WA3062 · Tec de Monterrey</div>
+  <h1>Guía EFC · Ingeniería en Nanotecnología</h1>
+  <p>Nueve módulos técnicos, 10 % cada uno. Resumen compacto por módulo, acordeones para profundizar, flashcards de recuperación activa y un quiz final que mezcla los nueve.</p>
+  <div class="topnote" id="topnote"></div>
+</header>
+
+<nav class="tabs" id="tabs" role="tablist" aria-label="Módulos"></nav>
