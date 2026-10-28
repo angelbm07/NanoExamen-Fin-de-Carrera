@@ -169,6 +169,152 @@ details.prob .ptrampa{margin-top:9px;font-size:.84rem;color:var(--ink-dim);line-
 .qnuevo{background:var(--surface-2);color:var(--ink-dim)}
 .qfallado{background:#fdecea;color:var(--bad)}
 .cobertura-res{margin:14px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);font-size:.88rem;line-height:1.6;color:var(--ink)}
+
+/* ---- MathML ---- */
+.eqbox{margin:18px 0;padding:18px 20px 16px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;background:var(--surface)}
+.eqbox math{font-size:1.28rem;color:var(--ink);margin:0 auto}
+.eqnota{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:.86rem;line-height:1.6;color:var(--ink-dim)}
+.eqnota b{color:var(--ink)}
+math{font-family:var(--font-body)}
+math mi{font-style:italic}
+math mi.cte{font-style:normal;font-weight:600;color:var(--accent)}
+math mn{font-style:normal;color:var(--ink)}
+math mo{color:var(--ink-dim);padding:0 .12em}
+math mtext{font-style:normal;font-size:.86em;color:var(--ink-dim)}
+math mfrac{padding:0 .15em}
+.fx-math math{font-size:1.06rem}
+@media(prefers-reduced-motion:no-preference){.eqbox{transition:border-color .2s}}
+.eqbox:hover{border-color:var(--accent)}
+
+/* gráfica dentro de un reactivo */
+figure.qfig{margin:14px 0 18px;border:1px solid var(--border);border-radius:10px;padding:12px 14px 10px;background:var(--surface-2)}
+figure.qfig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+figure.qfig .ftit{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+figure.qfig figcaption{font-size:.82rem;color:var(--ink-dim);line-height:1.55;margin-top:9px}
+
+/* casos de caracterización */
+.caso{margin:18px 0;border:1px solid var(--border);border-left:3px solid var(--m7);border-radius:10px;background:var(--surface);padding:16px 18px 18px}
+.caso h4{margin:4px 0 10px;font-size:1.12rem;line-height:1.35;color:var(--ink)}
+.caso-ctx{font-size:.92rem;line-height:1.68;color:var(--ink);background:var(--surface-2);border-radius:8px;padding:12px 14px}
+ol.caso-pasos{margin:16px 0 0;padding-left:0;list-style:none;counter-reset:cp}
+ol.caso-pasos>li{counter-increment:cp;position:relative;padding-left:36px;margin-bottom:16px}
+ol.caso-pasos>li::before{content:counter(cp);position:absolute;left:0;top:1px;width:24px;height:24px;border-radius:50%;background:var(--m7-bg);color:var(--m7);font-family:var(--font-mono);font-size:.76rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+.caso-q{font-weight:600;font-size:.96rem;line-height:1.6;color:var(--ink);margin-bottom:8px}
+details.caso-rev>summary{cursor:pointer;list-style:none;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--m7);padding:5px 0}
+details.caso-rev>summary::-webkit-details-marker{display:none}
+details.caso-rev>summary::before{content:'▸ ';}
+details.caso-rev[open]>summary::before{content:'▾ ';}
+details.caso-rev .inner{padding:4px 0 0}
+.caso-r{font-size:.92rem;line-height:1.7;color:var(--ink)}
+.caso-d{margin-top:10px;font-size:.88rem;line-height:1.6;color:var(--ink-dim);border-left:2px solid var(--border);padding-left:12px}
+.caso-fin{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);font-size:.92rem;line-height:1.7;color:var(--ink)}
+
+/* ---- mapa de conceptos ---- */
+.mapa-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
+@media(max-width:900px){.mapa-grid{grid-template-columns:1fr}}
+.mapa-lienzo{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow-x:auto;padding:8px}
+#mapasvg{min-width:1020px;width:100%;height:auto;display:block}
+text.mcol{font-family:var(--font-mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;fill:var(--ink-dim)}
+.mnodo rect{fill:var(--surface-2);stroke:var(--border);stroke-width:1;transition:fill .15s,stroke .15s}
+.mnodo text{font-family:var(--font-body);font-size:11.5px;fill:var(--ink);pointer-events:none}
+.mnodo{cursor:pointer}
+.mnodo:hover rect{stroke:var(--accent)}
+.mnodo:focus-visible rect{stroke:var(--accent);stroke-width:2}
+.mnodo.sel rect{fill:var(--accent);stroke:var(--accent)}
+.mnodo.sel text{fill:var(--accent-ink);font-weight:600}
+.mnodo.vec rect{stroke:var(--accent);stroke-width:1.6}
+.mnodo.apag{opacity:.32}
+path.marista{stroke:var(--border);stroke-width:1;fill:none;transition:stroke .15s,opacity .15s}
+path.marista.on{stroke:var(--accent);stroke-width:1.8;opacity:1}
+path.marista.off{opacity:.18}
+.mapa-panel{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:16px;position:sticky;top:76px;max-height:76vh;overflow-y:auto}
+.mapa-panel h3{margin:8px 0 2px;font-size:1.1rem;line-height:1.3}
+.mp-sub{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px}
+.mp-vacio{font-size:.9rem;line-height:1.7;color:var(--ink-dim)}
+.mp-vacio b{color:var(--ink)}
+.mp-con{border-left:2px solid var(--accent);padding:2px 0 2px 11px;margin-bottom:13px}
+.mp-ir{background:none;border:0;padding:0;font:inherit;font-weight:600;font-size:.92rem;color:var(--accent);cursor:pointer;text-align:left;line-height:1.35}
+.mp-ir:hover{text-decoration:underline}
+.mp-por{font-size:.85rem;line-height:1.6;color:var(--ink-dim);margin-top:3px}
+.btn.mp-mod{margin-top:6px;width:100%}
+
+/* cronómetro, modos de simulacro y prioridad */
+.qreloj{font-family:var(--font-mono);font-size:.84rem;font-weight:700;color:var(--ink);background:var(--surface-2);border-radius:20px;padding:4px 12px;letter-spacing:.03em}
+.qreloj.apremio{background:#fdecea;color:var(--bad)}
+.qtiempo{margin-bottom:14px;padding:12px 14px;border-radius:10px;background:#fdecea;color:var(--bad);font-size:.9rem;line-height:1.55;font-weight:600}
+.modos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:4px 0 14px}
+button.modo{display:flex;flex-direction:column;gap:5px;text-align:left;padding:16px 16px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;font:inherit;transition:border-color .15s,transform .1s}
+button.modo:hover{border-color:var(--accent)}
+button.modo:active{transform:translateY(1px)}
+.mo-n{font-family:var(--font-mono);font-size:1.5rem;font-weight:700;color:var(--accent);line-height:1}
+.mo-t{font-size:.95rem;font-weight:600;color:var(--ink)}
+.mo-d{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim)}
+.modos-pie{font-size:.86rem;line-height:1.65;color:var(--ink-dim);border-top:1px solid var(--border);padding-top:13px}
+.prio{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px;color:var(--ink-dim)}
+.prio.p-alta{color:var(--bad);font-weight:700}
+.prio.p-media{color:var(--m7);font-weight:700}
+.prio.p-baja{color:var(--good);font-weight:700}
+.prio:empty{display:none}
+
+/* ============ AJUSTES DE LECTURA ============ */
+:root{--esc:1; --lh:1.55; --medida:760px; --tracking:0}
+html[data-texto="0.92"]{--esc:.92} html[data-texto="1"]{--esc:1}
+html[data-texto="1.14"]{--esc:1.14} html[data-texto="1.3"]{--esc:1.3}
+html[data-linea="compacto"]{--lh:1.42} html[data-linea="normal"]{--lh:1.58} html[data-linea="amplio"]{--lh:1.85}
+html[data-ancho="estrecho"]{--medida:620px} html[data-ancho="normal"]{--medida:760px} html[data-ancho="ancho"]{--medida:940px}
+html[data-tipo="legible"]{--font-body:'Verdana','DejaVu Sans',system-ui,sans-serif;--tracking:.012em}
+
+.wrap{max-width:var(--medida)}
+body{font-size:calc(1rem*var(--esc));letter-spacing:var(--tracking)}
+.card p,.card li,.caso-ctx,.caso-r,.caso-q,.eqnota,details.deep .inner p,.pres,.ppasos li,.pdatos,.mp-por{line-height:var(--lh)}
+.card p,.card ul,.card ol{font-size:calc(.93rem*var(--esc))}
+section.block h3{font-size:calc(1.02rem*var(--esc))}
+.qtext{font-size:calc(1rem*var(--esc))}
+.opt{font-size:calc(.93rem*var(--esc))}
+.explain{font-size:calc(.9rem*var(--esc));line-height:var(--lh)}
+
+/* movimiento reducido: por preferencia del sistema o por elección explícita */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+html[data-mov="reducido"] *,html[data-mov="reducido"] *::before,html[data-mov="reducido"] *::after{
+  animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+html[data-mov="reducido"] .flashcard .inner{transition:none!important}
+
+/* densidad: solo lo esencial */
+button.mas-desarrollo{display:none;margin:2px 0 12px;background:none;border:1px dashed var(--border);border-radius:8px;padding:7px 13px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
+button.mas-desarrollo:hover{border-color:var(--accent);color:var(--accent)}
+html[data-densidad="esencial"] button.mas-desarrollo{display:inline-block}
+html[data-densidad="esencial"] section.block > .card.desarrollo{display:none}
+html[data-densidad="esencial"] section.block.abierta > .card.desarrollo{display:block}
+html[data-densidad="esencial"] details.deep{display:none}
+html[data-densidad="esencial"] section.block.abierta details.deep{display:block}
+
+/* panel de ajustes */
+.ajustes{margin-top:14px}
+button.aj-btn{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 15px;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);cursor:pointer}
+button.aj-btn:hover{border-color:var(--accent);color:var(--accent)}
+.aj-panel{margin-top:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:16px 18px}
+.aj-g{margin-bottom:14px}
+.aj-t{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
+.aj-o{display:flex;gap:7px;flex-wrap:wrap}
+.aj-o button{background:var(--surface-2);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font:inherit;font-size:.84rem;color:var(--ink-dim);cursor:pointer}
+.aj-o button:hover{border-color:var(--accent)}
+.aj-o button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.aj-nota{font-size:.82rem;line-height:1.6;color:var(--ink-dim);border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
+.btn.aj-reset{margin-top:12px;width:100%}
+
+/* ============ SUBPESTAÑAS DEL MÓDULO ============ */
+nav.subtabs{display:flex;gap:7px;margin:0 0 20px;border-bottom:1px solid var(--border);padding-bottom:12px;flex-wrap:wrap}
+nav.subtabs button{font-family:var(--font-body);font-weight:600;font-size:.82rem;border:1px solid transparent;background:none;color:var(--ink-dim);border-radius:7px;padding:6px 13px;cursor:pointer}
+nav.subtabs button:hover{background:var(--surface-2);color:var(--ink)}
+nav.subtabs button.active{background:var(--surface-2);border-color:var(--border);color:var(--ink)}
+nav.subtabs button .cnt{font-family:var(--font-mono);font-size:.68rem;color:var(--ink-dim);margin-left:5px;font-weight:400}
+.subpanel{display:none}
+.subpanel.active{display:block}
+
+/* final visible de la tanda */
+.tanda-fin{margin:16px 0 0;padding:14px 16px;border:1px solid var(--border);border-left:3px solid var(--good);border-radius:10px;background:var(--surface-2);font-size:.9rem;line-height:1.65;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -229,11 +375,444 @@ details.prob .ptrampa{margin-top:9px;font-size:.84rem;color:var(--ink-dim);line-
 <header class="top">
   <div class="eyebrow">WA3062 · Tec de Monterrey</div>
   <h1>Guía EFC · Ingeniería en Nanotecnología</h1>
-  <p>Diez módulos técnicos. Repaso por módulo con formulario y problemas resueltos, acordeones para profundizar, flashcards de recuperación activa, un quiz propio en cada pestaña y un simulacro final de 200 reactivos.</p>
+  <p>Diez módulos técnicos. Repaso con formulario y problemas resueltos, casos de caracterización, ejercicios de lectura de gráfica, un mapa que explica cómo se conectan los temas, flashcards y simulacros cronometrados.</p>
   <div class="topnote" id="topnote"></div>
 </header>
 
 <nav class="tabs" id="tabs" role="tablist" aria-label="Módulos"></nav>
+<script>
+/* ============================================================
+   MATEMÁTICAS · MathML nativo, sin dependencias externas.
+   Los navegadores actuales lo maquetan como LaTeX: fracciones
+   apiladas, radicales con su vínculo y sub/superíndices reales.
+   ============================================================ */
+var M=(function(){
+  function j(a){ return Array.prototype.slice.call(a).join('') }
+  return {
+    i:function(s,c){ return '<mi'+(c?' class="'+c+'"':'')+'>'+s+'</mi>' },   /* variable  */
+    n:function(s){ return '<mn>'+s+'</mn>' },                                 /* número    */
+    o:function(s){ return '<mo>'+s+'</mo>' },                                 /* operador  */
+    t:function(s){ return '<mtext>'+s+'</mtext>' },                           /* texto     */
+    k:function(s){ return '<mi class="cte">'+s+'</mi>' },                     /* constante */
+    r:function(){ return '<mrow>'+j(arguments)+'</mrow>' },
+    frac:function(a,b){ return '<mfrac>'+a+b+'</mfrac>' },
+    sqrt:function(a){ return '<msqrt>'+a+'</msqrt>' },
+    sup:function(a,b){ return '<msup>'+a+b+'</msup>' },
+    sub:function(a,b){ return '<msub>'+a+b+'</msub>' },
+    subsup:function(a,b,c){ return '<msubsup>'+a+b+c+'</msubsup>' },
+    par:function(a){ return '<mrow><mo>(</mo>'+a+'<mo>)</mo></mrow>' },
+    abs:function(a){ return '<mrow><mo>|</mo>'+a+'<mo>|</mo></mrow>' },
+    esp:function(){ return '<mspace width="1.1em"/>' },
+    math:function(){ return '<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">'+j(arguments)+'</math>' }
+  };
+})();
+
+var EQ={};
+(function(){
+  var i=M.i,n=M.n,o=M.o,t=M.t,k=M.k,r=M.r,f=M.frac,sq=M.sqrt,up=M.sup,lo=M.sub,p=M.par,E=M.esp,ma=M.math;
+
+  EQ.dilucion={m:ma(lo(i('C'),n('1')),lo(i('V'),n('1')),o('='),lo(i('C'),n('2')),lo(i('V'),n('2'))),
+    n:'Los moles se conservan al diluir. Para 500 mL de HCl 0.10 M desde una madre 2.0 M: V₁ = (0.10 × 500)/2.0 = <b>25 mL</b>.'};
+
+  EQ.henderson={m:ma(i('pH'),o('='),lo(i('p'),i('K')),o('+'),i('log'),f(r(o('['),lo(i('A'),o('−')),o(']')),r(o('['),i('HA'),o(']')))),
+    n:'En la semiequivalencia [A⁻] = [HA], el logaritmo se anula y <b>pH = pK<sub>a</sub></b>. Esa es la lectura directa del pK<sub>a</sub> sobre una curva experimental.'};
+
+  EQ.nernst={m:ma(i('E'),o('='),up(i('E'),o('°')),o('−'),f(r(k('R'),i('T')),r(i('n'),k('F'))),i('ln'),i('Q'),E(),t('o bien'),E(),i('E'),o('='),up(i('E'),o('°')),o('−'),f(n('0.0592'),i('n')),i('log'),i('Q')),
+    n:'La forma práctica <b>solo vale a 25 °C</b>: el coeficiente es 2.303·RT/F y sube a 0.0616 V a 37 °C. La temperatura va en <b>kelvin</b>.'};
+
+  EQ.beer={m:ma(i('A'),o('='),i('ε'),i('b'),i('c'),E(),i('LOD'),o('≈'),f(r(n('3'),i('σ')),i('m')),E(),i('LOQ'),o('≈'),f(r(n('10'),i('σ')),i('m'))),
+    n:'σ es la desviación del <b>blanco</b> y m la pendiente de la calibración. Intervalo fiable de absorbancia: 0.1 a 1.0.'};
+
+  EQ.michaelis={m:ma(i('v'),o('='),f(r(lo(i('V'),t('max')),r(o('['),i('S'),o(']'))),r(lo(i('K'),i('m')),o('+'),r(o('['),i('S'),o(']'))))),
+    n:'Cuando [S] = K<sub>m</sub>, la velocidad es exactamente <b>V<sub>max</sub>/2</b>. Muy por encima de K<sub>m</sub> el comportamiento es de orden cero.'};
+
+  EQ.gap={m:ma(lo(i('E'),i('g')),t(' (eV)'),o('≈'),f(n('1240'),r(i('λ'),t(' (nm)')))),
+    n:'La constante 1240 eV·nm es h·c en esas unidades. Conviene fijar dos anclas: <b>1240 nm es 1 eV</b> y <b>620 nm es 2 eV</b>.'};
+
+  EQ.cristal={m:ma(lo(i('d'),i('hkl')),o('='),f(i('a'),sq(r(up(i('h'),n('2')),o('+'),up(i('k'),n('2')),o('+'),up(i('l'),n('2'))))),E(),i('ρ'),o('='),f(r(i('n'),i('M')),r(lo(k('N'),k('A')),up(i('a'),n('3'))))),
+    n:'n son los <b>átomos por celda</b>: 1 en cúbica simple, 2 en BCC y 4 en FCC. Convertir el parámetro a centímetros <b>antes</b> de elevar al cubo.'};
+
+  EQ.bragg={m:ma(i('n'),i('λ'),o('='),n('2'),i('d'),i('sen'),i('θ')),
+    n:'θ es la <b>mitad</b> del 2θ que reporta el difractómetro: ese es el error número uno. Con λ = 1.54 Å y θ = 30°, d = 1.54/(2 × 0.5) = 1.54 Å.'};
+
+  EQ.caja={m:ma(lo(i('E'),i('n')),o('='),f(r(up(i('n'),n('2')),up(k('h'),n('2'))),r(n('8'),i('m'),up(i('L'),n('2'))))),
+    n:'La energía va con <b>1/L²</b>: reducir la dimensión a la mitad cuadruplica el término de confinamiento, y por eso el punto cuántico pequeño emite más al azul.'};
+
+  EQ.gibbs={m:ma(i('Δ'),i('G'),o('='),i('Δ'),i('H'),o('−'),i('T'),i('Δ'),i('S'),E(),up(r(i('Δ'),i('G')),o('°')),o('='),o('−'),k('R'),i('T'),i('ln'),i('K'),o('='),o('−'),i('n'),k('F'),up(i('E'),o('°'))),
+    n:'Las tres caras de la misma magnitud. La temperatura de cruce, donde ΔG cambia de signo, es <b>T = ΔH/ΔS</b>.'};
+
+  EQ.arrhenius={m:ma(i('ln'),f(lo(i('k'),n('2')),lo(i('k'),n('1'))),o('='),o('−'),f(lo(i('E'),i('a')),k('R')),p(r(f(n('1'),lo(i('T'),n('2'))),o('−'),f(n('1'),lo(i('T'),n('1')))))),
+    n:'La temperatura va en <b>kelvin</b>, obligatoriamente. Es el error numérico más caro del módulo.'};
+
+  EQ.superficie={m:ma(f(i('S'),i('V')),o('='),f(n('6'),i('d')),E(),lo(i('f'),t('sup')),o('≈'),f(r(n('3'),i('δ')),i('R'))),
+    n:'La fracción superficial va como <b>1/R</b>, el área por gramo también, pero el número de partículas por gramo va como <b>1/R³</b>. Tres potencias distintas.'};
+
+  EQ.nucleacion={m:ma(up(i('r'),o('*')),o('='),f(r(n('2'),i('γ')),r(i('Δ'),lo(i('G'),i('v')))),E(),up(r(i('Δ'),i('G')),o('*')),o('='),f(r(n('16'),i('π'),up(i('γ'),n('3'))),r(n('3'),up(r(i('Δ'),lo(i('G'),i('v'))),n('2'))))),
+    n:'Más sobresaturación aumenta ΔG<sub>v</sub>, lo que <b>baja r*</b> y hunde la barrera, que va con el inverso del cuadrado. De ahí el estallido de nucleación.'};
+
+  EQ.litografia={m:ma(i('CD'),o('='),f(r(lo(i('k'),n('1')),i('λ')),i('NA'))),
+    n:'Las <b>tres únicas palancas</b> de la litografía óptica: bajar λ, subir la apertura numérica o mejorar el proceso que fija k₁.'};
+
+  EQ.scherrer={m:ma(i('D'),o('='),f(r(i('K'),i('λ')),r(i('β'),i('cos'),i('θ')))),
+    n:'Da el tamaño de <b>cristalito</b>, no de partícula. K ≈ 0.9 y β es el ensanchamiento en <b>radianes</b>, ya descontado el instrumental.'};
+
+  EQ.flujos={m:ma(i('Re'),o('='),f(r(i('ρ'),i('v'),i('L')),i('µ')),E(),i('Pe'),o('='),f(r(i('v'),i('L')),i('D')),E(),i('Q'),o('='),f(r(i('π'),i('Δ'),i('P'),up(i('r'),n('4'))),r(n('8'),i('µ'),i('L')))),
+    n:'El caudal va con la <b>cuarta potencia</b> del radio: media el radio y cae a 1/16. En microcanales Re suele valer menos de 1.'};
+
+  EQ.gravimetrico={m:ma(f(r(i('Δ'),i('f')),lo(i('f'),n('0'))),o('≈'),o('−'),f(r(i('Δ'),i('m')),r(n('2'),i('m')))),
+    n:'El <b>signo</b> es lo que se pregunta: adsorber masa <b>baja</b> la frecuencia. Perder masa o ganar rigidez la suben.'};
+
+  EQ.randles={m:ma(lo(i('i'),i('p')),o('='),n('2.69'),o('×'),up(n('10'),n('5')),up(i('n'),r(n('3'),o('/'),n('2'))),i('A'),sq(i('D')),i('C'),sq(i('v'))),
+    n:'i<sub>p</sub> ∝ √v indica especie que <b>difunde</b>; i<sub>p</sub> ∝ v indica especie <b>adsorbida</b>. C va en mol/cm³, no en mol/L.'};
+
+  EQ.potencia={m:ma(i('P'),o('='),lo(i('N'),i('p')),i('ρ'),up(i('N'),n('3')),up(i('D'),n('5')),E(),o('⇒'),E(),i('N'),o('∝'),up(i('D'),r(o('−'),n('2'),o('/'),n('3')))),
+    n:'Conservar P/V hace <b>bajar</b> las revoluciones, pero la velocidad de punta πND <b>sube</b> como D^(1/3). Los criterios son incompatibles.'};
+
+  EQ.interes={m:ma(i('VF'),o('='),i('VP'),up(p(r(n('1'),o('+'),i('i'))),i('n')),E(),t('simple:'),E(),i('VF'),o('='),i('VP'),p(r(n('1'),o('+'),i('i'),i('n')))),
+    n:'El VPN descuenta cada flujo por ese mismo factor. El periodo de recuperación simple <b>no</b> descuenta, y por eso siempre sale optimista.'};
+
+  EQ.seisdecimos={m:ma(lo(i('C'),n('2')),o('='),lo(i('C'),n('1')),up(p(f(lo(i('Q'),n('2')),lo(i('Q'),n('1')))),i('n'))),
+    n:'Con n ≈ 0.6 para muchos equipos de proceso. Cuadruplicar la capacidad multiplica el costo por 4^0.6 ≈ <b>2.3</b>, no por cuatro.'};
+
+  EQ.balance={m:ma(t('Entrada'),o('−'),t('Salida'),o('+'),t('Generación'),o('−'),t('Consumo'),o('='),t('Acumulación')),
+    n:'En <b>estado estacionario</b> la acumulación es cero. Una salida mayor que la entrada, sin generación, delata una corriente no contabilizada.'};
+
+  EQ.hlb={m:ma(lo(i('HLB'),t('mezcla')),o('='),lo(i('w'),n('1')),lo(i('HLB'),n('1')),o('+'),lo(i('w'),n('2')),lo(i('HLB'),n('2'))),
+    n:'Promedio ponderado por <b>fracción másica</b>. De 3 a 6 da agua en aceite; de 8 a 18, aceite en agua.'};
+
+  EQ.gibbsE={m:ma(up(r(i('Δ'),i('G')),o('°')),o('='),o('−'),i('n'),k('F'),up(lo(i('E'),t('celda')),o('°')),E(),k('F'),o('='),n('96 485'),t(' C/mol')),
+    n:'E° positivo equivale a ΔG° negativo, es decir celda <b>galvánica</b>. Y E° = E°<sub>cátodo</sub> − E°<sub>ánodo</sub>, sin multiplicar por coeficientes.'};
+
+  EQ.faraday={m:ma(i('m'),o('='),f(r(i('I'),i('t'),i('M')),r(i('n'),k('F')))),
+    n:'El paso que más se falla es <b>n</b>, los electrones por ion: dos para Cu²⁺ y tres para Al³⁺. Divide entre la eficiencia faradaica, no multipliques.'};
+
+  EQ.tafel={m:ma(i('η'),o('='),i('E'),o('−'),lo(i('E'),t('eq')),E(),i('η'),o('='),i('a'),o('+'),i('b'),i('log'),M.abs(i('i'))),
+    n:'La pendiente <b>b</b> informa del mecanismo y la extrapolación a η = 0 da la densidad de corriente de intercambio <b>i₀</b>.'};
+
+  EQ.red={m:ma(up(i('r'),o('′')),o('='),lo(i('n'),n('1')),lo(i('a'),n('1')),o('+'),lo(i('n'),n('2')),lo(i('a'),n('2')),o('+'),lo(i('n'),n('3')),lo(i('a'),n('3'))),
+    n:'Los <b>n</b> son enteros y los <b>a</b> los vectores de la base. La red es el conjunto infinito de puntos equivalentes; la <b>base</b> es lo que se coloca en cada punto, y el cristal es red más base.'};
+})();
+</script>
+<script>
+/* ============================================================
+   GRÁFICAS DE EJERCICIO
+   A diferencia de las figuras explicativas, estas llevan datos
+   concretos que hay que leer para contestar el reactivo.
+   ============================================================ */
+var GRAF={};
+
+/* --- utilidades de ejes --- */
+function _ejes(w,h,xlab,ylab,ticks){
+  var s='<path class="sl2" d="M46,'+(h-34)+' L'+(w-14)+','+(h-34)+'"/><path class="sl2" d="M46,12 L46,'+(h-34)+'"/>'+
+    '<text class="txs" x="'+((w+32)/2)+'" y="'+(h-8)+'" text-anchor="middle">'+xlab+'</text>'+
+    '<text class="txs" x="14" y="'+((h-22)/2)+'" transform="rotate(-90 14,'+((h-22)/2)+')" text-anchor="middle">'+ylab+'</text>';
+  (ticks||[]).forEach(function(t){
+    s+='<path class="sl2" d="M'+t[0]+','+(h-34)+' L'+t[0]+','+(h-29)+'"/>'+
+       '<text class="txm" x="'+t[0]+'" y="'+(h-20)+'" text-anchor="middle">'+t[1]+'</text>';
+  });
+  return s;
+}
+
+/* 1 · Difractograma a indexar ------------------------------------ */
+GRAF.xrd_index={t:'Difractograma de una muestra cúbica',svg:
+'<svg viewBox="0 0 520 250" role="img" aria-label="Difractograma con cuatro picos etiquetados por su ángulo">'+
+_ejes(520,250,'2θ (grados)','intensidad',[[46,'20'],[140,'30'],[234,'40'],[328,'50'],[422,'60'],[500,'70']])+
+[[178,70,'38.2°'],[253,110,'44.4°'],[372,160,'64.6°'],[438,170,'77.5°']].map(function(p){
+ return '<path class="sl" style="stroke:var(--m7);stroke-width:2;fill:none" d="M'+(p[0]-7)+',216 L'+p[0]+','+p[1]+' L'+(p[0]+7)+',216"/>'+
+        '<text class="txm" x="'+p[0]+'" y="'+(p[1]-7)+'" text-anchor="middle" fill="var(--m7)">'+p[2]+'</text>';
+}).join('')+
+'<path class="sd" d="M46,216 L506,216" opacity=".5"/>'+
+'</svg>',
+pie:'Radiación de cobre, λ = 0.15406 nm. Las cuatro reflexiones están en 38.2°, 44.4°, 64.6° y 77.5°.'};
+
+/* 2 · Curva de TGA con tres pérdidas ----------------------------- */
+GRAF.tga={t:'Termograma de una nanopartícula funcionalizada',svg:
+'<svg viewBox="0 0 520 250" role="img" aria-label="Curva de pérdida de masa frente a temperatura con tres escalones">'+
+_ejes(520,250,'temperatura (°C)','masa (%)',[[46,'25'],[160,'200'],[274,'400'],[388,'600'],[496,'800']])+
+'<text class="txm" x="40" y="26" text-anchor="end">100</text>'+
+'<text class="txm" x="40" y="216" text-anchor="end">60</text>'+
+'<path class="sl" style="stroke:var(--m7);stroke-width:2.4;fill:none" d="M46,22 L96,22 C106,22 110,34 122,34 L150,34 C162,34 168,46 178,62 C196,92 214,118 240,124 L300,126 C330,127 350,132 366,146 C380,158 392,162 410,163 L500,164"/>'+
+'<path class="sd" d="M46,22 L122,22"/><path class="sd" d="M46,34 L240,34"/>'+
+'<path class="sd" d="M46,124 L300,124"/><path class="sd" d="M46,164 L420,164"/>'+
+'<text class="txs" x="130" y="48" fill="var(--m7)">100 a 150 °C</text>'+
+'<text class="txs" x="200" y="108" fill="var(--m7)">250 a 420 °C</text>'+
+'<text class="txs" x="356" y="186" fill="var(--m7)">620 a 700 °C</text>'+
+'<text class="txm" x="508" y="168" text-anchor="end">76 %</text>'+
+'</svg>',
+pie:'Atmósfera de aire. Escalones: de 100 a 100 − 3 % hasta 150 °C, luego hasta 82 % entre 250 y 420 °C, y un último hasta 76 % por encima de 620 °C.'};
+
+/* 3 · DSC de un polímero ----------------------------------------- */
+GRAF.dsc={t:'Termograma DSC de un polímero',svg:
+'<svg viewBox="0 0 520 230" role="img" aria-label="Curva DSC con escalón, exotermo y endotermo">'+
+_ejes(520,230,'temperatura (°C)','flujo de calor →endo',[[46,'−50'],[150,'0'],[254,'50'],[358,'100'],[462,'150'],[500,'175']])+
+'<path class="sl" style="stroke:var(--m3);stroke-width:2.4;fill:none" d="M46,110 L96,110 C110,110 112,128 126,128 L180,128 C210,128 218,128 228,112 C236,100 244,100 252,112 C262,128 272,128 300,128 L372,128 C388,128 392,150 404,166 C412,176 420,176 428,166 C440,150 444,128 460,128 L500,128"/>'+
+'<path class="sd" d="M100,110 L100,196"/><path class="sd" d="M240,104 L240,196"/><path class="sd" d="M416,172 L416,196"/>'+
+'<text class="txs" x="100" y="100" text-anchor="middle" fill="var(--m3)">escalón</text>'+
+'<text class="txs" x="240" y="94" text-anchor="middle" fill="var(--m3)">exotermo</text>'+
+'<text class="txs" x="416" y="190" text-anchor="middle" fill="var(--m3)">endotermo</text>'+
+'<text class="txm" x="100" y="208" text-anchor="middle">−25 °C</text>'+
+'<text class="txm" x="240" y="208" text-anchor="middle">45 °C</text>'+
+'<text class="txm" x="416" y="208" text-anchor="middle">128 °C</text>'+
+'</svg>',
+pie:'Primer calentamiento de una muestra enfriada rápidamente desde el fundido. Tres eventos: escalón a −25 °C, pico exotérmico a 45 °C y pico endotérmico a 128 °C.'};
+
+/* 4 · Arrhenius ---------------------------------------------------- */
+GRAF.arrhenius={t:'Gráfica de Arrhenius de dos reacciones',svg:
+'<svg viewBox="0 0 520 240" role="img" aria-label="Logaritmo de k frente al inverso de la temperatura, dos rectas de pendiente distinta">'+
+_ejes(520,240,'1000/T (K⁻¹)','ln k',[[46,'2.8'],[160,'3.0'],[274,'3.2'],[388,'3.4'],[480,'3.6']])+
+'<path class="sl" style="stroke:var(--m5);stroke-width:2.2;fill:none" d="M60,46 L480,142"/>'+
+'<path class="sl" style="stroke:var(--m10);stroke-width:2.2;fill:none" d="M60,70 L480,196"/>'+
+'<circle cx="60" cy="46" r="3.5" fill="var(--m5)"/><circle cx="270" cy="94" r="3.5" fill="var(--m5)"/><circle cx="480" cy="142" r="3.5" fill="var(--m5)"/>'+
+'<circle cx="60" cy="70" r="3.5" fill="var(--m10)"/><circle cx="270" cy="133" r="3.5" fill="var(--m10)"/><circle cx="480" cy="196" r="3.5" fill="var(--m10)"/>'+
+'<text class="txs" x="490" y="138" fill="var(--m5)" text-anchor="end">reacción A</text>'+
+'<text class="txs" x="490" y="212" fill="var(--m10)" text-anchor="end">reacción B</text>'+
+'<text class="txm" x="40" y="50" text-anchor="end">−4</text>'+
+'<text class="txm" x="40" y="196" text-anchor="end">−10</text>'+
+'</svg>',
+pie:'Dos reacciones medidas en el mismo intervalo de temperatura. La recta A va de ln k = −4.0 a −6.0; la B va de −4.4 a −7.0, sobre el mismo eje de 1000/T entre 2.8 y 3.6.'};
+
+/* 5 · Curva esfuerzo-deformación de tres materiales ----------------- */
+GRAF.sigma_eps={t:'Esfuerzo-deformación de tres materiales',svg:
+'<svg viewBox="0 0 520 240" role="img" aria-label="Tres curvas de esfuerzo contra deformación con comportamientos distintos">'+
+_ejes(520,240,'deformación ε','esfuerzo σ (MPa)',[[46,'0'],[160,'0.05'],[274,'0.10'],[388,'0.15'],[480,'0.19']])+
+'<path class="sl" style="stroke:var(--m4);stroke-width:2.2;fill:none" d="M46,206 L120,30"/>'+
+'<circle cx="120" cy="30" r="4" fill="var(--bad)"/>'+
+'<path class="sl" style="stroke:var(--m9);stroke-width:2.2;fill:none" d="M46,206 L104,96 C130,70 190,62 260,60 C330,58 400,66 450,84"/>'+
+'<path class="sl" style="stroke:var(--m10);stroke-width:2.2;fill:none" d="M46,206 C120,198 220,186 320,160 C390,140 440,118 480,96"/>'+
+'<text class="txs" x="126" y="24" fill="var(--m4)">material 1</text>'+
+'<text class="txs" x="268" y="52" fill="var(--m9)">material 2</text>'+
+'<text class="txs" x="420" y="140" fill="var(--m10)">material 3</text>'+
+'<text class="txm" x="40" y="34" text-anchor="end">600</text>'+
+'<text class="txm" x="40" y="206" text-anchor="end">0</text>'+
+'</svg>',
+pie:'El material 1 rompe en el punto marcado sin salir del tramo recto. El 2 cede cerca de ε = 0.02 y sigue deformándose. El 3 nunca es lineal y admite deformación grande con esfuerzo bajo.'};
+
+/* 6 · Voltamperograma con dos velocidades --------------------------- */
+GRAF.cv_dos={t:'Voltamperogramas a dos velocidades de barrido',svg:
+'<svg viewBox="0 0 520 250" role="img" aria-label="Dos voltamperogramas cíclicos registrados a 25 y 100 milivolts por segundo">'+
+'<path class="sl2" d="M46,124 L500,124"/><path class="sl2" d="M46,16 L46,232"/>'+
+'<text class="txs" x="276" y="246" text-anchor="middle">potencial E (V)</text>'+
+'<text class="txs" x="14" y="124" transform="rotate(-90 14,124)" text-anchor="middle">corriente i (µA)</text>'+
+'<path class="sl" style="stroke:var(--m11);stroke-width:1.8;fill:none" d="M70,124 C150,123 200,118 236,104 C252,96 262,88 276,87 C292,86 304,96 330,104 C372,116 440,121 486,122"/>'+
+'<path class="sl" style="stroke:var(--m11);stroke-width:1.8;fill:none" d="M486,126 C440,127 372,132 330,144 C304,152 292,162 262,161 C248,160 240,152 226,144 C190,130 150,125 70,124"/>'+
+'<path class="sl" style="stroke:var(--m8);stroke-width:1.8;fill:none;opacity:.85" d="M70,124 C150,122 200,112 236,84 C252,70 262,52 276,51 C292,50 304,70 330,84 C372,108 440,120 486,122"/>'+
+'<path class="sl" style="stroke:var(--m8);stroke-width:1.8;fill:none;opacity:.85" d="M486,126 C440,128 372,140 330,164 C304,178 292,198 262,197 C248,196 240,178 226,164 C190,136 150,126 70,124"/>'+
+'<text class="txm" x="286" y="44" fill="var(--m8)">100 mV/s · i_p = 48 µA</text>'+
+'<text class="txm" x="286" y="80" fill="var(--m11)">25 mV/s · i_p = 24 µA</text>'+
+'<path class="sd" d="M276,51 L276,124"/><path class="sd" d="M262,197 L262,124"/>'+
+'</svg>',
+pie:'El mismo analito, misma celda y misma concentración, registrado a 25 y a 100 mV/s. Las corrientes de pico anódico son 24 y 48 µA respectivamente.'};
+
+/* 7 · Isoterma de adsorción ---------------------------------------- */
+GRAF.isoterma={t:'Isoterma de adsorción de nitrógeno a 77 K',svg:
+'<svg viewBox="0 0 520 240" role="img" aria-label="Isoterma con ciclo de histéresis entre adsorción y desorción">'+
+_ejes(520,240,'presión relativa p/p₀','volumen adsorbido',[[46,'0'],[160,'0.25'],[274,'0.50'],[388,'0.75'],[480,'1.0']])+
+'<path class="sl" style="stroke:var(--m6);stroke-width:2.2;fill:none" d="M46,200 C70,166 96,152 130,146 C180,138 240,132 300,122 C350,112 390,92 420,62 C440,42 460,32 480,26"/>'+
+'<path class="sl" style="stroke:var(--m6);stroke-width:2.2;fill:none;stroke-dasharray:5 3" d="M480,26 C456,32 436,42 414,62 C392,84 360,100 316,106 C270,112 230,124 190,132 C150,140 110,144 46,200"/>'+
+'<text class="txs" x="372" y="118" fill="var(--m6)">histéresis</text>'+
+'<path class="sl2" d="M352,112 L330,110" marker-end="url(#fi)"/>'+
+'<defs><marker id="fi" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-dim)"/></marker></defs>'+
+'<text class="txs" x="92" y="140" fill="var(--ink-dim)">zona BET</text>'+
+'<path class="sd" d="M92,146 L92,206"/><path class="sd" d="M160,138 L160,206"/>'+
+'</svg>',
+pie:'Línea continua: adsorción. Línea discontinua: desorción. El ciclo de histéresis se abre por encima de p/p₀ ≈ 0.45 y se cierra al final.'};
+
+/* 8 · Nyquist de impedancia ---------------------------------------- */
+GRAF.nyquist={t:'Diagrama de Nyquist de dos electrodos',svg:
+'<svg viewBox="0 0 520 250" role="img" aria-label="Parte imaginaria frente a parte real de la impedancia, dos semicírculos de distinto diámetro">'+
+_ejes(520,250,'Z real (Ω)','−Z imaginaria (Ω)',[[46,'0'],[160,'100'],[274,'200'],[388,'300'],[480,'390']])+
+'<path class="sl" style="stroke:var(--m8);stroke-width:2.2;fill:none" d="M80,214 A46,46 0 0 1 172,214"/>'+
+'<path class="sl" style="stroke:var(--m8);stroke-width:2.2;fill:none" d="M172,214 L250,138"/>'+
+'<path class="sl" style="stroke:var(--m10);stroke-width:2.2;fill:none;opacity:.9" d="M80,214 A126,126 0 0 1 332,214"/>'+
+'<path class="sl" style="stroke:var(--m10);stroke-width:2.2;fill:none;opacity:.9" d="M332,214 L416,130"/>'+
+'<circle cx="80" cy="214" r="3.5" fill="var(--ink)"/>'+
+'<text class="txm" x="80" y="230" text-anchor="middle">30</text>'+
+'<text class="txm" x="172" y="230" text-anchor="middle">110</text>'+
+'<text class="txm" x="332" y="230" text-anchor="middle">250</text>'+
+'<text class="txs" x="126" y="156" fill="var(--m8)" text-anchor="middle">electrodo A</text>'+
+'<text class="txs" x="206" y="86" fill="var(--m10)">electrodo B</text>'+
+'</svg>',
+pie:'Dos electrodos medidos en el mismo electrolito. Ambos semicírculos arrancan en Z = 30 Ω; el de A cierra en 110 Ω y el de B en 250 Ω. La recta final de cada uno sale a 45°.'};
+</script>
+<script>
+/* ============================================================
+   CASOS DE CARACTERIZACIÓN
+   Escenarios de varios pasos: una muestra desconocida, qué
+   técnica aplicar en cada paso, qué dice cada resultado y a qué
+   conclusión llevan juntos. Cada paso se revela al pulsarlo.
+   ============================================================ */
+var CASOS={};
+
+CASOS.polvo_blanco={
+ t:'Un polvo blanco sin etiqueta',
+ ctx:'Recibes un frasco de polvo blanco en el laboratorio, sin etiqueta. Solo sabes que vino del grupo que trabaja con óxidos semiconductores para fotocatálisis. Tienes acceso a difracción de rayos X, UV-Vis con esfera integradora, SEM con EDS, adsorción de nitrógeno y TGA. Dispones de 200 mg y de dos días.',
+ pasos:[
+  {p:'¿Con qué técnica empiezas y por qué esa primero?',
+   r:'<b>Difracción de rayos X de polvos.</b> Es no destructiva, consume 50 mg que se recuperan, tarda veinte minutos y responde la pregunta más informativa de todas: qué fase cristalina es. Identificar la fase acota de golpe todo lo demás, porque fija composición, estructura y buena parte de las propiedades esperables.',
+   d:'El difractograma muestra picos intensos en 25.3°, 37.8°, 48.0° y 53.9°, que indexan a una celda tetragonal.'},
+  {p:'Ese patrón corresponde a anatasa, una de las fases del TiO₂. ¿Qué pregunta queda abierta que la difracción no contesta?',
+   r:'<b>Si hay rutilo además de anatasa, y en qué proporción.</b> La difracción sí lo detectaría como picos adicionales, el principal a 27.4°, y la razón de intensidades permite cuantificar la mezcla. Lo que de verdad no contesta es el <b>tamaño de partícula</b> ni el <b>área superficial</b>, que son los que deciden la actividad fotocatalítica, ni si la superficie está contaminada.',
+   d:'No hay pico en 27.4°: la muestra es anatasa pura. El ancho a media altura del pico de 25.3° da, por Scherrer, cristalitos de 14 nm.'},
+  {p:'Scherrer da 14 nm. ¿Puedes reportar ya que las partículas miden 14 nm?',
+   r:'<b>No.</b> Scherrer mide el <b>dominio cristalino coherente</b>, no la partícula. Una partícula de 60 nm puede estar hecha de varios dominios de 14 nm. Para el tamaño de partícula hace falta microscopía, y para el tamaño en suspensión, dispersión de luz. La diferencia entre ambas medidas es, en sí misma, información sobre si el material es monocristalino o policristalino.',
+   d:'El SEM muestra partículas de 15 a 20 nm, consistentes con cristalitos únicos, agrupadas en aglomerados blandos de unos 200 nm.'},
+  {p:'Quieres confirmar que el material sirve como fotocatalizador bajo luz ultravioleta. ¿Qué mides y qué valor esperas?',
+   r:'<b>UV-Vis con esfera integradora</b> para obtener el borde de absorción, y de ahí la brecha prohibida por E_g = 1240/λ. Para anatasa se espera un borde cerca de <b>385 nm</b>, que corresponde a 3.2 eV. Si saliera cerca de 3.0 eV sería rutilo, y si saliera por debajo de 2.8 habría dopaje o impurezas absorbentes.',
+   d:'El borde cae en 384 nm: E_g = 1240/384 = 3.23 eV. Coherente con anatasa pura.'},
+  {p:'El área superficial por BET sale 95 m²/g. ¿Es consistente con los 15 a 20 nm del SEM?',
+   r:'<b>Sí, y la comprobación vale la pena.</b> Para esferas, A = 6/(ρD). Con ρ(anatasa) = 3.9 g/cm³ y D = 16 nm: A = 6/(3.9 × 1.6×10⁻⁶ cm) = 9.6×10⁵ cm²/g ≈ <b>96 m²/g</b>. La coincidencia confirma que los aglomerados son blandos y el nitrógeno accede a toda la superficie. Si BET hubiera dado 20 m²/g, las partículas estarían sinterizadas entre sí.',
+   d:'La consistencia entre tres técnicas independientes cierra la identificación.'}
+ ],
+ fin:'<b>Conclusión.</b> Anatasa pura, cristalitos de 14 nm y partículas de 15 a 20 nm, área de 95 m²/g y brecha de 3.23 eV. Es un fotocatalizador de ultravioleta de buena calidad. <b>La lección del caso</b> no es la secuencia concreta sino el criterio: se empieza por la técnica no destructiva que más acota, cada resultado decide cuál es la siguiente pregunta, y se buscan comprobaciones cruzadas entre técnicas independientes en vez de confiar en un solo número.'};
+
+CASOS.coloide_violeta={
+ t:'Un coloide de oro que salió del color equivocado',
+ ctx:'Repites una síntesis de nanopartículas de oro que siempre te daba una suspensión roja y transparente. Esta vez sale violácea y algo turbia. El protocolo, los reactivos y el matraz son los mismos; lo único distinto es que el agua la tomaste de otra garrafa.',
+ pasos:[
+  {p:'Antes de medir nada, ¿qué dos hipótesis compiten y cómo se distinguen en principio?',
+   r:'O bien las <b>partículas crecieron más de la cuenta</b>, o bien <b>se agregaron</b> conservando su tamaño individual. Las dos desplazan el color al rojo y las dos dan turbidez. La diferencia está en si el objeto individual cambió: el crecimiento altera el núcleo, la agregación no. Por eso hay que mirar las partículas una a una, no el promedio.',
+   d:'Ambas hipótesis predicen lo mismo en UV-Vis a simple vista, así que el espectro solo no basta.'},
+  {p:'¿Qué par de técnicas resuelve la ambigüedad y por qué justamente ese par?',
+   r:'<b>TEM y DLS juntos.</b> El TEM mide el núcleo seco, partícula por partícula; el DLS mide el diámetro hidrodinámico del objeto que se mueve en suspensión. Si el TEM da el tamaño de siempre y el DLS da mucho más, hay agregación. Si ambos crecen a la par, las partículas crecieron de verdad. Ninguna de las dos por separado lo decide.',
+   d:'TEM: partículas esféricas de 22 nm, contornos limpios, el tamaño habitual. DLS: 85 nm con PDI de 0.41.'},
+  {p:'Con esos números, ¿qué pasó? ¿Y qué esperarías ver en el espectro UV-Vis?',
+   r:'<b>Agregación.</b> El núcleo no cambió: son racimos de partículas intactas. En UV-Vis la banda de plasmón, que en oro esférico de 20 nm cae cerca de 520 nm, aparecerá <b>desplazada al rojo y ensanchada</b> por el acoplamiento de plasmones entre partículas vecinas dentro del racimo. Ese corrimiento es precisamente lo que percibes como violeta.',
+   d:'UV-Vis: banda ancha centrada en 610 nm, con un hombro residual cerca de 525 nm.'},
+  {p:'Queda explicar la causa. ¿Qué mides para confirmar que el cambio de agua es el culpable?',
+   r:'<b>Potencial zeta y conductividad</b> de las dos aguas. La estabilidad de un coloide de oro con citrato es electrostática: depende de una barrera de repulsión que la fuerza iónica comprime. Un agua con más electrolito disuelto acorta la longitud de Debye, derriba la barrera de DLVO y los choques brownianos bastan para agregar. El potencial zeta caerá en magnitud por debajo del umbral práctico de 30 mV.',
+   d:'Agua antigua: 1.2 µS/cm, potencial zeta −42 mV. Agua nueva: 310 µS/cm, potencial zeta −14 mV.'}
+ ],
+ fin:'<b>Conclusión.</b> El agua nueva tenía 250 veces más conductividad. Esa fuerza iónica comprimió la doble capa, el potencial zeta cayó de −42 a −14 mV, la barrera electrostática se derrumbó y las partículas se agregaron sin cambiar de tamaño. <b>La lección del caso</b> es que el síntoma (color) no identifica el mecanismo: hacen falta dos técnicas que midan cosas distintas del mismo objeto, y luego una tercera que explique la causa. Y la solución de fondo, si el material va a un medio salino, es pasar a estabilización estérica con PEG, que no depende del apantallamiento.'};
+
+CASOS.recubrimiento_falla={
+ t:'Un recubrimiento protector que falló antes de tiempo',
+ ctx:'Una pieza de acero con un recubrimiento nanoestructurado debía resistir mil horas en cámara de niebla salina y empezó a mostrar óxido a las doscientas. El proveedor sostiene que el recubrimiento cumple el espesor especificado. Tienes la pieza fallada y una de referencia sin ensayar.',
+ pasos:[
+  {p:'El espesor sí cumple. ¿Qué otras tres cosas pueden fallar en un recubrimiento que tiene el espesor correcto?',
+   r:'<b>Cobertura, adherencia y porosidad.</b> Un espesor medio correcto es compatible con un recubrimiento que deja aristas descubiertas, que se despega del sustrato, o que es denso en promedio pero tiene poros pasantes. Cualquiera de las tres permite que el electrolito llegue al acero, y entonces el espesor nominal es irrelevante.',
+   d:'La medida de espesor se hizo en una zona plana de la cara principal.'},
+  {p:'¿Cómo compruebas la cobertura real, incluidas las aristas y el fondo de cualquier relieve?',
+   r:'<b>Corte transversal y SEM con mapeo elemental por EDS.</b> El corte revela el espesor punto por punto a lo largo del perfil, y el mapeo muestra dónde está el elemento del recubrimiento y dónde aparece el hierro del sustrato. En una pieza con relieve, un proceso de línea de vista deja las aristas con una fracción del espesor de la cara plana.',
+   d:'En la cara plana el recubrimiento mide 2.1 µm. En las aristas mide 0.3 µm, y en el fondo de una ranura apenas 0.1 µm.'},
+  {p:'Ya tienes el modo de fallo geométrico. ¿Cómo lo cuantificas en términos de protección, sin esperar otras doscientas horas?',
+   r:'<b>Espectroscopía de impedancia electroquímica.</b> En un recubrimiento sano la resistencia de transferencia de carga es enorme y el semicírculo de Nyquist es gigante; conforme el electrolito encuentra camino al metal, R_ct cae. Medir impedancia en la zona plana y en la ranura, y seguir su evolución en el tiempo, cuantifica el deterioro en horas en lugar de semanas.',
+   d:'Zona plana: R_ct de 1.2 MΩ·cm². Ranura: 8 kΩ·cm², dos órdenes y medio por debajo.'},
+  {p:'¿Qué cambio de proceso recomiendas, y qué se sacrifica al hacerlo?',
+   r:'<b>Pasar a una técnica conformal</b>, como depósito de capa atómica o depósito químico en fase vapor, que recubren por reacción superficial y no por línea de vista, de modo que el espesor en la ranura iguala al de la cara plana. Lo que se sacrifica es <b>velocidad y costo</b>: el ALD crece una capa por ciclo y es lentísimo comparado con el sputtering. Una alternativa intermedia es rediseñar la pieza para eliminar las ranuras.',
+   d:'La recomendación se sostiene en una medida geométrica y una electroquímica, no en una opinión.'}
+ ],
+ fin:'<b>Conclusión.</b> El espesor nominal se cumplía y aun así el recubrimiento falló, porque se midió donde el proceso deposita bien. La cobertura de escalón era el problema real, y la impedancia lo convirtió en un número defendible frente al proveedor. <b>La lección del caso</b> es que una especificación cumplida en el punto equivocado no es una especificación cumplida, y que elegir dónde medir es parte del método, no un detalle.'};
+</script>
+<script>
+/* ============================================================
+   MAPA DE CONCEPTOS
+   El examen es transversal y la guía está organizada por módulo.
+   Este mapa cruza ambas cosas: cada arista explica POR QUÉ dos
+   conceptos se tocan, que es lo que el examen acaba preguntando.
+   id, etiqueta, módulo, columna, fila
+   ============================================================ */
+var MAPA={
+ nodos:[
+  /* --- columna 1: termodinámica y cinética --- */
+  {id:'gibbs',  t:'Energía libre de Gibbs', m:'M5', c:0,f:0},
+  {id:'equil',  t:'Constante de equilibrio', m:'M5', c:0,f:1},
+  {id:'nernst', t:'Ecuación de Nernst',      m:'M11',c:0,f:2},
+  {id:'arrh',   t:'Arrhenius y Ea',          m:'M5', c:0,f:3},
+  {id:'catal',  t:'Catálisis',               m:'M5', c:0,f:4},
+  {id:'sobrep', t:'Sobrepotencial',          m:'M11',c:0,f:5},
+
+  /* --- columna 2: superficie y nanoescala --- */
+  {id:'gamma',  t:'Energía superficial γ',   m:'M5', c:1,f:0},
+  {id:'kelvin', t:'Ecuación de Kelvin',      m:'M5', c:1,f:1},
+  {id:'ostwald',t:'Maduración de Ostwald',   m:'M10',c:1,f:2},
+  {id:'rcrit',  t:'Radio crítico r*',        m:'M6', c:1,f:3},
+  {id:'lamer',  t:'Modelo de LaMer',         m:'M6', c:1,f:4},
+  {id:'areaesp',t:'Área específica',         m:'M6', c:1,f:5},
+  {id:'dlvo',   t:'DLVO y doble capa',       m:'M5', c:1,f:6},
+  {id:'zeta',   t:'Potencial zeta',          m:'M7', c:1,f:7},
+
+  /* --- columna 3: estructura cristalina --- */
+  {id:'celda',  t:'Celda y átomos por celda',m:'M4', c:2,f:0},
+  {id:'miller', t:'Índices de Miller',       m:'M4', c:2,f:1},
+  {id:'bragg',  t:'Ley de Bragg',            m:'M7', c:2,f:2},
+  {id:'extinc', t:'Reglas de extinción',     m:'M4', c:2,f:3},
+  {id:'scherrer',t:'Scherrer',               m:'M7', c:2,f:4},
+  {id:'densteo',t:'Densidad teórica',        m:'M4', c:2,f:5},
+  {id:'defecto',t:'Vacancias y defectos',    m:'M4', c:2,f:6},
+
+  /* --- columna 4: electrones y luz --- */
+  {id:'bandas', t:'Bandas y gap',            m:'M4', c:3,f:0},
+  {id:'fermi',  t:'Nivel de Fermi',          m:'M4', c:3,f:1},
+  {id:'dopaje', t:'Dopaje n y p',            m:'M4', c:3,f:2},
+  {id:'union',  t:'Unión p-n',               m:'M8', c:3,f:3},
+  {id:'lambda', t:'λ = 1240/E',              m:'M4', c:3,f:4},
+  {id:'uvvis',  t:'UV-Vis y borde',          m:'M7', c:3,f:5},
+  {id:'confin', t:'Confinamiento cuántico',  m:'M4', c:3,f:6},
+  {id:'plasmon',t:'Plasmón de superficie',   m:'M8', c:3,f:7},
+
+  /* --- columna 5: medición y proceso --- */
+  {id:'tga',    t:'TGA y DSC',               m:'M7', c:4,f:0},
+  {id:'bet',    t:'BET',                     m:'M7', c:4,f:1},
+  {id:'dls',    t:'DLS y Stokes-Einstein',   m:'M7', c:4,f:2},
+  {id:'tem',    t:'TEM y SEM',               m:'M7', c:4,f:3},
+  {id:'cv',     t:'Voltamperometría',        m:'M11',c:4,f:4},
+  {id:'eis',    t:'Impedancia y R_ct',       m:'M11',c:4,f:5},
+  {id:'corros', t:'Corrosión',               m:'M11',c:4,f:6},
+  {id:'escala', t:'Escalamiento A/V',        m:'M9', c:4,f:7}
+ ],
+ /* a, b, por qué se tocan */
+ aristas:[
+  ['gibbs','equil','ΔG° = −RT·ln K. Son la misma información: el potencial y la constante están ligados, y una década de K equivale a unos 5.7 kJ/mol.'],
+  ['gibbs','nernst','ΔG° = −nFE°. El potencial de celda es energía libre por unidad de carga; E° positivo y ΔG° negativo dicen lo mismo.'],
+  ['nernst','equil','De ln K = nFE°/RT: un voltaje de apenas 1.1 V corresponde a una K del orden de 10³⁷.'],
+  ['nernst','cv','El potencial formal que se lee como punto medio entre picos es el E° de Nernst medido en la práctica.'],
+  ['arrh','catal','El catalizador baja Ea, y como k va con la exponencial de −Ea/RT, bajar 30 kJ/mol multiplica la velocidad por 10⁵.'],
+  ['arrh','sobrep','El sobrepotencial de activación es la versión electroquímica de la barrera de Arrhenius, y la pendiente de Tafel informa del paso lento.'],
+  ['catal','sobrep','Un electrocatalizador se compara por su i₀ y por el sobrepotencial a 10 mA/cm²: es catálisis medida en volts.'],
+  ['gibbs','rcrit','La nucleación es un balance de energía libre: el término de volumen la baja y el de superficie la sube. De ahí sale r*.'],
+
+  ['gamma','kelvin','La curvatura cuesta energía superficial, y por eso una gota pequeña tiene más presión de vapor y más solubilidad.'],
+  ['kelvin','ostwald','Las partículas pequeñas son más solubles, se disuelven y redepositan en las grandes. Ese es el motor de la maduración.'],
+  ['gamma','rcrit','r* = 2γ/ΔGv. Más tensión superficial encarece el núcleo y más sobresaturación lo abarata.'],
+  ['rcrit','lamer','LaMer separa en el tiempo el estallido de nucleación del crecimiento posterior, que es lo que da monodispersidad.'],
+  ['lamer','areaesp','El tamaño que sale de la síntesis fija el área por gramo, que va como el inverso del diámetro.'],
+  ['areaesp','bet','El área específica no se calcula, se mide: adsorción de nitrógeno tratada por BET.'],
+  ['areaesp','escala','Nanoescala y escalamiento son la misma razón A/V mirada desde los dos extremos: arriba estorba para disipar calor, abajo es la ventaja.'],
+  ['areaesp','corros','Más área y átomos de baja coordinación hacen que una nanopartícula metálica se oxide en horas y la lámina en años.'],
+  ['dlvo','zeta','El potencial zeta es la medida práctica de la barrera de DLVO: por encima de 30 mV en valor absoluto la suspensión aguanta.'],
+  ['dlvo','eis','La doble capa eléctrica es la misma estructura en los dos sitios: aquí decide la estabilidad coloidal, allí es la C_dl del circuito.'],
+  ['dlvo','ostwald','Son mecanismos distintos y por eso se combaten distinto: la repulsión frena la agregación pero no la maduración.'],
+
+  ['celda','densteo','ρ = nM/(N_A·a³). Los átomos por celda son el dato que más se falla: 1, 2 y 4 para SC, BCC y FCC.'],
+  ['celda','miller','Los índices nombran planos dentro de la celda, y de ahí sale el espaciado d en el sistema cúbico.'],
+  ['miller','bragg','d_hkl entra directamente en la ley de Bragg: los índices dicen qué plano produce cada pico.'],
+  ['bragg','extinc','Las extinciones explican qué picos faltan, y la secuencia de h²+k²+l² identifica la red: 2,4,6,8 es BCC y 3,4,8,11 es FCC.'],
+  ['bragg','scherrer','El mismo pico, otra lectura: la posición da el espaciado y el ancho da el tamaño de cristalito.'],
+  ['bragg','densteo','Del difractograma sale el parámetro de red, y con la masa molar se llega a la densidad teórica del material.'],
+  ['densteo','defecto','Si la densidad medida sale por debajo de la teórica, la explicación son vacancias: misma celda, menos masa.'],
+  ['scherrer','tem','Cristalito no es partícula. Scherrer ve el dominio coherente y el TEM ve el objeto: su diferencia dice si es policristalino.'],
+
+  ['bandas','fermi','El nivel de Fermi es dónde cae la probabilidad de ocupación 1/2: dentro de una banda en un metal, en mitad del gap en un intrínseco.'],
+  ['fermi','dopaje','Dopar no cambia el ancho del gap: mueve el nivel de Fermi hacia la banda de conducción o hacia la de valencia.'],
+  ['fermi','union','Al unir p y n los niveles de Fermi deben igualarse, y para lograrlo las bandas se doblan. Ese doblado es todo el dispositivo.'],
+  ['bandas','lambda','El gap fija el borde de absorción y el color de emisión por λ = 1240/E. Es la relación numérica más preguntada.'],
+  ['lambda','uvvis','El UV-Vis mide ese borde y el ajuste de Tauc lo precisa, distinguiendo además gap directo de indirecto.'],
+  ['bandas','confin','Por debajo del radio de Bohr del excitón el gap efectivo sube como 1/L², y el punto pequeño emite más al azul.'],
+  ['confin','uvvis','El corrimiento del borde de absorción respecto al material masivo es la medida directa del confinamiento.'],
+  ['plasmon','uvvis','La banda de plasmón del oro cae cerca de 520 nm; si se corre al rojo y se ensancha, hay agregación.'],
+  ['plasmon','zeta','Agregación: el plasmón la delata por el color y el potencial zeta explica por qué ocurrió.'],
+  ['union','lambda','El color de un LED lo fija el gap del material activo, y por eso el azul exigió nitruro de galio.'],
+
+  ['tga','bet','TGA cuantifica cuánto recubrimiento hay y BET sobre qué área está repartido: juntos dan la densidad de injerto.'],
+  ['dls','tem','El DLS mide el diámetro hidrodinámico en suspensión y el TEM el núcleo seco. Que difieran mucho indica agregación.'],
+  ['dls','zeta','Los dos describen la misma suspensión: uno el tamaño del objeto que se mueve y otro la barrera que lo mantiene separado.'],
+  ['cv','eis','Las dos miden la misma interfaz: la voltamperometría barriendo potencial y la impedancia perturbando en frecuencia.'],
+  ['eis','corros','R_ct grande significa recubrimiento que protege; su caída en el tiempo mide el deterioro sin esperar al óxido visible.'],
+  ['cv','sobrep','El voltamperograma hace visible el sobrepotencial: la separación de picos crece cuando la transferencia no da abasto.'],
+  ['corros','nernst','La corrosión es una celda galvánica espontánea que se arma sola, y los potenciales estándar predicen quién se come a quién.']
+ ]
+};
+</script>
 <script>
 /* ============================================================
    FIGURAS · SVG dibujadas a medida, sin dependencias externas.
@@ -561,7 +1140,7 @@ var G=[
   {t:'La cadena analítica y las unidades de concentración',b:[
    {p:['Un análisis tiene cuatro eslabones: muestreo, preparación, medición y tratamiento del dato. La exactitud del resultado la limita <b>el más débil</b>, no el instrumento: un ICP-MS impecable sobre una muestra mal homogeneizada entrega un número precisísimo y falso.']},
    {p:['Cada unidad de concentración responde a una pregunta distinta y no son intercambiables sin datos extra. La <b>molaridad</b> (mol por litro de disolución) es la del laboratorio porque se miden volúmenes, y su defecto es que depende de la temperatura. La <b>molalidad</b> (mol por kilogramo de disolvente) no depende de la temperatura, y por eso las propiedades coligativas se expresan así. Las <b>ppm</b> son masa entre masa por un millón, y en agua diluida equivalen a mg/L solo porque la densidad vale 1 g/mL. La <b>normalidad</b> multiplica la molaridad por los equivalentes: protones intercambiables en un ácido, hidroxilos en una base, electrones en una redox.']},
-   {eq:'C₁V₁ = C₂V₂     ·     para preparar 500 mL de HCl 0.10 M desde una madre 2.0 M: V₁ = (0.10 × 500)/2.0 = 25 mL'},
+   {eq:EQ.dilucion},
    {p:['El factor de dilución es la razón entre concentraciones, aquí 20, y el volumen de madre es el final dividido entre ese factor. Al convertir entre unidades hace falta la <b>densidad de la disolución</b>, no la del soluto ni la del disolvente, y ese dato olvidado es el origen de muchos errores de preparación.']},
    {p:['Un detalle que se pregunta tal cual: en <b>0.0500 M hay tres cifras significativas</b>. Los ceros a la izquierda del primer dígito distinto de cero solo sitúan el punto decimal; los de la derecha, con punto decimal presente, sí comunican precisión.']}
   ,
@@ -616,7 +1195,7 @@ var G=[
   {t:'Volumetría, buffers y equilibrios en disolución',b:[
    {p:['Titular es contar moles mediante una reacción de estequiometría conocida. Dos conceptos que no son sinónimos: el <b>punto de equivalencia</b> es estequiométrico y teórico; el <b>punto final</b> es lo que se observa con el indicador. Su diferencia es el error de titulación.']},
    {p:['El pH en la equivalencia <b>solo vale 7 si ambos son fuertes</b>. Ácido débil con base fuerte deja la base conjugada, que hidroliza: pH mayor que 7, y exige fenolftaleína (vira 8.2–10). Usar naranja de metilo (3.1–4.4) en ese caso hace virar el indicador mucho antes de la equivalencia, el volumen registrado es menor que el correcto y la concentración sale <b>subestimada</b>. El sesgo es sistemático y siempre en la misma dirección, así que repetir no lo revela.']},
-   {eq:'pH = pKa + log([A⁻]/[HA])     ·     en la semiequivalencia [A⁻] = [HA] ⇒ pH = pKa'},
+   {eq:EQ.henderson},
    {fig:FIG.titulacion},
    {p:['La curva de titulación tiene cuatro regiones. Antes de titulante, el pH lo fija el analito solo. En la zona intermedia, si el analito es débil, coexisten ácido y base conjugada: es la <b>meseta tampón</b>, donde la pendiente es mínima porque añadir titulante solo cambia la razón entre ambas formas. En la equivalencia ocurre el salto más brusco. Después manda el exceso de titulante.']},
    {p:['De ahí dos lecturas prácticas. El punto de semiequivalencia da <b>el pKa leído directamente</b> de una curva experimental. Y para elegir tampón se busca un ácido cuyo <b>pKa esté a menos de una unidad del pH objetivo</b>: para amortiguar a pH 9.2, el amonio con pKa 9.25 funciona y el acético con 4.76 no, por muy débil que sea, porque exigiría una razón extrema entre las dos formas donde el sistema ya casi no amortigua.']},
@@ -624,7 +1203,7 @@ var G=[
    {p:['En <b>volumetría de precipitación</b>, el método de Mohr determina cloruro con plata usando cromato como indicador. La estequiometría es <b>1 a 1</b> porque el AgCl se forma mol a mol, y el cromato solo precipita, rojizo, cuando el cloruro se agotó. En <b>complexometría</b>, el EDTA forma complejos 1:1 sin importar la carga del metal, porque es hexadentado y ocupa por sí solo las seis posiciones de coordinación.']},
    {deep:{t:'Por qué el EDTA exige tampón y por qué Nernst cambia con la temperatura',b:[
      {p:['<b>EDTA.</b> Es un ácido tetraprótico y solo la especie completamente desprotonada, Y⁴⁻, forma el complejo. Al bajar el pH esa fracción se desploma y con ella la constante condicional de formación, de modo que el salto en el punto final se difumina. A pH 5 muchos complejos ya no se forman de manera cuantitativa. Por eso cada valoración con EDTA especifica su pH de trabajo y se realiza tamponada.'],},
-     {eq:'E = E° − (RT/nF)·ln Q      (teórica)        E = E° − (0.0592/n)·log Q      (práctica a 25 °C)'},
+     {eq:EQ.nernst},
      {p:['<b>Nernst.</b> El 0.0592 V es (2.303·R·298.15)/F: lleva dentro la temperatura de 25 °C y el factor que convierte logaritmo natural en decimal. A 37 °C el coeficiente sube a <b>0.0616 V</b>, es decir la pendiente de un electrodo selectivo pasa de 59 a 62 mV por década. Calibrar a 25 °C y medir a 37 sin recalibrar introduce un sesgo sistemático que crece cuanto más lejos esté la muestra del punto de calibración.'],},
      {p:['Y la trampa de unidades: usar 0.0592 con un logaritmo natural, o RT/F con uno decimal, deja el resultado mal por un factor de 2.303.']}
    ]}}
@@ -648,7 +1227,7 @@ var G=[
  x:'El pH queda a 0.26 unidades del pK<sub>a</sub>, bien dentro del intervalo útil de ±1. Si el objetivo hubiera sido pH 6.5, la razón exigida sería de 55 a 1 y el sistema prácticamente no amortiguaría, aunque el pH nominal se alcanzara.'}}]},
   {t:'Análisis instrumental: espectroscopía y separaciones',b:[
    {p:['La ley de Beer-Lambert sale de integrar una absorción fraccional constante a lo largo del camino óptico: es un decaimiento exponencial en el espacio, y por eso la absorbancia, que es un logaritmo, resulta lineal con la concentración.']},
-   {eq:'A = ε·b·c         LOD ≈ 3σ_blanco / pendiente         LOQ ≈ 10σ_blanco / pendiente'},
+   {eq:EQ.beer},
    {ul:['<b>Intervalo de trabajo: A entre 0.1 y 1.0.</b> Por encima la linealidad se pierde por luz parásita, anchura de banda finita e interacción entre absorbentes, y el detector recibe muy poca luz. Ante una lectura de A = 1.85 lo que procede es <b>diluir</b>, no extrapolar la calibración.',
         'Medir en el máximo de absorción: ahí ε varía poco dentro de la banda del monocromador y la sensibilidad es máxima.',
         'Para bajar el LOD solo hay dos palancas: subir la pendiente o <b>bajar el ruido del blanco</b>. Más réplicas mejoran la precisión de una medida pero no desplazan el umbral de detección.',
@@ -812,7 +1391,7 @@ var G=[
  r:'Se necesita 98.9 % de conversión. El peso molecular solo se dispara en el último 2 % de la reacción.',
  x:'Esa sensibilidad extrema explica dos exigencias industriales de la policondensación: <b>estequiometría exactísima</b> (un exceso del 1 % de un monómero limita X̄<sub>n</sub> a unos 200) y <b>eliminación eficaz del subproducto</b>, porque el equilibrio frena la conversión justo donde más duele.'}}]},
   {t:'Bioquímica: enzimas, proteínas y ácidos nucleicos',b:[
-   {eq:'v = Vmax[S]/(Km + [S])     ·     cuando [S] = Km ⇒ v = Vmax/2'},
+   {eq:EQ.michaelis},
    {fig:FIG.michaelis},
    {p:['La curva recorre dos regímenes. A <b>[S] muy por debajo de Km</b> el denominador se aproxima a Km y la velocidad crece proporcionalmente al sustrato: comportamiento de <b>primer orden</b>. A <b>[S] muy por encima de Km</b> el denominador se aproxima a [S] y la velocidad se estanca en Vmax: comportamiento de <b>orden cero</b>, porque toda la enzima está ocupada y añadir más sustrato no cambia nada.']},
    {tabla:{th:['Inhibidor','Dónde se une','Vmax','Km aparente','¿Se vence con más sustrato?'],tr:[
@@ -899,7 +1478,7 @@ G.push(
  x:'Son cuatro propiedades <b>independientes</b> leídas de la misma curva. Un material puede ser muy rígido y poco resistente, o muy resistente y nada dúctil. Usar el área instantánea en lugar de A₀ da el esfuerzo <b>verdadero</b>, que no baja tras el máximo: la caída de la curva ingenieril es un artefacto de dividir siempre entre A₀.'}}]},
   {t:'De orbitales a bandas, y el dopaje',b:[
    {p:['Las bandas no son un concepto aparte: son la extensión directa de la teoría de orbitales moleculares. N orbitales atómicos dan N niveles en un rango acotado; con N del orden de 10²³ la separación entre niveles consecutivos es de unos 10⁻²³ eV, indistinguible de un continuo.']},
-   {eq:'E(eV) ≈ 1240 / λ(nm)   ·   umbral de absorción de un semiconductor'},
+   {eq:EQ.gap},
    {tabla:{th:['Material','Eg (eV)','Umbral','Aspecto'],tr:[
      ['TiO₂ anatasa','3.2','388 nm (UV)','Blanco: no absorbe visible'],
      ['CdS','2.4','517 nm','Amarillo-naranja'],
@@ -942,7 +1521,7 @@ G.push(
    {p:['El mismo criterio explica el contacto <b>metal-semiconductor</b>: si la diferencia de funciones de trabajo obliga a doblar las bandas hacia arriba, aparece una <b>barrera Schottky</b> rectificante; si no, el contacto es <b>óhmico</b>. Y la <b>función de trabajo</b> es precisamente la energía para arrancar un electrón desde E<sub>F</sub> hasta el vacío, que es lo que miden la fotoemisión y el XPS.']}]},
   {t:'Estado sólido: red, base y celda',b:[
    {p:['Un cristal se define como una <b>red</b> más una <b>base</b>. La red es el conjunto infinito de puntos equivalentes generado por traslación, un objeto puramente matemático. La <b>base</b> es el átomo o grupo de átomos que se coloca <b>idénticamente en cada punto de red</b>. Decir que la base es «el plano inferior que sostiene la estructura» es un distractor frecuente y es falso: no tiene nada que ver con soporte físico.']},
-   {eq:"r′ = n₁·a₁ + n₂·a₂ + n₃·a₃      con n₁, n₂, n₃ enteros"},
+   {eq:EQ.red},
    {p:['Esa es la condición de equivalencia: a partir de los <b>vectores de traslación</b> a₁, a₂ y a₃, el vector de posición de cualquier punto equivalente se obtiene con coeficientes <b>enteros</b>. Si los coeficientes pudieran ser fraccionarios la estructura no sería periódica, y es exactamente lo que distingue una red de un conjunto cualquiera de puntos.']},
    {p:['Según el orden que presenten, los materiales se clasifican así. <b>Monocristalino</b>: un solo arreglo periódico en todo el volumen, sin fronteras de grano. <b>Policristalino</b>: muchos cristales pequeños con orientaciones distintas, separados por fronteras de grano. <b>Amorfo</b>: sin ordenamiento periódico de largo alcance, aunque puede conservar orden local entre vecinos inmediatos. Esa es la razón de que un amorfo dé un halo ancho en difracción y no picos.']},
    {p:['La distinción entre <b>celda primitiva</b> y <b>celda convencional</b> se pregunta tal cual. La primitiva contiene <b>exactamente un punto de red</b> y es la de menor volumen posible; la convencional puede contener varios —dos en BCC, cuatro en FCC— y se prefiere porque <b>refleja la simetría cúbica</b> del cristal, que la primitiva oculta. Se gana claridad geométrica a cambio de usar una celda mayor.']},
@@ -957,12 +1536,12 @@ G.push(
      ['FCC','4','12','<b>0.74</b>'],
      ['HCP','—','12','<b>0.74</b>']]}},
    {p:['Dos números que se confunden y no son lo mismo: <b>átomos por celda</b> y <b>número de coordinación</b>. En FCC hay 4 átomos por celda (ocho vértices que aportan 1/8 más seis centros de cara que aportan 1/2) y 12 vecinos más próximos. FCC y HCP comparten eficiencia 0.74: lo único que cambia es la secuencia de apilamiento, ABCABC frente a ABAB, y esa diferencia altera el número de sistemas de deslizamiento, por lo que los metales FCC como aluminio y cobre son más dúctiles que los HCP como zinc y magnesio.']},
-   {eq:'d = a / √(h² + k² + l²)     ·     ρ_teórica = (n · M) / (N_A · a³)'},
+   {eq:EQ.cristal},
    {p:['La densidad teórica exige cuidado con las unidades. Para aluminio FCC con a = 0.405 nm: la masa de la celda es 4 × 26.98 / 6.022×10²³ = 1.792×10⁻²² g, y el volumen es a³ con <b>a convertido a centímetros</b>, es decir 4.05×10⁻⁸ cm, lo que da 6.64×10⁻²³ cm³ y una densidad de 2.70 g/cm³. Si el resultado sale desviado por 10⁶ el diagnóstico es inmediato: <b>no se elevó al cubo el factor de conversión</b>, porque (10²)³ = 10⁶.']},
    {p:['Comparar la densidad calculada con la medida es un diagnóstico de defectos. Si la medida es <b>menor</b>, hay <b>vacancias</b>: mismo volumen de celda, menos masa. Si es <b>mayor</b>, hay <b>átomos intersticiales</b> que añaden masa sin cambiar el volumen. El número de coordinación no entra en el cálculo.']},
    {fig:FIG.miller},
    {p:['Los <b>índices de Miller</b> se obtienen tomando los recíprocos de las intersecciones y reduciendo a los enteros más pequeños. Un plano que corta en 1/2, 1 e infinito da recíprocos 2, 1 y 0, es decir <b>(210)</b>. Se usan recíprocos por una razón concreta: un plano paralelo a un eje lo corta en el infinito, y su recíproco es cero en lugar de infinito. Los índices nunca llevan fracciones y el orden de los ejes importa.']},
-   {eq:'nλ = 2d·sen θ      ·      con λ = 1.54 Å, n = 1 y θ = 30°:  d = 1.54/(2 × 0.5) = 1.54 Å'},
+   {eq:EQ.bragg},
    {p:['La ley de Bragg se usa principalmente para <b>determinar distancias interplanares y, con ellas, la estructura cristalina</b> a partir de los ángulos donde aparece interferencia constructiva. Conviene recordar que θ es el ángulo entre el haz y el plano, es decir la mitad del 2θ que reporta el equipo.']},
    {p:['Al indexar un difractograma cúbico, la secuencia de h²+k²+l² identifica la red: <b>3, 4, 8, 11</b> es FCC (índices todos pares o todos impares) y <b>2, 4, 6, 8</b> es BCC (h+k+l par). La cúbica simple no tiene extinciones y da 1, 2, 3, 4.']},
    {p:['Y los defectos no son fallas sino el mecanismo: la deformación plástica ocurre por <b>movimiento de dislocaciones</b>. Endurecer un metal consiste en obstaculizarlas, y el <b>trabajo en frío</b> lo logra multiplicando su densidad hasta que se estorban entre sí. Las otras vías son solución sólida, precipitados y frontera de grano según Hall-Petch.']}
@@ -992,7 +1571,7 @@ G.push(
    {p:['El mismo elemento puede dar materiales opuestos según su arreglo. <b>Diamante y grafito</b> son ambos carbono puro: el diamante es sp³ con red covalente tridimensional y todos los electrones localizados, de ahí su dureza y su aislamiento; el grafito es sp² en capas, con electrones deslocalizados en el sistema pi que conducen dentro del plano y fuerzas débiles entre capas que permiten exfoliarlo. La diferencia no es la pureza: es <b>el arreglo y la hibridación</b>.']}
   ]},
   {t:'La cuántica que sí se pregunta',b:[
-   {eq:'E_n = n²h² / (8mL²)   ·   partícula en una caja'},
+   {eq:EQ.caja},
    {p:['Tres conclusiones, y la tercera es la rentable. La energía está cuantizada; el estado fundamental <b>nunca vale cero</b> por el principio de incertidumbre; y <b>E escala como 1/L²</b>, así que reducir la caja a la mitad cuadruplica la energía. Esa dependencia es exactamente el confinamiento cuántico de los puntos cuánticos.']},
    {p:['Para identificar un orbital a partir de sus números cuánticos hay que respetar los tres rangos: n entero desde 1; <b>l de 0 a n−1</b>; y <b>m_l de −l a +l</b>. Un orbital <b>4f</b> tiene n = 4 y l = 3, así que m_l solo puede ir de −3 a +3: una combinación con m_l = −4 es imposible y se descarta sin más análisis.']},
    {p:['Las <b>series espectrales del hidrógeno</b> se nombran por el nivel al que <b>cae</b> el electrón, no por el de partida: Lyman termina en n = 1 (ultravioleta), Balmer en n = 2 (visible), Paschen en n = 3, Brackett en n = 4 y <b>Pfund en n = 5</b>, ya en el infrarrojo lejano. Cuanto mayor el nivel final, menor la energía del fotón emitido y mayor su longitud de onda.']},
@@ -1033,7 +1612,7 @@ G.push(
  ['P<sub>A</sub> = x<sub>A</sub>·P°<sub>A</sub>','<b>Ley de Raoult</b>: el soluto no volátil baja la presión de vapor del disolvente.','']
 ]}]},
   {t:'Espontaneidad: los cuatro casos',b:[
-   {eq:'ΔG = ΔH − TΔS   ·   ΔG° = −RT ln K = −nFE°'},
+   {eq:EQ.gibbs},
    {tabla:{th:['ΔH','ΔS','¿Espontáneo?','Ejemplo'],tr:[
      ['−','+','Siempre','Descomposición explosiva'],
      ['+','−','Nunca (lo es el inverso)','—'],
@@ -1073,7 +1652,7 @@ G.push(
    {p:['Para determinar el orden a partir de datos hay dos rutas rápidas. Por <b>velocidades iniciales</b>: de v₂/v₁ = ([A]₂/[A]₁)ⁿ, si al duplicar la concentración la velocidad se multiplica por ocho entonces 8 = 2ⁿ y el orden es <b>tres</b>; un factor de cuatro daría segundo orden y uno de dos, primero. Por las <b>unidades de k</b>: para orden n son M^(1−n)·s⁻¹, de modo que s⁻¹ puro delata <b>primer orden</b>, M·s⁻¹ orden cero y M⁻¹·s⁻¹ segundo.']},
    {p:['La <b>vida media</b> es la tercera vía. En primer orden t½ = ln2/k y <b>no depende de la concentración inicial</b>; en orden cero es proporcional a [A]₀ y en segundo orden inversamente proporcional. Si al reducir a la mitad la concentración de partida la vida media no cambia, el orden es primero.']},
    {p:['El <b>orden de reacción es experimental</b>, no se lee de los coeficientes. Dada 2A + B → C, escribir v = k[A]²[B] solo sería válido si la reacción fuera elemental, algo que debe decir el enunciado. Los órdenes los dicta el paso determinante y pueden ser fraccionarios, cero o negativos. Las unidades de k delatan el orden.']},
-   {eq:'ln(k₂/k₁) = −(Ea/R)(1/T₂ − 1/T₁)   ·   T en kelvin, obligatoriamente'},
+   {eq:EQ.arrhenius},
    {p:['Lo de «obligatoriamente» no es retórico: la temperatura aparece como 1/T, y una escala con cero arbitrario como la Celsius rompe la relación. Usar grados Celsius altera la magnitud del término 1/T₂ − 1/T₁ e incluso su signo, lo que produce <b>energías de activación negativas</b> sin sentido físico. Si el resultado sale negativo, el primer sospechoso son las unidades de temperatura.']},
    {p:['Y la distinción que cierra el bloque: dos reacciones con <b>idéntico ΔG° pueden tardar segundos o siglos</b>. ΔG° fija K y por tanto la composición final, no la rapidez; la velocidad la gobierna la <b>energía de activación</b>, que es una propiedad del camino y no de los estados inicial y final. El diamante hacia grafito es el ejemplo canónico.']},
    {p:['Para primer orden, t½ = ln2/k y <b>no depende de la concentración inicial</b>; para segundo orden, t½ = 1/(k[A]₀) y sí depende. Esa es la forma más rápida de distinguirlos a partir de datos.']}
@@ -1154,7 +1733,7 @@ G.push(
      ['Superficie','Por debajo de ~100 nm, continuo','Reactividad catalítica, descenso del punto de fusión, mayor solubilidad'],
      ['Confinamiento cuántico','Radio de Bohr del excitón (2–20 nm según material)','Gap que crece al reducir el tamaño. Solo semiconductores'],
      ['Propiedades colectivas','Tamaño crítico del fenómeno','Superparamagnetismo (monodominio), plasmón (metales)']]}},
-   {eq:'S/V = 6/d (esfera o cubo)   ·   fracción superficial ≈ 3δ/R'},
+   {eq:EQ.superficie},
    {p:['Una partícula de 5 nm tiene alrededor del 30 % de sus átomos en la superficie; una de 50 nm, un 3 %. La fracción escala como 1/R, así que al dividir el diámetro entre diez se multiplica por diez.']},
    {p:['Dirección del confinamiento: <b>menor tamaño ⇒ mayor gap ⇒ emisión más azul</b>. Los distractores siempre invierten esto. Y ojo con atribuir todo a la cuántica: el oro de 20 nm es rojo por <b>plasmón</b>, que es electromagnetismo clásico, no por confinamiento, porque un metal no tiene gap que confinar.']},
    {deep:{t:'Por qué el oro coloidal es rojo y no dorado',b:[
@@ -1185,7 +1764,7 @@ G.push(
   {t:'Nucleación, crecimiento y forma',b:[
    {p:['La barrera de nucleación existe por una competencia de potencias: el volumen libera energía como r³ y la superficie la consume como r². A radios pequeños domina el término de área y la energía sube; a radios grandes domina el de volumen y baja. El máximo es la barrera.']},
    {fig:FIG.nucleacion},
-   {eq:'r* = 2γ/ΔGv      ΔG* = 16πγ³/(3ΔGv²)'},
+   {eq:EQ.nucleacion},
    {p:['Por debajo de r* un núcleo reduce su energía <b>disolviéndose</b>; por encima, creciendo. Más sobresaturación implica r* menor y barrera mucho menor (va con el inverso del cuadrado), de ahí que nuclee masivamente y dé partículas pequeñas.']},
    {fig:FIG.lamer},
    {p:['El modelo de <b>LaMer</b> dice que la monodispersidad no se logra controlando el crecimiento, sino <b>separándolo en el tiempo de la nucleación</b>: una nucleación explosiva que se autodetiene al consumir el monómero, y después solo crecimiento. De ahí la inyección caliente y el crecimiento sobre semillas.']},
@@ -1228,7 +1807,7 @@ G.push(
   ]},
   {t:'Rutas físicas y el límite litográfico',b:[
    {p:['Dos filosofías. <b>Descendente</b> (litografía, grabado, FIB) da control posicional —sabes dónde queda cada estructura, imprescindible en circuitos— y su límite es la resolución y el desperdicio. <b>Ascendente</b> (síntesis coloidal, autoensamblado, ALD) alcanza dimensiones menores con mejor calidad cristalina, y su límite es que no decide <b>dónde</b>. La industria las combina: litografía define dónde, depósito construye qué.']},
-   {eq:'CD = k₁·λ / NA   ·   las tres únicas palancas de la litografía'},
+   {eq:EQ.litografia},
    {ul:['Reducir <b>λ</b>: de 436 a 365, a 248 (KrF), a 193 (ArF), y el salto a 13.5 nm en EUV, que exige óptica reflectiva en vacío.',
         'Aumentar <b>NA</b>: con aire n = 1 acota el valor; la inmersión en agua (n = 1.44) lleva la NA efectiva por encima de 1.3. Esa fue la palanca que prolongó la vida de los 193 nm.',
         'Reducir <b>k₁</b>: máscaras de desplazamiento de fase, iluminación fuera de eje, corrección de proximidad, patrones múltiples. Su límite físico ronda 0.25.']},
@@ -1257,6 +1836,12 @@ G.push(
 {id:'M7',nom:'Caracterización de materiales',sesion:'Sesión 7 del taller',
  sub:'Una sonda para cada pregunta: difracción, microscopía, espectroscopía y análisis térmico. El reactivo más frecuente del módulo es «dada esta muestra y este objetivo, qué técnica eliges».',
  sec:[
+  {t:'Casos: encadenar técnicas hasta cerrar una identificación',b:[
+   {p:['Las preguntas de caracterización del examen rara vez piden una técnica aislada: piden <b>qué harías</b> ante una muestra concreta, y eso exige encadenar. El criterio que recorre los tres casos siguientes es siempre el mismo: empieza por la técnica <b>no destructiva que más acota</b>, deja que cada resultado decida cuál es la siguiente pregunta, y busca <b>comprobaciones cruzadas</b> entre técnicas independientes en lugar de confiar en un solo número.']},
+   {caso:CASOS.polvo_blanco},
+   {caso:CASOS.coloide_violeta},
+   {caso:CASOS.recubrimiento_falla}
+  ]},
   {t:'El árbol de decisión: organiza por pregunta, no por técnica',b:[
    {tabla:{th:['Lo que quieres saber','Técnica','Advertencia'],tr:[
      ['Qué fases cristalinas hay','DRX','Ciega al material amorfo; no da composición elemental'],
@@ -1273,7 +1858,7 @@ G.push(
    {p:['Y la regla que cierra el módulo: <b>ninguna técnica sola caracteriza un material</b>. Un trabajo serio combina al menos difracción, microscopía y una espectroscopía, porque cada una tiene un punto ciego que otra cubre. La secuencia lógica es no destructivo antes que destructivo, y estructural antes que cuantificación fina.']}
   ]},
   {t:'Difracción: tres medidas, tres informaciones',b:[
-   {eq:'nλ = 2d·sen θ      ·      D = Kλ / (β·cos θ)'},
+   {eq:EQ.scherrer},
    {p:['<b>El error más frecuente del módulo</b>: en Bragg, θ es la mitad del 2θ que reporta el equipo. Olvidarlo cambia el resultado por completo.']},
    {tabla:{th:['Qué mides en el difractograma','Qué te dice'],tr:[
      ['Posición de los picos (2θ)','Espaciados d ⇒ fase y parámetro de red. Un desplazamiento sistemático indica dopaje sustitucional o tensión'],
@@ -1411,7 +1996,7 @@ G.push(
    {fig:FIG.refraccion_multicapa}]},
   {t:'Microfluídica: el mundo sin turbulencia',b:[
    {p:['Las fuerzas inerciales escalan con L³ y las viscosas con L²: al reducir el tamaño las viscosas ganan. En un canal de 100 µm con agua, Re está entre 0.01 y 10, muy por debajo del umbral de turbulencia.']},
-   {eq:'Re = ρvL/µ      Pe = vL/D      Q = πΔP·r⁴/(8µL)'},
+   {eq:EQ.flujos},
    {ul:['<b>Laminar siempre</b>: dos corrientes viajan lado a lado y solo se mezclan por difusión. Agitar no mezcla: hay que diseñar geometría (canales serpenteantes con surcos) o trabajar en gotas.',
         '<b>La tiranía de r⁴</b>: reducir el radio a la mitad divide el caudal entre dieciséis. Por eso una obstrucción parcial cambia tanto el caudal, y el canal más estrecho domina la resistencia de toda la red.',
         '<b>La difusión se vuelve rápida</b> en términos relativos: t ≈ L²/D, así que recorrer 100 µm toma segundos frente a horas en un centímetro. De ahí que los ensayos en chip sean rápidos: desaparece la espera por transporte de masa.',
@@ -1448,7 +2033,7 @@ G.push(
      ['Fuerza electrostática','Muy favorable','Campos intensos con voltajes modestos']]}},
    {p:['La frecuencia de resonancia escala como <b>1/L</b>, así que acortar la estructura la sube: de ahí que los resonadores nanométricos lleguen a gigahertz. Y en el acelerómetro el compromiso es directo: resortes más <b>blandos</b> dan más desplazamiento y más sensibilidad (x = ma/k) pero bajan ω = √(k/m) y con ella el ancho de banda y la robustez frente a golpes; resortes más <b>rígidos</b> hacen lo contrario.']},
    {p:['De ahí el <b>stiction</b>, el modo de falla característico: al evaporarse el líquido de un proceso húmedo, la tensión superficial arrastra la micropalanca contra el sustrato y la deja pegada. La solución estándar es el secado supercrítico, que evita la interfase líquido-vapor.']},
-   {eq:'Δf/f₀ ≈ −Δm/(2m)   ·   sensado gravimétrico'},
+   {eq:EQ.gravimetrico},
    {p:['El signo importa y se pregunta: <b>adsorber masa BAJA la frecuencia</b>. Y conviene no confundir sensibilidad con límite de detección: más sensibilidad acompañada de más ruido no mejora el LOD. Por eso miniaturizar no siempre mejora un sensor: suben el ancho de banda y la relación superficie-volumen, pero también el ruido térmico browniano, que crece al reducir la masa.']},
    {p:['En un acelerómetro capacitivo el compromiso es directo: resortes más blandos dan más desplazamiento y más sensibilidad (x = ma/k), pero bajan ω = √(k/m) y con ella el ancho de banda y la robustez frente a golpes.']}
   ,
@@ -1470,7 +2055,7 @@ G.push(
  x:'Si la frecuencia hubiera <b>subido</b>, la explicación sería pérdida de masa por desorción o un aumento de la rigidez efectiva. El sensado gravimétrico no distingue por sí solo entre un cambio de masa y uno de rigidez: hace falta un control.'}}]},
   {t:'Sensores electroquímicos',b:[
    {p:['Dos técnicas que responden preguntas distintas. La <b>voltamperometría cíclica</b> barre el potencial y sirve para <b>caracterizar</b>: a qué potencial ocurre cada proceso, si es reversible (separación de picos ≈ 59/n mV a temperatura ambiente), área electroactiva. La <b>cronoamperometría</b> fija el potencial y lee corriente contra tiempo: sirve para <b>cuantificar</b>, y es lo que hace un glucómetro comercial.']},
-   {eq:'i_p = 2.69×10⁵ · n^{3/2} · A · D^{1/2} · v^{1/2} · C   (Randles-Ševčík)'},
+   {eq:EQ.randles},
    {ul:['Las unidades son la trampa: C va en <b>mol·cm⁻³</b>, así que 1 mM = 1×10⁻⁶ mol·cm⁻³.',
         'Diagnóstico muy usado: si i_p es proporcional a <b>√v</b>, la especie difunde; si es proporcional a <b>v</b>, está <b>adsorbida</b> en el electrodo.']},
    {p:['Dos lecturas de Randles-Ševčík que aparecen como diagnóstico. Si i_p crece con <b>√v</b>, la especie llega difundiendo desde el seno de la disolución; si crece con <b>v</b>, ya está <b>adsorbida</b> en el electrodo. Y en un sistema reversible de un electrón la separación de picos vale <b>59/n mV</b> a temperatura ambiente: separaciones mayores indican cinética lenta o caída óhmica sin compensar.']},
@@ -1509,7 +2094,7 @@ G.push(
   {t:'Escalar es elegir qué conservar',b:[
    {p:['El resultado central es negativo y por eso resulta contraintuitivo: <b>no existe un factor de escala que conserve a la vez todas las magnitudes relevantes</b>. El problema no es hacer más, es hacer igual.']},
    {p:['La razón es geométrica. Si multiplicas la dimensión lineal por k, el volumen va por k³ y el área de transferencia de calor por k². La razón área-volumen se divide entre k, así que un reactor diez veces mayor en dimensión lineal tiene mil veces más volumen y solo cien veces más superficie para disipar el calor que ese volumen genera. De ahí el modo de fallo más citado: una reacción exotérmica dócil en un matraz se vuelve peligrosa en un reactor de 500 L sin que la química haya cambiado.']},
-   {eq:'P = Np·ρ·N³·D⁵   ⇒   conservar P/V exige   N ∝ D^(−2/3)'},
+   {eq:EQ.potencia},
    {ul:['Si conservas <b>P/V</b> (el criterio habitual), la velocidad de rotación <b>baja</b> y la velocidad de punta πND <b>sube</b> como D^(1/3). Los criterios son incompatibles: hay que elegir cuál gobierna.',
         'Conservar las <b>rpm</b> multiplicaría la potencia específica por k², mecánicamente inviable.',
         'En células o cristales frágiles se conserva la <b>velocidad de punta</b> y se sacrifica mezclado.',
@@ -1590,7 +2175,7 @@ G.push(
   ]},
   {t:'Ingeniería económica y factibilidad',b:[
    {p:['Apareció en once preguntas de los quizzes del taller, así que conviene no dejarlo fuera. La idea de fondo es que <b>el dinero tiene valor en el tiempo</b>: mil pesos hoy no equivalen a mil pesos dentro de tres años, porque los de hoy pueden invertirse.']},
-   {eq:'Valor futuro: VF = VP·(1 + i)ⁿ      ·      interés simple: VF = VP·(1 + i·n)'},
+   {eq:EQ.interes},
    {p:['El <b>interés compuesto</b> se compone de tres partes que conviene nombrar por separado, porque el examen las pide así: el <b>capital o monto invertido</b>, la <b>tasa de interés</b> acordada y el <b>número de periodos</b> durante los que capitaliza. La diferencia con el simple es que el compuesto paga intereses sobre los intereses ya generados.']},
    {p:['El aspecto central en que se basa la ingeniería económica es precisamente ese: <b>el valor del dinero en el tiempo</b>. La premisa de los métodos de evaluación de proyectos es que los flujos de efectivo que ocurren en momentos distintos no son directamente comparables y deben llevarse a un mismo instante antes de sumarse.']},
    {p:['La diferencia entre ambos es que el <b>interés compuesto capitaliza sobre el saldo acumulado</b> y el simple solo sobre el capital inicial. Casi toda la evaluación de proyectos usa el compuesto, y confundirlos es un distractor habitual.']},
@@ -1603,7 +2188,7 @@ G.push(
      {p:['Dos herramientas distintas que suelen confundirse, y las dos aparecieron en el taller.'],},
      {p:['<b>Índice de costos.</b> Traslada el costo de un equipo de un año a otro sin volver a cotizar: C_hoy = C_antes × (índice_hoy / índice_antes). El más usado en proceso es el CEPCI. Si un equipo costó 2 millones con índice 400 y hoy el índice vale 600, el costo actualizado es 3 millones.'],},
        {p:['Ejemplo numérico del índice: un reactor de 150 L costaba 10 000 dólares cuando el CEPCI valía 200, y hoy el índice vale 300. El costo actualizado es 10 000 × (300/200) = <b>15 000 dólares</b>. La razón de índices actualiza por inflación de equipos, nada más: si además cambiara la capacidad, haría falta aplicar también el factor de escala.'],},
-   {eq:'C₂ = C₁ · (Q₂/Q₁)^n     con n ≈ 0.6 para muchos equipos de proceso'},
+   {eq:EQ.seisdecimos},
      {p:['<b>Regla de los seis décimos.</b> Escala el costo con la capacidad, no con el tiempo. Como el exponente es menor que uno, multiplicar por seis la capacidad multiplica el costo solo por 6^0.6 ≈ 2.9. Esa es la economía de escala: el costo por unidad producida baja al crecer el equipo, y es el argumento económico que sostiene buena parte del escalamiento industrial.'],},
      {p:['Ojo con el orden: si hay que escalar <b>y</b> actualizar, se aplican los dos factores, cada uno con su propia base.']}
    ]}},
@@ -1628,7 +2213,7 @@ G.push(
  r:'VPN = +163 000 y TIR ≈ 15.2 % frente a una tasa mínima del 12 %: el proyecto es viable, aunque con poco margen.',
  x:'El periodo de recuperación de 3.33 años <b>no</b> descuenta el dinero y por eso resulta optimista: descontado, la recuperación llega cerca del año 4.8. Y un VPN positivo tan ajustado significa que el proyecto es sensible: una caída del 8 % en los flujos ya lo vuelve negativo.'}}]},
   {t:'Balances, reactores y madurez',b:[
-   {eq:'Entrada − Salida + Generación − Consumo = Acumulación'},
+   {eq:EQ.balance},
    {p:['Todo lo demás son casos particulares. En <b>estado estacionario</b> la acumulación es cero; <b>sin reacción</b>, generación y consumo son cero y queda entrada = salida (operaciones de separación); en <b>lotes</b> no hay entrada ni salida y queda generación − consumo = acumulación.']},
    {p:['El procedimiento es siempre el mismo: diagrama de flujo con corrientes rotuladas, volumen de control explícito, <b>base de cálculo</b> elegida (100 kg de alimentación, una hora de operación), balance global más balances por componente, y conteo de ecuaciones contra incógnitas.']},
    {p:['Con <b>recirculación</b> hay que distinguir conversión por paso de conversión global, y es el error clásico: si todo el reactivo no convertido regresa, la conversión global es del 100 % aunque la de paso sea del 30 %. El precio es un caudal de recirculación grande. Y hace falta una <b>purga</b> si entran inertes, porque de lo contrario se acumulan sin límite.']},
@@ -1675,7 +2260,7 @@ G.push(
   {t:'Sistemas dispersos: termodinámicamente condenados',b:[
    {p:['Una emulsión <b>nunca</b> es termodinámicamente estable: separar dos fases inmiscibles crea área interfacial y eso cuesta energía. Lo que se busca es <b>estabilidad cinética</b>, es decir que tarde mucho.']},
    {p:['El <b>HLB</b> resume en un número de 0 a 20 la afinidad del surfactante por el agua. La regla que decide el tipo de emulsión es la de <b>Bancroft</b>: la fase continua será aquella en la que el surfactante sea más soluble. Así, HLB alto (8–18) da aceite en agua y HLB bajo (3–6) da agua en aceite.']},
-   {eq:'HLB_mezcla = x₁·HLB₁ + x₂·HLB₂   ·   promedio ponderado por fracción másica'},
+   {eq:EQ.hlb},
    {fig:FIG.emulsion},
    {tabla:{th:['Mecanismo de fallo','Qué ocurre','¿Reversible agitando?','Cómo se combate'],tr:[
      ['Cremado','Las gotas migran por densidad (Stokes)','Sí','Reducir radio (entra al cuadrado), espesar, igualar densidades'],
@@ -1818,10 +2403,10 @@ G.push(
 
   {t:'Potencial estándar, Nernst y lo que decide la espontaneidad',b:[
    {p:['Los <b>potenciales estándar de reducción</b> se tabulan todos como reducciones. Para combinar dos semirreacciones en una celda: E°_celda = E°_cátodo − E°_ánodo, usando ambos valores tal como aparecen en la tabla. <b>No se invierte el signo ni se multiplica por los coeficientes</b>, porque el potencial es una magnitud intensiva: duplicar la reacción duplica los moles de electrones y la energía, pero no el voltaje.']},
-   {eq:'ΔG° = −n F E°_celda   ·   F = 96 485 C/mol'},
+   {eq:EQ.gibbsE},
    {p:['Esa ecuación es el puente entre termodinámica y electroquímica, y responde la pregunta de la espontaneidad: <b>E°_celda positivo equivale a ΔG° negativo</b>. También conecta con el equilibrio, porque ΔG° = −RT ln K implica ln K = nFE°/RT: una diferencia de potencial de unas décimas de volt corresponde a constantes de equilibrio enormes.']},
    {p:['El agente con <b>mayor potencial de reducción se reduce</b>, y obliga al otro a oxidarse. Así se predice si un metal desplaza a otro de su sal, si un oxidante ataca a un sustrato o si una pareja puede funcionar como batería.']},
-   {eq:'E = E° − (0.0592/n) · log Q   (a 25 °C)'},
+   {eq:EQ.nernst},
    {p:['La <b>ecuación de Nernst</b> corrige el potencial por las concentraciones reales. El coeficiente 0.0592 V sale de 2.303·RT/F y <b>solo vale a 25 °C</b>: a 37 °C sube a 0.0616 V. Usar el valor de 25 °C en una medida fisiológica introduce un sesgo sistemático, y calcular con temperatura en grados Celsius en lugar de kelvin es el error numérico más frecuente del tema.']},
    {p:['De Nernst sale directamente el principio de los <b>electrodos selectivos de ion</b>, incluido el de pH: el potencial de membrana varía linealmente con el logaritmo de la actividad del ion, con pendiente de 59 mV por década para un ion monovalente y de 29.6 mV para uno divalente. Un electrodo que reporte 45 mV por década está deteriorado y requiere recalibración o reemplazo.']},
    {deep:{t:'Actividad contra concentración, y por qué importa en medio salino',b:[
@@ -1851,7 +2436,7 @@ G.push(
 
   {t:'Electrólisis y las leyes de Faraday',b:[
    {p:['La electrólisis fuerza una reacción no espontánea aplicando un potencial externo mayor que el de la celda invertida. Es la base del refinado de metales, de la producción de cloro y sosa, de la obtención de aluminio por el proceso Hall-Héroult, del anodizado y de la electrodeposición de recubrimientos.']},
-   {eq:'m = (Q · M)/(n · F) = (I · t · M)/(n · F)'},
+   {eq:EQ.faraday},
    {p:['Las <b>leyes de Faraday</b> dicen que la masa depositada es proporcional a la carga que pasó, y que para la misma carga las masas de distintas sustancias están en la razón de sus equivalentes. El cálculo tiene siempre la misma estructura: carga, luego moles de electrones, luego moles de sustancia, luego masa. El <b>paso que más se falla es n</b>, el número de electrones por ion: depositar un mol de cobre desde Cu²⁺ exige dos faradays, y un mol de aluminio desde Al³⁺ exige tres.']},
    {p:['La <b>eficiencia faradaica</b> es la fracción de la carga que fue a parar al producto buscado. Rara vez es del 100 %, porque compiten reacciones paralelas: en medio acuoso, la más habitual es el <b>desprendimiento de hidrógeno</b> en el cátodo y de oxígeno en el ánodo. Una eficiencia del 85 % significa que el 15 % de la energía eléctrica se gastó en electrolizar agua.']},
    {p:['El <b>sobrepotencial</b> explica por qué la electrólisis real siempre cuesta más voltaje que el termodinámico. La descomposición del agua requiere 1.23 V en teoría, pero en la práctica hacen falta 1.8 a 2.0 V por la cinética lenta de la evolución de oxígeno, la caída óhmica del electrolito y las pérdidas por transporte.']},
@@ -1885,7 +2470,7 @@ G.push(
    {fig:FIG.tafel},
    {p:['La termodinámica dice si una reacción de electrodo puede ocurrir; la cinética dice a qué velocidad, y en electroquímica la velocidad se mide como <b>densidad de corriente</b> en A/cm². El parámetro central es la <b>densidad de corriente de intercambio i₀</b>: la corriente que circula en los dos sentidos cuando el electrodo está en equilibrio y la corriente neta es cero.']},
    {p:['Un i₀ grande significa una reacción intrínsecamente rápida. Para la evolución de hidrógeno, i₀ sobre platino es del orden de 10⁻³ A/cm² y sobre mercurio de 10⁻¹² A/cm²: nueve órdenes de magnitud de diferencia explican por qué el platino es el catalizador de referencia y por qué los electrodos de mercurio tienen una ventana catódica tan amplia.']},
-   {eq:'η = E − E_eq   ·   η = a + b·log|i|  (región de Tafel)'},
+   {eq:EQ.tafel},
    {p:['El <b>sobrepotencial η</b> es el exceso de potencial sobre el de equilibrio necesario para que circule una corriente dada: es energía que se paga y no se recupera. Se descompone en tres contribuciones que conviene distinguir porque se corrigen de forma distinta.']},
    {ul:['<b>De activación</b>: la barrera de la transferencia de electrones. Se reduce con un mejor <b>electrocatalizador</b>.',
         '<b>De concentración</b>: el reactivo se agota junto al electrodo. Se reduce <b>agitando</b> o aumentando la concentración.',
@@ -1908,7 +2493,7 @@ G.push(
   {t:'Voltamperometría cíclica: cómo se lee un voltamperograma',b:[
    {fig:FIG.cv},
    {p:['La voltamperometría cíclica barre el potencial de forma triangular y registra la corriente. Es la técnica de diagnóstico por excelencia porque un solo experimento entrega potenciales formales, reversibilidad, número de electrones, coeficiente de difusión y la existencia de reacciones químicas acopladas.']},
-   {eq:'i_p = 2.69×10⁵ · n^(3/2) · A · D^(1/2) · C · v^(1/2)   (Randles-Ševčík, 25 °C)'},
+   {eq:EQ.randles},
    {ul:['<b>i_p ∝ √v</b>: la especie <b>difunde</b> desde el seno de la disolución. Es el caso habitual.',
         '<b>i_p ∝ v</b>: la especie está <b>adsorbida</b> sobre el electrodo y no necesita difundir. Diagnóstico directo.',
         '<b>ΔE_p ≈ 59/n mV</b> e independiente de v: proceso <b>reversible</b>, con transferencia rápida.',
@@ -2771,6 +3356,49 @@ QUIZ.push(
 );
 </script>
 <script>
+/* ---------------- Reactivos de lectura de gráfica ----------------
+   Llevan el campo g: la respuesta sale de interpretar la figura.
+------------------------------------------------------------------- */
+QUIZ.push(
+/* --- difractograma --- */
+{tag:'M7',g:GRAF.xrd_index,q:'Observa el difractograma. El primer pico aparece en 2θ = 38.2° con radiación de cobre (λ = 0.15406 nm). ¿Qué espaciado interplanar le corresponde?',opts:['0.1242 nm','0.4710 nm','0.1178 nm','0.2355 nm'],correct:3,exp:'θ es la mitad del 2θ reportado: 19.1°, cuyo seno vale 0.3271. d = λ/(2 sen θ) = 0.15406/0.6542 = 0.2355 nm. Meter 38.2° directamente en el seno da 0.1242 nm, que es el error más frecuente del módulo.'},
+{tag:'M4',g:GRAF.xrd_index,q:'En el mismo difractograma, los cuatro picos corresponden a la secuencia de h²+k²+l² de 3, 4, 8 y 11 al indexarlos. ¿Qué tipo de red cúbica tiene la muestra?',opts:['Cúbica simple','Centrada en el cuerpo','Centrada en las caras','Hexagonal compacta'],correct:2,exp:'La secuencia 3, 4, 8, 11 corresponde a índices todos pares o todos impares, que es la regla de extinción de FCC: (111), (200), (220), (311). En BCC solo difractan los planos con h+k+l par, lo que daría 2, 4, 6, 8.'},
+{tag:'M7',g:GRAF.xrd_index,q:'Si el pico de 38.2° de la figura tuviera un ancho a media altura mucho mayor manteniendo su posición, ¿qué cambiaría en la interpretación de la muestra?',opts:['Otro parámetro de red','Más cantidad de muestra','Sería otra fase distinta','Cristalitos más pequeños'],correct:3,exp:'La posición fija la fase y el parámetro de red, así que no cambiarían. El ensanchamiento lo gobiernan el tamaño del dominio coherente, por Scherrer, y la microdeformación. Separar ambas contribuciones exige el análisis de Williamson-Hall.'},
+
+/* --- TGA --- */
+{tag:'M7',g:GRAF.tga,q:'Lee el termograma de una nanopartícula inorgánica con recubrimiento orgánico injertado. ¿Qué porcentaje del total corresponde al recubrimiento orgánico?',opts:['6 %','24 %','15 %','3 %'],correct:2,exp:'Tres escalones y cada uno es otra cosa. Hasta 150 °C se pierde 3 %: agua y disolvente fisisorbidos, que no son recubrimiento. Entre 250 y 420 °C la masa cae de 97 a 82 %, es decir <b>15 %</b>, que es el intervalo de descomposición oxidativa de cadenas orgánicas. El escalón final por encima de 620 °C, de 82 a 76 %, ya es el propio inorgánico. Sumar el primero con el segundo da 18 % y es el error de lectura previsto.'},
+{tag:'M7',g:GRAF.tga,q:'En ese mismo termograma, ¿qué representa el escalón que aparece por encima de 620 °C, muy por encima del intervalo de descomposición de los orgánicos?',opts:['Ruido del equipo','Resto del recubrimiento','Agua fuertemente retenida','Descomposición del inorgánico'],correct:3,exp:'Las cadenas orgánicas ya se oxidaron por completo por debajo de 500 °C. Un escalón por encima de 600 °C corresponde al propio material inorgánico: pérdida de un carbonato, de oxígeno de red o una transición con cambio de estequiometría.'},
+
+/* --- DSC --- */
+{tag:'M3',g:GRAF.dsc,q:'Interpreta el termograma DSC. ¿Qué transición representa el escalón en la línea base a −25 °C, sin pico asociado en ninguna dirección?',opts:['Cristalización','Degradación térmica','Transición vítrea','Fusión cristalina'],correct:2,exp:'La transición vítrea es de segundo orden: cambia la capacidad calorífica y por tanto la línea base se desplaza, pero no hay entalpía latente y por eso no aparece pico. Fusión y cristalización sí son de primer orden y dan pico.'},
+{tag:'M3',g:GRAF.dsc,q:'En el mismo DSC aparece un pico exotérmico a 45 °C, entre el escalón y el endotermo, y desaparece si se repite el barrido sobre la misma muestra. ¿Qué ocurrió?',opts:['Fusión parcial','Evaporación de agua','Oxidación del polímero','Cristalización en frío'],correct:3,exp:'La muestra se enfrió rápido desde el fundido y quedó amorfa por debajo de su Tg. Al calentarla y superar la Tg, las cadenas ganan movilidad y cristalizan liberando calor. Tras ese ciclo el material ya está cristalizado y el exotermo no se repite.'},
+{tag:'M3',g:GRAF.dsc,q:'Del mismo termograma se quiere concluir si el polímero es semicristalino o completamente amorfo, mirando únicamente los eventos registrados. ¿Qué se concluye?',opts:['Amorfo: solo hay escalón','Semicristalino: hay Tg y Tm','Termofijo entrecruzado','No se puede decidir'],correct:1,exp:'El escalón a −25 °C es la transición vítrea de la fase amorfa y el pico endotérmico a 128 °C es la fusión de la fase cristalina. La coexistencia de ambos define un material semicristalino, con Tg por debajo del ambiente.'},
+
+/* --- Arrhenius --- */
+{tag:'M5',g:GRAF.arrhenius,q:'Compara las dos rectas de la gráfica de Arrhenius. ¿Qué reacción tiene mayor energía de activación y en qué te basas para decidirlo?',opts:['La A, por ser más alta','Igual, son paralelas','La A, por su mayor ordenada','La B, por su mayor pendiente'],correct:3,exp:'En ln k contra 1/T la pendiente vale −Ea/R, así que una recta más inclinada hacia abajo significa mayor energía de activación. La B cae 2.6 unidades de ln k en el mismo intervalo frente a 2.0 de la A: su barrera es mayor y por eso es más sensible a la temperatura.'},
+{tag:'M5',g:GRAF.arrhenius,q:'Estima la energía de activación de la reacción A con los datos de la gráfica: ln k pasa de −4.0 a −6.0 cuando 1000/T va de 2.8 a 3.6 K⁻¹. R = 8.314 J/mol·K.',opts:['Unos 166 kJ/mol','Unos 2 kJ/mol','Unos 21 kJ/mol','Unos 8 kJ/mol'],correct:2,exp:'La pendiente es Δln k / Δ(1/T) = (−6.0 + 4.0)/(3.6 − 2.8)×10⁻³ = −2.0/8.0×10⁻⁴ = −2500 K. Ea = −pendiente × R = 2500 × 8.314 = 20 785 J/mol, unos 21 kJ/mol. Olvidar el factor 1000 del eje da 166 kJ/mol.'},
+
+/* --- esfuerzo-deformación --- */
+{tag:'M4',g:GRAF.sigma_eps,q:'Mira las tres curvas de esfuerzo-deformación. ¿Cuál material es el más rígido, es decir el de mayor módulo de Young, y cuál el más dúctil de los tres?',opts:['Rígido 3, dúctil 1','Rígido 2, dúctil 2','Rígido 1, dúctil 1','Rígido 1, dúctil 3'],correct:3,exp:'La rigidez es la pendiente del tramo elástico inicial, y la del material 1 es con mucho la mayor. La ductilidad es cuánto se deforma antes de romper, y el 3 llega al final del eje sin fallar. El 1 rompe en el tramo recto: es rígido, resistente y completamente frágil.'},
+{tag:'M4',g:GRAF.sigma_eps,q:'En la misma figura, el material 1 rompe en el punto marcado sin haber salido nunca del tramo recto de su curva. ¿Qué clase de material corresponde a ese comportamiento?',opts:['Un termoplástico dúctil','Un metal recocido','Un cerámico frágil','Un elastómero'],correct:2,exp:'Rotura dentro del régimen elástico, sin deformación plástica previa, es la firma de un cerámico o de un vidrio: no hay dislocaciones móviles que relajen la concentración de esfuerzo en la punta de un defecto. Por eso su resistencia práctica depende del tamaño del defecto crítico.'},
+{tag:'M4',g:GRAF.sigma_eps,q:'Del material 3 de la gráfica se observa que nunca presenta tramo recto y admite deformaciones grandes con esfuerzos bajos. ¿Qué familia de materiales describe esa curva?',opts:['Un elastómero','Un acero templado','Un cerámico técnico','Un metal refractario'],correct:0,exp:'Los elastómeros responden por desenrollamiento de cadenas entrecruzadas, no por estiramiento de enlaces, así que su respuesta es no lineal desde el origen, su módulo es muy bajo y la deformación recuperable llega a cientos de por ciento.'},
+
+/* --- voltamperometría --- */
+{tag:'M11',g:GRAF.cv_dos,q:'Compara los dos voltamperogramas. Al cuadruplicar la velocidad de barrido de 25 a 100 mV/s, la corriente de pico pasó de 24 a 48 µA. ¿Qué indica esa dependencia?',opts:['El proceso es irreversible','Hay caída óhmica alta','La especie está adsorbida','La especie difunde'],correct:3,exp:'Multiplicar v por cuatro multiplicó i_p por dos, es decir por la raíz de cuatro. Esa es la predicción de Randles-Ševčík para una especie que llega por difusión desde el seno de la disolución. Si estuviera adsorbida, la corriente se habría multiplicado por cuatro.'},
+{tag:'M11',g:GRAF.cv_dos,q:'En la misma figura, la separación entre el pico anódico y el catódico se mantiene prácticamente igual en las dos velocidades de barrido registradas. ¿Qué se concluye del sistema?',opts:['Es irreversible','Está contaminado','Es reversible','Es cuasirreversible'],correct:2,exp:'Los dos criterios de reversibilidad son que ΔE_p valga unos 59/n mV y que no dependa de la velocidad de barrido, junto con una razón de corrientes de pico cercana a uno. Si ΔE_p creciera al barrer más rápido, el sistema sería cuasirreversible.'},
+{tag:'M11',g:GRAF.cv_dos,q:'Se quiere usar esta técnica para cuantificar el analito y hay que elegir velocidad de barrido. ¿Por qué conviene la de 25 mV/s pese a dar menos corriente de pico?',opts:['Mide más rápido el ensayo','Gasta menos electrolito','Evita la caída óhmica','Mejor relación señal-ruido'],correct:3,exp:'La corriente capacitiva de fondo escala con v y la faradaica solo con su raíz, de modo que la razón entre ambas empeora al barrer rápido. La corriente de pico sube, pero el fondo sube más deprisa: la voltamperometría cíclica rápida es buen diagnóstico y mal método cuantitativo.'},
+
+/* --- isoterma --- */
+{tag:'M6',g:GRAF.isoterma,q:'Analiza la isoterma de nitrógeno. Presenta un ciclo de histéresis que se abre por encima de p/p₀ ≈ 0.45 y se cierra al final del barrido. ¿Qué indica sobre el material?',opts:['Es un líquido','Es mesoporoso','Es microporoso','No es poroso'],correct:1,exp:'La histéresis nace de la condensación capilar en poros, que ocurre a distinta presión al llenar que al vaciar por la geometría del menisco. Aparece en el rango mesoporoso, de 2 a 50 nm. Un sólido microporoso daría isoterma de tipo I sin histéresis, y uno no poroso, tipo II.'},
+{tag:'M7',g:GRAF.isoterma,q:'De esa misma isoterma se quiere extraer el área superficial específica del material mediante el tratamiento convencional. ¿Qué zona de la curva se usa para el ajuste?',opts:['La meseta final','Toda la curva completa','La zona de presión baja','El ciclo de histéresis'],correct:2,exp:'El modelo BET se ajusta en el intervalo de p/p₀ entre 0.05 y 0.3 aproximadamente, donde se completa la monocapa y aún no domina la condensación capilar. La rama de desorción del ciclo es la que se trata por BJH para obtener la distribución de tamaño de poro.'},
+
+/* --- Nyquist --- */
+{tag:'M11',g:GRAF.nyquist,q:'Lee el diagrama de Nyquist. Los dos semicírculos arrancan en 30 Ω; el de A cierra en 110 Ω y el de B en 250 Ω. ¿Qué electrodo tiene la transferencia de carga más rápida?',opts:['El B, por su R_ct mayor','Los dos por igual','No se puede saber','El A, por su R_ct menor'],correct:3,exp:'El diámetro del semicírculo es la resistencia de transferencia de carga: 80 Ω para A y 220 Ω para B. Como R_ct es inversamente proporcional a la densidad de corriente de intercambio, un semicírculo menor significa una cinética intrínsecamente más rápida.'},
+{tag:'M11',g:GRAF.nyquist,q:'En ese mismo diagrama, los dos espectros cortan el eje real en 30 Ω a alta frecuencia, antes de empezar sus respectivos semicírculos. ¿Qué parámetro representa ese corte?',opts:['La resistencia del electrolito','La capacitancia de doble capa','La impedancia de Warburg','El potencial de equilibrio'],correct:0,exp:'A frecuencia alta el condensador de la doble capa cortocircuita la interfaz y lo único que queda es la resistencia óhmica del electrolito entre el electrodo de trabajo y la referencia. Que ambos coincidan confirma que se midieron en el mismo medio.'},
+{tag:'M11',g:GRAF.nyquist,q:'Al final de ambos espectros de la figura aparece una recta que sale con una inclinación de 45 grados respecto al eje real. ¿Qué fenómeno describe ese tramo?',opts:['Resistencia de contacto','Inductancia del cable','Difusión del reactivo','Transferencia de carga'],correct:2,exp:'La recta a 45° a baja frecuencia es la impedancia de Warburg, que aparece cuando el transporte de materia hacia el electrodo empieza a limitar la respuesta. A frecuencias bajas el sistema tiene tiempo de agotar el reactivo junto a la superficie y la difusión domina.'}
+);
+</script>
+<script>
 /* ============================================================
    RENDER
    ============================================================ */
@@ -2784,7 +3412,10 @@ function bloque(b,mid){
   if(b.p)out.push('<div class="card '+cls(mid)+'-accent">'+b.p.map(function(x){return '<p>'+x+'</p>'}).join('')+'</div>');
   if(b.ul)out.push('<div class="card"><ul>'+b.ul.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>');
   if(b.ol)out.push('<div class="card"><ol>'+b.ol.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol></div>');
-  if(b.eq)out.push('<div class="eq">'+b.eq+'</div>');
+  if(b.eq){
+    if(typeof b.eq==='string')out.push('<div class="eq">'+b.eq+'</div>');
+    else out.push('<div class="eqbox">'+b.eq.m+(b.eq.n?'<div class="eqnota">'+b.eq.n+'</div>':'')+'</div>');
+  }
   if(b.tabla)out.push('<div class="tscroll"><table class="data"><thead><tr>'+
     b.tabla.th.map(function(h){return '<th>'+h+'</th>'}).join('')+'</tr></thead><tbody>'+
     b.tabla.tr.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>'}).join('')+'</tr>'}).join('')+
@@ -2792,13 +3423,26 @@ function bloque(b,mid){
   if(b.fig)out.push('<figure class="fig"><div class="ftit">'+esc(b.fig.t)+'</div>'+b.fig.svg+
     (b.fig.pie?'<figcaption>'+b.fig.pie+'</figcaption>':'')+'</figure>');
   if(b.form)out.push('<div class="formulario"><div class="ftit">Formulario del tema</div>'+
-    b.form.map(function(f){return '<div class="fr"><div class="fx">'+f[0]+'</div><div class="fn">'+f[1]+'</div>'+
+    b.form.map(function(f){return '<div class="fr"><div class="fx'+(/^<math/.test(f[0])?' fx-math':'')+'">'+f[0]+'</div><div class="fn">'+f[1]+'</div>'+
       (f[2]?'<div class="fu">'+f[2]+'</div>':'')+'</div>'}).join('')+'</div>');
   if(b.prob)out.push('<details class="prob"><summary>'+esc(b.prob.t)+'</summary><div class="inner">'+
     '<div class="pdatos"><b>Datos. </b>'+b.prob.d+'</div>'+
     '<ol class="ppasos">'+b.prob.p.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'+
     '<div class="pres"><b>Resultado. </b>'+b.prob.r+'</div>'+
     (b.prob.x?'<div class="ptrampa"><b>La trampa: </b>'+b.prob.x+'</div>':'')+'</div></details>');
+  if(b.caso){
+    var C=b.caso;
+    out.push('<div class="caso"><div class="ftit">Caso de caracterización</div>'+
+      '<h4>'+esc(C.t)+'</h4><div class="caso-ctx">'+C.ctx+'</div>'+
+      '<ol class="caso-pasos">'+C.pasos.map(function(P){
+        return '<li><div class="caso-q">'+P.p+'</div>'+
+          '<details class="caso-rev"><summary>Ver cómo se razona</summary><div class="inner">'+
+          '<div class="caso-r">'+P.r+'</div>'+
+          (P.d?'<div class="caso-d"><b>Lo que sale al medirlo. </b>'+P.d+'</div>':'')+
+          '</div></details></li>';
+      }).join('')+'</ol>'+
+      '<div class="caso-fin">'+C.fin+'</div></div>');
+  }
   if(b.deep){
     out.push('<details class="deep"><summary>'+esc(b.deep.t)+'</summary><div class="inner">'+
       b.deep.b.map(function(x){return bloque(x,mid)}).join('')+'</div></details>');
@@ -2812,21 +3456,35 @@ function panelModulo(m){
   p.setAttribute('role','tabpanel');
   var h='<div class="module-head"><span class="tag">'+m.id+'</span><h2>'+esc(m.nom)+'</h2></div>'+
         '<div class="module-sub">'+esc(m.sub)+' <b>'+esc(m.sesion)+'.</b></div>'+
+        '<div class="prio" id="pri-'+m.id+'"></div>'+
         '<div class="section-progress"><i style="width:0%"></i></div>';
+  h+='<nav class="subtabs" role="tablist" aria-label="Actividades de '+m.id+'">'+
+       '<button class="active" data-sp="leer">Leer<span class="cnt">'+m.sec.length+' secciones</span></button>'+
+       '<button data-sp="tarjetas">Tarjetas<span class="cnt">'+m.flash.length+'</span></button>'+
+       '<button data-sp="quiz">Quiz<span class="cnt" id="qn-'+m.id+'"></span></button>'+
+       '</nav>';
+
+  h+='<div class="subpanel active" data-sp="leer">';
   m.sec.forEach(function(S,i){
     h+='<section class="block"><h3><span class="n">'+(i+1)+'</span>'+esc(S.t)+'</h3>'+
        S.b.map(function(b){return bloque(b,m.id)}).join('')+'</section>';
   });
+  h+='</div>';
+
+  h+='<div class="subpanel" data-sp="tarjetas">';
   h+='<div class="fc-head"><h3>Flashcards de '+m.id+'</h3><span>'+m.flash.length+' tarjetas · clic para voltear</span></div><div class="fcgrid">';
   m.flash.forEach(function(f){
     h+='<div class="flashcard" tabindex="0" role="button" aria-label="Flashcard, pulsa para ver la respuesta">'+
        '<div class="inner"><div class="face front">'+f[0]+'<span class="hint">voltear</span></div>'+
        '<div class="face back">'+f[1]+'</div></div></div>';
   });
-  h+='</div>';
-  h+='<div class="fc-head"><h3>Quiz de '+m.id+'</h3><span id="qn-'+m.id+'">reactivos de este módulo</span></div>'+
+  h+='</div></div>';
+
+  h+='<div class="subpanel" data-sp="quiz">'+
+     '<div class="fc-head"><h3>Quiz de '+m.id+'</h3><span id="qd-'+m.id+'">tandas de diez</span></div>'+
      '<div class="cobertura" id="cob-'+m.id+'"></div>'+
-     '<div class="quiz-wrap" id="quizwrap-'+m.id+'"></div>';
+     '<div class="quiz-wrap" id="quizwrap-'+m.id+'"></div></div>';
+
   p.innerHTML=h;
   return p;
 }
@@ -2834,11 +3492,20 @@ function panelModulo(m){
 var cont=el('div');document.querySelector('.wrap').appendChild(cont);
 G.forEach(function(m){cont.appendChild(panelModulo(m))});
 
+/* panel del mapa de conceptos */
+var pm=el('div','panel');pm.id='p-MAPA';pm.setAttribute('role','tabpanel');
+pm.innerHTML='<div class="module-head"><span class="tag" style="background:var(--surface-2);color:var(--accent)">MAPA</span>'+
+ '<h2>Cómo se conectan los temas</h2></div>'+
+ '<div class="module-sub" id="mapacount"></div>'+
+ '<div class="module-sub">El examen es transversal y esta guía está organizada por módulo. Aquí se cruzan las dos cosas: cada línea lleva escrito <b>por qué</b> dos conceptos se tocan.</div>'+
+ '<div id="mapawrap"></div>';
+cont.appendChild(pm);
+
 /* panel de quiz */
 var pq=el('div','panel');pq.id='p-QUIZ';pq.setAttribute('role','tabpanel');
 pq.innerHTML='<div class="module-head"><span class="tag" style="background:var(--surface-2);color:var(--accent)">QUIZ</span>'+
  '<h2>Simulacro mixto</h2></div>'+
- '<div class="module-sub">200 reactivos muestreados del banco de '+QUIZ.length+', repartidos por igual entre los '+G.length+' módulos y mezclados en cada intento. '+
+ '<div class="module-sub">Elige la duración. Los reactivos se muestrean del banco de '+QUIZ.length+', repartidos por igual entre los '+G.length+' módulos y mezclados en cada intento. '+
  'La mezcla entre módulos (interleaving) rinde más que practicar un módulo a la vez. '+
  'Cada tanda empieza por los reactivos que no has visto y por los que fallaste, de modo que al repetir recorres banco nuevo en vez de las mismas preguntas.</div>'+
  '<div class="cobertura" id="cob-QUIZ"></div>'+
@@ -2848,7 +3515,7 @@ cont.appendChild(pq);
 
 /* ---- pestañas ---- */
 var tabs=document.getElementById('tabs');
-var TABS=G.map(function(m){return [m.id,m.id]}).concat([['QUIZ','Quiz']]);
+var TABS=G.map(function(m){return [m.id,m.id]}).concat([['MAPA','Mapa'],['QUIZ','Quiz']]);
 TABS.forEach(function(t,i){
   var b=el('button',i===0?'active':'',t[1]);
   b.setAttribute('role','tab');
@@ -2864,6 +3531,19 @@ TABS.forEach(function(t,i){
   tabs.appendChild(b);
 });
 document.getElementById('p-'+TABS[0][0]).className+=' active';
+
+/* ---- subpestañas dentro de cada módulo ---- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest?e.target.closest('nav.subtabs button'):null;
+  if(!b)return;
+  var nav=b.parentElement, pan=nav.parentElement, k=b.getAttribute('data-sp');
+  Array.prototype.forEach.call(nav.children,function(x){x.classList.toggle('active',x===b)});
+  Array.prototype.forEach.call(pan.querySelectorAll(':scope > .subpanel'),function(s){
+    s.classList.toggle('active',s.getAttribute('data-sp')===k);
+  });
+  window.scrollTo(0,0);
+  progreso();
+});
 
 /* ---- flashcards ---- */
 document.addEventListener('click',function(e){
@@ -2891,7 +3571,9 @@ window.addEventListener('resize',progreso);
 
 document.getElementById('topnote').innerHTML=
  G.length+' módulos · '+G.reduce(function(a,m){return a+m.sec.length},0)+' secciones · '+
- G.reduce(function(a,m){return a+m.flash.length},0)+' flashcards · '+QUIZ.length+' reactivos (200 en el simulacro final). '+
+ document.querySelectorAll('.eqbox math').length+' fórmulas · '+
+ document.querySelectorAll('details.prob').length+' problemas resueltos · '+
+ G.reduce(function(a,m){return a+m.flash.length},0)+' flashcards · '+QUIZ.length+' reactivos. '+
  'Contenido derivado del material de los cursos disciplinares en Canvas y de literatura de referencia. '+
  '¿Necesitas el banco completo, el formulario y el seguimiento? <a href="app/">Abre la app extendida</a>.';
 </script>
@@ -2922,6 +3604,13 @@ var PROG=(function(){
       d[k]=r; guardar();
     },
     estado:function(q){ return d[id(q)]||null },
+    prioridad:function(pool){
+      var n=0,ok=0;
+      pool.forEach(function(q){ var r=d[id(q)]; if(r){n++; if(r.a===1)ok++} });
+      if(n<5)return {nivel:'sin datos',pct:null,n:n};
+      var pct=Math.round(100*ok/n);
+      return {nivel:pct<60?'alta':(pct<80?'media':'baja'),pct:pct,n:n};
+    },
     resumen:function(pool){
       var vistos=0,fallados=0;
       pool.forEach(function(q){ var r=d[id(q)]; if(r){vistos++; if(r.a===0)fallados++} });
@@ -2981,7 +3670,7 @@ function crearQuiz(cont,fuente,opc){
   opc=opc||{};
   var W=(typeof cont==='string')?document.getElementById(cont):cont;
   if(!W)return null;
-  var orden=[],i=0,resp=[],previo=[];
+  var orden=[],i=0,resp=[],previo=[],reloj=null,restante=0,limite=0;
 
   function pool(){ return (typeof fuente==='function')?fuente():fuente }
 
@@ -2997,10 +3686,31 @@ function crearQuiz(cont,fuente,opc){
       (r.fallados?' · <b>'+r.fallados+' por corregir</b>':'')+'</span>';
   }
 
-  function arrancar(){
-    orden=opc.muestra?muestraEquilibrada(pool(),opc.muestra):porPrioridad(pool());
+  function pararReloj(){ if(reloj){clearInterval(reloj);reloj=null} }
+  function fmt(s){ var m=Math.floor(s/60),x=s%60; return m+':'+(x<10?'0':'')+x }
+  function pintarReloj(){
+    var e=W.querySelector('.qreloj');
+    if(!e)return;
+    e.textContent='⏱ '+fmt(restante);
+    e.classList.toggle('apremio',restante<=60);
+  }
+  function iniciarReloj(min){
+    pararReloj();
+    limite=min*60; restante=limite;
+    reloj=setInterval(function(){
+      restante--;
+      if(restante<=0){ pararReloj(); restante=0; pintarReloj(); resultado(true) }
+      else pintarReloj();
+    },1000);
+  }
+
+  function arrancar(n,min){
+    pararReloj();
+    var cuantos=n||opc.muestra;
+    orden=cuantos?muestraEquilibrada(pool(),cuantos):porPrioridad(pool());
     i=0;resp=new Array(orden.length).fill(null);
     previo=orden.map(function(q){return PROG.estado(q)});
+    if(min)iniciarReloj(min);     /* antes de pintar, para que el reloj salga ya en la primera */
     pintar();pintarCobertura();
   }
   function tagHTML(t){
@@ -3019,9 +3729,13 @@ function crearQuiz(cont,fuente,opc){
     var marca=!prev?'<span class="qnuevo">nuevo</span>'
              :(prev.a===0?'<span class="qfallado">lo fallaste antes</span>':'<span class="qnuevo">repaso</span>');
     var h='<div class="quiz-bar"><i style="width:'+Math.round(100*(i+1)/orden.length)+'%"></i></div>'+
-      '<div class="qmeta">'+tagHTML(q.tag)+marca+'<span class="counter">'+(i+1)+' / '+orden.length+
+      '<div class="qmeta">'+tagHTML(q.tag)+marca+
+      (reloj?'<span class="qreloj">⏱ '+fmt(restante)+'</span>':'')+
+      '<span class="counter">'+(i+1)+' / '+orden.length+
       ' · contestadas '+resp.filter(function(x){return x!==null}).length+'</span></div>'+
-      '<div class="qtext">'+q.q+'</div>';
+      '<div class="qtext">'+q.q+'</div>'+
+      (q.g?'<figure class="qfig"><div class="ftit">'+q.g.t+'</div>'+q.g.svg+
+           (q.g.pie?'<figcaption>'+q.g.pie+'</figcaption>':'')+'</figure>':'');
     q.opts.forEach(function(o,k){
       var c='opt';
       if(ya){
@@ -3058,7 +3772,8 @@ function crearQuiz(cont,fuente,opc){
     });
   }
 
-  function resultado(){
+  function resultado(porTiempo){
+    pararReloj();
     var ok=0,byModule={};
     orden.forEach(function(q,k){
       var bien=resp[k]===q.correct;
@@ -3076,7 +3791,11 @@ function crearQuiz(cont,fuente,opc){
     else veredicto='Falta una pasada de contenido antes de seguir con quizzes. Empieza por las secciones y las flashcards de este bloque.';
 
     var r=PROG.resumen(pool());
-    var h='<div class="result"><div class="score">'+ok+' / '+orden.length+'</div>'+
+    var finTanda=opc.tanda?'<div class="tanda-fin">Fin de la tanda. '+
+      (r.nuevos?'Quedan <b>'+r.nuevos+'</b> reactivos de este módulo que no has visto. Puedes parar aquí sin perder nada: el progreso queda guardado y la próxima tanda sigue donde esta terminó.'
+               :'Ya pasaste por los '+r.total+' de este módulo. Las siguientes tandas repasan lo que fallaste y lo más antiguo.')+'</div>':'';
+    var h=(porTiempo?'<div class="qtiempo">Se acabó el tiempo. Lo que quedó sin contestar cuenta como error, igual que en el examen.</div>':'')+
+      '<div class="result"><div class="score">'+ok+' / '+orden.length+'</div>'+
       '<div class="pct">'+pct+' % de acierto'+(sinContestar?' · '+sinContestar+' sin contestar':'')+'</div>'+
       '<div class="veredicto">'+veredicto+'</div></div>'+
       '<div class="cobertura-res">Llevas <b>'+r.vistos+' de '+r.total+'</b> reactivos de este banco. '+
@@ -3094,6 +3813,7 @@ function crearQuiz(cont,fuente,opc){
       });
       h+='</div>';
     }
+    h+=finTanda;
     h+='<div class="btn-row">'+
        '<button class="btn" data-nav2="retry">Siguiente tanda</button>'+
        '<button class="btn ghost" data-nav2="ver">Ver respuestas</button></div>';
@@ -3108,7 +3828,8 @@ function crearQuiz(cont,fuente,opc){
     orden.forEach(function(q,k){
       h+='<div class="rev-item">'+tagHTML(q.tag)+
          '<span class="counter"> · '+(k+1)+'</span>'+
-         '<div class="rq">'+q.q+'</div>';
+         '<div class="rq">'+q.q+'</div>'+
+         (q.g?'<figure class="qfig"><div class="ftit">'+q.g.t+'</div>'+q.g.svg+'</figure>':'');
       q.opts.forEach(function(o,j){
         var c='opt';
         if(j===q.correct)c+=' correct';
@@ -3130,26 +3851,55 @@ function crearQuiz(cont,fuente,opc){
     Array.prototype.forEach.call(W.querySelectorAll('[data-nav2]'),function(b){
       var n=b.getAttribute('data-nav2');
       b.onclick=function(){
-        if(n==='retry')arrancar();
+        if(n==='retry'){ if(opc.modos)pintarModos(); else arrancar() }
         else if(n==='ver')revisar();
         else resultado();
       };
     });
   }
 
-  arrancar();
-  return {arrancar:arrancar,resultado:resultado,revisar:revisar,cobertura:pintarCobertura,
+  function pintarModos(){
+    pararReloj();
+    W.innerHTML='<div class="modos">'+opc.modos.map(function(m,k){
+      return '<button class="modo" data-k="'+k+'"><span class="mo-n">'+m.n+'</span>'+
+             '<span class="mo-t">'+m.t+'</span>'+
+             '<span class="mo-d">'+(m.min?m.min+' minutos':'sin límite de tiempo')+'</span></button>';
+    }).join('')+'</div>'+
+    '<div class="modos-pie">El examen real va contra reloj. Entrenar con el cronómetro encendido cambia cómo lees un enunciado: aprendes a descartar rápido en vez de releer.</div>';
+    Array.prototype.forEach.call(W.querySelectorAll('.modo'),function(b){
+      b.onclick=function(){ var m=opc.modos[+b.getAttribute('data-k')]; arrancar(m.n,m.min) };
+    });
+    pintarCobertura();
+  }
+
+  if(opc.modos)pintarModos(); else arrancar();
+  return {arrancar:arrancar,modos:pintarModos,resultado:resultado,revisar:revisar,cobertura:pintarCobertura,
     estado:function(){return {n:orden.length,i:i,resp:resp,orden:orden}}};
 }
 
 /* --- instanciación --- */
-window.__quiz=crearQuiz('quizwrap',QUIZ,{muestra:200,cobertura:'cob-QUIZ'});
+window.__quiz=crearQuiz('quizwrap',QUIZ,{cobertura:'cob-QUIZ',modos:[
+  {n:20, t:'Repaso corto',      min:25},
+  {n:60, t:'Media sesión',      min:75},
+  {n:200,t:'Simulacro completo',min:250},
+  {n:200,t:'Sin reloj',         min:0}
+]});
 window.__quizMod={};
 G.forEach(function(m){
   var pool=QUIZ.filter(function(q){return q.tag===m.id});
   var et=document.getElementById('qn-'+m.id);
-  if(et)et.textContent=pool.length+' reactivos · primero los que no has visto';
-  window.__quizMod[m.id]=crearQuiz('quizwrap-'+m.id,pool,{cobertura:'cob-'+m.id});
+  if(et)et.textContent=pool.length;
+  var ed=document.getElementById('qd-'+m.id);
+  if(ed)ed.textContent='tandas de 10 · primero los que no has visto';
+  var pr=document.getElementById('pri-'+m.id);
+  if(pr){
+    var P=PROG.prioridad(pool);
+    pr.className='prio p-'+P.nivel.replace(' ','');
+    pr.textContent=P.pct===null
+      ? 'prioridad: sin datos todavía'
+      : 'prioridad '+P.nivel+' · '+P.pct+' % sobre '+P.n+' contestados';
+  }
+  window.__quizMod[m.id]=crearQuiz('quizwrap-'+m.id,pool,{cobertura:'cob-'+m.id,muestra:10,tanda:true});
 });
 
 /* --- botón de reinicio del progreso --- */
@@ -3166,3 +3916,204 @@ G.forEach(function(m){
 </script>
 </div>
 </body></html>
+<script>
+/* ============================================================
+   RENDER DEL MAPA DE CONCEPTOS
+   SVG generado desde MAPA. Al tocar un nodo se resaltan sus
+   aristas y el panel explica POR QUÉ se conecta con cada vecino.
+   ============================================================ */
+(function(){
+  var W=document.getElementById('mapawrap');
+  if(!W)return;
+
+  var COLW=186, COLGAP=46, ROWH=54, PADX=14, PADY=30;
+  var NW=160, NH=34;
+  var cols=Math.max.apply(null,MAPA.nodos.map(function(n){return n.c}))+1;
+  var rows=Math.max.apply(null,MAPA.nodos.map(function(n){return n.f}))+1;
+  var ancho=PADX*2+cols*COLW+(cols-1)*COLGAP;
+  var alto=PADY*2+rows*ROWH;
+
+  var pos={};
+  MAPA.nodos.forEach(function(n){
+    pos[n.id]={x:PADX+n.c*(COLW+COLGAP), y:PADY+n.f*ROWH, n:n};
+  });
+  var vecinos={};
+  MAPA.aristas.forEach(function(a){
+    (vecinos[a[0]]=vecinos[a[0]]||[]).push({id:a[1],por:a[2]});
+    (vecinos[a[1]]=vecinos[a[1]]||[]).push({id:a[0],por:a[2]});
+  });
+
+  var TITCOL=['Termodinámica y cinética','Superficie y nanoescala','Estructura cristalina','Electrones y luz','Medición y proceso'];
+
+  function cx(id){return pos[id].x+NW/2}
+  function cy(id){return pos[id].y+NH/2}
+
+  var svg='<svg id="mapasvg" viewBox="0 0 '+ancho+' '+alto+'" role="img" aria-label="Mapa de conceptos del examen">';
+  TITCOL.forEach(function(t,k){
+    if(k>=cols)return;
+    svg+='<text class="mcol" x="'+(PADX+k*(COLW+COLGAP))+'" y="18">'+t+'</text>';
+  });
+  MAPA.aristas.forEach(function(a,i){
+    svg+='<path class="marista" data-a="'+a[0]+'" data-b="'+a[1]+'" id="ar'+i+'" d="M'+cx(a[0])+','+cy(a[0])+' L'+cx(a[1])+','+cy(a[1])+'"/>';
+  });
+  MAPA.nodos.forEach(function(n){
+    var p=pos[n.id];
+    svg+='<g class="mnodo '+n.m.toLowerCase()+'" data-id="'+n.id+'" tabindex="0" role="button" aria-label="'+n.t+', módulo '+n.m+'">'+
+      '<rect x="'+p.x+'" y="'+p.y+'" width="'+NW+'" height="'+NH+'" rx="7"/>'+
+      '<text x="'+(p.x+11)+'" y="'+(p.y+NH/2+4)+'">'+n.t+'</text>'+
+      '</g>';
+  });
+  svg+='</svg>';
+
+  W.innerHTML='<div class="mapa-grid"><div class="mapa-lienzo">'+svg+'</div>'+
+    '<aside class="mapa-panel" id="mapapanel"></aside></div>';
+
+  var panel=document.getElementById('mapapanel');
+  var nodos=W.querySelectorAll('.mnodo');
+  var aristas=W.querySelectorAll('.marista');
+
+  function vacio(){
+    panel.innerHTML='<div class="mp-vacio"><b>Toca un concepto.</b> El panel te dice con qué se conecta y, sobre todo, <b>por qué</b>. '+
+      'Esa es la parte que el examen pregunta: no qué es la ley de Bragg, sino que el mismo pico que da el espaciado da también el tamaño de cristalito.</div>';
+  }
+  vacio();
+
+  function pintar(id){
+    var n=pos[id].n, vs=vecinos[id]||[];
+    Array.prototype.forEach.call(nodos,function(g){
+      var gid=g.getAttribute('data-id');
+      g.classList.toggle('sel',gid===id);
+      g.classList.toggle('vec',vs.some(function(v){return v.id===gid}));
+      g.classList.toggle('apag',gid!==id&&!vs.some(function(v){return v.id===gid}));
+    });
+    Array.prototype.forEach.call(aristas,function(p){
+      var on=p.getAttribute('data-a')===id||p.getAttribute('data-b')===id;
+      p.classList.toggle('on',on);
+      p.classList.toggle('off',!on);
+    });
+    panel.innerHTML='<span class="tag" style="background:var(--'+n.m.toLowerCase()+'-bg);color:var(--'+n.m.toLowerCase()+')">'+n.m+'</span>'+
+      '<h3>'+n.t+'</h3>'+
+      '<div class="mp-sub">'+vs.length+(vs.length===1?' conexión':' conexiones')+'</div>'+
+      vs.map(function(v){
+        var o=pos[v.id].n;
+        return '<div class="mp-con"><button class="mp-ir" data-id="'+v.id+'">'+o.t+'</button>'+
+               '<div class="mp-por">'+v.por+'</div></div>';
+      }).join('')+
+      '<button class="btn mp-mod" data-mod="'+n.m+'">Abrir módulo '+n.m+'</button>';
+    Array.prototype.forEach.call(panel.querySelectorAll('.mp-ir'),function(b){
+      b.onclick=function(){pintar(b.getAttribute('data-id'))};
+    });
+    var bm=panel.querySelector('.mp-mod');
+    bm.onclick=function(){
+      var t=Array.prototype.filter.call(document.getElementById('tabs').children,function(x){return x.textContent===bm.getAttribute('data-mod')})[0];
+      if(t)t.click();
+    };
+  }
+
+  Array.prototype.forEach.call(nodos,function(g){
+    g.onclick=function(){pintar(g.getAttribute('data-id'))};
+    g.onkeydown=function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();pintar(g.getAttribute('data-id'))} };
+  });
+
+  /* contador en la cabecera */
+  var c=document.getElementById('mapacount');
+  if(c)c.textContent=MAPA.nodos.length+' conceptos · '+MAPA.aristas.length+' conexiones explicadas';
+})();
+</script>
+<script>
+/* ============================================================
+   AJUSTES DE LECTURA
+   Control del usuario sobre densidad, tipografía y movimiento.
+   Todo se guarda en el navegador y se aplica como atributos en
+   <html>, de modo que el CSS hace el resto sin recalcular nada.
+   ============================================================ */
+(function(){
+  var CLAVE='efc_ajustes_v1';
+  var DEF={texto:'1', linea:'normal', ancho:'normal', densidad:'completo', mov:'normal', tipo:'normal'};
+  var A;
+  try{ A=Object.assign({},DEF,JSON.parse(localStorage.getItem(CLAVE)||'{}')) }catch(e){ A=Object.assign({},DEF) }
+
+  function aplicar(){
+    var r=document.documentElement;
+    r.setAttribute('data-texto',A.texto);
+    r.setAttribute('data-linea',A.linea);
+    r.setAttribute('data-ancho',A.ancho);
+    r.setAttribute('data-densidad',A.densidad);
+    r.setAttribute('data-mov',A.mov);
+    r.setAttribute('data-tipo',A.tipo);
+    try{ localStorage.setItem(CLAVE,JSON.stringify(A)) }catch(e){}
+  }
+
+  /* si el sistema pide menos movimiento, se respeta por defecto */
+  try{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches && !localStorage.getItem(CLAVE)) A.mov='reducido';
+  }catch(e){}
+  aplicar();
+
+  /* ---- panel ---- */
+  var GRUPOS=[
+   {k:'texto',  t:'Tamaño del texto', o:[['0.92','Menor'],['1','Normal'],['1.14','Mayor'],['1.3','Máximo']]},
+   {k:'linea',  t:'Interlineado',     o:[['compacto','Compacto'],['normal','Normal'],['amplio','Amplio']]},
+   {k:'ancho',  t:'Ancho de línea',   o:[['estrecho','Estrecho'],['normal','Normal'],['ancho','Ancho']]},
+   {k:'tipo',   t:'Tipografía',       o:[['normal','Normal'],['legible','Alta legibilidad']]},
+   {k:'densidad',t:'Densidad',        o:[['completo','Todo el desarrollo'],['esencial','Solo lo esencial']]},
+   {k:'mov',    t:'Movimiento',       o:[['normal','Normal'],['reducido','Reducido']]}
+  ];
+
+  var caja=document.createElement('div');
+  caja.className='ajustes';
+  caja.innerHTML='<button class="aj-btn" id="ajbtn" aria-expanded="false" aria-controls="ajpanel">Ajustes de lectura</button>'+
+    '<div class="aj-panel" id="ajpanel" hidden>'+
+    GRUPOS.map(function(g){
+      return '<div class="aj-g"><div class="aj-t">'+g.t+'</div><div class="aj-o" data-k="'+g.k+'">'+
+        g.o.map(function(o){return '<button data-v="'+o[0]+'">'+o[1]+'</button>'}).join('')+
+        '</div></div>';
+    }).join('')+
+    '<div class="aj-nota">«Solo lo esencial» deja a la vista el primer párrafo de cada sección, los formularios, las tablas, las figuras y los problemas, y recoge el desarrollo. Cada sección conserva su botón para desplegarlo.</div>'+
+    '<button class="btn ghost aj-reset" id="ajreset">Volver a los valores por defecto</button>'+
+    '</div>';
+
+  var head=document.querySelector('header.top');
+  head.appendChild(caja);
+
+  var btn=document.getElementById('ajbtn'), panel=document.getElementById('ajpanel');
+  btn.onclick=function(){
+    var ab=btn.getAttribute('aria-expanded')==='true';
+    btn.setAttribute('aria-expanded',String(!ab));
+    panel.hidden=ab;
+  };
+  function marcar(){
+    GRUPOS.forEach(function(g){
+      var cont=panel.querySelector('.aj-o[data-k="'+g.k+'"]');
+      Array.prototype.forEach.call(cont.children,function(b){
+        b.classList.toggle('on',b.getAttribute('data-v')===A[g.k]);
+        b.setAttribute('aria-pressed',String(b.getAttribute('data-v')===A[g.k]));
+      });
+    });
+  }
+  GRUPOS.forEach(function(g){
+    var cont=panel.querySelector('.aj-o[data-k="'+g.k+'"]');
+    Array.prototype.forEach.call(cont.children,function(b){
+      b.onclick=function(){ A[g.k]=b.getAttribute('data-v'); aplicar(); marcar(); };
+    });
+  });
+  document.getElementById('ajreset').onclick=function(){ A=Object.assign({},DEF); aplicar(); marcar(); };
+  marcar();
+
+  /* ---- densidad: marcar el párrafo guía de cada sección y añadir el botón ---- */
+  document.querySelectorAll('section.block').forEach(function(sec){
+    var cards=sec.querySelectorAll(':scope > .card');
+    if(cards.length<2)return;
+    cards[0].classList.add('guia');
+    for(var i=1;i<cards.length;i++)cards[i].classList.add('desarrollo');
+    var b=document.createElement('button');
+    b.className='mas-desarrollo';
+    b.textContent='Mostrar el desarrollo (' + (cards.length-1) + ')';
+    b.onclick=function(){
+      var ab=sec.classList.toggle('abierta');
+      b.textContent=ab?'Recoger el desarrollo':'Mostrar el desarrollo ('+(cards.length-1)+')';
+    };
+    cards[0].insertAdjacentElement('afterend',b);
+  });
+})();
+</script>
