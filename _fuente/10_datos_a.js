@@ -7,7 +7,7 @@ var G=[
   {t:'La cadena analítica y las unidades de concentración',b:[
    {p:['Un análisis tiene cuatro eslabones: muestreo, preparación, medición y tratamiento del dato. La exactitud del resultado la limita <b>el más débil</b>, no el instrumento: un ICP-MS impecable sobre una muestra mal homogeneizada entrega un número precisísimo y falso.']},
    {p:['Cada unidad de concentración responde a una pregunta distinta y no son intercambiables sin datos extra. La <b>molaridad</b> (mol por litro de disolución) es la del laboratorio porque se miden volúmenes, y su defecto es que depende de la temperatura. La <b>molalidad</b> (mol por kilogramo de disolvente) no depende de la temperatura, y por eso las propiedades coligativas se expresan así. Las <b>ppm</b> son masa entre masa por un millón, y en agua diluida equivalen a mg/L solo porque la densidad vale 1 g/mL. La <b>normalidad</b> multiplica la molaridad por los equivalentes: protones intercambiables en un ácido, hidroxilos en una base, electrones en una redox.']},
-   {eq:'C₁V₁ = C₂V₂     ·     para preparar 500 mL de HCl 0.10 M desde una madre 2.0 M: V₁ = (0.10 × 500)/2.0 = 25 mL'},
+   {eq:EQ.dilucion},
    {p:['El factor de dilución es la razón entre concentraciones, aquí 20, y el volumen de madre es el final dividido entre ese factor. Al convertir entre unidades hace falta la <b>densidad de la disolución</b>, no la del soluto ni la del disolvente, y ese dato olvidado es el origen de muchos errores de preparación.']},
    {p:['Un detalle que se pregunta tal cual: en <b>0.0500 M hay tres cifras significativas</b>. Los ceros a la izquierda del primer dígito distinto de cero solo sitúan el punto decimal; los de la derecha, con punto decimal presente, sí comunican precisión.']}
   ,
@@ -62,7 +62,7 @@ var G=[
   {t:'Volumetría, buffers y equilibrios en disolución',b:[
    {p:['Titular es contar moles mediante una reacción de estequiometría conocida. Dos conceptos que no son sinónimos: el <b>punto de equivalencia</b> es estequiométrico y teórico; el <b>punto final</b> es lo que se observa con el indicador. Su diferencia es el error de titulación.']},
    {p:['El pH en la equivalencia <b>solo vale 7 si ambos son fuertes</b>. Ácido débil con base fuerte deja la base conjugada, que hidroliza: pH mayor que 7, y exige fenolftaleína (vira 8.2–10). Usar naranja de metilo (3.1–4.4) en ese caso hace virar el indicador mucho antes de la equivalencia, el volumen registrado es menor que el correcto y la concentración sale <b>subestimada</b>. El sesgo es sistemático y siempre en la misma dirección, así que repetir no lo revela.']},
-   {eq:'pH = pKa + log([A⁻]/[HA])     ·     en la semiequivalencia [A⁻] = [HA] ⇒ pH = pKa'},
+   {eq:EQ.henderson},
    {fig:FIG.titulacion},
    {p:['La curva de titulación tiene cuatro regiones. Antes de titulante, el pH lo fija el analito solo. En la zona intermedia, si el analito es débil, coexisten ácido y base conjugada: es la <b>meseta tampón</b>, donde la pendiente es mínima porque añadir titulante solo cambia la razón entre ambas formas. En la equivalencia ocurre el salto más brusco. Después manda el exceso de titulante.']},
    {p:['De ahí dos lecturas prácticas. El punto de semiequivalencia da <b>el pKa leído directamente</b> de una curva experimental. Y para elegir tampón se busca un ácido cuyo <b>pKa esté a menos de una unidad del pH objetivo</b>: para amortiguar a pH 9.2, el amonio con pKa 9.25 funciona y el acético con 4.76 no, por muy débil que sea, porque exigiría una razón extrema entre las dos formas donde el sistema ya casi no amortigua.']},
@@ -70,7 +70,7 @@ var G=[
    {p:['En <b>volumetría de precipitación</b>, el método de Mohr determina cloruro con plata usando cromato como indicador. La estequiometría es <b>1 a 1</b> porque el AgCl se forma mol a mol, y el cromato solo precipita, rojizo, cuando el cloruro se agotó. En <b>complexometría</b>, el EDTA forma complejos 1:1 sin importar la carga del metal, porque es hexadentado y ocupa por sí solo las seis posiciones de coordinación.']},
    {deep:{t:'Por qué el EDTA exige tampón y por qué Nernst cambia con la temperatura',b:[
      {p:['<b>EDTA.</b> Es un ácido tetraprótico y solo la especie completamente desprotonada, Y⁴⁻, forma el complejo. Al bajar el pH esa fracción se desploma y con ella la constante condicional de formación, de modo que el salto en el punto final se difumina. A pH 5 muchos complejos ya no se forman de manera cuantitativa. Por eso cada valoración con EDTA especifica su pH de trabajo y se realiza tamponada.'],},
-     {eq:'E = E° − (RT/nF)·ln Q      (teórica)        E = E° − (0.0592/n)·log Q      (práctica a 25 °C)'},
+     {eq:EQ.nernst},
      {p:['<b>Nernst.</b> El 0.0592 V es (2.303·R·298.15)/F: lleva dentro la temperatura de 25 °C y el factor que convierte logaritmo natural en decimal. A 37 °C el coeficiente sube a <b>0.0616 V</b>, es decir la pendiente de un electrodo selectivo pasa de 59 a 62 mV por década. Calibrar a 25 °C y medir a 37 sin recalibrar introduce un sesgo sistemático que crece cuanto más lejos esté la muestra del punto de calibración.'],},
      {p:['Y la trampa de unidades: usar 0.0592 con un logaritmo natural, o RT/F con uno decimal, deja el resultado mal por un factor de 2.303.']}
    ]}}
@@ -94,7 +94,7 @@ var G=[
  x:'El pH queda a 0.26 unidades del pK<sub>a</sub>, bien dentro del intervalo útil de ±1. Si el objetivo hubiera sido pH 6.5, la razón exigida sería de 55 a 1 y el sistema prácticamente no amortiguaría, aunque el pH nominal se alcanzara.'}}]},
   {t:'Análisis instrumental: espectroscopía y separaciones',b:[
    {p:['La ley de Beer-Lambert sale de integrar una absorción fraccional constante a lo largo del camino óptico: es un decaimiento exponencial en el espacio, y por eso la absorbancia, que es un logaritmo, resulta lineal con la concentración.']},
-   {eq:'A = ε·b·c         LOD ≈ 3σ_blanco / pendiente         LOQ ≈ 10σ_blanco / pendiente'},
+   {eq:EQ.beer},
    {ul:['<b>Intervalo de trabajo: A entre 0.1 y 1.0.</b> Por encima la linealidad se pierde por luz parásita, anchura de banda finita e interacción entre absorbentes, y el detector recibe muy poca luz. Ante una lectura de A = 1.85 lo que procede es <b>diluir</b>, no extrapolar la calibración.',
         'Medir en el máximo de absorción: ahí ε varía poco dentro de la banda del monocromador y la sensibilidad es máxima.',
         'Para bajar el LOD solo hay dos palancas: subir la pendiente o <b>bajar el ruido del blanco</b>. Más réplicas mejoran la precisión de una medida pero no desplazan el umbral de detección.',
@@ -258,7 +258,7 @@ var G=[
  r:'Se necesita 98.9 % de conversión. El peso molecular solo se dispara en el último 2 % de la reacción.',
  x:'Esa sensibilidad extrema explica dos exigencias industriales de la policondensación: <b>estequiometría exactísima</b> (un exceso del 1 % de un monómero limita X̄<sub>n</sub> a unos 200) y <b>eliminación eficaz del subproducto</b>, porque el equilibrio frena la conversión justo donde más duele.'}}]},
   {t:'Bioquímica: enzimas, proteínas y ácidos nucleicos',b:[
-   {eq:'v = Vmax[S]/(Km + [S])     ·     cuando [S] = Km ⇒ v = Vmax/2'},
+   {eq:EQ.michaelis},
    {fig:FIG.michaelis},
    {p:['La curva recorre dos regímenes. A <b>[S] muy por debajo de Km</b> el denominador se aproxima a Km y la velocidad crece proporcionalmente al sustrato: comportamiento de <b>primer orden</b>. A <b>[S] muy por encima de Km</b> el denominador se aproxima a [S] y la velocidad se estanca en Vmax: comportamiento de <b>orden cero</b>, porque toda la enzima está ocupada y añadir más sustrato no cambia nada.']},
    {tabla:{th:['Inhibidor','Dónde se une','Vmax','Km aparente','¿Se vence con más sustrato?'],tr:[

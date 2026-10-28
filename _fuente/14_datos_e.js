@@ -29,10 +29,10 @@ G.push(
 
   {t:'Potencial estándar, Nernst y lo que decide la espontaneidad',b:[
    {p:['Los <b>potenciales estándar de reducción</b> se tabulan todos como reducciones. Para combinar dos semirreacciones en una celda: E°_celda = E°_cátodo − E°_ánodo, usando ambos valores tal como aparecen en la tabla. <b>No se invierte el signo ni se multiplica por los coeficientes</b>, porque el potencial es una magnitud intensiva: duplicar la reacción duplica los moles de electrones y la energía, pero no el voltaje.']},
-   {eq:'ΔG° = −n F E°_celda   ·   F = 96 485 C/mol'},
+   {eq:EQ.gibbsE},
    {p:['Esa ecuación es el puente entre termodinámica y electroquímica, y responde la pregunta de la espontaneidad: <b>E°_celda positivo equivale a ΔG° negativo</b>. También conecta con el equilibrio, porque ΔG° = −RT ln K implica ln K = nFE°/RT: una diferencia de potencial de unas décimas de volt corresponde a constantes de equilibrio enormes.']},
    {p:['El agente con <b>mayor potencial de reducción se reduce</b>, y obliga al otro a oxidarse. Así se predice si un metal desplaza a otro de su sal, si un oxidante ataca a un sustrato o si una pareja puede funcionar como batería.']},
-   {eq:'E = E° − (0.0592/n) · log Q   (a 25 °C)'},
+   {eq:EQ.nernst},
    {p:['La <b>ecuación de Nernst</b> corrige el potencial por las concentraciones reales. El coeficiente 0.0592 V sale de 2.303·RT/F y <b>solo vale a 25 °C</b>: a 37 °C sube a 0.0616 V. Usar el valor de 25 °C en una medida fisiológica introduce un sesgo sistemático, y calcular con temperatura en grados Celsius en lugar de kelvin es el error numérico más frecuente del tema.']},
    {p:['De Nernst sale directamente el principio de los <b>electrodos selectivos de ion</b>, incluido el de pH: el potencial de membrana varía linealmente con el logaritmo de la actividad del ion, con pendiente de 59 mV por década para un ion monovalente y de 29.6 mV para uno divalente. Un electrodo que reporte 45 mV por década está deteriorado y requiere recalibración o reemplazo.']},
    {deep:{t:'Actividad contra concentración, y por qué importa en medio salino',b:[
@@ -62,7 +62,7 @@ G.push(
 
   {t:'Electrólisis y las leyes de Faraday',b:[
    {p:['La electrólisis fuerza una reacción no espontánea aplicando un potencial externo mayor que el de la celda invertida. Es la base del refinado de metales, de la producción de cloro y sosa, de la obtención de aluminio por el proceso Hall-Héroult, del anodizado y de la electrodeposición de recubrimientos.']},
-   {eq:'m = (Q · M)/(n · F) = (I · t · M)/(n · F)'},
+   {eq:EQ.faraday},
    {p:['Las <b>leyes de Faraday</b> dicen que la masa depositada es proporcional a la carga que pasó, y que para la misma carga las masas de distintas sustancias están en la razón de sus equivalentes. El cálculo tiene siempre la misma estructura: carga, luego moles de electrones, luego moles de sustancia, luego masa. El <b>paso que más se falla es n</b>, el número de electrones por ion: depositar un mol de cobre desde Cu²⁺ exige dos faradays, y un mol de aluminio desde Al³⁺ exige tres.']},
    {p:['La <b>eficiencia faradaica</b> es la fracción de la carga que fue a parar al producto buscado. Rara vez es del 100 %, porque compiten reacciones paralelas: en medio acuoso, la más habitual es el <b>desprendimiento de hidrógeno</b> en el cátodo y de oxígeno en el ánodo. Una eficiencia del 85 % significa que el 15 % de la energía eléctrica se gastó en electrolizar agua.']},
    {p:['El <b>sobrepotencial</b> explica por qué la electrólisis real siempre cuesta más voltaje que el termodinámico. La descomposición del agua requiere 1.23 V en teoría, pero en la práctica hacen falta 1.8 a 2.0 V por la cinética lenta de la evolución de oxígeno, la caída óhmica del electrolito y las pérdidas por transporte.']},
@@ -96,7 +96,7 @@ G.push(
    {fig:FIG.tafel},
    {p:['La termodinámica dice si una reacción de electrodo puede ocurrir; la cinética dice a qué velocidad, y en electroquímica la velocidad se mide como <b>densidad de corriente</b> en A/cm². El parámetro central es la <b>densidad de corriente de intercambio i₀</b>: la corriente que circula en los dos sentidos cuando el electrodo está en equilibrio y la corriente neta es cero.']},
    {p:['Un i₀ grande significa una reacción intrínsecamente rápida. Para la evolución de hidrógeno, i₀ sobre platino es del orden de 10⁻³ A/cm² y sobre mercurio de 10⁻¹² A/cm²: nueve órdenes de magnitud de diferencia explican por qué el platino es el catalizador de referencia y por qué los electrodos de mercurio tienen una ventana catódica tan amplia.']},
-   {eq:'η = E − E_eq   ·   η = a + b·log|i|  (región de Tafel)'},
+   {eq:EQ.tafel},
    {p:['El <b>sobrepotencial η</b> es el exceso de potencial sobre el de equilibrio necesario para que circule una corriente dada: es energía que se paga y no se recupera. Se descompone en tres contribuciones que conviene distinguir porque se corrigen de forma distinta.']},
    {ul:['<b>De activación</b>: la barrera de la transferencia de electrones. Se reduce con un mejor <b>electrocatalizador</b>.',
         '<b>De concentración</b>: el reactivo se agota junto al electrodo. Se reduce <b>agitando</b> o aumentando la concentración.',
@@ -119,7 +119,7 @@ G.push(
   {t:'Voltamperometría cíclica: cómo se lee un voltamperograma',b:[
    {fig:FIG.cv},
    {p:['La voltamperometría cíclica barre el potencial de forma triangular y registra la corriente. Es la técnica de diagnóstico por excelencia porque un solo experimento entrega potenciales formales, reversibilidad, número de electrones, coeficiente de difusión y la existencia de reacciones químicas acopladas.']},
-   {eq:'i_p = 2.69×10⁵ · n^(3/2) · A · D^(1/2) · C · v^(1/2)   (Randles-Ševčík, 25 °C)'},
+   {eq:EQ.randles},
    {ul:['<b>i_p ∝ √v</b>: la especie <b>difunde</b> desde el seno de la disolución. Es el caso habitual.',
         '<b>i_p ∝ v</b>: la especie está <b>adsorbida</b> sobre el electrodo y no necesita difundir. Diagnóstico directo.',
         '<b>ΔE_p ≈ 59/n mV</b> e independiente de v: proceso <b>reversible</b>, con transferencia rápida.',

@@ -24,7 +24,7 @@ G.push(
    {fig:FIG.refraccion_multicapa}]},
   {t:'Microfluídica: el mundo sin turbulencia',b:[
    {p:['Las fuerzas inerciales escalan con L³ y las viscosas con L²: al reducir el tamaño las viscosas ganan. En un canal de 100 µm con agua, Re está entre 0.01 y 10, muy por debajo del umbral de turbulencia.']},
-   {eq:'Re = ρvL/µ      Pe = vL/D      Q = πΔP·r⁴/(8µL)'},
+   {eq:EQ.flujos},
    {ul:['<b>Laminar siempre</b>: dos corrientes viajan lado a lado y solo se mezclan por difusión. Agitar no mezcla: hay que diseñar geometría (canales serpenteantes con surcos) o trabajar en gotas.',
         '<b>La tiranía de r⁴</b>: reducir el radio a la mitad divide el caudal entre dieciséis. Por eso una obstrucción parcial cambia tanto el caudal, y el canal más estrecho domina la resistencia de toda la red.',
         '<b>La difusión se vuelve rápida</b> en términos relativos: t ≈ L²/D, así que recorrer 100 µm toma segundos frente a horas en un centímetro. De ahí que los ensayos en chip sean rápidos: desaparece la espera por transporte de masa.',
@@ -61,7 +61,7 @@ G.push(
      ['Fuerza electrostática','Muy favorable','Campos intensos con voltajes modestos']]}},
    {p:['La frecuencia de resonancia escala como <b>1/L</b>, así que acortar la estructura la sube: de ahí que los resonadores nanométricos lleguen a gigahertz. Y en el acelerómetro el compromiso es directo: resortes más <b>blandos</b> dan más desplazamiento y más sensibilidad (x = ma/k) pero bajan ω = √(k/m) y con ella el ancho de banda y la robustez frente a golpes; resortes más <b>rígidos</b> hacen lo contrario.']},
    {p:['De ahí el <b>stiction</b>, el modo de falla característico: al evaporarse el líquido de un proceso húmedo, la tensión superficial arrastra la micropalanca contra el sustrato y la deja pegada. La solución estándar es el secado supercrítico, que evita la interfase líquido-vapor.']},
-   {eq:'Δf/f₀ ≈ −Δm/(2m)   ·   sensado gravimétrico'},
+   {eq:EQ.gravimetrico},
    {p:['El signo importa y se pregunta: <b>adsorber masa BAJA la frecuencia</b>. Y conviene no confundir sensibilidad con límite de detección: más sensibilidad acompañada de más ruido no mejora el LOD. Por eso miniaturizar no siempre mejora un sensor: suben el ancho de banda y la relación superficie-volumen, pero también el ruido térmico browniano, que crece al reducir la masa.']},
    {p:['En un acelerómetro capacitivo el compromiso es directo: resortes más blandos dan más desplazamiento y más sensibilidad (x = ma/k), pero bajan ω = √(k/m) y con ella el ancho de banda y la robustez frente a golpes.']}
   ,
@@ -83,7 +83,7 @@ G.push(
  x:'Si la frecuencia hubiera <b>subido</b>, la explicación sería pérdida de masa por desorción o un aumento de la rigidez efectiva. El sensado gravimétrico no distingue por sí solo entre un cambio de masa y uno de rigidez: hace falta un control.'}}]},
   {t:'Sensores electroquímicos',b:[
    {p:['Dos técnicas que responden preguntas distintas. La <b>voltamperometría cíclica</b> barre el potencial y sirve para <b>caracterizar</b>: a qué potencial ocurre cada proceso, si es reversible (separación de picos ≈ 59/n mV a temperatura ambiente), área electroactiva. La <b>cronoamperometría</b> fija el potencial y lee corriente contra tiempo: sirve para <b>cuantificar</b>, y es lo que hace un glucómetro comercial.']},
-   {eq:'i_p = 2.69×10⁵ · n^{3/2} · A · D^{1/2} · v^{1/2} · C   (Randles-Ševčík)'},
+   {eq:EQ.randles},
    {ul:['Las unidades son la trampa: C va en <b>mol·cm⁻³</b>, así que 1 mM = 1×10⁻⁶ mol·cm⁻³.',
         'Diagnóstico muy usado: si i_p es proporcional a <b>√v</b>, la especie difunde; si es proporcional a <b>v</b>, está <b>adsorbida</b> en el electrodo.']},
    {p:['Dos lecturas de Randles-Ševčík que aparecen como diagnóstico. Si i_p crece con <b>√v</b>, la especie llega difundiendo desde el seno de la disolución; si crece con <b>v</b>, ya está <b>adsorbida</b> en el electrodo. Y en un sistema reversible de un electrón la separación de picos vale <b>59/n mV</b> a temperatura ambiente: separaciones mayores indican cinética lenta o caída óhmica sin compensar.']},
@@ -122,7 +122,7 @@ G.push(
   {t:'Escalar es elegir qué conservar',b:[
    {p:['El resultado central es negativo y por eso resulta contraintuitivo: <b>no existe un factor de escala que conserve a la vez todas las magnitudes relevantes</b>. El problema no es hacer más, es hacer igual.']},
    {p:['La razón es geométrica. Si multiplicas la dimensión lineal por k, el volumen va por k³ y el área de transferencia de calor por k². La razón área-volumen se divide entre k, así que un reactor diez veces mayor en dimensión lineal tiene mil veces más volumen y solo cien veces más superficie para disipar el calor que ese volumen genera. De ahí el modo de fallo más citado: una reacción exotérmica dócil en un matraz se vuelve peligrosa en un reactor de 500 L sin que la química haya cambiado.']},
-   {eq:'P = Np·ρ·N³·D⁵   ⇒   conservar P/V exige   N ∝ D^(−2/3)'},
+   {eq:EQ.potencia},
    {ul:['Si conservas <b>P/V</b> (el criterio habitual), la velocidad de rotación <b>baja</b> y la velocidad de punta πND <b>sube</b> como D^(1/3). Los criterios son incompatibles: hay que elegir cuál gobierna.',
         'Conservar las <b>rpm</b> multiplicaría la potencia específica por k², mecánicamente inviable.',
         'En células o cristales frágiles se conserva la <b>velocidad de punta</b> y se sacrifica mezclado.',
@@ -203,7 +203,7 @@ G.push(
   ]},
   {t:'Ingeniería económica y factibilidad',b:[
    {p:['Apareció en once preguntas de los quizzes del taller, así que conviene no dejarlo fuera. La idea de fondo es que <b>el dinero tiene valor en el tiempo</b>: mil pesos hoy no equivalen a mil pesos dentro de tres años, porque los de hoy pueden invertirse.']},
-   {eq:'Valor futuro: VF = VP·(1 + i)ⁿ      ·      interés simple: VF = VP·(1 + i·n)'},
+   {eq:EQ.interes},
    {p:['El <b>interés compuesto</b> se compone de tres partes que conviene nombrar por separado, porque el examen las pide así: el <b>capital o monto invertido</b>, la <b>tasa de interés</b> acordada y el <b>número de periodos</b> durante los que capitaliza. La diferencia con el simple es que el compuesto paga intereses sobre los intereses ya generados.']},
    {p:['El aspecto central en que se basa la ingeniería económica es precisamente ese: <b>el valor del dinero en el tiempo</b>. La premisa de los métodos de evaluación de proyectos es que los flujos de efectivo que ocurren en momentos distintos no son directamente comparables y deben llevarse a un mismo instante antes de sumarse.']},
    {p:['La diferencia entre ambos es que el <b>interés compuesto capitaliza sobre el saldo acumulado</b> y el simple solo sobre el capital inicial. Casi toda la evaluación de proyectos usa el compuesto, y confundirlos es un distractor habitual.']},
@@ -216,7 +216,7 @@ G.push(
      {p:['Dos herramientas distintas que suelen confundirse, y las dos aparecieron en el taller.'],},
      {p:['<b>Índice de costos.</b> Traslada el costo de un equipo de un año a otro sin volver a cotizar: C_hoy = C_antes × (índice_hoy / índice_antes). El más usado en proceso es el CEPCI. Si un equipo costó 2 millones con índice 400 y hoy el índice vale 600, el costo actualizado es 3 millones.'],},
        {p:['Ejemplo numérico del índice: un reactor de 150 L costaba 10 000 dólares cuando el CEPCI valía 200, y hoy el índice vale 300. El costo actualizado es 10 000 × (300/200) = <b>15 000 dólares</b>. La razón de índices actualiza por inflación de equipos, nada más: si además cambiara la capacidad, haría falta aplicar también el factor de escala.'],},
-   {eq:'C₂ = C₁ · (Q₂/Q₁)^n     con n ≈ 0.6 para muchos equipos de proceso'},
+   {eq:EQ.seisdecimos},
      {p:['<b>Regla de los seis décimos.</b> Escala el costo con la capacidad, no con el tiempo. Como el exponente es menor que uno, multiplicar por seis la capacidad multiplica el costo solo por 6^0.6 ≈ 2.9. Esa es la economía de escala: el costo por unidad producida baja al crecer el equipo, y es el argumento económico que sostiene buena parte del escalamiento industrial.'],},
      {p:['Ojo con el orden: si hay que escalar <b>y</b> actualizar, se aplican los dos factores, cada uno con su propia base.']}
    ]}},
@@ -241,7 +241,7 @@ G.push(
  r:'VPN = +163 000 y TIR ≈ 15.2 % frente a una tasa mínima del 12 %: el proyecto es viable, aunque con poco margen.',
  x:'El periodo de recuperación de 3.33 años <b>no</b> descuenta el dinero y por eso resulta optimista: descontado, la recuperación llega cerca del año 4.8. Y un VPN positivo tan ajustado significa que el proyecto es sensible: una caída del 8 % en los flujos ya lo vuelve negativo.'}}]},
   {t:'Balances, reactores y madurez',b:[
-   {eq:'Entrada − Salida + Generación − Consumo = Acumulación'},
+   {eq:EQ.balance},
    {p:['Todo lo demás son casos particulares. En <b>estado estacionario</b> la acumulación es cero; <b>sin reacción</b>, generación y consumo son cero y queda entrada = salida (operaciones de separación); en <b>lotes</b> no hay entrada ni salida y queda generación − consumo = acumulación.']},
    {p:['El procedimiento es siempre el mismo: diagrama de flujo con corrientes rotuladas, volumen de control explícito, <b>base de cálculo</b> elegida (100 kg de alimentación, una hora de operación), balance global más balances por componente, y conteo de ecuaciones contra incógnitas.']},
    {p:['Con <b>recirculación</b> hay que distinguir conversión por paso de conversión global, y es el error clásico: si todo el reactivo no convertido regresa, la conversión global es del 100 % aunque la de paso sea del 30 %. El precio es un caudal de recirculación grande. Y hace falta una <b>purga</b> si entran inertes, porque de lo contrario se acumulan sin límite.']},
@@ -288,7 +288,7 @@ G.push(
   {t:'Sistemas dispersos: termodinámicamente condenados',b:[
    {p:['Una emulsión <b>nunca</b> es termodinámicamente estable: separar dos fases inmiscibles crea área interfacial y eso cuesta energía. Lo que se busca es <b>estabilidad cinética</b>, es decir que tarde mucho.']},
    {p:['El <b>HLB</b> resume en un número de 0 a 20 la afinidad del surfactante por el agua. La regla que decide el tipo de emulsión es la de <b>Bancroft</b>: la fase continua será aquella en la que el surfactante sea más soluble. Así, HLB alto (8–18) da aceite en agua y HLB bajo (3–6) da agua en aceite.']},
-   {eq:'HLB_mezcla = x₁·HLB₁ + x₂·HLB₂   ·   promedio ponderado por fracción másica'},
+   {eq:EQ.hlb},
    {fig:FIG.emulsion},
    {tabla:{th:['Mecanismo de fallo','Qué ocurre','¿Reversible agitando?','Cómo se combate'],tr:[
      ['Cremado','Las gotas migran por densidad (Stokes)','Sí','Reducir radio (entra al cuadrado), espesar, igualar densidades'],

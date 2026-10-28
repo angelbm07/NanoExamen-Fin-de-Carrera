@@ -34,7 +34,7 @@ G.push(
  x:'Son cuatro propiedades <b>independientes</b> leídas de la misma curva. Un material puede ser muy rígido y poco resistente, o muy resistente y nada dúctil. Usar el área instantánea en lugar de A₀ da el esfuerzo <b>verdadero</b>, que no baja tras el máximo: la caída de la curva ingenieril es un artefacto de dividir siempre entre A₀.'}}]},
   {t:'De orbitales a bandas, y el dopaje',b:[
    {p:['Las bandas no son un concepto aparte: son la extensión directa de la teoría de orbitales moleculares. N orbitales atómicos dan N niveles en un rango acotado; con N del orden de 10²³ la separación entre niveles consecutivos es de unos 10⁻²³ eV, indistinguible de un continuo.']},
-   {eq:'E(eV) ≈ 1240 / λ(nm)   ·   umbral de absorción de un semiconductor'},
+   {eq:EQ.gap},
    {tabla:{th:['Material','Eg (eV)','Umbral','Aspecto'],tr:[
      ['TiO₂ anatasa','3.2','388 nm (UV)','Blanco: no absorbe visible'],
      ['CdS','2.4','517 nm','Amarillo-naranja'],
@@ -77,7 +77,7 @@ G.push(
    {p:['El mismo criterio explica el contacto <b>metal-semiconductor</b>: si la diferencia de funciones de trabajo obliga a doblar las bandas hacia arriba, aparece una <b>barrera Schottky</b> rectificante; si no, el contacto es <b>óhmico</b>. Y la <b>función de trabajo</b> es precisamente la energía para arrancar un electrón desde E<sub>F</sub> hasta el vacío, que es lo que miden la fotoemisión y el XPS.']}]},
   {t:'Estado sólido: red, base y celda',b:[
    {p:['Un cristal se define como una <b>red</b> más una <b>base</b>. La red es el conjunto infinito de puntos equivalentes generado por traslación, un objeto puramente matemático. La <b>base</b> es el átomo o grupo de átomos que se coloca <b>idénticamente en cada punto de red</b>. Decir que la base es «el plano inferior que sostiene la estructura» es un distractor frecuente y es falso: no tiene nada que ver con soporte físico.']},
-   {eq:"r′ = n₁·a₁ + n₂·a₂ + n₃·a₃      con n₁, n₂, n₃ enteros"},
+   {eq:EQ.red},
    {p:['Esa es la condición de equivalencia: a partir de los <b>vectores de traslación</b> a₁, a₂ y a₃, el vector de posición de cualquier punto equivalente se obtiene con coeficientes <b>enteros</b>. Si los coeficientes pudieran ser fraccionarios la estructura no sería periódica, y es exactamente lo que distingue una red de un conjunto cualquiera de puntos.']},
    {p:['Según el orden que presenten, los materiales se clasifican así. <b>Monocristalino</b>: un solo arreglo periódico en todo el volumen, sin fronteras de grano. <b>Policristalino</b>: muchos cristales pequeños con orientaciones distintas, separados por fronteras de grano. <b>Amorfo</b>: sin ordenamiento periódico de largo alcance, aunque puede conservar orden local entre vecinos inmediatos. Esa es la razón de que un amorfo dé un halo ancho en difracción y no picos.']},
    {p:['La distinción entre <b>celda primitiva</b> y <b>celda convencional</b> se pregunta tal cual. La primitiva contiene <b>exactamente un punto de red</b> y es la de menor volumen posible; la convencional puede contener varios —dos en BCC, cuatro en FCC— y se prefiere porque <b>refleja la simetría cúbica</b> del cristal, que la primitiva oculta. Se gana claridad geométrica a cambio de usar una celda mayor.']},
@@ -92,12 +92,12 @@ G.push(
      ['FCC','4','12','<b>0.74</b>'],
      ['HCP','—','12','<b>0.74</b>']]}},
    {p:['Dos números que se confunden y no son lo mismo: <b>átomos por celda</b> y <b>número de coordinación</b>. En FCC hay 4 átomos por celda (ocho vértices que aportan 1/8 más seis centros de cara que aportan 1/2) y 12 vecinos más próximos. FCC y HCP comparten eficiencia 0.74: lo único que cambia es la secuencia de apilamiento, ABCABC frente a ABAB, y esa diferencia altera el número de sistemas de deslizamiento, por lo que los metales FCC como aluminio y cobre son más dúctiles que los HCP como zinc y magnesio.']},
-   {eq:'d = a / √(h² + k² + l²)     ·     ρ_teórica = (n · M) / (N_A · a³)'},
+   {eq:EQ.cristal},
    {p:['La densidad teórica exige cuidado con las unidades. Para aluminio FCC con a = 0.405 nm: la masa de la celda es 4 × 26.98 / 6.022×10²³ = 1.792×10⁻²² g, y el volumen es a³ con <b>a convertido a centímetros</b>, es decir 4.05×10⁻⁸ cm, lo que da 6.64×10⁻²³ cm³ y una densidad de 2.70 g/cm³. Si el resultado sale desviado por 10⁶ el diagnóstico es inmediato: <b>no se elevó al cubo el factor de conversión</b>, porque (10²)³ = 10⁶.']},
    {p:['Comparar la densidad calculada con la medida es un diagnóstico de defectos. Si la medida es <b>menor</b>, hay <b>vacancias</b>: mismo volumen de celda, menos masa. Si es <b>mayor</b>, hay <b>átomos intersticiales</b> que añaden masa sin cambiar el volumen. El número de coordinación no entra en el cálculo.']},
    {fig:FIG.miller},
    {p:['Los <b>índices de Miller</b> se obtienen tomando los recíprocos de las intersecciones y reduciendo a los enteros más pequeños. Un plano que corta en 1/2, 1 e infinito da recíprocos 2, 1 y 0, es decir <b>(210)</b>. Se usan recíprocos por una razón concreta: un plano paralelo a un eje lo corta en el infinito, y su recíproco es cero en lugar de infinito. Los índices nunca llevan fracciones y el orden de los ejes importa.']},
-   {eq:'nλ = 2d·sen θ      ·      con λ = 1.54 Å, n = 1 y θ = 30°:  d = 1.54/(2 × 0.5) = 1.54 Å'},
+   {eq:EQ.bragg},
    {p:['La ley de Bragg se usa principalmente para <b>determinar distancias interplanares y, con ellas, la estructura cristalina</b> a partir de los ángulos donde aparece interferencia constructiva. Conviene recordar que θ es el ángulo entre el haz y el plano, es decir la mitad del 2θ que reporta el equipo.']},
    {p:['Al indexar un difractograma cúbico, la secuencia de h²+k²+l² identifica la red: <b>3, 4, 8, 11</b> es FCC (índices todos pares o todos impares) y <b>2, 4, 6, 8</b> es BCC (h+k+l par). La cúbica simple no tiene extinciones y da 1, 2, 3, 4.']},
    {p:['Y los defectos no son fallas sino el mecanismo: la deformación plástica ocurre por <b>movimiento de dislocaciones</b>. Endurecer un metal consiste en obstaculizarlas, y el <b>trabajo en frío</b> lo logra multiplicando su densidad hasta que se estorban entre sí. Las otras vías son solución sólida, precipitados y frontera de grano según Hall-Petch.']}
@@ -127,7 +127,7 @@ G.push(
    {p:['El mismo elemento puede dar materiales opuestos según su arreglo. <b>Diamante y grafito</b> son ambos carbono puro: el diamante es sp³ con red covalente tridimensional y todos los electrones localizados, de ahí su dureza y su aislamiento; el grafito es sp² en capas, con electrones deslocalizados en el sistema pi que conducen dentro del plano y fuerzas débiles entre capas que permiten exfoliarlo. La diferencia no es la pureza: es <b>el arreglo y la hibridación</b>.']}
   ]},
   {t:'La cuántica que sí se pregunta',b:[
-   {eq:'E_n = n²h² / (8mL²)   ·   partícula en una caja'},
+   {eq:EQ.caja},
    {p:['Tres conclusiones, y la tercera es la rentable. La energía está cuantizada; el estado fundamental <b>nunca vale cero</b> por el principio de incertidumbre; y <b>E escala como 1/L²</b>, así que reducir la caja a la mitad cuadruplica la energía. Esa dependencia es exactamente el confinamiento cuántico de los puntos cuánticos.']},
    {p:['Para identificar un orbital a partir de sus números cuánticos hay que respetar los tres rangos: n entero desde 1; <b>l de 0 a n−1</b>; y <b>m_l de −l a +l</b>. Un orbital <b>4f</b> tiene n = 4 y l = 3, así que m_l solo puede ir de −3 a +3: una combinación con m_l = −4 es imposible y se descarta sin más análisis.']},
    {p:['Las <b>series espectrales del hidrógeno</b> se nombran por el nivel al que <b>cae</b> el electrón, no por el de partida: Lyman termina en n = 1 (ultravioleta), Balmer en n = 2 (visible), Paschen en n = 3, Brackett en n = 4 y <b>Pfund en n = 5</b>, ya en el infrarrojo lejano. Cuanto mayor el nivel final, menor la energía del fotón emitido y mayor su longitud de onda.']},
@@ -168,7 +168,7 @@ G.push(
  ['P<sub>A</sub> = x<sub>A</sub>·P°<sub>A</sub>','<b>Ley de Raoult</b>: el soluto no volátil baja la presión de vapor del disolvente.','']
 ]}]},
   {t:'Espontaneidad: los cuatro casos',b:[
-   {eq:'ΔG = ΔH − TΔS   ·   ΔG° = −RT ln K = −nFE°'},
+   {eq:EQ.gibbs},
    {tabla:{th:['ΔH','ΔS','¿Espontáneo?','Ejemplo'],tr:[
      ['−','+','Siempre','Descomposición explosiva'],
      ['+','−','Nunca (lo es el inverso)','—'],
@@ -208,7 +208,7 @@ G.push(
    {p:['Para determinar el orden a partir de datos hay dos rutas rápidas. Por <b>velocidades iniciales</b>: de v₂/v₁ = ([A]₂/[A]₁)ⁿ, si al duplicar la concentración la velocidad se multiplica por ocho entonces 8 = 2ⁿ y el orden es <b>tres</b>; un factor de cuatro daría segundo orden y uno de dos, primero. Por las <b>unidades de k</b>: para orden n son M^(1−n)·s⁻¹, de modo que s⁻¹ puro delata <b>primer orden</b>, M·s⁻¹ orden cero y M⁻¹·s⁻¹ segundo.']},
    {p:['La <b>vida media</b> es la tercera vía. En primer orden t½ = ln2/k y <b>no depende de la concentración inicial</b>; en orden cero es proporcional a [A]₀ y en segundo orden inversamente proporcional. Si al reducir a la mitad la concentración de partida la vida media no cambia, el orden es primero.']},
    {p:['El <b>orden de reacción es experimental</b>, no se lee de los coeficientes. Dada 2A + B → C, escribir v = k[A]²[B] solo sería válido si la reacción fuera elemental, algo que debe decir el enunciado. Los órdenes los dicta el paso determinante y pueden ser fraccionarios, cero o negativos. Las unidades de k delatan el orden.']},
-   {eq:'ln(k₂/k₁) = −(Ea/R)(1/T₂ − 1/T₁)   ·   T en kelvin, obligatoriamente'},
+   {eq:EQ.arrhenius},
    {p:['Lo de «obligatoriamente» no es retórico: la temperatura aparece como 1/T, y una escala con cero arbitrario como la Celsius rompe la relación. Usar grados Celsius altera la magnitud del término 1/T₂ − 1/T₁ e incluso su signo, lo que produce <b>energías de activación negativas</b> sin sentido físico. Si el resultado sale negativo, el primer sospechoso son las unidades de temperatura.']},
    {p:['Y la distinción que cierra el bloque: dos reacciones con <b>idéntico ΔG° pueden tardar segundos o siglos</b>. ΔG° fija K y por tanto la composición final, no la rapidez; la velocidad la gobierna la <b>energía de activación</b>, que es una propiedad del camino y no de los estados inicial y final. El diamante hacia grafito es el ejemplo canónico.']},
    {p:['Para primer orden, t½ = ln2/k y <b>no depende de la concentración inicial</b>; para segundo orden, t½ = 1/(k[A]₀) y sí depende. Esa es la forma más rápida de distinguirlos a partir de datos.']}

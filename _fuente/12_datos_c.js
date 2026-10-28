@@ -11,7 +11,7 @@ G.push(
      ['Superficie','Por debajo de ~100 nm, continuo','Reactividad catalítica, descenso del punto de fusión, mayor solubilidad'],
      ['Confinamiento cuántico','Radio de Bohr del excitón (2–20 nm según material)','Gap que crece al reducir el tamaño. Solo semiconductores'],
      ['Propiedades colectivas','Tamaño crítico del fenómeno','Superparamagnetismo (monodominio), plasmón (metales)']]}},
-   {eq:'S/V = 6/d (esfera o cubo)   ·   fracción superficial ≈ 3δ/R'},
+   {eq:EQ.superficie},
    {p:['Una partícula de 5 nm tiene alrededor del 30 % de sus átomos en la superficie; una de 50 nm, un 3 %. La fracción escala como 1/R, así que al dividir el diámetro entre diez se multiplica por diez.']},
    {p:['Dirección del confinamiento: <b>menor tamaño ⇒ mayor gap ⇒ emisión más azul</b>. Los distractores siempre invierten esto. Y ojo con atribuir todo a la cuántica: el oro de 20 nm es rojo por <b>plasmón</b>, que es electromagnetismo clásico, no por confinamiento, porque un metal no tiene gap que confinar.']},
    {deep:{t:'Por qué el oro coloidal es rojo y no dorado',b:[
@@ -42,7 +42,7 @@ G.push(
   {t:'Nucleación, crecimiento y forma',b:[
    {p:['La barrera de nucleación existe por una competencia de potencias: el volumen libera energía como r³ y la superficie la consume como r². A radios pequeños domina el término de área y la energía sube; a radios grandes domina el de volumen y baja. El máximo es la barrera.']},
    {fig:FIG.nucleacion},
-   {eq:'r* = 2γ/ΔGv      ΔG* = 16πγ³/(3ΔGv²)'},
+   {eq:EQ.nucleacion},
    {p:['Por debajo de r* un núcleo reduce su energía <b>disolviéndose</b>; por encima, creciendo. Más sobresaturación implica r* menor y barrera mucho menor (va con el inverso del cuadrado), de ahí que nuclee masivamente y dé partículas pequeñas.']},
    {fig:FIG.lamer},
    {p:['El modelo de <b>LaMer</b> dice que la monodispersidad no se logra controlando el crecimiento, sino <b>separándolo en el tiempo de la nucleación</b>: una nucleación explosiva que se autodetiene al consumir el monómero, y después solo crecimiento. De ahí la inyección caliente y el crecimiento sobre semillas.']},
@@ -85,7 +85,7 @@ G.push(
   ]},
   {t:'Rutas físicas y el límite litográfico',b:[
    {p:['Dos filosofías. <b>Descendente</b> (litografía, grabado, FIB) da control posicional —sabes dónde queda cada estructura, imprescindible en circuitos— y su límite es la resolución y el desperdicio. <b>Ascendente</b> (síntesis coloidal, autoensamblado, ALD) alcanza dimensiones menores con mejor calidad cristalina, y su límite es que no decide <b>dónde</b>. La industria las combina: litografía define dónde, depósito construye qué.']},
-   {eq:'CD = k₁·λ / NA   ·   las tres únicas palancas de la litografía'},
+   {eq:EQ.litografia},
    {ul:['Reducir <b>λ</b>: de 436 a 365, a 248 (KrF), a 193 (ArF), y el salto a 13.5 nm en EUV, que exige óptica reflectiva en vacío.',
         'Aumentar <b>NA</b>: con aire n = 1 acota el valor; la inmersión en agua (n = 1.44) lleva la NA efectiva por encima de 1.3. Esa fue la palanca que prolongó la vida de los 193 nm.',
         'Reducir <b>k₁</b>: máscaras de desplazamiento de fase, iluminación fuera de eje, corrección de proximidad, patrones múltiples. Su límite físico ronda 0.25.']},
@@ -114,6 +114,12 @@ G.push(
 {id:'M7',nom:'Caracterización de materiales',sesion:'Sesión 7 del taller',
  sub:'Una sonda para cada pregunta: difracción, microscopía, espectroscopía y análisis térmico. El reactivo más frecuente del módulo es «dada esta muestra y este objetivo, qué técnica eliges».',
  sec:[
+  {t:'Casos: encadenar técnicas hasta cerrar una identificación',b:[
+   {p:['Las preguntas de caracterización del examen rara vez piden una técnica aislada: piden <b>qué harías</b> ante una muestra concreta, y eso exige encadenar. El criterio que recorre los tres casos siguientes es siempre el mismo: empieza por la técnica <b>no destructiva que más acota</b>, deja que cada resultado decida cuál es la siguiente pregunta, y busca <b>comprobaciones cruzadas</b> entre técnicas independientes en lugar de confiar en un solo número.']},
+   {caso:CASOS.polvo_blanco},
+   {caso:CASOS.coloide_violeta},
+   {caso:CASOS.recubrimiento_falla}
+  ]},
   {t:'El árbol de decisión: organiza por pregunta, no por técnica',b:[
    {tabla:{th:['Lo que quieres saber','Técnica','Advertencia'],tr:[
      ['Qué fases cristalinas hay','DRX','Ciega al material amorfo; no da composición elemental'],
@@ -130,7 +136,7 @@ G.push(
    {p:['Y la regla que cierra el módulo: <b>ninguna técnica sola caracteriza un material</b>. Un trabajo serio combina al menos difracción, microscopía y una espectroscopía, porque cada una tiene un punto ciego que otra cubre. La secuencia lógica es no destructivo antes que destructivo, y estructural antes que cuantificación fina.']}
   ]},
   {t:'Difracción: tres medidas, tres informaciones',b:[
-   {eq:'nλ = 2d·sen θ      ·      D = Kλ / (β·cos θ)'},
+   {eq:EQ.scherrer},
    {p:['<b>El error más frecuente del módulo</b>: en Bragg, θ es la mitad del 2θ que reporta el equipo. Olvidarlo cambia el resultado por completo.']},
    {tabla:{th:['Qué mides en el difractograma','Qué te dice'],tr:[
      ['Posición de los picos (2θ)','Espaciados d ⇒ fase y parámetro de red. Un desplazamiento sistemático indica dopaje sustitucional o tensión'],
