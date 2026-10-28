@@ -185,7 +185,10 @@ G.push(
     'D<sub>h</sub> = 4.118×10⁻²¹ / 1.644×10⁻¹⁴ = 2.50×10⁻⁷ m = <b>250 nm</b>.',
     'Frente a los 18 nm del TEM, la diferencia es de más de un orden: no es un error de cálculo, es <b>agregación</b> en suspensión, y lo confirma que el TEM vea contornos individuales limpios.'],
  r:'D<sub>h</sub> = 250 nm por DLS frente a 18 nm por TEM: las partículas están agregadas en el medio líquido.',
- x:'DLS y TEM miden cosas distintas y en estados distintos. El DLS da el diámetro <b>hidrodinámico en suspensión</b>, pondera por intensidad (que va con d⁶) e incluye la capa solvatada y el estabilizante. El TEM mide el <b>núcleo seco</b> sobre una rejilla. Que el DLS salga mayor es lo normal; que salga diez veces mayor indica agregación.'}}]},
+ x:'DLS y TEM miden cosas distintas y en estados distintos. El DLS da el diámetro <b>hidrodinámico en suspensión</b>, pondera por intensidad (que va con d⁶) e incluye la capa solvatada y el estabilizante. El TEM mide el <b>núcleo seco</b> sobre una rejilla. Que el DLS salga mayor es lo normal; que salga diez veces mayor indica agregación.'}},
+   {p:['La <b>microscopía óptica</b> es la línea base contra la que se mide todo lo demás, y conviene tenerla clara porque el examen la usa como distractor. Su resolución está limitada por difracción al criterio de Abbe, d = λ/(2·AN), lo que con luz visible y una apertura numérica de 1.4 en inmersión da unos <b>200 nm</b>. Ninguna nanopartícula individual se resuelve ahí: lo que se ve de un coloide es dispersión, no la partícula.']},
+   {p:['La <b>microscopía confocal</b> no rompe ese límite lateral: lo que hace es rechazar con un diafragma la luz que no viene del plano focal, lo que mejora el contraste y permite <b>seccionar ópticamente</b> y reconstruir en tres dimensiones. Sirve para ver dónde se acumula una nanopartícula marcada dentro de una célula, no para medir su tamaño.']},
+   {p:['Las técnicas de <b>superresolución</b> (STED, PALM, STORM) sí bajan de los 200 nm, hasta decenas de nanómetros, pero exigen marcadores fluorescentes y no son técnicas de rutina en caracterización de materiales. La regla práctica para el examen: si la pregunta pide <b>tamaño o morfología de nanopartícula</b>, la óptica no es la respuesta; si pide <b>localización dentro de un sistema biológico</b>, la confocal con marcaje sí lo es.']}]},
   {t:'Espectroscopía y análisis térmico',b:[
    {tabla:{th:['','FTIR','Raman'],tr:[
      ['Fenómeno','Absorción','Dispersión inelástica'],
@@ -213,7 +216,17 @@ G.push(
  ['Regla de exclusión mutua','En moléculas con <b>centro de simetría</b>, un modo activo en Raman es inactivo en IR, y viceversa.',''],
  ['% pérdida = (m₀ − m<sub>f</sub>)/m₀ × 100','<b>TGA</b>. Por debajo de 120 °C suele ser agua y disolvente; de 200 a 400 °C, orgánicos.','en %'],
  ['Tg: escalón en la línea base · Tm: pico endotérmico · Tc: pico exotérmico','<b>DSC</b>: la transición vítrea no tiene pico porque es de segundo orden.','']
-]}]}
+]},
+   {p:['La <b>espectroscopía UV-Vis</b> es la más barata y la más preguntada. Mide absorción electrónica, es decir transiciones de electrones entre niveles, y en nanotecnología entrega tres cosas distintas según el sistema. En <b>semiconductores</b>, el borde de absorción da la brecha prohibida por E<sub>g</sub> = 1240/λ, y el ajuste de Tauc lo precisa. En <b>metales plasmónicos</b>, la posición y el ancho de la banda de plasmón informan del tamaño, la forma y el estado de agregación: el oro coloidal esférico de 20 nm absorbe cerca de 520 nm, y si la banda se corre al rojo y se ensancha, hay agregación. En <b>moléculas</b>, sirve para cuantificar por la ley de Beer.']},
+   {p:['La <b>resonancia magnética nuclear</b> no mide el material sólido de rutina, pero es la técnica de elección para <b>determinar la estructura de una molécula orgánica</b>: entorno químico de cada hidrógeno o carbono por el desplazamiento químico, número de vecinos por la multiplicidad y número de núcleos por la integración. En nanotecnología se usa para confirmar la identidad del ligando que recubre una partícula, y su versión de estado sólido para entornos locales en materiales amorfos.']},
+   {p:['La <b>espectroscopía de pérdida de energía de electrones</b> (EELS) se hace dentro del TEM y mide cuánta energía perdió cada electrón al atravesar la muestra. Da composición elemental con <b>resolución espacial casi atómica</b>, es especialmente sensible a los elementos ligeros que el EDS detecta mal (carbono, nitrógeno, oxígeno) y, en la región de baja pérdida, entrega el gap óptico y la energía de plasmón. Es la respuesta cuando la pregunta pide <b>composición elemental punto por punto en la nanoescala</b>.']},
+   {form:[
+    ['E<sub>g</sub>(eV) = 1240 / λ<sub>borde</sub>(nm)','<b>Brecha</b> a partir del borde de absorción UV-Vis. Es la relación numérica más preguntada del examen.','λ en nm'],
+    ['(αhν)^(1/n) contra hν','<b>Ajuste de Tauc</b>: la extrapolación de la recta al eje da E<sub>g</sub>. n = 1/2 para gap directo y n = 2 para indirecto.',''],
+    ['λ<sub>plasmón</sub>(Au esférico) ≈ 520 nm','<b>Plasmón del oro coloidal</b>. Se corre al rojo y se ensancha al agregarse o al alargar la partícula.',''],
+    ['d = λ / (2·AN)','<b>Criterio de Abbe</b>: el límite de difracción óptico, unos 200 nm en el visible.','AN es la apertura numérica'],
+    ['δ (ppm) · multiplicidad · integración','Las tres lecturas de un espectro de <b>RMN</b>: entorno químico, número de vecinos y número de núcleos.','']
+   ]}]}
  ],
  flash:[
   ['En la ley de Bragg, ¿qué ángulo se usa?','θ, que es la MITAD del 2θ que reporta el difractómetro. Es el error más frecuente del módulo.'],

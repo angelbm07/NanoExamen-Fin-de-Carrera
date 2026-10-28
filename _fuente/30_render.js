@@ -52,7 +52,8 @@ function panelModulo(m){
        '<div class="face back">'+f[1]+'</div></div></div>';
   });
   h+='</div>';
-  h+='<div class="fc-head"><h3>Quiz de '+m.id+'</h3><span id="qn-'+m.id+'">reactivos de este módulo · se mezclan en cada intento</span></div>'+
+  h+='<div class="fc-head"><h3>Quiz de '+m.id+'</h3><span id="qn-'+m.id+'">reactivos de este módulo</span></div>'+
+     '<div class="cobertura" id="cob-'+m.id+'"></div>'+
      '<div class="quiz-wrap" id="quizwrap-'+m.id+'"></div>';
   p.innerHTML=h;
   return p;
@@ -66,8 +67,11 @@ var pq=el('div','panel');pq.id='p-QUIZ';pq.setAttribute('role','tabpanel');
 pq.innerHTML='<div class="module-head"><span class="tag" style="background:var(--surface-2);color:var(--accent)">QUIZ</span>'+
  '<h2>Simulacro mixto</h2></div>'+
  '<div class="module-sub">200 reactivos muestreados del banco de '+QUIZ.length+', repartidos por igual entre los '+G.length+' módulos y mezclados en cada intento. '+
- 'La mezcla entre módulos (interleaving) rinde más que practicar un módulo a la vez.</div>'+
- '<div class="quiz-wrap" id="quizwrap"></div>';
+ 'La mezcla entre módulos (interleaving) rinde más que practicar un módulo a la vez. '+
+ 'Cada tanda empieza por los reactivos que no has visto y por los que fallaste, de modo que al repetir recorres banco nuevo en vez de las mismas preguntas.</div>'+
+ '<div class="cobertura" id="cob-QUIZ"></div>'+
+ '<div class="quiz-wrap" id="quizwrap"></div>'+
+ '<div class="btn-row" style="margin-top:22px"><button class="btn ghost" id="reset-prog">Reiniciar mi progreso</button></div>';
 cont.appendChild(pq);
 
 /* ---- pestañas ---- */

@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><meta charset="utf8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Guía EFC Nanotecnología · 9 módulos</title>
+<title>Guía EFC Nanotecnología · 10 módulos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -8,7 +8,7 @@
   Guía de estudio para el Examen de Fin de Carrera, Ingeniería en Nanotecnología (taller WA3062).
   Layout: una pestaña por módulo (M2 a M10) + pestaña final de quiz mixto.
   Cada módulo = resumen compacto -> acordeones para profundizar -> flashcards.
-  El quiz final mezcla los nueve módulos (interleaving) y reporta desglose por módulo.
+  Cada módulo tiene su propio quiz; el simulacro final muestrea 200 reactivos del banco, 20 por módulo.
   Fundamento: recuperación activa y práctica intercalada (Dunlosky et al. 2013,
   Psychological Science in the Public Interest 14(1), 4-58).
 */
@@ -158,6 +158,17 @@ details.prob ol.ppasos{margin:12px 0 0;padding-left:20px}
 details.prob ol.ppasos li{font-size:.9rem;line-height:1.65;margin-bottom:9px;color:var(--ink)}
 details.prob .pres{margin-top:12px;font-size:.92rem;line-height:1.6;border-top:1px solid var(--border);padding-top:11px;color:var(--ink)}
 details.prob .ptrampa{margin-top:9px;font-size:.84rem;color:var(--ink-dim);line-height:1.55}
+
+/* cobertura del banco y marcas de seguimiento */
+.cobertura{display:flex;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}
+.cob-barra{flex:0 0 160px;height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.cob-barra i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.cob-txt{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-dim);letter-spacing:.02em}
+.cob-txt b{color:var(--bad)}
+.qnuevo,.qfallado{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-left:8px}
+.qnuevo{background:var(--surface-2);color:var(--ink-dim)}
+.qfallado{background:#fdecea;color:var(--bad)}
+.cobertura-res{margin:14px 0 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);font-size:.88rem;line-height:1.6;color:var(--ink)}
 </style>
 </head>
 <body>

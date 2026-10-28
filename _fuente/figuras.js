@@ -16,8 +16,8 @@ FIG.celdas={t:'Las tres celdas cúbicas',svg:
  '<path class="sd" d="M20,100 L45,80 L115,80 M45,80 L45,10"/>';
  var v=[[20,30],[90,30],[20,100],[90,100],[45,10],[115,10],[45,80],[115,80]];
  v.forEach(function(p){c+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="4.5" fill="var(--m4)"/>'});
- if(n==='BCC')c+='<circle cx="67" cy="55" r="5.5" fill="var(--m5)"/>';
- if(n==='FCC'){[[55,30],[55,80],[20,65],[90,65],[67,20],[67,90]].forEach(function(p){
+ if(n==='BCC')c+='<circle cx="67.5" cy="55" r="5.5" fill="var(--m5)"/>';
+ if(n==='FCC'){[[55,65],[80,45],[67.5,20],[67.5,90],[32.5,55],[102.5,55]].forEach(function(p){
    c+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="5" fill="var(--m5)"/>'})}
  c+='<text class="tx" x="67" y="128" text-anchor="middle" font-weight="600">'+n+'</text>';
  c+='<text class="txs" x="67" y="142" text-anchor="middle">'+({SC:'1 átomo · CN 6 · 0.52',BCC:'2 átomos · CN 8 · 0.68',FCC:'4 átomos · CN 12 · 0.74'}[n])+'</text>';
@@ -27,26 +27,24 @@ pie:'Los átomos de los <b>vértices</b> se comparten entre ocho celdas y aporta
 
 FIG.miller={t:'Índices de Miller: el plano (210)',svg:
 '<svg viewBox="0 0 440 180" role="img" aria-label="Construcción de los índices de Miller para el plano 210">'+
-'<g transform="translate(40,20)">'+
-'<path class="sl" d="M0,120 L0,10 M0,120 L150,120"/>'+
-'<path class="sd" d="M0,120 L-28,145"/>'+
-'<text class="txm" x="-6" y="8">z</text><text class="txm" x="156" y="124">x</text><text class="txm" x="-38" y="155">y</text>'+
-'<circle cx="55" cy="120" r="4" fill="var(--m4)"/><text class="txs" x="46" y="138">a/2</text>'+
-'<circle cx="0" cy="40" r="4" fill="var(--m4)"/><text class="txs" x="-24" y="44">a</text>'+
-'<path class="sl" d="M55,120 L0,40" stroke="var(--m4)" stroke-width="2"/>'+
-'<path class="fa" d="M55,120 L0,40 L0,120 Z" opacity=".55"/>'+
-'<text class="txs" x="92" y="62">paralelo a y</text>'+
+'<g transform="translate(60,22)">'+
+'<path class="sl" d="M0,100 L0,0 M0,100 L150,100"/>'+
+'<path class="sl" d="M0,100 L-40,132"/>'+
+'<text class="txm" x="-6" y="-4">z</text><text class="txm" x="156" y="104">x</text><text class="txm" x="-54" y="142">y</text>'+
+'<path class="fa" d="M60,100 L-40,132 L-40,52 L60,20 Z" opacity=".5" stroke="var(--m4)" stroke-width="2"/>'+
+'<circle cx="60" cy="100" r="4" fill="var(--m4)"/><text class="txs" x="52" y="118">a/2</text>'+
+'<circle cx="-40" cy="132" r="4" fill="var(--m4)"/><text class="txs" x="-30" y="146">a</text>'+
+'<text class="txs" x="74" y="56">paralelo a z</text>'+
 '</g>'+
 '<g transform="translate(235,28)">'+
-'<text class="tx" x="0" y="10" font-weight="600">1. Intersecciones</text>'+
-'<text class="txm" x="0" y="28">1/2 ,  ∞ ,  1</text>'+
+'<text class="tx" x="0" y="10" font-weight="600">1. Intersecciones (x, y, z)</text>'+
+'<text class="txm" x="0" y="28">1/2 ,  1 ,  ∞</text>'+
 '<text class="tx" x="0" y="52" font-weight="600">2. Recíprocos</text>'+
-'<text class="txm" x="0" y="70">2 ,  0 ,  1</text>'+
+'<text class="txm" x="0" y="70">2 ,  1 ,  0</text>'+
 '<text class="tx" x="0" y="94" font-weight="600">3. Enteros mínimos</text>'+
 '<text class="txm" x="0" y="112" fill="var(--m4)" font-weight="700">(2 1 0)</text>'+
 '</g></svg>',
-pie:'El recíproco existe para que un plano <b>paralelo a un eje</b> —que lo corta en el infinito— dé índice <b>cero</b> en vez de infinito. Los índices nunca llevan fracciones, y el orden de los ejes importa.'};
-
+pie:'El plano corta el eje <b>x</b> en a/2 y el eje <b>y</b> en a, y es <b>paralelo a z</b>, de modo que lo corta en el infinito. El recíproco existe precisamente para que esa intersección en el infinito dé índice <b>cero</b> en vez de infinito. Los índices nunca llevan fracciones, y el orden de los ejes importa: con estas mismas intersecciones en otro orden saldría (021) o (201).'};
 FIG.titulacion={t:'Las cuatro regiones de una curva de titulación',svg:
 '<svg viewBox="0 0 480 220" role="img" aria-label="Curva de titulación de ácido débil con base fuerte">'+
 '<g transform="translate(44,14)">'+
@@ -112,7 +110,7 @@ FIG.flujos={t:'Perfil de velocidad: presión contra electroósmosis',svg:
  var g='<g transform="translate('+x+',16)">'+
  '<rect x="0" y="18" width="190" height="62" class="fa" stroke="var(--border)"/>';
  for(var i=0;i<6;i++){
-  var y=24+i*11;
+  var y=24+i*10;
   var L=par?(170*(1-Math.pow((y-49)/31,2))*0.92+12):150;
   g+='<path class="sl2" d="M14,'+y+' L'+(14+L*0.8)+','+y+'" stroke="var(--m8)" stroke-width="1.6"/>'+
      '<path d="M'+(14+L*0.8)+','+y+' l-5,-3 l0,6 Z" fill="var(--m8)"/>';
@@ -213,9 +211,9 @@ FIG.michaelis={t:'Michaelis-Menten y los dos tipos de inhibidor',svg:
 '<path d="M0,150 C40,104 80,66 140,48 C210,30 290,26 370,24" fill="none" stroke="var(--m3)" stroke-width="2.6"/>'+
 '<text class="txs" x="286" y="40" fill="var(--m3)">sin inhibidor</text>'+
 '<path d="M0,150 C56,120 110,90 180,70 C250,52 310,32 370,26" fill="none" stroke="var(--m5)" stroke-width="1.8" stroke-dasharray="5 3"/>'+
-'<text class="txs" x="196" y="86" fill="var(--m5)">competitivo: Km ↑, Vmax igual</text>'+
+'<text class="txs" x="150" y="58" fill="var(--m5)">competitivo: Km ↑, Vmax igual</text>'+
 '<path d="M0,150 C40,122 80,100 140,90 C210,80 290,78 370,76" fill="none" stroke="var(--m10)" stroke-width="1.8" stroke-dasharray="5 3"/>'+
-'<text class="txs" x="236" y="94" fill="var(--m10)">no competitivo: Vmax ↓</text>'+
+'<text class="txs" x="214" y="110" fill="var(--m10)">no competitivo: Vmax ↓</text>'+
 '<text class="txs" x="18" y="128">1er orden</text><text class="txs" x="250" y="14">orden cero</text>'+
 '</g></svg>',
 pie:'La curva recorre <b>dos regímenes</b>: a [S] muy por debajo de Km la velocidad crece proporcionalmente (primer orden) y a [S] muy por encima se estanca en Vmax (orden cero). El <b>competitivo</b> se vence con más sustrato, así que la curva acaba alcanzando el mismo techo pero necesita más [S]: Km aparente sube. El <b>no competitivo</b> retira enzima funcional, así que baja el techo y Km no cambia. La misma hipérbola describe la isoterma de Langmuir y la ocupación de receptor.'};
@@ -231,7 +229,7 @@ FIG.fases={t:'Diagrama de fases: el agua es la excepción',svg:
  '<path d="M66,70 C50,84 36,100 28,118" fill="none" stroke="var(--m5)" stroke-width="2"/>'+
  '<path d="M66,70 L'+(66+pend*22)+',8" fill="none" stroke="var(--m5)" stroke-width="2.4"/>'+
  '<circle cx="66" cy="70" r="4" fill="var(--bad)"/><text class="txs" x="44" y="66">triple</text>'+
- '<text class="txs" x="24" y="40">sólido</text><text class="txs" x="100" y="58">líquido</text><text class="txs" x="110" y="104">gas</text>'+
+ '<text class="txs" x="22" y="44">sólido</text><text class="txs" x="96" y="34">líquido</text><text class="txs" x="112" y="104">gas</text>'+
  '<text class="txs" x="93" y="150" text-anchor="middle" font-weight="700">'+c[0]+'</text>'+
  '<text class="txs" x="93" y="163" text-anchor="middle">pendiente '+(pend>0?'positiva':'negativa')+'</text>';
  return g+'</g>';
@@ -279,36 +277,43 @@ FIG.celda_galv={t:'Celda galvánica: convenio y sentido de las cargas',svg:
 pie:'En cualquier celda, <b>la oxidación ocurre siempre en el ánodo y la reducción en el cátodo</b>: eso no cambia nunca. Lo que sí cambia es el signo. En una celda <b>galvánica</b> (espontánea) el ánodo es el polo negativo; en una <b>electrolítica</b> (forzada) el ánodo es el positivo, porque la fuente externa impone la polaridad. Los electrones recorren el circuito externo de ánodo a cátodo, y el puente salino cierra el circuito moviendo iones para mantener la electroneutralidad: los aniones van hacia el ánodo.'};
 
 FIG.cv={t:'Voltamperograma cíclico de un par reversible',svg:
-'<svg viewBox="0 0 500 250" role="img" aria-label="Voltamperograma cíclico con pico anódico y pico catódico">'+
-'<path class="sl2" d="M60,125 L470,125"/><path class="sl2" d="M60,20 L60,230"/>'+
-'<text class="txs" x="265" y="246" text-anchor="middle">potencial E (V) →</text>'+
+'<svg viewBox="0 0 500 262" role="img" aria-label="Voltamperograma cíclico con pico anódico y pico catódico separados">'+
+'<path class="sl2" d="M60,125 L470,125"/><path class="sl2" d="M60,20 L60,232"/>'+
+'<text class="txs" x="265" y="256" text-anchor="middle">potencial E (V) →</text>'+
 '<text class="txs" x="14" y="125" transform="rotate(-90 14,125)" text-anchor="middle">corriente i</text>'+
-'<path class="sl" style="stroke:var(--m11);stroke-width:1.8" d="M80,125 C150,124 185,120 215,96 C235,80 245,58 258,56 C275,54 292,76 320,92 C360,112 420,118 460,120"/>'+
-'<path class="sl" style="stroke:var(--m11);stroke-width:1.8" d="M460,130 C420,132 360,138 320,158 C292,174 275,196 258,194 C245,192 235,170 215,154 C185,130 150,126 80,125"/>'+
-'<path class="sd" d="M258,56 L258,125"/><path class="sd" d="M258,194 L258,125"/>'+
-'<path class="sd" d="M60,56 L258,56"/><path class="sd" d="M60,194 L258,194"/>'+
-'<text class="txm" x="48" y="59" text-anchor="end">i_pa</text>'+
-'<text class="txm" x="48" y="198" text-anchor="end">i_pc</text>'+
-'<text class="txs" x="300" y="48">E_pa</text>'+
-'<text class="txs" x="300" y="208">E_pc</text>'+
-'<text class="txs" x="340" y="78">barrido anódico</text>'+
-'<text class="txs" x="340" y="180">barrido catódico</text>'+
+'<path class="sl" style="stroke:var(--m11);stroke-width:1.8;fill:none" d="M80,125 C150,124 196,120 228,96 C248,80 258,58 272,56 C290,54 306,78 334,94 C372,114 424,119 460,121"/>'+
+'<path class="sl" style="stroke:var(--m11);stroke-width:1.8;fill:none" d="M460,131 C424,133 372,138 334,156 C306,172 288,196 244,194 C228,192 216,170 198,154 C170,130 140,126 80,125"/>'+
+'<path class="sd" d="M272,56 L272,125"/><path class="sd" d="M244,194 L244,125"/>'+
+'<path class="sd" d="M60,56 L272,56"/><path class="sd" d="M60,194 L244,194"/>'+
+'<text class="txm" x="52" y="59" text-anchor="end">i_pa</text>'+
+'<text class="txm" x="52" y="197" text-anchor="end">i_pc</text>'+
+'<text class="txs" x="280" y="48">E_pa</text>'+
+'<text class="txs" x="196" y="212" text-anchor="end">E_pc</text>'+
+'<path class="sl" style="stroke:var(--bad)" d="M244,140 L272,140"/>'+
+'<path d="M244,140 l6,-3 l0,6 Z" fill="var(--bad)"/><path d="M272,140 l-6,-3 l0,6 Z" fill="var(--bad)"/>'+
+'<text class="txs" x="258" y="155" text-anchor="middle" fill="var(--bad)">ΔE_p ≈ 59/n mV</text>'+
+'<text class="txs" x="346" y="80">barrido anódico →</text>'+
+'<text class="txs" x="346" y="182">← barrido catódico</text>'+
 '</svg>',
-pie:'Los dos criterios de reversibilidad se leen directamente de la figura: la <b>separación de picos</b> ΔE_p = |E_pa − E_pc| debe valer unos <b>59/n mV</b> a 25 °C, y la <b>razón de corrientes</b> |i_pa/i_pc| debe ser cercana a <b>1</b>. Si ΔE_p crece al aumentar la velocidad de barrido, el sistema es cuasirreversible; si falta por completo el pico de vuelta, el producto reaccionó químicamente y el proceso es irreversible. La corriente de pico sigue Randles-Ševčík: i_p ∝ √v para especie que difunde, y i_p ∝ v si está adsorbida.'};
-
+pie:'Los dos criterios de reversibilidad se leen directamente de la figura: la <b>separación de picos</b> ΔE_p = |E_pa − E_pc| debe valer unos <b>59/n mV</b> a 25 °C, y la <b>razón de corrientes</b> |i_pa/i_pc| debe ser cercana a <b>1</b>. El pico anódico cae siempre a potencial más positivo que el catódico. Si ΔE_p crece al aumentar la velocidad de barrido, el sistema es cuasirreversible; si falta por completo el pico de vuelta, el producto reaccionó químicamente. La corriente de pico sigue Randles-Ševčík: i_p ∝ √v para especie que difunde, y i_p ∝ v si está adsorbida.'};
 FIG.tafel={t:'Curva de Tafel y densidad de corriente de intercambio',svg:
-'<svg viewBox="0 0 480 230" role="img" aria-label="Gráfica de sobrepotencial contra logaritmo de la densidad de corriente">'+
-'<path class="sl2" d="M62,200 L450,200"/><path class="sl2" d="M62,16 L62,200"/>'+
-'<text class="txs" x="256" y="222" text-anchor="middle">log |i| →</text>'+
+'<svg viewBox="0 0 480 240" role="img" aria-label="Sobrepotencial frente al logaritmo de la densidad de corriente para dos catalizadores">'+
+'<path class="sl2" d="M62,200 L462,200"/><path class="sl2" d="M62,16 L62,200"/>'+
+'<text class="txs" x="262" y="232" text-anchor="middle">log |i| →</text>'+
 '<text class="txs" x="16" y="108" transform="rotate(-90 16,108)" text-anchor="middle">sobrepotencial η</text>'+
-'<path class="sl" style="stroke:var(--m11);stroke-width:1.8" d="M250,200 C280,180 320,120 400,30"/>'+
-'<path class="sl" style="stroke:var(--m8);stroke-width:1.8" d="M250,200 C280,150 310,110 360,36"/>'+
-'<path class="sd" d="M250,200 L250,16"/>'+
-'<text class="txm" x="250" y="214" text-anchor="middle">log i₀</text>'+
-'<text class="txs" x="408" y="26">catalizador lento</text>'+
-'<text class="txs" x="300" y="30" fill="var(--m8)">catalizador rápido</text>'+
-'<text class="txs" x="86" y="190">η = 0</text>'+
+'<path class="sl" style="stroke:var(--m11);stroke-width:2;fill:none" d="M200,200 C224,178 252,120 300,34"/>'+
+'<path class="sl" style="stroke:var(--m8);stroke-width:2;fill:none" d="M320,200 C344,178 372,120 420,34"/>'+
+'<path class="sd" d="M200,200 L200,30"/><path class="sd" d="M320,200 L320,30"/>'+
+'<text class="txm" x="200" y="214" text-anchor="middle" fill="var(--m11)">log i₀</text>'+
+'<text class="txm" x="320" y="214" text-anchor="middle" fill="var(--m8)">log i₀′</text>'+
+'<text class="txs" x="246" y="44" text-anchor="middle" fill="var(--m11)">lento</text>'+
+'<text class="txs" x="372" y="44" text-anchor="middle" fill="var(--m8)">rápido</text>'+
+'<path class="sd" d="M62,110 L420,110" opacity=".5"/>'+
+'<path class="sl" style="stroke:var(--bad)" d="M262,110 L380,110"/>'+
+'<path d="M262,110 l6,-3 l0,6 Z" fill="var(--bad)"/><path d="M380,110 l-6,-3 l0,6 Z" fill="var(--bad)"/>'+
+'<text class="txs" x="321" y="100" text-anchor="middle" fill="var(--bad)">a igual η, más corriente</text>'+
+'<text class="txs" x="70" y="194">η = 0</text>'+
 '</svg>',
-pie:'En la región de Tafel, η = a + b·log|i|: la pendiente <b>b</b> informa sobre el mecanismo y el número de electrones del paso lento, y la extrapolación a η = 0 da la <b>densidad de corriente de intercambio i₀</b>, que es la medida de la actividad intrínseca del electrocatalizador. Un i₀ grande desplaza la curva a la derecha: se obtiene la misma corriente con menos sobrepotencial, es decir con menos energía desperdiciada. Comparar catalizadores por el sobrepotencial a 10 mA/cm² es la convención en electrólisis de agua.'};
+pie:'En la región de Tafel, η = a + b·log|i|: la pendiente <b>b</b> informa sobre el mecanismo y el número de electrones del paso lento, y la extrapolación a η = 0 da la <b>densidad de corriente de intercambio i₀</b>, que mide la actividad intrínseca del electrocatalizador. Un i₀ mayor desplaza toda la curva <b>a la derecha</b>: a igual sobrepotencial se obtiene más corriente, o equivalentemente la misma corriente con menos energía desperdiciada. Comparar catalizadores por el sobrepotencial necesario para alcanzar 10 mA/cm² es la convención en electrólisis de agua.'};
 
 </script>
