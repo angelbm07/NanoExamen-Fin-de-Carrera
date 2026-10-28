@@ -184,61 +184,68 @@ details.deep .inner ul,details.deep .inner ol{font-size:.9rem;line-height:1.6;pa
 
 <nav class="tabs" id="tabs" role="tablist" aria-label="Módulos"></nav>
 <script>
-/* ============================================================
-   CONTENIDO
-   Condensado del material de los cursos disciplinares en Canvas
-   y de la literatura de referencia. Cada módulo vale 10 % del examen.
-   ============================================================ */
 var G=[
-
 /* ===================== M2 ===================== */
 {id:'M2',nom:'Análisis químico',sesion:'Sesión 3 del taller',
- sub:'La cadena analítica completa: del mol al resultado con incertidumbre declarada. Volumetría, electroquímica, instrumental y estadística del dato.',
+ sub:'La cadena analítica completa: del mol al resultado con incertidumbre declarada. Estequiometría, volumetría, electroquímica, instrumental, separaciones y estadística del dato.',
  sec:[
-  {t:'Un análisis es una cadena, no una medición',b:[
-   {p:['Muestreo, preparación, medición y tratamiento del dato. La exactitud del resultado la limita <b>el eslabón más débil</b>, no el instrumento: un ICP-MS impecable sobre una muestra mal homogeneizada da un número preciso y falso.',
-       'De ahí la distinción que más se pregunta. <b>Exactitud</b> es cercanía al valor verdadero; <b>precisión</b> es cercanía entre réplicas. Son independientes, y la combinación que observas te dice qué error domina.']},
-   {tabla:{th:['Lo que observas','Error que domina','Cómo se corrige'],tr:[
-     ['Réplicas juntas pero desviadas','Sistemático (sesgo)','Material de referencia, adición de estándar, método independiente. <b>No</b> promediando más réplicas'],
-     ['Réplicas dispersas, media correcta','Aleatorio','Aumentar n: σ de la media baja con √n'],
-     ['Un valor suelto muy alejado','Grosero','Prueba Q de Dixon, con criterio declarado de antemano']]}},
-   {p:['Cifras significativas: en <b>multiplicación y división</b> manda el factor con menos cifras; en <b>suma y resta</b> manda el que tiene menos decimales. Es el error de cálculo más barato de evitar y uno de los más frecuentes.']}
+  {t:'La cadena analítica y las unidades de concentración',b:[
+   {p:['Un análisis tiene cuatro eslabones: muestreo, preparación, medición y tratamiento del dato. La exactitud del resultado la limita <b>el más débil</b>, no el instrumento: un ICP-MS impecable sobre una muestra mal homogeneizada entrega un número precisísimo y falso.']},
+   {p:['Cada unidad de concentración responde a una pregunta distinta y no son intercambiables sin datos extra. La <b>molaridad</b> (mol por litro de disolución) es la del laboratorio porque se miden volúmenes, y su defecto es que depende de la temperatura. La <b>molalidad</b> (mol por kilogramo de disolvente) no depende de la temperatura, y por eso las propiedades coligativas se expresan así. Las <b>ppm</b> son masa entre masa por un millón, y en agua diluida equivalen a mg/L solo porque la densidad vale 1 g/mL. La <b>normalidad</b> multiplica la molaridad por los equivalentes: protones intercambiables en un ácido, hidroxilos en una base, electrones en una redox.']},
+   {eq:'C₁V₁ = C₂V₂     ·     para preparar 500 mL de HCl 0.10 M desde una madre 2.0 M: V₁ = (0.10 × 500)/2.0 = 25 mL'},
+   {p:['El factor de dilución es la razón entre concentraciones, aquí 20, y el volumen de madre es el final dividido entre ese factor. Al convertir entre unidades hace falta la <b>densidad de la disolución</b>, no la del soluto ni la del disolvente, y ese dato olvidado es el origen de muchos errores de preparación.']},
+   {p:['Un detalle que se pregunta tal cual: en <b>0.0500 M hay tres cifras significativas</b>. Los ceros a la izquierda del primer dígito distinto de cero solo sitúan el punto decimal; los de la derecha, con punto decimal presente, sí comunican precisión.']}
   ]},
-  {t:'Volumetría y equilibrios en disolución',b:[
-   {p:['Titular es contar moles usando una reacción de estequiometría conocida. Dos conceptos que no son sinónimos: el <b>punto de equivalencia</b> es estequiométrico y teórico; el <b>punto final</b> es lo que observas con el indicador. La diferencia entre ambos es el error de titulación.']},
-   {p:['El pH en la equivalencia <b>solo vale 7 si ambos son fuertes</b>. Ácido débil con base fuerte deja la base conjugada, que hidroliza: pH mayor que 7, y pide fenolftaleína (vira 8.2–10). Base débil con ácido fuerte: pH menor que 7, y pide naranja de metilo (3.1–4.4).']},
-   {eq:'pH = pKa + log([A⁻]/[HA])   ·   en la semiequivalencia [A⁻] = [HA] ⇒ pH = pKa'},
-   {p:['Ese punto de semiequivalencia es la lectura directa del pKa en una curva experimental, y es el centro de la capacidad amortiguadora. El intervalo útil de un tampón es aproximadamente pKa ± 1.']},
-   {deep:{t:'Por qué el 0.0592 de Nernst no es universal',b:[
-     {p:['La ecuación de Nernst circula en dos formas y mezclarlas introduce un factor 2.303.'],},
-     {eq:'E = E° − (RT/nF)·ln Q      (teórica, logaritmo natural)'},
-     {eq:'E = E° − (0.0592/n)·log Q   (práctica a 25 °C, logaritmo decimal)'},
-     {p:['El 0.0592 V es (2.303·R·298.15)/F: lleva dentro la temperatura de 25 °C <b>y</b> el factor de conversión de ln a log. A 37 °C, temperatura fisiológica relevante en biosensores, el coeficiente vale 0.0616. Usar 0.0592 con un logaritmo natural, o RT/F con uno decimal, deja el resultado mal por 2.303.']}
+  {t:'Exactitud, precisión y tratamiento del dato',b:[
+   {p:['<b>Exactitud</b> es cercanía al valor verdadero; <b>precisión</b> es cercanía entre réplicas. Son independientes, y la combinación observada dice qué error domina y por tanto qué hacer.']},
+   {tabla:{th:['Lo que observas','Error dominante','Qué procede'],tr:[
+     ['Réplicas muy juntas pero desviadas del certificado','Sistemático','Material de referencia, adición de estándar, método independiente. <b>Promediar más réplicas no lo corrige</b>'],
+     ['Réplicas dispersas con media correcta','Aleatorio','Aumentar n: la desviación de la media baja con √n'],
+     ['Un valor suelto muy alejado','Grosero','Prueba Q de Dixon, con criterio fijado <b>de antemano</b>'],
+     ['Dos métodos independientes discrepan','Interferencia específica','Buscar la causa en cada uno. Promediar oculta el problema']]}},
+   {p:['Ejemplo típico: el analista A obtiene 4.52, 4.51 y 4.53 sobre un certificado de 4.50, y el B obtiene 4.38, 4.71 y 4.49. A es preciso y exacto. B acierta en promedio pero su rango de 0.33 delata error aleatorio grande. Que el rango de B «cubra» el valor real no es criterio de confiabilidad.']},
+   {p:['Un método con <b>103 % de recuperación reproducible</b> tiene sesgo, no ruido: hay que encontrar la fuente, porque repetir no lo moverá. Ante un valor atípico como el 11.8 en la serie 10.2, 10.3, 10.1, 10.2, la prueba Q compara su distancia al vecino más próximo contra el rango total, y el criterio debe declararse antes de mirar los datos. Descartar porque un dato incomoda es mala práctica; conservar un error grosero evidente también distorsiona.']},
+   {p:['Cifras significativas: en <b>suma y resta</b> manda el menor número de decimales, así que 12.11 + 8.4 + 1.234 = 21.7 porque el 8.4 solo tiene uno. En <b>multiplicación y división</b> manda el menor número de cifras significativas. Son dos reglas distintas y confundirlas es el error de cálculo más barato de evitar.']}
+  ]},
+  {t:'Volumetría, buffers y equilibrios en disolución',b:[
+   {p:['Titular es contar moles mediante una reacción de estequiometría conocida. Dos conceptos que no son sinónimos: el <b>punto de equivalencia</b> es estequiométrico y teórico; el <b>punto final</b> es lo que se observa con el indicador. Su diferencia es el error de titulación.']},
+   {p:['El pH en la equivalencia <b>solo vale 7 si ambos son fuertes</b>. Ácido débil con base fuerte deja la base conjugada, que hidroliza: pH mayor que 7, y exige fenolftaleína (vira 8.2–10). Usar naranja de metilo (3.1–4.4) en ese caso hace virar el indicador mucho antes de la equivalencia, el volumen registrado es menor que el correcto y la concentración sale <b>subestimada</b>. El sesgo es sistemático y siempre en la misma dirección, así que repetir no lo revela.']},
+   {eq:'pH = pKa + log([A⁻]/[HA])     ·     en la semiequivalencia [A⁻] = [HA] ⇒ pH = pKa'},
+   {p:['La curva de titulación tiene cuatro regiones. Antes de titulante, el pH lo fija el analito solo. En la zona intermedia, si el analito es débil, coexisten ácido y base conjugada: es la <b>meseta tampón</b>, donde la pendiente es mínima porque añadir titulante solo cambia la razón entre ambas formas. En la equivalencia ocurre el salto más brusco. Después manda el exceso de titulante.']},
+   {p:['De ahí dos lecturas prácticas. El punto de semiequivalencia da <b>el pKa leído directamente</b> de una curva experimental. Y para elegir tampón se busca un ácido cuyo <b>pKa esté a menos de una unidad del pH objetivo</b>: para amortiguar a pH 9.2, el amonio con pKa 9.25 funciona y el acético con 4.76 no, por muy débil que sea, porque exigiría una razón extrema entre las dos formas donde el sistema ya casi no amortigua.']},
+   {p:['Cuando un buffer de acetato a pH igual a su pKa recibe una pequeña adición de HCl, el acetato capta los protones y se convierte en ácido acético. La razón entre las dos formas cambia poco, el logaritmo cambia aún menos, y <b>el pH baja muy poco</b>. El tampón solo se agota cuando una de las dos formas se consume.']},
+   {p:['En <b>volumetría de precipitación</b>, el método de Mohr determina cloruro con plata usando cromato como indicador. La estequiometría es <b>1 a 1</b> porque el AgCl se forma mol a mol, y el cromato solo precipita, rojizo, cuando el cloruro se agotó. En <b>complexometría</b>, el EDTA forma complejos 1:1 sin importar la carga del metal, porque es hexadentado y ocupa por sí solo las seis posiciones de coordinación.']},
+   {deep:{t:'Por qué el EDTA exige tampón y por qué Nernst cambia con la temperatura',b:[
+     {p:['<b>EDTA.</b> Es un ácido tetraprótico y solo la especie completamente desprotonada, Y⁴⁻, forma el complejo. Al bajar el pH esa fracción se desploma y con ella la constante condicional de formación, de modo que el salto en el punto final se difumina. A pH 5 muchos complejos ya no se forman de manera cuantitativa. Por eso cada valoración con EDTA especifica su pH de trabajo y se realiza tamponada.'],},
+     {eq:'E = E° − (RT/nF)·ln Q      (teórica)        E = E° − (0.0592/n)·log Q      (práctica a 25 °C)'},
+     {p:['<b>Nernst.</b> El 0.0592 V es (2.303·R·298.15)/F: lleva dentro la temperatura de 25 °C y el factor que convierte logaritmo natural en decimal. A 37 °C el coeficiente sube a <b>0.0616 V</b>, es decir la pendiente de un electrodo selectivo pasa de 59 a 62 mV por década. Calibrar a 25 °C y medir a 37 sin recalibrar introduce un sesgo sistemático que crece cuanto más lejos esté la muestra del punto de calibración.'],},
+     {p:['Y la trampa de unidades: usar 0.0592 con un logaritmo natural, o RT/F con uno decimal, deja el resultado mal por un factor de 2.303.']}
    ]}}
   ]},
-  {t:'Instrumental y límites del método',b:[
-   {p:['Beer-Lambert sale de integrar una absorción fraccional constante a lo largo del camino óptico: es un decaimiento exponencial en el espacio, y por eso la absorbancia (un logaritmo) es la que resulta lineal con la concentración.']},
-   {eq:'A = ε·b·c      LOD ≈ 3σ_blanco/m      LOQ ≈ 10σ_blanco/m'},
-   {ul:['Trabajar entre A = 0.1 y 1.0: por arriba la linealidad se pierde (interacción entre absorbentes, anchura de banda finita, luz parásita) y por abajo la relación señal-ruido se degrada.',
+  {t:'Análisis instrumental: espectroscopía y separaciones',b:[
+   {p:['La ley de Beer-Lambert sale de integrar una absorción fraccional constante a lo largo del camino óptico: es un decaimiento exponencial en el espacio, y por eso la absorbancia, que es un logaritmo, resulta lineal con la concentración.']},
+   {eq:'A = ε·b·c         LOD ≈ 3σ_blanco / pendiente         LOQ ≈ 10σ_blanco / pendiente'},
+   {ul:['<b>Intervalo de trabajo: A entre 0.1 y 1.0.</b> Por encima la linealidad se pierde por luz parásita, anchura de banda finita e interacción entre absorbentes, y el detector recibe muy poca luz. Ante una lectura de A = 1.85 lo que procede es <b>diluir</b>, no extrapolar la calibración.',
         'Medir en el máximo de absorción: ahí ε varía poco dentro de la banda del monocromador y la sensibilidad es máxima.',
-        'Un R² alto <b>no</b> descarta sesgo: linealidad y exactitud son cosas distintas.',
-        'Entre LOD y LOQ corresponde reportar que el analito se detectó pero no se cuantifica, no el número.']},
-   {p:['Para bajar el LOD solo hay dos palancas: subir la pendiente (mejor método) o bajar el ruido del blanco (reactivos más puros, mejor blindaje). <b>Sensibilidad</b> es la pendiente y por sí sola no dice nada del ruido.']},
-   {deep:{t:'Cromatografía cuantitativa: los cuatro números',b:[
-     {tabla:{th:['Parámetro','Expresión','Qué significa'],tr:[
-       ['Factor de retardo','Rf = d_analito / d_frente','Capa fina. Adimensional, entre 0 y 1. Zona útil 0.3–0.7'],
-       ['Factor de retención','k′ = (t_R − t_M)/t_M','Cuántas veces más tiempo está retenido. <b>Restar el tiempo muerto</b> es el paso que más se omite'],
-       ['Selectividad','α = k′₂/k′₁','Siempre ≥ 1. Mide si los dos picos se separan en absoluto'],
-       ['Resolución','R = 2(t_R2 − t_R1)/(w₁ + w₂)','R ≥ 1.5 es separación completa a línea base'],
-       ['Eficiencia','N = 16(t_R/w)²','Platos teóricos. Cuánto ensancha la columna, no cuántos analitos separa']]}},
-     {p:['Ojo con el orden de operaciones: k′ exige el tiempo muerto restado, y R lleva un factor 2 en el numerador que si se omite da la mitad del valor correcto.']}
-   ]}}
+        'Para bajar el LOD solo hay dos palancas: subir la pendiente o <b>bajar el ruido del blanco</b>. Más réplicas mejoran la precisión de una medida pero no desplazan el umbral de detección.',
+        'Entre LOD y LOQ corresponde reportar que el analito se detectó pero no se cuantifica, nunca el número crudo.']},
+   {p:['Un <b>R² de 0.9998 no descarta sesgo</b>. El coeficiente mide lo bien que los estándares se ajustan a una recta, nada más. Si la matriz de la muestra realza o suprime la señal respecto a los estándares en disolvente puro, el ajuste sigue siendo excelente y el resultado sale desviado: eso es <b>efecto de matriz</b>, y se resuelve con adición de estándar, que calibra dentro de la propia muestra.']},
+   {p:['En espectroscopía atómica la elección es de alcance. La <b>AAS de llama</b> es esencialmente monoelemental: hay que cambiar de lámpara para cada analito y llega a partes por millón. El <b>ICP</b> excita todos los elementos a la vez en el plasma, y acoplado a espectrometría de masas alcanza partes por billón. Para diez metales traza en agua, la diferencia en tiempo y en sensibilidad decide.']},
+   {tabla:{th:['Parámetro cromatográfico','Expresión','Lectura'],tr:[
+     ['Factor de retardo','Rf = d_analito / d_frente','Capa fina. Entre 0 y 1; zona útil 0.3–0.7'],
+     ['Factor de retención','k′ = (t_R − t_M)/t_M','<b>Restar el tiempo muerto</b> es el paso que más se omite'],
+     ['Selectividad','α = k′₂/k′₁','Siempre ≥ 1. Mide si los dos picos se separan en absoluto'],
+     ['Resolución','R = 2(t_R2 − t_R1)/(w₁ + w₂)','R ≥ 1.5 es separación completa a línea base'],
+     ['Eficiencia','N = 16(t_R/w)²','Platos teóricos: cuánto ensancha la columna']]}},
+   {p:['Ejemplo de la trampa de k′: un pico que sale a 9.0 min con tiempo muerto de 1.5 min tiene k′ = (9.0 − 1.5)/1.5 = 5.0. Reportar 6.0 equivale a calcular 9.0/1.5, es decir olvidar la resta.']},
+   {p:['Y el ajuste más común en capa fina: si dos manchas salen con Rf de 0.72 y 0.75 y no se separan, es porque a Rf alto los analitos pasan casi todo el tiempo en la fase móvil y apenas interactúan con la estacionaria, que es donde ocurre la discriminación. <b>Bajando la polaridad del eluyente</b> se los lleva a la zona media, donde el reparto entre fases sí los separa.']}
   ]},
   {t:'Gravimetría y análisis redox',b:[
-   {p:['En gravimetría el <b>precipitado es un intermedio analítico</b>: la herramienta con la que aíslas y pesas el analito. El porcentaje se reporta siempre respecto a la masa de <b>muestra original</b>, porque es ella la que se está analizando. Confundir el denominador no hace que el cálculo parezca mal, y por eso el error pasa desapercibido.']},
-   {p:['Se calcina antes de pesar para llevar el precipitado a una forma de composición definida y constante: lo que se busca no es más masa, sino masa cuya fórmula conozcas con certeza, porque el cálculo pasa por su masa molar.']},
-   {p:['Leer subíndices con cuidado: si obtienes n moles de P, los moles de P₂O₅ son n/2. Y en redox la estequiometría sale de <b>igualar electrones</b>, no de los coeficientes aparentes: el MnO₄⁻ gana 5 electrones y el Fe²⁺ cede 1, de ahí la relación 1 a 5.']},
-   {p:['El permanganato en medio ácido es autoindicador: el Mn²⁺ producto es casi incoloro, así que la primera gota en exceso colorea la disolución. Con EDTA, en cambio, hay que tamponar: solo la especie Y⁴⁻ acompleja, y su fracción se desploma al bajar el pH. El EDTA es hexadentado y forma complejos <b>1:1 sin importar la carga</b> del metal.']}
+   {p:['En gravimetría el <b>precipitado es un intermedio analítico</b>: la herramienta con la que se aísla y se pesa el analito. El porcentaje se reporta siempre respecto a la masa de <b>muestra original</b>, porque es ella la que se analiza. Si en un análisis de 0.2711 g de muestra que produce 1.1682 g de precipitado alguien reporta 1.66 % de fósforo en lugar de 7.11 %, lo que hizo fue usar el precipitado como denominador: el resultado baja por un factor de 4.3 sin que el cálculo parezca mal.']},
+   {p:['Se calcina antes de pesar para llevar el precipitado a una forma de <b>composición definida y constante</b>, eliminando agua y especies volátiles. Lo que se busca no es más masa, sino masa cuya fórmula se conozca con certeza, porque el cálculo pasa por su masa molar.']},
+   {p:['Leer subíndices con cuidado: si se obtienen n moles de fósforo, los moles de P₂O₅ son n/2, porque cada molécula lleva dos. La regla general es contar el elemento en la fórmula y multiplicar o dividir según la dirección.']},
+   {p:['En <b>redox la estequiometría sale de igualar electrones</b>, no de los coeficientes aparentes. El MnO₄⁻ pasa de Mn(VII) a Mn(II) ganando cinco electrones y cada Fe²⁺ cede uno, de modo que la relación es 1 a 5. Con 18.40 mL de KMnO₄ 0.0200 M se consumen 3.68×10⁻⁴ mol de permanganato, que corresponden a 1.84×10⁻³ mol de hierro; en 25.00 mL eso da <b>0.0736 M</b>. Usar relación 1:1 daría 0.0147 M, que es justo uno de los distractores.']},
+   {p:['El permanganato en medio ácido es <b>autoindicador</b>: el Mn²⁺ producto es casi incoloro, así que la disolución permanece transparente hasta que sobra permanganato sin reaccionar y la primera gota en exceso la colorea. Por eso la bureta se lee por el borde superior del menisco, que queda oscuro.']}
   ]}
  ],
  flash:[
@@ -251,65 +258,98 @@ var G=[
   ['¿Respecto a qué masa se reporta un porcentaje gravimétrico?','A la masa de la muestra original. El precipitado es solo el intermedio con el que se mide.'],
   ['Relación estequiométrica MnO₄⁻ : Fe²⁺ en medio ácido','1 a 5. El permanganato gana 5 electrones (Mn VII → Mn II) y cada Fe²⁺ cede 1. Sale de igualar electrones.'],
   ['¿Por qué el EDTA exige tampón?','Solo la forma Y⁴⁻ completamente desprotonada acompleja. Al bajar el pH esa fracción cae y la constante condicional se desploma.'],
-  ['Cifras significativas: suma frente a multiplicación','En suma y resta manda el menor número de decimales. En multiplicación y división, el menor número de cifras significativas.']
+  ['Cifras significativas: suma frente a multiplicación','En suma y resta manda el menor número de decimales. En multiplicación y división, el menor número de cifras significativas.'],
+  ['Pendiente de un electrodo selectivo a 25 y a 37 °C','59 mV por década a 25 °C y 62 mV a 37 °C. El coeficiente de Nernst lleva la temperatura dentro.'],
+  ['R² alto pero resultados sesgados: ¿qué ocurre?','Efecto de matriz. La linealidad no garantiza exactitud. Se corrige con adición de estándar, que calibra dentro de la muestra.'],
+  ['Intervalo fiable de absorbancia y qué hacer fuera de él','Entre 0.1 y 1.0. Por encima hay que diluir, no extrapolar la calibración.'],
+  ['AAS de llama frente a ICP-MS','AAS: monoelemental, ppm. ICP-MS: multielemental simultáneo y partes por billón.'],
+  ['Dos manchas de TLC con Rf de 0.72 y 0.75 no separan: ¿qué ajustas?','La polaridad del eluyente, para bajarlas a la zona 0.3–0.7 donde sí interactúan con la fase estacionaria.'],
+  ['Estequiometría del método de Mohr','1 a 1 entre Ag⁺ y Cl⁻: el AgCl se forma mol a mol. El cromato solo vira cuando el cloruro se agotó.']
  ]},
-
 /* ===================== M3 ===================== */
 {id:'M3',nom:'Química orgánica, bioquímica y nanomedicina',sesion:'Sesión 4 del taller',
- sub:'Estructura y estereoquímica, los cuatro mecanismos que explican casi todo, macromoléculas y cinética enzimática.',
+ sub:'Estructura y estereoquímica, grupos funcionales, los cuatro mecanismos que explican casi todo, macromoléculas, enzimas y biología molecular.',
  sec:[
-  {t:'Contar regiones de densidad electrónica',b:[
-   {p:['Un solo procedimiento da hibridación, geometría y ángulos de una vez: cuenta las regiones de densidad electrónica alrededor del átomo central, sumando enlaces (sencillo, doble o triple cuentan uno cada uno) y pares libres.']},
-   {tabla:{th:['Regiones','Hibridación','Geometría','Ángulo'],tr:[
-     ['4','sp³','Tetraédrica','109.5°'],
-     ['3','sp²','Trigonal plana','120°'],
-     ['2','sp','Lineal','180°']]}},
-   {p:['De aquí sale una cadena que el examen recorre: más carácter s significa orbital más cercano al núcleo, enlace más corto y fuerte, y mayor electronegatividad efectiva. Por eso la acidez de un H unido a carbono crece sp³ < sp² < sp: la base conjugada del alquino aloja el par en un orbital con 50 % de carácter s.']},
-   {p:['Y una advertencia: <b>enlaces polares no implica molécula polar</b>. El CCl₄ tiene cuatro enlaces muy polares y es apolar, porque la geometría tetraédrica simétrica cancela los vectores. El CHCl₃ sí es polar porque rompe esa simetría.']}
+  {t:'Estructura: hibridación, geometría y sus consecuencias',b:[
+   {p:['Un solo procedimiento da hibridación, geometría y ángulos de una vez: contar regiones de densidad electrónica alrededor del átomo central, sumando enlaces (sencillo, doble o triple cuentan uno cada uno) y pares libres.']},
+   {tabla:{th:['Regiones','Hibridación','Geometría','Ángulo','Carácter s'],tr:[
+     ['4','sp³','Tetraédrica','109.5°','25 %'],
+     ['3','sp²','Trigonal plana','120°','33 %'],
+     ['2','sp','Lineal','180°','50 %']]}},
+   {p:['De la última columna sale una cadena que el examen recorre entera. Más carácter s significa orbital más concentrado cerca del núcleo, enlace <b>más corto y más fuerte</b>, y mayor electronegatividad efectiva del carbono. Por eso la longitud del enlace carbono-carbono baja de sencillo a doble a triple.']},
+   {p:['Y por eso la <b>acidez crece en el orden etano &lt; eteno &lt; etino</b>. La acidez refleja la estabilidad de la base conjugada: el carbanión del alquino aloja su par libre en un orbital sp con 50 % de carácter s, mucho más estable que el sp³ del alcano. No es que el alquino tenga «menos hidrógenos»: es dónde queda el par cuando se va el protón.']},
+   {p:['Advertencia que se pregunta siempre: <b>enlaces polares no implica molécula polar</b>. El CCl₄ tiene cuatro enlaces muy polares y momento dipolar nulo, porque la geometría tetraédrica simétrica cancela los vectores. El CHCl₃ sí es polar porque sustituir un cloro rompe la simetría. El momento dipolar molecular es una suma vectorial, así que primero se determina la geometría y después se suma.']},
+   {p:['La misma lógica explica la <b>solubilidad</b>. Butanol y butano tienen masas parecidas, pero el butanol se disuelve en agua y el butano no: el grupo hidroxilo dona y acepta puentes de hidrógeno, de modo que puede sustituir las interacciones agua-agua que desplaza. La cadena del butano solo ofrece fuerzas de London y obliga al agua a reorganizarse a su alrededor con costo entrópico.']}
   ]},
-  {t:'Los tres niveles de isomería',b:[
-   {ul:['<b>Constitucional</b>: distinto orden de conexión. Propiedades físicas y químicas distintas.',
-        '<b>Diastereómeros</b>: misma conectividad, distinta disposición espacial, pero no son imágenes especulares. Propiedades físicas <b>distintas</b>, así que se separan por métodos convencionales.',
+  {t:'Isomería, quiralidad y por qué importa en fármacos',b:[
+   {ul:['<b>Constitucional</b>: distinto orden de conexión. Incluye isomería de cadena, de posición y de función. El C₂H₆O tiene dos isómeros de función: etanol y dimetil éter.',
+        '<b>Diastereómeros</b>: misma conectividad, distinta disposición espacial, pero <b>no</b> son imágenes especulares. Propiedades físicas distintas, así que se separan por métodos convencionales.',
         '<b>Enantiómeros</b>: imágenes especulares no superponibles. Propiedades físicas <b>idénticas</b> salvo el signo de la rotación óptica, y comportamiento distinto solo frente a otras moléculas quirales.']},
-   {p:['Un compuesto con dos centros estereogénicos puede ser aquiral si tiene un plano de simetría interno: es la <b>forma meso</b>, que contiene centros pero no es ópticamente activa.']},
-   {p:['R y S describen geometría absoluta por las reglas CIP y <b>no predicen el signo de la rotación óptica</b>: no existe correspondencia sistemática. Eso se mide en el polarímetro.']},
+   {p:['De ahí un diagnóstico directo: dos isómeros que funden a <b>132 y 158 °C</b> y ambos son ópticamente activos no pueden ser enantiómeros, porque esos comparten punto de fusión. Son <b>diastereómeros</b>. Y un compuesto con dos centros estereogénicos que no desvía la luz es una <b>forma meso</b>: tiene plano de simetría interno y es superponible con su imagen especular.']},
+   {p:['Para asignar configuración se usan las reglas CIP: prioridades por número atómico, el sustituyente de menor prioridad hacia atrás, y el giro de 1 a 2 a 3 da R si es horario y S si es antihorario. Conviene recordar que <b>R y S no predicen el signo de la rotación óptica</b>: no hay correspondencia sistemática, y el signo se mide en el polarímetro.']},
    {deep:{t:'Por qué la quiralidad decide si un fármaco cura o daña',b:[
-     {p:['El entorno biológico es quiral: las proteínas están hechas de L-aminoácidos y los ácidos nucleicos de D-azúcares. Un sitio de unión tiene una forma tridimensional definida, y encajar en él es como meter una mano en un guante.']},
-     {p:['La consecuencia es que un enantiómero puede unirse al receptor y producir el efecto buscado mientras el otro no se une, se une a un receptor distinto, o se metaboliza por otra vía y genera toxicidad. El caso que cambió la regulación farmacéutica mundial fue la talidomida, comercializada como mezcla racémica: un enantiómero tenía la actividad sedante y el otro resultó teratogénico.']},
+     {p:['El entorno biológico es quiral: las proteínas están hechas de L-aminoácidos y los ácidos nucleicos de D-azúcares. Un sitio de unión tiene una forma tridimensional definida, y encajar en él es como meter una mano en un guante.'],},
+     {p:['La consecuencia es que <b>cada enantiómero puede actuar sobre un blanco distinto</b>: uno da el efecto terapéutico y el otro se une a otro receptor o se metaboliza por otra vía y genera toxicidad. Un racémico que produce el efecto buscado más una toxicidad inesperada se explica casi siempre así, y no por solubilidad ni por degradación, porque en entorno aquiral las propiedades de ambos son idénticas.'],},
+     {p:['El caso que cambió la regulación farmacéutica mundial fue la talidomida, comercializada como mezcla racémica: un enantiómero tenía la actividad sedante y el otro resultó teratogénico.'],},
+     {p:['Por eso, para fabricar un solo enantiómero, la ruta con mejor economía atómica es la <b>síntesis asimétrica con catalizador quiral</b>, que construye preferentemente el deseado. Resolver un racémico por cristalización o por cromatografía quiral funciona, pero descarta al menos la mitad del material que ya se fabricó.'],},
      {p:['Matiz que complica el asunto: algunos enantiómeros se interconvierten in vivo por racemización enzimática, de modo que administrar solo el activo no garantiza que el organismo no genere el otro.']}
    ]}}
   ]},
-  {t:'Cuatro mecanismos y el árbol de decisión',b:[
-   {p:['SN1, SN2, E1 y E2 compiten por el mismo sustrato. Cuatro variables deciden cuál gana, y conviene revisarlas en orden.']},
-   {tabla:{th:['Variable','Empuja a SN2','Empuja a SN1 / E1','Empuja a E2'],tr:[
+  {t:'Los cuatro mecanismos y el árbol de decisión',b:[
+   {p:['SN1, SN2, E1 y E2 compiten por el mismo sustrato. Cuatro variables deciden, y conviene revisarlas en ese orden.']},
+   {tabla:{th:['Variable','SN2','SN1 / E1','E2'],tr:[
      ['Sustrato','Primario','Terciario','Terciario'],
-     ['Nucleófilo / base','Nucleófilo fuerte, poco básico','Nucleófilo débil (agua, alcohol)','Base fuerte y voluminosa'],
-     ['Disolvente','Aprótico polar (DMSO, acetona)','Prótico polar (agua, etanol)','—'],
-     ['Temperatura','Baja','—','Alta (ΔS favorece)']]}},
-   {p:['El dato estereoquímico que cierra el diagnóstico: <b>SN2 da inversión completa</b> de configuración porque el ataque es por la cara opuesta en un paso concertado; <b>SN1 pasa por un carbocatión plano</b> atacable por ambas caras y da racemización.']},
-   {p:['En alquenos, la adición de HBr sigue Markovnikov, pero <b>con peróxidos el mecanismo cambia a radicalario</b> y la regioselectividad se invierte. Y en aromáticos: los donadores por resonancia activan y dirigen orto y para; los atractores desactivan y dirigen meta. Los halógenos son el caso mixto, desactivantes pero orto-para directores.']}
+     ['Nucleófilo o base','Nucleófilo fuerte, poco básico','Nucleófilo débil: agua, alcohol','Base fuerte y voluminosa'],
+     ['Disolvente','Aprótico polar: DMSO, acetona','Prótico polar: agua, etanol','—'],
+     ['Temperatura','Baja','—','Alta: ΔS favorece']]}},
+   {p:['Dos casos que resumen la tabla. Un <b>halogenuro terciario en agua</b>, sin base añadida, a temperatura ambiente: el impedimento estérico bloquea el ataque por detrás, el carbocatión terciario es estable y el agua es nucleófilo débil y disolvente prótico. Son las condiciones canónicas de <b>SN1</b>. En cambio, <b>2-bromobutano con etóxido de sodio a 70 °C</b>: el etóxido es base fuerte, no solo nucleófilo, y la eliminación produce más partículas y mayor entropía, que el término TΔS favorece al calentar. Domina <b>E2</b> y sale alqueno.']},
+   {p:['El dato estereoquímico cierra el diagnóstico. <b>SN2 da inversión completa</b>, porque el nucleófilo entra por la cara opuesta en un paso concertado. <b>SN1 pasa por un carbocatión plano</b> atacable por ambas caras, así que un sustrato ópticamente puro como el 2-butanol da una <b>mezcla casi racémica</b>, con un ligero exceso del invertido porque el grupo saliente estorba una cara mientras se aleja.']},
+   {p:['En <b>adición a alquenos</b>, la hidratación en medio ácido coloca el hidroxilo en el <b>carbono más sustituido</b>, porque el protón se adiciona primero generando el carbocatión más estable y el agua ataca ahí. Eso es Markovnikov visto por su mecanismo, no como receta. Pero <b>con peróxidos el HBr cambia a mecanismo radicalario</b> y la regioselectividad se invierte: el mismo alqueno en un frasco limpio y en otro contaminado da productos distintos.']},
+   {p:['En <b>aromáticos</b> el sustituyente presente decide dónde entra el siguiente. Los donadores por resonancia (OH, OR, NH₂) y los alquilos activan el anillo y dirigen a orto y para. Los atractores (NO₂, CN, carbonilos) desactivan y dirigen a meta: nitrar un anillo que ya lleva un nitro es <b>más lento y da meta</b>. Los halógenos son el caso mixto: desactivan por inducción pero dirigen orto-para porque sus pares libres estabilizan el ion arenio solo en esas posiciones.']}
   ]},
-  {t:'Macromoléculas y enzimas',b:[
-   {p:['Dos formas de crecer. La <b>adición</b> suma monómeros insaturados sin perder átomos, por mecanismo en cadena; las cadenas alcanzan su peso final casi de inmediato. La <b>condensación</b> libera una molécula pequeña y crece por pasos, de modo que el peso molecular alto solo se alcanza a conversiones muy próximas al 100 % (Carothers). Por eso el control estequiométrico es crítico en condensación y casi irrelevante en adición.']},
-   {p:['Un polímero no tiene <i>un</i> peso molecular sino una distribución, y de ahí la polidispersidad. Dos transiciones térmicas distintas: la <b>Tm</b> es de primer orden y solo existe en las regiones cristalinas, con pico endotérmico en DSC. La <b>Tg</b> es de segundo orden, propia de la fase amorfa, y aparece como escalón en la línea base. Un polímero totalmente amorfo tiene Tg pero no Tm, y siempre Tg < Tm.']},
-   {p:['Clave de instrumentación: la <b>Tg no implica cambio de masa, así que el TGA es ciego a ella</b>. Solo se ve por DSC.']},
-   {eq:'v = Vmax[S]/(Km + [S])   ·   cuando [S] = Km ⇒ v = Vmax/2'},
-   {ul:['<b>Inhibidor competitivo</b>: compite por el sitio activo, se vence con más sustrato. Vmax igual, Km aparente sube.',
-        '<b>Inhibidor no competitivo</b>: se une fuera del sitio activo y reduce la enzima funcional. Vmax baja, Km igual.',
-        'A [S] ≪ Km el comportamiento es de primer orden; a [S] ≫ Km es de orden cero (saturación).']}
+  {t:'Macromoléculas: polímeros y sus transiciones',b:[
+   {p:['Dos formas de crecer. La <b>adición</b> suma monómeros insaturados sin perder átomos, por mecanismo en cadena, y las cadenas alcanzan su peso final casi de inmediato: lo que aumenta con el tiempo es cuántas hay. La <b>condensación</b> libera una molécula pequeña y crece por pasos. El nailon 6,6 se forma de una diamina y un diácido liberando <b>agua</b> en cada enlace amida.']},
+   {p:['La diferencia mecanística tiene una consecuencia que se pregunta: en crecimiento por pasos cualquier par de moléculas con grupos complementarios puede unirse, y el peso molecular medio solo se dispara en el último tramo de conversión, según la ecuación de Carothers. Una policondensación detenida al <b>92 % da peso molecular bajo</b>, porque el sistema aún está lleno de oligómeros. Por eso el control estequiométrico es crítico en condensación y casi irrelevante en adición.']},
+   {p:['Un polímero no tiene <i>un</i> peso molecular sino una distribución. La <b>polidispersidad</b> es la razón entre el promedio en peso y el promedio en número, y mide la <b>anchura de esa distribución</b>: dos materiales pueden compartir promedio y diferir mucho en homogeneidad, lo que cambia propiedades mecánicas y de procesado.']},
+   {tabla:{th:['','Tm','Tg'],tr:[
+     ['Orden de la transición','Primero','Segundo'],
+     ['Fase donde ocurre','Regiones cristalinas','Fase amorfa'],
+     ['Señal en DSC','Pico endotérmico','Escalón en la línea base'],
+     ['¿La ve el TGA?','No, salvo degradación','<b>No</b>: no hay cambio de masa']]}},
+   {p:['De ahí el diagnóstico: un polímero con <b>escalón en DSC a 105 °C y ningún pico endotérmico</b> es <b>amorfo</b>, porque sin regiones cristalinas no hay nada que fundir. Y si el TGA no registra nada antes de la degradación, es consistente: la transición vítrea no implica cambio de masa.']},
+   {p:['Un éster hidrolizado en <b>medio básico</b> da la sal del ácido y el alcohol, y el proceso se llama <b>saponificación</b>. Es irreversible, a diferencia de la hidrólisis ácida, porque el carboxilato desprotonado ya no puede volver atrás. De ahí su uso para fabricar jabones a partir de triglicéridos.']}
+  ]},
+  {t:'Bioquímica: enzimas, proteínas y ácidos nucleicos',b:[
+   {eq:'v = Vmax[S]/(Km + [S])     ·     cuando [S] = Km ⇒ v = Vmax/2'},
+   {p:['La curva recorre dos regímenes. A <b>[S] muy por debajo de Km</b> el denominador se aproxima a Km y la velocidad crece proporcionalmente al sustrato: comportamiento de <b>primer orden</b>. A <b>[S] muy por encima de Km</b> el denominador se aproxima a [S] y la velocidad se estanca en Vmax: comportamiento de <b>orden cero</b>, porque toda la enzima está ocupada y añadir más sustrato no cambia nada.']},
+   {tabla:{th:['Inhibidor','Dónde se une','Vmax','Km aparente','¿Se vence con más sustrato?'],tr:[
+     ['Competitivo','Sitio activo','Igual','Sube','Sí'],
+     ['No competitivo','Otro sitio','<b>Baja</b>','Igual','No']]}},
+   {p:['Un inhibidor que baja Vmax un 40 % y deja Km intacto es <b>no competitivo</b>: reduce la cantidad de enzima funcional y duplicar el sustrato no lo desplaza, porque no compiten por el mismo lugar.']},
+   {p:['Una proteína que pierde actividad a 70 °C <b>conservando su secuencia</b> se <b>desnaturalizó</b>: los enlaces peptídicos siguen intactos y lo que se deshizo es la estructura tridimensional sostenida por puentes de hidrógeno, interacciones hidrofóbicas y puentes disulfuro. Como la función depende de la forma del sitio activo, la actividad desaparece aunque la cadena esté completa.']},
+   {p:['En ácidos nucleicos, el par <b>G-C forma tres puentes de hidrógeno</b> y el A-T solo dos, así que una secuencia rica en guanina y citosina exige más energía para separarse y su temperatura de fusión es mayor. Es la base de calcular la Tm de un cebador a partir de su composición.']},
+   {p:['Y en <b>PCR la especificidad la definen los cebadores</b>, que delimitan por complementariedad la región que se copia. El magnesio, la temperatura de hibridación y el número de ciclos afectan la eficiencia y el rigor, y mal ajustados generan productos inespecíficos, pero no deciden qué secuencia es el blanco.']},
+   {p:['Para identificar grupos funcionales por infrarrojo, la combinación de una banda <b>muy ancha cerca de 3300 cm⁻¹</b>, del OH asociado por puentes de hidrógeno, con una <b>intensa a 1710 cm⁻¹</b>, del carbonilo, es la firma del <b>ácido carboxílico</b>. Una amida mostraría el carbonilo desplazado a número de onda menor.']}
   ]}
  ],
  flash:[
   ['Un compuesto con dos centros estereogénicos no es ópticamente activo. ¿Por qué?','Es una forma meso: tiene plano de simetría interno y es superponible con su imagen especular.'],
-  ['¿Qué relación hay entre configuración R/S y signo de rotación óptica?','Ninguna sistemática. CIP es un convenio geométrico; el signo se mide en el polarímetro.'],
+  ['Dos isómeros funden a temperaturas distintas y ambos son ópticamente activos. ¿Qué son?','Diastereómeros. Los enantiómeros comparten todas las propiedades físicas salvo el signo de la rotación.'],
   ['Evidencia estereoquímica que distingue SN1 de SN2','SN2 da inversión completa (ataque por la cara opuesta, paso concertado). SN1 da racemización (carbocatión plano).'],
-  ['HBr sobre un alqueno, con y sin peróxidos','Sin peróxidos: Markovnikov, mecanismo iónico. Con peróxidos: radicalario y regioselectividad invertida (antiMarkovnikov).'],
-  ['¿Por qué el cloro desactiva el anillo pero dirige orto-para?','Desactiva por inducción al ser electronegativo; dirige orto-para porque sus pares libres estabilizan el ion arenio solo en esas posiciones.'],
-  ['¿Por qué el TGA no detecta la Tg?','La transición vítrea no implica cambio de masa. El TGA solo ve procesos con pérdida o ganancia de masa; la Tg se ve por DSC como escalón.'],
+  ['HBr sobre un alqueno, con y sin peróxidos','Sin peróxidos: Markovnikov, mecanismo iónico. Con peróxidos: radicalario y regioselectividad invertida.'],
+  ['¿Por qué el cloro desactiva el anillo pero dirige orto-para?','Desactiva por inducción al ser electronegativo; dirige orto-para porque sus pares libres estabilizan el ion arenio en esas posiciones.'],
+  ['¿Por qué el TGA no detecta la Tg?','La transición vítrea no implica cambio de masa. El TGA solo ve pérdidas o ganancias; la Tg se ve por DSC como escalón.'],
   ['Inhibidor que reduce Vmax y deja Km igual','No competitivo: se une fuera del sitio activo y reduce la enzima funcional disponible. No se vence con más sustrato.'],
-  ['¿Por qué la condensación exige control estequiométrico y la adición no?','Crece por pasos: el peso molecular alto llega solo cerca del 100 % de conversión. Un exceso de un monómero termina las cadenas y limita el peso.'],
+  ['¿Por qué la condensación exige control estequiométrico y la adición no?','Crece por pasos: el peso alto llega solo cerca del 100 % de conversión. Un exceso de un monómero termina las cadenas.'],
   ['Regiones de densidad electrónica y geometría','4 → sp³ tetraédrica 109.5°. 3 → sp² trigonal plana 120°. 2 → sp lineal 180°.'],
-  ['¿Por qué un alquino terminal es más ácido que un alcano?','Su base conjugada aloja el par libre en un orbital sp con 50 % de carácter s, más cercano al núcleo y por tanto más estable.']
+  ['Orden de acidez de etano, eteno y etino','Etano < eteno < etino. Más carácter s en la base conjugada la estabiliza más: sp tiene 50 %.'],
+  ['¿Qué significa la polidispersidad de un polímero?','La anchura de la distribución de longitudes de cadena: razón entre el promedio en peso y el promedio en número.'],
+  ['Hidrólisis de un éster en medio básico','Saponificación: da la sal del ácido y el alcohol, y es irreversible porque el carboxilato no vuelve atrás.'],
+  ['¿Qué secuencia de DNA resiste más temperatura?','La rica en G-C: tres puentes de hidrógeno por par frente a dos del A-T. Mayor Tm.'],
+  ['¿Qué define la especificidad de una PCR?','Los cebadores, que delimitan por complementariedad la región copiada. El magnesio y la temperatura afectan el rigor, no el blanco.'],
+  ['Bandas IR a 3300 cm⁻¹ ancha y 1710 cm⁻¹ intensa','Ácido carboxílico: OH asociado por puentes más carbonilo. En una amida el carbonilo sale a menor número de onda.'],
+  ['Michaelis-Menten a [S] mucho mayor que Km','Orden cero: la enzima está saturada y la velocidad se estanca en Vmax. Por debajo de Km es primer orden.'],
+  ['Ruta con mejor economía atómica para un solo enantiómero','Síntesis asimétrica con catalizador quiral: construye el deseado en vez de fabricar ambos y descartar la mitad.']
  ]}
 ];
 </script>
@@ -337,7 +377,10 @@ G.push(
      ['CdS','2.4','517 nm','Amarillo-naranja'],
      ['Si','1.12','1107 nm (IR)','Gris oscuro: absorbe todo el visible']]}},
    {p:['El color observado es el <b>complementario</b> de lo absorbido, y ese paso es el que más se falla. Un Eg de 2.0 eV da umbral en 620 nm: absorbe violeta, azul y verde, y se ve rojo-anaranjado.']},
+   {p:['De la tabla sale el procedimiento completo para predecir color: calcular el umbral con λ = 1240/Eg, ver qué parte del visible queda por debajo (eso se absorbe) y concluir que el color observado es <b>el complementario de lo absorbido</b>. Un material que absorbe por debajo de 517 nm tiene Eg = 1240/517 = <b>2.4 eV</b>, se come violeta, azul y verde, y se ve <b>amarillo-anaranjado</b>. Un material transparente e incoloro no absorbe nada del visible, así que su gap debe superar <b>3.1 eV</b>, el extremo violeta.']},
+   {p:['Ese mismo 1240 conecta con las transiciones atómicas. En el hidrógeno la separación entre niveles crece al subir, así que el salto <b>4→2 libera más energía que el 3→2</b>: mayor frecuencia y por tanto <b>menor longitud de onda</b>, ya que E = hc/λ.']},
    {p:['El dopaje <b>no cambia el ancho del gap</b>: introduce niveles dentro de él. El fósforo en silicio deja un nivel donador a unos 0.045 eV bajo la banda de conducción, y como kT a temperatura ambiente vale 0.026 eV, ese electrón se libera con facilidad. Resultado: tipo n. El boro deja un nivel aceptor cerca de la banda de valencia: tipo p.']},
+   {p:['La magnitud del efecto sorprende: una parte por millón de dopante aporta muchísimos más portadores que los pocos que cruzan el gap térmicamente en el material puro, de modo que la conductividad cambia en <b>varios órdenes de magnitud</b>. Por eso el silicio electrónico exige purezas extremas antes de doparlo: cualquier impureza residual actuaría como dopante incontrolado y arruinaría tanto el tipo de portador como su concentración.']},
    {deep:{t:'La trampa de la temperatura',b:[
      {p:['El comportamiento de la resistividad con la temperatura distingue a un metal de un semiconductor, y las direcciones son opuestas.'],},
      {ul:['<b>Metal</b>: T sube ⇒ ρ sube. El número de portadores ya es fijo; lo que crece es la dispersión por fonones.',
@@ -345,16 +388,25 @@ G.push(
      {p:['De aquí sale una medición diagnóstica barata: si la resistencia de una muestra desconocida baja al calentarla, es semiconductora.']}
    ]}}
   ]},
-  {t:'Cristalografía y defectos',b:[
+  {t:'Cristalografía: contar bien y nombrar bien',b:[
    {tabla:{th:['Estructura','Átomos/celda','Coordinación','Empaquetamiento'],tr:[
      ['Cúbica simple','1','6','0.52'],
      ['BCC','2','8','0.68'],
-     ['FCC','4','12','0.74'],
-     ['HCP','—','12','0.74']]}},
-   {p:['FCC y HCP tienen la misma eficiencia: lo único que cambia es la secuencia de apilamiento, ABCABC frente a ABAB. Esa diferencia altera el número de sistemas de deslizamiento, y por eso los metales FCC (aluminio, cobre) son típicamente más dúctiles que los HCP (zinc, magnesio).']},
-   {eq:'d = a / √(h² + k² + l²)   ·   sistema cúbico'},
-   {p:['Los índices de Miller usan <b>recíprocos</b> por una razón concreta: un plano paralelo a un eje lo corta en el infinito, y su recíproco es cero en lugar de infinito. Eso evita infinitos en la notación y hace los índices proporcionales a la orientación.']},
-   {p:['Los defectos no son fallas, son el mecanismo. La deformación plástica ocurre por <b>movimiento de dislocaciones</b>, y endurecer un metal consiste en obstaculizarlas: por solución sólida, por precipitados, por frontera de grano (Hall-Petch) o por trabajo en frío. Si la densidad medida resulta menor que la teórica, la interpretación son vacancias; si es mayor, intersticiales.']}
+     ['FCC','4','12','<b>0.74</b>'],
+     ['HCP','—','12','<b>0.74</b>']]}},
+   {p:['Dos números que se confunden y no son lo mismo: <b>átomos por celda</b> y <b>número de coordinación</b>. En FCC hay 4 átomos por celda (ocho vértices que aportan 1/8 más seis centros de cara que aportan 1/2) y 12 vecinos más próximos. FCC y HCP comparten eficiencia 0.74: lo único que cambia es la secuencia de apilamiento, ABCABC frente a ABAB, y esa diferencia altera el número de sistemas de deslizamiento, por lo que los metales FCC como aluminio y cobre son más dúctiles que los HCP como zinc y magnesio.']},
+   {eq:'d = a / √(h² + k² + l²)     ·     ρ_teórica = (n · M) / (N_A · a³)'},
+   {p:['La densidad teórica exige cuidado con las unidades. Para aluminio FCC con a = 0.405 nm: la masa de la celda es 4 × 26.98 / 6.022×10²³ = 1.792×10⁻²² g, y el volumen es a³ con <b>a convertido a centímetros</b>, es decir 4.05×10⁻⁸ cm, lo que da 6.64×10⁻²³ cm³ y una densidad de 2.70 g/cm³. Si el resultado sale desviado por 10⁶ el diagnóstico es inmediato: <b>no se elevó al cubo el factor de conversión</b>, porque (10²)³ = 10⁶.']},
+   {p:['Comparar la densidad calculada con la medida es un diagnóstico de defectos. Si la medida es <b>menor</b>, hay <b>vacancias</b>: mismo volumen de celda, menos masa. Si es <b>mayor</b>, hay <b>átomos intersticiales</b> que añaden masa sin cambiar el volumen. El número de coordinación no entra en el cálculo.']},
+   {p:['Los <b>índices de Miller</b> se obtienen tomando los recíprocos de las intersecciones y reduciendo a los enteros más pequeños. Un plano que corta en 1/2, 1 e infinito da recíprocos 2, 1 y 0, es decir <b>(210)</b>. Se usan recíprocos por una razón concreta: un plano paralelo a un eje lo corta en el infinito, y su recíproco es cero en lugar de infinito. Los índices nunca llevan fracciones y el orden de los ejes importa.']},
+   {p:['Al indexar un difractograma cúbico, la secuencia de h²+k²+l² identifica la red: <b>3, 4, 8, 11</b> es FCC (índices todos pares o todos impares) y <b>2, 4, 6, 8</b> es BCC (h+k+l par). La cúbica simple no tiene extinciones y da 1, 2, 3, 4.']},
+   {p:['Y los defectos no son fallas sino el mecanismo: la deformación plástica ocurre por <b>movimiento de dislocaciones</b>. Endurecer un metal consiste en obstaculizarlas, y el <b>trabajo en frío</b> lo logra multiplicando su densidad hasta que se estorban entre sí. Las otras vías son solución sólida, precipitados y frontera de grano según Hall-Petch.']}
+  ]},
+  {t:'Enlace iónico y estabilidad de la red',b:[
+   {p:['La energía reticular crece con el producto de las cargas y disminuye con la distancia entre centros iónicos. A igual carga, <b>iones más pequeños se acercan más</b>, la atracción electrostática es mayor y hace falta más energía para romper la red: por eso su punto de fusión es superior.']},
+   {p:['La diferencia mecánica entre metálico e iónico tiene explicación puramente geométrica. En un metal, al deslizarse un plano los cationes cambian de vecinos pero el mar electrónico los sigue rodeando igual, así que se deforma sin romperse. En un iónico, deslizar media celda enfrenta cationes con cationes: la interacción pasa de atractiva a repulsiva de golpe y el cristal se fractura por planos definidos.']},
+   {p:['Un sólido que funde a <b>1410 °C, no conduce y es frágil</b> apunta a <b>red covalente</b> tridimensional, como el silicio o el cuarzo: enlaces direccionales en todas las direcciones, sin portadores libres. Un metal conduciría, un molecular fundiría muy por debajo y un iónico conduciría al fundirse.']},
+   {p:['El mismo elemento puede dar materiales opuestos según su arreglo. <b>Diamante y grafito</b> son ambos carbono puro: el diamante es sp³ con red covalente tridimensional y todos los electrones localizados, de ahí su dureza y su aislamiento; el grafito es sp² en capas, con electrones deslocalizados en el sistema pi que conducen dentro del plano y fuerzas débiles entre capas que permiten exfoliarlo. La diferencia no es la pureza: es <b>el arreglo y la hibridación</b>.']}
   ]},
   {t:'La cuántica que sí se pregunta',b:[
    {eq:'E_n = n²h² / (8mL²)   ·   partícula en una caja'},
@@ -385,6 +437,7 @@ G.push(
    {p:['La jerarquía típica por par de moléculas es ion-dipolo > puente de hidrógeno > dipolo-dipolo > London. Pero hay una excepción que el examen explota: las <b>fuerzas de London crecen con la polarizabilidad</b>, que crece con el número de electrones. Por eso el yodo, que solo tiene London, es sólido, mientras que el HF, que tiene puentes de hidrógeno, es gas.']},
    {p:['Regla operativa: si las masas son parecidas, decide el tipo de fuerza (etanol 78 °C frente a dimetil éter −24 °C, misma fórmula C₂H₆O). Si las masas son muy distintas, revisa si el tamaño alcanza para que London compense.']},
    {p:['El agua y sus anomalías salen de un solo hecho geométrico: cada molécula puede formar <b>cuatro</b> puentes, dos como donadora y dos como aceptora. De ahí el punto de ebullición anómalo, la capacidad calorífica alta y que el hielo flote. Y de ahí que la línea sólido-líquido del agua tenga <b>pendiente negativa</b> en el diagrama de fases, al revés que casi todas las sustancias.']},
+   {p:['Comparar disoluciones exige contar partículas, no moles de soluto. Glucosa 0.10 m tiene i = 1 y da 0.10 m efectivos; CaCl₂ 0.10 m tiene i ≈ 3 y da 0.30 m, así que <b>baja tres veces más</b> el punto de congelación. Pero glucosa 0.20 m y NaCl 0.10 m llegan los dos a 0.20 m de partículas y producen <b>el mismo descenso</b>: el resultado depende del producto i·m, no de ninguno por separado.']},
    {p:['Las propiedades coligativas dependen del <b>número de partículas</b>: sin el factor i de van’t Hoff el resultado está mal, y el valor sin corregir suele coincidir exactamente con uno de los distractores. Se expresan en molalidad y no en molaridad porque la molalidad no depende de la temperatura, que es justo la variable en estudio.']}
   ]},
   {t:'Espontaneidad: los cuatro casos',b:[
@@ -409,15 +462,22 @@ G.push(
         'La presión solo afecta si hay diferencia en moles de gas entre los dos lados.',
         'Un <b>catalizador no desplaza el equilibrio</b>: baja la barrera por igual en ambos sentidos, así que multiplica k directa e inversa por el mismo factor y su cociente K no cambia. Solo llega antes al mismo punto.',
         'Los sólidos y líquidos puros no aparecen en la expresión de K, porque su actividad vale 1.']},
+   {p:['Para determinar el orden a partir de datos hay dos rutas rápidas. Por <b>velocidades iniciales</b>: de v₂/v₁ = ([A]₂/[A]₁)ⁿ, si al duplicar la concentración la velocidad se multiplica por ocho entonces 8 = 2ⁿ y el orden es <b>tres</b>; un factor de cuatro daría segundo orden y uno de dos, primero. Por las <b>unidades de k</b>: para orden n son M^(1−n)·s⁻¹, de modo que s⁻¹ puro delata <b>primer orden</b>, M·s⁻¹ orden cero y M⁻¹·s⁻¹ segundo.']},
+   {p:['La <b>vida media</b> es la tercera vía. En primer orden t½ = ln2/k y <b>no depende de la concentración inicial</b>; en orden cero es proporcional a [A]₀ y en segundo orden inversamente proporcional. Si al reducir a la mitad la concentración de partida la vida media no cambia, el orden es primero.']},
    {p:['El <b>orden de reacción es experimental</b>, no se lee de los coeficientes. Dada 2A + B → C, escribir v = k[A]²[B] solo sería válido si la reacción fuera elemental, algo que debe decir el enunciado. Los órdenes los dicta el paso determinante y pueden ser fraccionarios, cero o negativos. Las unidades de k delatan el orden.']},
    {eq:'ln(k₂/k₁) = −(Ea/R)(1/T₂ − 1/T₁)   ·   T en kelvin, obligatoriamente'},
+   {p:['Lo de «obligatoriamente» no es retórico: la temperatura aparece como 1/T, y una escala con cero arbitrario como la Celsius rompe la relación. Usar grados Celsius altera la magnitud del término 1/T₂ − 1/T₁ e incluso su signo, lo que produce <b>energías de activación negativas</b> sin sentido físico. Si el resultado sale negativo, el primer sospechoso son las unidades de temperatura.']},
+   {p:['Y la distinción que cierra el bloque: dos reacciones con <b>idéntico ΔG° pueden tardar segundos o siglos</b>. ΔG° fija K y por tanto la composición final, no la rapidez; la velocidad la gobierna la <b>energía de activación</b>, que es una propiedad del camino y no de los estados inicial y final. El diamante hacia grafito es el ejemplo canónico.']},
    {p:['Para primer orden, t½ = ln2/k y <b>no depende de la concentración inicial</b>; para segundo orden, t½ = 1/(k[A]₀) y sí depende. Esa es la forma más rápida de distinguirlos a partir de datos.']}
   ]},
   {t:'Superficies, adsorción y coloides',b:[
+   {p:['La espontaneidad no se decide por el signo de ΔH. Disolver una sal que <b>enfría</b> el recipiente es endotérmico y aun así ocurre, porque el aumento de desorden al dispersarse soluto y disolvente hace que TΔS supere a ΔH. Confundir endotérmico con no espontáneo es el error conceptual más repetido del módulo.']},
+   {p:['Con <b>ΔH negativo y ΔS negativo</b> la entalpía favorece y la entropía se opone, y como el término entrópico va multiplicado por T, el proceso es espontáneo <b>solo por debajo de T = ΔH/ΔS</b>. Con ambos positivos ocurre lo contrario: solo por encima de esa temperatura de cruce.']},
    {p:['Crear interfase cuesta energía, y de ahí que una gota tienda a la esfera. Dos modelos de adsorción que se confunden: <b>Langmuir</b> supone monocapa sobre sitios equivalentes e independientes y satura; <b>BET</b> permite multicapas y no satura. Para medir área superficial específica de un material mesoporoso con nitrógeno a 77 K la respuesta esperada es <b>BET</b>.']},
    {p:['Langmuir, Michaelis-Menten y la ocupación de receptor son <b>la misma hipérbola de saturación</b> con nombres distintos. Reconocerlo ahorra memorizar tres cosas.']},
    {p:['La curvatura eleva la presión de vapor y la solubilidad (Kelvin, Gibbs-Thomson), y eso explica de un golpe la maduración de Ostwald y el descenso del punto de fusión de las nanopartículas.']},
    {p:['Estabilidad coloidal por DLVO: van der Waals siempre atrae, así que el estado de mínima energía es el agregado y una suspensión estable es un logro, no un estado natural. La barrera se controla subiendo la carga superficial (lejos del punto isoeléctrico) o bajando la fuerza iónica. <b>Añadir sal comprime la doble capa</b> y baja la barrera: por eso las suspensiones fallan en medio fisiológico, con unos 150 mM. El criterio práctico sitúa la estabilidad razonable más allá de ±30 mV de potencial zeta.']},
+   {p:['Un líquido hierve cuando su presión de vapor iguala a la presión externa, así que en la <b>montaña, con menos presión atmosférica, el punto de ebullición baja</b>. La presión de vapor del líquido en sí depende solo de la temperatura: no la cambia la presión externa, ni añadir un gas inerte encima.']},
    {p:['Mojado: <b>Wenzel</b> describe el líquido que penetra la textura; <b>Cassie-Baxter</b> el que atrapa aire debajo, y es este el que da superhidrofobicidad real.']}
   ]}
  ],
@@ -466,6 +526,7 @@ G.push(
    {p:['Por debajo de r* un núcleo reduce su energía <b>disolviéndose</b>; por encima, creciendo. Más sobresaturación implica r* menor y barrera mucho menor (va con el inverso del cuadrado), de ahí que nuclee masivamente y dé partículas pequeñas.']},
    {p:['El modelo de <b>LaMer</b> dice que la monodispersidad no se logra controlando el crecimiento, sino <b>separándolo en el tiempo de la nucleación</b>: una nucleación explosiva que se autodetiene al consumir el monómero, y después solo crecimiento. De ahí la inyección caliente y el crecimiento sobre semillas.']},
    {p:['<b>Ostwald no es agregación</b>. La maduración transporta material disuelto desde las partículas pequeñas (más solubles por curvatura) hacia las grandes, sin que lleguen a tocarse; se combate bajando temperatura o solubilidad, no con estabilizantes. La agregación es por contacto y choque browniano; esa sí se combate estabilizando.']},
+   {p:['La <b>sobresaturación</b> es la palanca que decide el tamaño final. Como r* = 2γ/ΔGv y la barrera va con el inverso del cuadrado de ΔGv, aumentarla reduce drásticamente ambos: se nuclea masivamente, el monómero se reparte entre muchísimos núcleos y las partículas salen pequeñas. Bajarla produce pocos núcleos que crecen mucho.']},
    {p:['Para controlar la <b>forma</b> hay que controlar la velocidad relativa de crecimiento de las caras, y la regla es contraintuitiva: una cara que crece rápido <b>desaparece</b> de la morfología final, porque el material se deposita hasta cerrarla. Las que sobreviven son las lentas. Por eso un agente director que se adsorbe selectivamente sobre una familia de caras la pasiva y la hace dominar: el CTAB da nanovarillas de oro y la PVP da nanocubos de plata.']}
   ]},
   {t:'Rutas químicas: qué controla cada una',b:[
@@ -475,8 +536,12 @@ G.push(
      ['Hidrotermal / solvotermal','Cristalinidad <b>sin calcinar</b>, control de fase y morfología','Equipo a presión, tiempos largos'],
      ['Coprecipitación','Simple, barata, escalable','Distribución de tamaños ancha'],
      ['Microemulsión','Nanorreactores que limitan el tamaño','Rendimiento bajo, mucho surfactante que eliminar']]}},
+   {p:['El <b>sol-gel</b> transcurre en dos etapas que conviene distinguir: la <b>hidrólisis</b> consume agua para convertir los alcóxidos en hidroxilos, y la <b>condensación</b> une dos hidroxilos <b>liberando agua</b> y formando el puente metal-oxígeno-metal que construye la red. Si en una reacción se observa que se expulsa agua al unirse dos grupos, la etapa es la condensación.']},
+   {p:['Para elegir ruta ante un caso concreto conviene preguntarse qué variable hay que controlar. <b>Homogeneidad</b> entre varios cationes: coprecipitación simultánea, porque los mezcla a escala molecular antes de que se forme el sólido; molerlos ya formados solo los junta a escala de partícula. <b>Tamaño fino</b>: microemulsión, donde la gota acuosa actúa de nanorreactor y su tamaño limita el de la partícula, ajustable con la razón agua-surfactante. <b>Fase cristalina sin calcinar</b>: hidrotermal.']},
    {p:['El TiO₂ ilustra el costo de calcinar: por encima de unos 600 °C transita de anatasa a <b>rutilo</b>, menos activo fotocatalíticamente, y además crece el grano y cae el área superficial. Dos efectos que bajan la actividad a la vez.']},
+   {p:['Hay dos formas de estabilizar y se distinguen por cómo fallan. La <b>estabilización electrostática</b> depende de la doble capa eléctrica, así que funciona en agua destilada y se desploma al subir la fuerza iónica: una suspensión que aguanta en agua y se agrega en suero fisiológico estaba estabilizada así. La <b>estérica</b>, con cadenas poliméricas ancladas, impide el acercamiento por un mecanismo físico que no depende del apantallamiento y resiste a 150 mM.']},
    {p:['El estabilizante no es un detalle de formulación: decide si la suspensión sobrevive. La <b>electrostática</b> falla a alta fuerza iónica porque la sal apantalla; la <b>estérica</b>, con cadenas poliméricas ancladas, funciona igual en medio fisiológico y por eso es la estrategia estándar para uso biológico.']},
+   {p:['Calcinar de más tiene un segundo costo además de la transición de fase: por encima de cierta temperatura los granos empiezan a fusionarse para reducir energía superficial, las paredes de poro engrosan y la estructura <b>sinteriza</b>, perdiendo buena parte del área. Por eso se busca siempre la temperatura mínima que cristalice sin sinterizar.']},
    {p:['En arquitecturas, el <b>core-shell</b> pasiva trampas superficiales y sube el rendimiento cuántico de un punto cuántico: es la razón de ser de la coraza, no una mejora cosmética.']}
   ]},
   {t:'Rutas físicas y el límite litográfico',b:[
@@ -485,8 +550,10 @@ G.push(
    {ul:['Reducir <b>λ</b>: de 436 a 365, a 248 (KrF), a 193 (ArF), y el salto a 13.5 nm en EUV, que exige óptica reflectiva en vacío.',
         'Aumentar <b>NA</b>: con aire n = 1 acota el valor; la inmersión en agua (n = 1.44) lleva la NA efectiva por encima de 1.3. Esa fue la palanca que prolongó la vida de los 193 nm.',
         'Reducir <b>k₁</b>: máscaras de desplazamiento de fase, iluminación fuera de eje, corrección de proximidad, patrones múltiples. Su límite físico ronda 0.25.']},
+   {p:['La diferencia entre <b>sputtering</b> y <b>ALD</b> se nota sobre todo en geometrías con poros profundos o relación de aspecto alta: el primero deposita donde llega el flujo y tiende a cerrar la boca del poro sin recubrir el fondo; el segundo satura toda la superficie accesible y crece con espesor uniforme en el interior, controlable al angstrom contando ciclos.']},
    {p:['Depósito: el <b>sputtering</b> es línea de vista y tapa poros; el <b>ALD</b> pulsa precursores alternadamente con purgas, cada pulso satura la superficie y el crecimiento es autolimitado, de una capa por ciclo. Es lentísimo y a cambio da una conformidad sobre geometrías complejas que nada iguala.']},
    {p:['Grabado: el <b>húmedo</b> suele ser isotrópico y socava bajo la máscara, limitando la resolución a unas dos veces la profundidad. El <b>seco por plasma</b> con iones acelerados da paredes verticales y alta relación de aspecto. Caso intermedio que se pregunta: KOH sobre silicio {100} es anisotrópico <b>cristalográficamente</b>, no direccionalmente, y produce paredes a 54.7°.']},
+   {p:['El área específica de partículas esféricas se obtiene dividiendo área entre masa: 4πr²/(ρ·(4/3)πr³) = 3/(ρr) = <b>6/(ρd)</b>. Con 10 nm y densidad 5.0 g/cm³ salen unos 120 m²/g. Ojo con no confundirla con 4πr², que es el área de una sola partícula.']},
    {p:['Y la regla de producción: escribe el maestro con la técnica de mayor resolución y <b>replica</b> con la más barata (litografía suave, micromoldeado, LIGA). Nunca produzcas en serie con la técnica cara.']}
   ]}
  ],
@@ -532,6 +599,7 @@ G.push(
      ['Ancho de los picos','Tamaño de cristalito por Scherrer. Un material amorfo da solo un halo ancho']]}},
    {p:['Dos advertencias sobre Scherrer. β debe ser el ensanchamiento <b>de la muestra</b>: hay que restar la contribución instrumental medida con un estándar de cristalitos grandes. Y la <b>microdeformación también ensancha</b>, sin distinguirse con un solo pico: para separarlas está Williamson-Hall, que aprovecha que ambas dependen distinto del ángulo.']},
    {p:['Cristalito no es partícula: una partícula policristalina de 60 nm puede estar hecha de dominios coherentes de 12 nm, y la difracción solo ve el dominio. Es una de las confusiones más preguntadas.']},
+   {p:['Un difractograma con <b>un solo halo ancho y ningún pico</b> indica material <b>amorfo</b>: los picos nacen de la periodicidad de largo alcance, y sin ella solo queda la dispersión difusa de las distancias promedio entre vecinos. Cristalitos grandes darían lo contrario, picos muy estrechos.']},
    {p:['Indexar en sistema cúbico: la razón de 1/d² da los valores de h²+k²+l². La secuencia 3, 4, 8, 11 identifica <b>FCC</b> (índices todos pares o todos impares); 2, 4, 6, 8 identifica <b>BCC</b> (h+k+l par).']}
   ]},
   {t:'Microscopía: qué limita a cada una',b:[
@@ -539,6 +607,7 @@ G.push(
    {ul:['<b>SEM</b>: electrones secundarios dan topografía con gran profundidad de campo; retrodispersados dan contraste por número atómico (lo pesado se ve más brillante).',
         '<b>TEM</b>: transmisión a través de muestra ultradelgada. Resolución atómica, estructura interna, interfases core-shell, y difracción de electrones de una partícula individual.',
         '<b>AFM</b>: mide fuerzas con una punta en micropalanca. Funciona en aire y en líquido, sin vacío ni metalización, y da resolución vertical subnanométrica.']},
+   {p:['Los electrones ven más que la luz porque su longitud de onda de de Broglie es miles de veces menor, y el límite de resolución escala con ella. Para una <b>muestra biológica hidratada</b> que no puede deshidratarse ni metalizarse, sin embargo, la respuesta es <b>AFM en líquido</b>: mide fuerzas y no necesita vacío ni recubrimiento conductor.']},
    {p:['Toda imagen de AFM es la <b>convolución</b> entre la topografía real y la geometría de la punta: los objetos salientes aparecen más anchos y los huecos más estrechos. Por eso al medir nanopartículas con AFM se usa la <b>altura</b>, no la anchura: la altura no depende del radio de la punta.']},
    {p:['Y la discrepancia que más confunde: <b>DLS da un valor mayor que TEM</b> y las dos son correctas. TEM mide el núcleo sólido seco y da distribución en número; DLS mide el diámetro hidrodinámico, que incluye recubrimiento y solvatación, y su distribución en intensidad escala con la sexta potencia del diámetro, así que un solo agregado pesa como un millón de partículas pequeñas. Una razón de 1.2 a 2 veces es normal; mucho más sugiere agregación real en suspensión.']}
   ]},
@@ -560,6 +629,8 @@ G.push(
      {p:['Con el área superficial por BET y la masa molar del ligando se estima la densidad de injerto en moléculas por nanómetro cuadrado, que indica si el recubrimiento es monocapa o multicapa desordenada.'],},
      {p:['Dos advertencias. La <b>atmósfera importa</b>: en aire la parte orgánica se oxida y desaparece, mientras que en nitrógeno se pirolisa y deja residuo carbonoso, lo que subestimaría el recubrimiento. Y si el inorgánico puede oxidarse (magnetita a maghemita o hematita), en aire habrá una ganancia de masa superpuesta a la pérdida orgánica que falsea el cálculo: en esos casos se trabaja en inerte y se corrige por el residuo.']}
    ]}},
+   {p:['Para <b>cuantificar metales traza en un digerido acuoso</b> con límites de partes por billón la respuesta es ICP-MS: el plasma ioniza todos los elementos a la vez y la espectrometría de masas llega a ese nivel. La AAS de llama es monoelemental y se queda en partes por millón; FTIR y DRX no cuantifican metales en disolución.']},
+   {p:['Y un artefacto de AFM que conviene reconocer: si <b>todos los objetos aparecen con la misma forma doble repetida</b>, la punta está rota o contaminada y está imprimiendo su propia geometría en cada objeto. La firma del artefacto es justamente esa repetición idéntica, porque los objetos reales no comparten una forma exacta.']},
    {p:['Límites de EDS que conviene declarar: detecta mal los elementos ligeros, su volumen de interacción es de micras (así que al analizar una nanopartícula sobre un sustrato buena parte de la señal viene del sustrato), es semicuantitativo con LOD de 0.1 a 1 % en masa, y <b>no distingue estados de oxidación</b> porque sus rayos X vienen de transiciones internas. Para eso, XPS. EELS, en cambio, destaca justo en los ligeros: son complementarios.']}
   ]}
  ],
@@ -586,6 +657,7 @@ G.push(
   {t:'Luz y materia: del oscilador al plasmón',b:[
    {p:['La función dieléctrica sale de tratar a los electrones como <b>osciladores forzados</b> por el campo de la luz: el modelo de Lorentz para electrones ligados y el de Drude para los libres de un metal.']},
    {p:['De ahí la explicación del brillo metálico: por debajo de la frecuencia de plasma ω_p la parte real de ε es <b>negativa</b> y el metal refleja; por encima se vuelve transparente. Es la razón de que los metales sean espejos en el visible y transparentes en el ultravioleta lejano.']},
+   {p:['De ahí el <b>brillo metálico</b> y su límite: por debajo de la frecuencia de plasma la parte real de la función dieléctrica es negativa y el metal refleja; por encima los electrones ya no responden lo bastante rápido al campo y el material se vuelve transparente, lo que ocurre en el ultravioleta lejano.']},
    {p:['En interfaces, las ecuaciones de Fresnel dan reflexión y transmisión, y por encima del ángulo crítico hay reflexión total interna. Lo que sobrevive del otro lado es una <b>onda evanescente</b> que penetra típicamente 100 a 200 nm: por eso los sensores de superficie ignoran el resto de la muestra, lo que es exactamente la ventaja que se busca.']},
    {p:['Un LED, una celda solar y un fotodetector son el mismo objeto en sentidos distintos: una unión p-n cuyo campo de agotamiento separa o recombina pares electrón-hueco. El color de un LED lo fija el gap vía λ = 1240/Eg, y de ahí que el LED azul necesitara nitruro de galio.']},
    {deep:{t:'Directo contra indirecto, y el límite de Shockley-Queisser',b:[
@@ -601,6 +673,7 @@ G.push(
         '<b>La tiranía de r⁴</b>: reducir el radio a la mitad divide el caudal entre dieciséis. Por eso una obstrucción parcial cambia tanto el caudal, y el canal más estrecho domina la resistencia de toda la red.',
         '<b>La difusión se vuelve rápida</b> en términos relativos: t ≈ L²/D, así que recorrer 100 µm toma segundos frente a horas en un centímetro. De ahí que los ensayos en chip sean rápidos: desaparece la espera por transporte de masa.',
         'La relación superficie-volumen enorme hace que la <b>adsorción de proteínas en las paredes</b> deje de ser despreciable, y obliga a pasivar.']},
+   {p:['Dos consecuencias cuantitativas que se preguntan. El caudal es proporcional a <b>r⁴</b> pero solo inversamente proporcional a <b>L</b>: reducir el radio a la mitad lo divide entre dieciséis, mientras que duplicar la longitud solo lo divide entre dos. Y como el flujo es laminar siempre, para mezclar no sirve subir el caudal buscando turbulencia —exigiría velocidades inviables— sino <b>diseñar geometría que pliegue las corrientes</b>, con canales serpenteantes y surcos, o trabajar en gotas.']},
    {p:['La analogía con circuitos es formal y útil: R = 8µL/(πr⁴) y ΔP = QR, con presión como voltaje y caudal como corriente. Resistencias en serie se suman.']},
    {p:['Dos fenómenos que se confunden. La <b>electroforesis</b> mueve una partícula cargada respecto al fluido y separa según carga y tamaño. La <b>electroósmosis</b> mueve el fluido completo respecto a la pared, porque la pared cargada atrae contraiones que al migrar arrastran el líquido por viscosidad. Su perfil de velocidad es <b>plano</b>, en tapón, mientras que el de presión es parabólico: esa diferencia es la que evita el ensanchamiento de bandas y decide la resolución de una separación. En un mismo experimento ocurren los dos y se observa la suma.']}
   ]},
@@ -611,6 +684,7 @@ G.push(
      ['Fuerzas de superficie','L a L²','Dominan: adhesión, tensión superficial'],
      ['Frecuencia de resonancia','1/L','Sube: de MHz a GHz'],
      ['Fuerza electrostática','Muy favorable','Campos intensos con voltajes modestos']]}},
+   {p:['La frecuencia de resonancia escala como <b>1/L</b>, así que acortar la estructura la sube: de ahí que los resonadores nanométricos lleguen a gigahertz. Y en el acelerómetro el compromiso es directo: resortes más <b>blandos</b> dan más desplazamiento y más sensibilidad (x = ma/k) pero bajan ω = √(k/m) y con ella el ancho de banda y la robustez frente a golpes; resortes más <b>rígidos</b> hacen lo contrario.']},
    {p:['De ahí el <b>stiction</b>, el modo de falla característico: al evaporarse el líquido de un proceso húmedo, la tensión superficial arrastra la micropalanca contra el sustrato y la deja pegada. La solución estándar es el secado supercrítico, que evita la interfase líquido-vapor.']},
    {eq:'Δf/f₀ ≈ −Δm/(2m)   ·   sensado gravimétrico'},
    {p:['El signo importa y se pregunta: <b>adsorber masa BAJA la frecuencia</b>. Y conviene no confundir sensibilidad con límite de detección: más sensibilidad acompañada de más ruido no mejora el LOD. Por eso miniaturizar no siempre mejora un sensor: suben el ancho de banda y la relación superficie-volumen, pero también el ruido térmico browniano, que crece al reducir la masa.']},
@@ -621,7 +695,9 @@ G.push(
    {eq:'i_p = 2.69×10⁵ · n^{3/2} · A · D^{1/2} · v^{1/2} · C   (Randles-Ševčík)'},
    {ul:['Las unidades son la trampa: C va en <b>mol·cm⁻³</b>, así que 1 mM = 1×10⁻⁶ mol·cm⁻³.',
         'Diagnóstico muy usado: si i_p es proporcional a <b>√v</b>, la especie difunde; si es proporcional a <b>v</b>, está <b>adsorbida</b> en el electrodo.']},
+   {p:['Dos lecturas de Randles-Ševčík que aparecen como diagnóstico. Si i_p crece con <b>√v</b>, la especie llega difundiendo desde el seno de la disolución; si crece con <b>v</b>, ya está <b>adsorbida</b> en el electrodo. Y en un sistema reversible de un electrón la separación de picos vale <b>59/n mV</b> a temperatura ambiente: separaciones mayores indican cinética lenta o caída óhmica sin compensar.']},
    {p:['Anatomía de un biosensor de glucosa, por capas. La <b>enzima</b> (glucosa oxidasa) da selectividad. El <b>transductor</b> convierte el evento en corriente, y ahí está la evolución generacional: la primera depende del oxígeno local (variable e incontrolado), la segunda introduce un <b>mediador redox</b> que lo vuelve independiente del oxígeno (es la de las tiras comerciales), y la tercera busca transferencia directa, donde los nanotubos y las nanopartículas acortan la distancia hasta el centro redox enterrado en la proteína, porque la velocidad de transferencia decae exponencialmente con la distancia.']},
+   {p:['El <b>rango lineal termina cuando la concentración se acerca a Km</b>, porque la enzima empieza a saturarse y la respuesta se aplana. Es el mismo comportamiento de Michaelis-Menten visto desde el sensor.']},
    {p:['Celda de <b>tres electrodos</b>: el de referencia fija un potencial estable sin pasar corriente y el contraelectrodo cierra el circuito. Con solo dos, el de referencia se polariza y su potencial deriva.']},
    {p:['El <b>rango lineal termina cuando la concentración se acerca a Km</b>, porque la enzima empieza a saturarse. Y la estabilidad operativa es el punto débil de cualquier sensor enzimático: la proteína se desnaturaliza.']}
   ]}
@@ -745,24 +821,29 @@ G.push(
    ]}}
   ]},
   {t:'Del compuesto al fármaco',b:[
+   {p:['La <b>ley de Stokes</b> gobierna el cremado: la velocidad es proporcional al cuadrado del radio y a la diferencia de densidades, e inversamente proporcional a la viscosidad de la fase continua. Por eso reducir el radio a la mitad baja la velocidad a la <b>cuarta parte</b>, y homogeneizar más fino es la primera medida contra la separación.']},
    {p:['La misma matemática otra vez: la ocupación de receptor, Michaelis-Menten y la isoterma de Langmuir son <b>la misma hipérbola de saturación</b>. <b>IC50 menor significa mayor potencia</b>, y conviene no confundir potencia con eficacia.']},
    {p:['Que funcione no basta: hay que llegar. Eso es ADME, y la regla de los cinco de <b>Lipinski</b> es una heurística estadística sobre <b>absorción oral pasiva</b>: más de 5 donadores de puente, más de 10 aceptores, masa mayor de 500 Da o logP mayor de 5. Una violación suele pasar; dos o más predicen problemas.']},
    {ul:['No es un criterio de aprobación ni una predicción individual, y hay fármacos importantes que la violan.',
         'No aplica a compuestos que entran por transportadores activos, ni a la vía intravenosa, ni a biológicos como anticuerpos.',
         '<b>Encapsular cambia las reglas</b>: quien atraviesa las barreras ya no es la molécula sino el transportador. Un compuesto descartable por Lipinski puede ser viable en una nanopartícula lipídica.']},
    {p:['La nanomedicina resuelve tres problemas concretos: <b>solubilidad</b> (el uso más extendido y sólido), <b>farmacocinética</b> (por encima del corte de filtración glomerular de unos 6 nm y con PEG que reduce opsonización, el tiempo de circulación crece mucho) y <b>distribución</b>, que es el más ambicioso y el más discutido.']},
+   {p:['En farmacocinética, el <b>corte de filtración glomerular</b> ronda los 6 nm: por debajo de ese tamaño la partícula pasa directamente a la orina y se elimina en minutos. Aumentar el tamaño o recubrir con polietilenglicol prolonga la circulación, que es el segundo problema que resuelve la nanomedicina.']},
    {p:['Y el concepto que más cambia la forma de razonar: <b>la célula no ve tu nanopartícula, ve su corona proteica</b>. En milisegundos el objeto queda recubierto de proteínas plasmáticas, así que su identidad biológica difiere de la sintética y un ligando de direccionamiento cuidadosamente injertado puede quedar enterrado. Eso explica buena parte de la brecha entre resultados in vitro, con poca proteína en el medio, y resultados in vivo. El PEG reduce la corona, no la elimina: su función real es ralentizar el reconocimiento, no volver la partícula invisible.']},
    {p:['Sobre el efecto <b>EPR</b>, conviene poder expresar el matiz: es direccionamiento <b>pasivo</b>, bien documentado en modelos murinos, y su magnitud y consistencia en tumores humanos es objeto de debate considerable en la literatura. Los productos aprobados basan buena parte de su beneficio en <b>reducir toxicidad</b> más que en multiplicar eficacia.']}
   ]},
   {t:'Del laboratorio al producto',b:[
+   {p:['Una restricción de proceso acaba convirtiéndose en especificación de producto. Si la formulación <b>no tolera autoclave</b>, la vía viable es la filtración estéril, y el filtro estándar de <b>0.22 µm</b> impone entonces un tamaño máximo y una exigencia de no agregarse. El requisito no nació del desempeño sino de la fabricabilidad.']},
    {p:['Un producto no es una síntesis que funcionó. Un caso integrador se estructura en cuatro capas, y el error clásico es quedarse en la primera.']},
    {ol:['<b>Técnica</b>: ¿la evidencia disponible sostiene la afirmación, o hace falta otra medición? No afirmes propiedades que ninguna técnica del caso demostró.',
         '<b>Riesgo</b>: peligros, probabilidad, severidad y controles. En nanotecnología: inhalación de polvos, persistencia ambiental, incertidumbre toxicológica. <b>Ausencia de evidencia de daño no es evidencia de ausencia de daño</b>.',
         '<b>Regulación</b>: depende del uso (dispositivo, medicamento, cosmético, alimento, químico industrial). La nanoescala <b>no crea una categoría regulatoria propia</b> en la mayoría de jurisdicciones: añade requisitos de caracterización.',
         '<b>Valor</b>: quién es el cliente, qué propuesta, cuánto cuesta por unidad a escala y quién paga.']},
+   {p:['En <b>regulación</b>, la nanoescala no crea una categoría propia en la mayoría de jurisdicciones: el producto se regula según <b>su uso previsto</b> —dispositivo médico, medicamento, cosmético, alimento o químico industrial— con requisitos adicionales de caracterización. Ni el tamaño de partícula ni el método de síntesis determinan la ruta regulatoria.']},
    {p:['Distinciones que se preguntan tal cual. <b>Peligro</b> es la capacidad intrínseca de causar daño; <b>riesgo</b> es la probabilidad de que ocurra y depende de la <b>exposición</b>. Como el peligro no se negocia, la gestión actúa sobre la exposición, en orden: eliminar o sustituir, controles de ingeniería, controles administrativos y, en último lugar, equipo de protección personal, que es el menos fiable porque depende del comportamiento humano. De ahí la recomendación específica de manipular nanomateriales en suspensión o pasta y no en polvo seco.']},
    {p:['Un <b>punto crítico de control</b> es donde se <b>puede</b> controlar el peligro y es esencial hacerlo, no simplemente donde es importante. La prueba para distinguirlo: si existe una etapa posterior que corrija el fallo, no es crítico. En síntesis biomédica, la nucleación lo es porque fija el tamaño y nada posterior lo corrige. Los límites críticos deben ser numéricos y medibles, no cualitativos.']},
-   {p:['<b>Factible</b> responde «se puede»; <b>viable</b> responde «conviene». Son preguntas distintas y confundirlas arruina un análisis. Y en modelos de negocio: el <b>VPC</b> trata el encaje producto-cliente, mientras que el <b>BMC</b> describe el modelo completo.']}
+   {p:['La <b>jerarquía de controles</b> ordena las medidas de seguridad por fiabilidad decreciente: eliminar o sustituir el material peligroso, controles de ingeniería (campanas, contención), controles administrativos (procedimientos y formación) y, en último lugar, equipo de protección personal, que es el menos fiable porque depende del comportamiento humano en cada uso. De ahí que ante un nanopolvo de toxicidad desconocida lo prioritario sea <b>manejarlo en suspensión o pasta</b> y no en polvo seco, porque eso elimina la vía de exposición dominante en lugar de solo filtrarla.']},
+   {p:['<b>Factible</b> responde «se puede»; <b>viable</b> responde «conviene». Son preguntas distintas y confundirlas arruina un análisis. Y en modelos de negocio hay que saber cuál toca. El <b>lienzo de propuesta de valor</b> (VPC) trabaja solo el encaje entre las tareas y dolores del cliente y lo que el producto alivia, sin entrar en socios ni ingresos. El <b>lienzo de modelo de negocio</b> (BMC) es más amplio e incorpora canales, socios clave, estructura de costos y fuentes de ingreso.']}
   ]}
  ],
  flash:[
