@@ -25,6 +25,13 @@ var PROG=(function(){
       d[k]=r; guardar();
     },
     estado:function(q){ return d[id(q)]||null },
+    prioridad:function(pool){
+      var n=0,ok=0;
+      pool.forEach(function(q){ var r=d[id(q)]; if(r){n++; if(r.a===1)ok++} });
+      if(n<5)return {nivel:'sin datos',pct:null,n:n};
+      var pct=Math.round(100*ok/n);
+      return {nivel:pct<60?'alta':(pct<80?'media':'baja'),pct:pct,n:n};
+    },
     resumen:function(pool){
       var vistos=0,fallados=0;
       pool.forEach(function(q){ var r=d[id(q)]; if(r){vistos++; if(r.a===0)fallados++} });
@@ -84,7 +91,7 @@ function crearQuiz(cont,fuente,opc){
   opc=opc||{};
   var W=(typeof cont==='string')?document.getElementById(cont):cont;
   if(!W)return null;
-  var orden=[],i=0,resp=[];
+  var orden=[],i=0,resp=[],previo=[],reloj=null,restante=0,limite=0;
 
   function pool(){ return (typeof fuente==='function')?fuente():fuente }
 
@@ -100,9 +107,31 @@ function crearQuiz(cont,fuente,opc){
       (r.fallados?' · <b>'+r.fallados+' por corregir</b>':'')+'</span>';
   }
 
-  function arrancar(){
-    orden=opc.muestra?muestraEquilibrada(pool(),opc.muestra):porPrioridad(pool());
+  function pararReloj(){ if(reloj){clearInterval(reloj);reloj=null} }
+  function fmt(s){ var m=Math.floor(s/60),x=s%60; return m+':'+(x<10?'0':'')+x }
+  function pintarReloj(){
+    var e=W.querySelector('.qreloj');
+    if(!e)return;
+    e.textContent='⏱ '+fmt(restante);
+    e.classList.toggle('apremio',restante<=60);
+  }
+  function iniciarReloj(min){
+    pararReloj();
+    limite=min*60; restante=limite;
+    reloj=setInterval(function(){
+      restante--;
+      if(restante<=0){ pararReloj(); restante=0; pintarReloj(); resultado(true) }
+      else pintarReloj();
+    },1000);
+  }
+
+  function arrancar(n,min){
+    pararReloj();
+    var cuantos=n||opc.muestra;
+    orden=cuantos?muestraEquilibrada(pool(),cuantos):porPrioridad(pool());
     i=0;resp=new Array(orden.length).fill(null);
+    previo=orden.map(function(q){return PROG.estado(q)});
+    if(min)iniciarReloj(min);     /* antes de pintar, para que el reloj salga ya en la primera */
     pintar();pintarCobertura();
   }
   function tagHTML(t){
@@ -117,13 +146,17 @@ function crearQuiz(cont,fuente,opc){
     if(!orden.length){W.innerHTML='<div class="result"><div class="pct">Sin reactivos disponibles.</div></div>';return}
     var q=orden[i];
     var ya=resp[i]!==null;
-    var prev=PROG.estado(q);
+    var prev=previo[i];                      /* estado ANTES de esta tanda, no el recién guardado */
     var marca=!prev?'<span class="qnuevo">nuevo</span>'
-             :(prev.a===0?'<span class="qfallado">lo fallaste antes</span>':'');
+             :(prev.a===0?'<span class="qfallado">lo fallaste antes</span>':'<span class="qnuevo">repaso</span>');
     var h='<div class="quiz-bar"><i style="width:'+Math.round(100*(i+1)/orden.length)+'%"></i></div>'+
-      '<div class="qmeta">'+tagHTML(q.tag)+marca+'<span class="counter">'+(i+1)+' / '+orden.length+
+      '<div class="qmeta">'+tagHTML(q.tag)+marca+
+      (reloj?'<span class="qreloj">⏱ '+fmt(restante)+'</span>':'')+
+      '<span class="counter">'+(i+1)+' / '+orden.length+
       ' · contestadas '+resp.filter(function(x){return x!==null}).length+'</span></div>'+
-      '<div class="qtext">'+q.q+'</div>';
+      '<div class="qtext">'+q.q+'</div>'+
+      (q.g?'<figure class="qfig"><div class="ftit">'+q.g.t+'</div>'+q.g.svg+
+           (q.g.pie?'<figcaption>'+q.g.pie+'</figcaption>':'')+'</figure>':'');
     q.opts.forEach(function(o,k){
       var c='opt';
       if(ya){
@@ -160,7 +193,8 @@ function crearQuiz(cont,fuente,opc){
     });
   }
 
-  function resultado(){
+  function resultado(porTiempo){
+    pararReloj();
     var ok=0,byModule={};
     orden.forEach(function(q,k){
       var bien=resp[k]===q.correct;
@@ -178,7 +212,11 @@ function crearQuiz(cont,fuente,opc){
     else veredicto='Falta una pasada de contenido antes de seguir con quizzes. Empieza por las secciones y las flashcards de este bloque.';
 
     var r=PROG.resumen(pool());
-    var h='<div class="result"><div class="score">'+ok+' / '+orden.length+'</div>'+
+    var finTanda=opc.tanda?'<div class="tanda-fin">Fin de la tanda. '+
+      (r.nuevos?'Quedan <b>'+r.nuevos+'</b> reactivos de este módulo que no has visto. Puedes parar aquí sin perder nada: el progreso queda guardado y la próxima tanda sigue donde esta terminó.'
+               :'Ya pasaste por los '+r.total+' de este módulo. Las siguientes tandas repasan lo que fallaste y lo más antiguo.')+'</div>':'';
+    var h=(porTiempo?'<div class="qtiempo">Se acabó el tiempo. Lo que quedó sin contestar cuenta como error, igual que en el examen.</div>':'')+
+      '<div class="result"><div class="score">'+ok+' / '+orden.length+'</div>'+
       '<div class="pct">'+pct+' % de acierto'+(sinContestar?' · '+sinContestar+' sin contestar':'')+'</div>'+
       '<div class="veredicto">'+veredicto+'</div></div>'+
       '<div class="cobertura-res">Llevas <b>'+r.vistos+' de '+r.total+'</b> reactivos de este banco. '+
@@ -196,6 +234,7 @@ function crearQuiz(cont,fuente,opc){
       });
       h+='</div>';
     }
+    h+=finTanda;
     h+='<div class="btn-row">'+
        '<button class="btn" data-nav2="retry">Siguiente tanda</button>'+
        '<button class="btn ghost" data-nav2="ver">Ver respuestas</button></div>';
@@ -210,7 +249,8 @@ function crearQuiz(cont,fuente,opc){
     orden.forEach(function(q,k){
       h+='<div class="rev-item">'+tagHTML(q.tag)+
          '<span class="counter"> · '+(k+1)+'</span>'+
-         '<div class="rq">'+q.q+'</div>';
+         '<div class="rq">'+q.q+'</div>'+
+         (q.g?'<figure class="qfig"><div class="ftit">'+q.g.t+'</div>'+q.g.svg+'</figure>':'');
       q.opts.forEach(function(o,j){
         var c='opt';
         if(j===q.correct)c+=' correct';
@@ -232,26 +272,55 @@ function crearQuiz(cont,fuente,opc){
     Array.prototype.forEach.call(W.querySelectorAll('[data-nav2]'),function(b){
       var n=b.getAttribute('data-nav2');
       b.onclick=function(){
-        if(n==='retry')arrancar();
+        if(n==='retry'){ if(opc.modos)pintarModos(); else arrancar() }
         else if(n==='ver')revisar();
         else resultado();
       };
     });
   }
 
-  arrancar();
-  return {arrancar:arrancar,resultado:resultado,revisar:revisar,cobertura:pintarCobertura,
+  function pintarModos(){
+    pararReloj();
+    W.innerHTML='<div class="modos">'+opc.modos.map(function(m,k){
+      return '<button class="modo" data-k="'+k+'"><span class="mo-n">'+m.n+'</span>'+
+             '<span class="mo-t">'+m.t+'</span>'+
+             '<span class="mo-d">'+(m.min?m.min+' minutos':'sin límite de tiempo')+'</span></button>';
+    }).join('')+'</div>'+
+    '<div class="modos-pie">El examen real va contra reloj. Entrenar con el cronómetro encendido cambia cómo lees un enunciado: aprendes a descartar rápido en vez de releer.</div>';
+    Array.prototype.forEach.call(W.querySelectorAll('.modo'),function(b){
+      b.onclick=function(){ var m=opc.modos[+b.getAttribute('data-k')]; arrancar(m.n,m.min) };
+    });
+    pintarCobertura();
+  }
+
+  if(opc.modos)pintarModos(); else arrancar();
+  return {arrancar:arrancar,modos:pintarModos,resultado:resultado,revisar:revisar,cobertura:pintarCobertura,
     estado:function(){return {n:orden.length,i:i,resp:resp,orden:orden}}};
 }
 
 /* --- instanciación --- */
-window.__quiz=crearQuiz('quizwrap',QUIZ,{muestra:200,cobertura:'cob-QUIZ'});
+window.__quiz=crearQuiz('quizwrap',QUIZ,{cobertura:'cob-QUIZ',modos:[
+  {n:20, t:'Repaso corto',      min:25},
+  {n:60, t:'Media sesión',      min:75},
+  {n:200,t:'Simulacro completo',min:250},
+  {n:200,t:'Sin reloj',         min:0}
+]});
 window.__quizMod={};
 G.forEach(function(m){
   var pool=QUIZ.filter(function(q){return q.tag===m.id});
   var et=document.getElementById('qn-'+m.id);
-  if(et)et.textContent=pool.length+' reactivos · primero los que no has visto';
-  window.__quizMod[m.id]=crearQuiz('quizwrap-'+m.id,pool,{cobertura:'cob-'+m.id});
+  if(et)et.textContent=pool.length;
+  var ed=document.getElementById('qd-'+m.id);
+  if(ed)ed.textContent='tandas de 10 · primero los que no has visto';
+  var pr=document.getElementById('pri-'+m.id);
+  if(pr){
+    var P=PROG.prioridad(pool);
+    pr.className='prio p-'+P.nivel.replace(' ','');
+    pr.textContent=P.pct===null
+      ? 'prioridad: sin datos todavía'
+      : 'prioridad '+P.nivel+' · '+P.pct+' % sobre '+P.n+' contestados';
+  }
+  window.__quizMod[m.id]=crearQuiz('quizwrap-'+m.id,pool,{cobertura:'cob-'+m.id,muestra:10,tanda:true});
 });
 
 /* --- botón de reinicio del progreso --- */
