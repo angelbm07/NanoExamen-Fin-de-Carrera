@@ -27,7 +27,13 @@ var G=[
     'Primera etapa: 2.50 mL de 12.0 M llevados a 100 mL ⇒ C = 12.0 × (2.50/100) = <b>0.300 M</b>.',
     'Segunda etapa, factor 20: V₁ = (0.0150 × 250)/0.300 = <b>12.5 mL</b> de la intermedia llevados a 250 mL.'],
  r:'Dos etapas: 2.50 mL de madre a 100 mL, y de ahí 12.5 mL a 250 mL. Concentración final 0.0150 M.',
- x:'El factor de dilución total es el <b>producto</b> de los factores de cada etapa, no su suma. Y la incertidumbre relativa también se acumula: cada etapa añade la suya en cuadratura, así que repartir en dos pasos razonables es mejor que forzar una medida de 0.31 mL con una pipeta de 1 mL.'}}]},
+ x:'El factor de dilución total es el <b>producto</b> de los factores de cada etapa, no su suma. Y la incertidumbre relativa también se acumula: cada etapa añade la suya en cuadratura, así que repartir en dos pasos razonables es mejor que forzar una medida de 0.31 mL con una pipeta de 1 mL.'}},
+   {truco:{t:'Molaridad o molalidad: mira el denominador',
+  c:'<b>MolaRidad lleva R de litRo de disolución</b>; molalidad lleva kilogramo de disolvente. Dos consecuencias que el examen explota: la molaridad <b>cambia con la temperatura</b> porque el volumen se dilata, y la molalidad no. Por eso las propiedades coligativas, que se miden congelando y hirviendo, se expresan siempre en molalidad.',
+  x:'Pasar de una a otra <b>exige la densidad de la disolución</b>, no la del soluto ni la del disolvente. Si un problema te da densidad, casi siempre es para esa conversión.'}},
+   {truco:{t:'Diluciones sin despejar nada',
+  c:'En C₁V₁ = C₂V₂ el <b>factor de dilución</b> es la razón entre concentraciones, y el volumen de madre es el final dividido entre ese factor. De 2.0 M a 0.10 M el factor es 20, así que para 500 mL tomas 500/20 = 25 mL. En diluciones en serie los factores se <b>multiplican</b>: tres pasos de 1 a 25 dan 25³ = 15 625, no 75.',
+  x:'En disolución acuosa diluida 1 ppm equivale a 1 mg/L <b>solo porque la densidad vale 1 g/mL</b>. En un disolvente orgánico o en una salmuera concentrada esa equivalencia deja de valer.'}}]},
   {t:'Exactitud, precisión y tratamiento del dato',b:[
    {p:['<b>Exactitud</b> es cercanía al valor verdadero; <b>precisión</b> es cercanía entre réplicas. Son independientes, y la combinación observada dice qué error domina y por tanto qué hacer.']},
    {tabla:{th:['Lo que observas','Error dominante','Qué procede'],tr:[

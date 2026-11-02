@@ -168,6 +168,7 @@ function crearQuiz(cont,fuente,opc){
     });
     h+='<div class="explain'+(ya?' show':'')+'"><b>'+
        (ya?(resp[i]===q.correct?'Correcto. ':'No. '):'')+'</b>'+q.exp+'</div>';
+    if(ya&&q.tip)h+='<div class="qtip"><span class="tr-chip">Truco</span><div>'+q.tip+'</div></div>';
     h+='<div class="qnav">'+
        '<button class="btn ghost" data-nav="prev"'+(i===0?' disabled':'')+'>← Anterior</button>'+
        (i<orden.length-1?'<button class="btn" data-nav="next">Siguiente →</button>'
@@ -260,6 +261,7 @@ function crearQuiz(cont,fuente,opc){
       });
       if(resp[k]===null)h+='<div class="explain show"><b>Sin contestar. </b>'+q.exp+'</div>';
       else h+='<div class="explain show">'+q.exp+'</div>';
+      if(q.tip)h+='<div class="qtip"><span class="tr-chip">Truco</span><div>'+q.tip+'</div></div>';
       h+='</div>';
     });
     h+='</div><div class="btn-row"><button class="btn ghost" data-nav2="back">← Volver al resultado</button></div>';

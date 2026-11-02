@@ -3,21 +3,25 @@
 El `index.html` publicado se ensambla concatenando estos archivos en este orden:
 
     01_head.html  02_css_quiz.html
-    03_math.js      MathML: helpers y las 29 ecuaciones destacadas
+    03_math.js      MathML: helpers, conversor y las 29 ecuaciones destacadas
     04_graficas.js  gráficas con datos para los reactivos de interpretación
     05_casos.js     casos de caracterización de varios pasos
     06_mapa.js      nodos y aristas del mapa de conceptos
+    07_derivacion.js  árbol de derivación de termodinámica y órdenes de reacción
+    08_tips.js        los 72 trucos de memoria, por concepto
+    09_tips_map.js    reglas que enganchan cada truco a su reactivo
     figuras.js      16 figuras SVG propias + 7 imágenes reales del material
     10_datos_a.js … 14_datos_e.js   (contenido de los 10 módulos)
     20_quiz_a.js … 29_quiz_j.js     (banco original)
-    40_quiz_m2.js … 49_quiz_graficas.js  (ampliación y reactivos con gráfica)
+    40_quiz_m2.js … 50_quiz_numericos.js  (ampliación, gráficas y numéricos)
     30_render.js  31_quiz_engine.js  32_mapa_render.js  33_ajustes.js
 
 Comando de ensamblado:
 
     cat 01_head.html 02_css_quiz.html 03_math.js 04_graficas.js 05_casos.js 06_mapa.js \
-        figuras.js 1[0-4]_datos_*.js 2[0-9]_quiz_*.js 4[0-9]_quiz_*.js \
-        30_render.js 31_quiz_engine.js 32_mapa_render.js 33_ajustes.js > guia_efc.html
+        08_tips.js figuras.js 07_derivacion.js \
+        1[0-4]_datos_*.js 2[0-9]_quiz_*.js 4[0-9]_quiz_*.js 50_quiz_numericos.js \
+        09_tips_map.js 30_render.js 31_quiz_engine.js 32_mapa_render.js 33_ajustes.js > guia_efc.html
 
 (`guia_efc.html` es el resultado ya ensamblado, idéntico al index.html publicado.)
 
@@ -26,12 +30,12 @@ Comando de ensamblado:
 | | |
 |---|---|
 | Módulos | 10 (M2–M11, con M11 = Electroquímica) |
-| Secciones | 52 |
+| Secciones | 53 |
 | Fórmulas en formulario | 192, repartidas en 36 bloques |
 | Problemas numéricos resueltos | 27 |
 | Figuras | 23 (16 SVG propias + 7 imágenes reales del material del Tec) |
 | Flashcards | 131 |
-| Banco de reactivos | 522, de los cuales 21 exigen leer una gráfica |
+| Banco de reactivos | 540 · 21 de lectura de gráfica · 445 con truco de memoria |
 | Simulacros | 20, 60 o 200 reactivos, con cronómetro |
 | Quiz por módulo | cada pestaña examina su propio banco de 50 |
 
@@ -103,6 +107,33 @@ Cada pestaña de módulo separa **Leer · Tarjetas · Quiz** en subpestañas, pa
 no mezclar tres actividades en un mismo scroll. El quiz por módulo corre en
 **tandas de diez** con cierre explícito, en vez de una barra que avanza sobre
 cincuenta.
+
+## Añadido el 2 de noviembre de 2026 · trucos y derivaciones
+
+Ángel pidió que la guía no solo diga qué es cada cosa sino **cómo recordarla**,
+y que la termodinámica se presente como una cadena de derivaciones en vez de
+una lista de fórmulas sueltas. De ahí:
+
+- **Bloque `{truco:{t,c,x}}`**: tarjeta con el atajo de memoria y, debajo, la
+  **trampa** típica del examen. Hay 13 repartidos por el contenido.
+- **Figura `FIG.derivacion`**: árbol que muestra que no son veinte ecuaciones
+  sino **dos leyes y tres definiciones**. De dU = δq + δw y de G = H − TS salen,
+  diferenciando, dG = −SdT + VdP, y de ahí ΔG = ΔH − TΔS, ΔG° = −RT·ln K y
+  ΔG° = −nFE°. Abajo, los cuatro procesos como casos particulares.
+- **Figura `FIG.ordenes`**: los tres órdenes de reacción lado a lado con su
+  linealización, sus unidades de k y su vida media.
+- **Sección nueva en M5**: funciones de estado frente a funciones de proceso,
+  los cuatro procesos reversibles y adiabata frente a isoterma.
+- **72 trucos en el quiz**, enganchados a 445 de los 540 reactivos (82 %) por
+  reglas de palabra clave en `09_tips_map.js`. Se muestran al contestar.
+- **18 reactivos numéricos nuevos** de concentración (molalidad, porcentaje con
+  densidad, mezclas, fracción molar, pureza, dilución en serie) y de
+  termodinámica (temperatura de cruce, adiabata, trabajo isotérmico, ΔG° desde
+  K, vida media, entropía de fusión, Arrhenius, ΔH frente a ΔU).
+
+Al tocar las reglas de `09_tips_map.js` conviene volver a medir el reparto: una
+regex sin `\b` puede acaparar cientos de reactivos. Pasó con `Ea`, que casaba
+dentro de «línea» y «crea» y se llevó 148 reactivos antes de corregirla.
 
 ## Accesibilidad · auditoría WCAG 2.1 AA
 

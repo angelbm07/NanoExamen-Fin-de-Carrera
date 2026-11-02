@@ -167,6 +167,32 @@ G.push(
  ['i ≈ número de iones por fórmula','<b>Factor de van’t Hoff</b>: glucosa 1, NaCl 2, CaCl₂ 3. Omitirlo es el error clásico.','adimensional'],
  ['P<sub>A</sub> = x<sub>A</sub>·P°<sub>A</sub>','<b>Ley de Raoult</b>: el soluto no volátil baja la presión de vapor del disolvente.','']
 ]}]},
+  {t:'Funciones de estado, funciones de proceso y los cuatro procesos',b:[
+   {p:['La distinción que ordena todo el módulo: una <b>función de estado</b> depende solo de dónde estás, no de cómo llegaste. U, H, S, G, A, T, P y V son de estado. Una <b>función de proceso</b> depende del camino recorrido: calor y trabajo lo son, y por eso se escriben δq y δw con delta curva en vez de dq y dw.']},
+   {truco:{t:'Cómo distinguirlas sin pensarlo',
+     c:'Pregúntate: <b>¿puedo decir cuánto tiene el sistema <i>ahora mismo</i>?</b> Un sistema <i>tiene</i> energía interna, entropía y volumen: son de estado. Un sistema no <i>tiene</i> calor ni trabajo; los <b>intercambia</b> mientras algo ocurre. Por eso se habla de «el calor absorbido en el proceso» y nunca de «el calor del sistema».',
+     x:'ΔU es de estado aunque q y w no lo sean. Dos caminos distintos entre los mismos dos puntos dan <b>el mismo ΔU</b> pero <b>distinto q y distinto w</b>, repartidos de otra forma. Esa es exactamente la pregunta que el examen disfraza de problema de ciclos.'}},
+   {fig:FIG.derivacion},
+   {p:['Los <b>cuatro procesos</b> salen de aplicar la primera ley cuando algo se mantiene constante. Conviene tenerlos en una sola tabla, porque la pregunta típica da un proceso y pide qué magnitud vale cero.']},
+   {tabla:{th:['Proceso','Qué se mantiene','Qué vale cero','Qué queda'],tr:[
+     ['Isotérmico','T constante','ΔU = 0 (gas ideal)','q = −w'],
+     ['Isobárico','P constante','—','q<sub>P</sub> = ΔH'],
+     ['Isocórico','V constante','w = 0','q<sub>V</sub> = ΔU'],
+     ['Adiabático','sin intercambio de calor','q = 0','ΔU = w']
+   ]}},
+   {truco:{t:'Isoterma contra adiabata en el diagrama P-V',
+     c:'Las dos bajan, pero <b>la adiabata cae más rápido</b>. Razón física en una frase: al expandirse sin recibir calor, el gas paga el trabajo con su propia energía interna, <b>se enfría</b>, y un gas más frío a ese volumen tiene menos presión. La isoterma se mantiene a temperatura fija porque sí recibe calor del entorno. Matemáticamente, PV<sup>γ</sup> = constante con γ &gt; 1 frente a PV = constante.',
+     x:'«Adiabático» no significa «a temperatura constante»: significa <b>sin intercambio de calor</b>. En una expansión adiabática la temperatura <b>baja</b>. Confundir adiabático con isotérmico es de los errores más caros del módulo, porque invierte el signo de casi todo lo que calcules después.'}},
+   {p:['Para un gas ideal en proceso adiabático reversible se cumplen las tres relaciones equivalentes PV<sup>γ</sup> = cte, TV<sup>γ−1</sup> = cte y TP<sup>(1−γ)/γ</sup> = cte, con γ = C<sub>P</sub>/C<sub>V</sub>. Vale 1.67 para un gas monoatómico y 1.40 para uno diatómico, y ese dato suele venir dado.']},
+   {truco:{t:'El signo del trabajo, de una vez por todas',
+     c:'Con el convenio de la IUPAC, que es el que usa el examen, <b>dU = δq + δw</b>. El trabajo es positivo cuando se hace <b>sobre</b> el sistema, es decir al comprimirlo. Regla de una línea: <b>comprimir suma, expandir resta</b>. Si el gas se expande, w = −P·ΔV es negativo porque el sistema gasta energía empujando al entorno.',
+     x:'Hay libros que escriben dU = q − w con el trabajo definido al revés. Si una opción del examen parece correcta pero con el signo cambiado, revisa qué convenio usa el enunciado antes de dudar de tu cálculo.'}},
+   {deep:{t:'Por qué el calor a presión constante es exactamente ΔH',b:[
+     {p:['De la primera ley, ΔU = q + w. A presión constante y con solo trabajo de expansión, w = −PΔV, así que q<sub>P</sub> = ΔU + PΔV.']},
+     {p:['Y por definición H = U + PV, de modo que a presión constante ΔH = ΔU + PΔV. Los dos miembros derechos son idénticos: <b>q<sub>P</sub> = ΔH</b>.']},
+     {p:['Esa es toda la razón de que exista la entalpía: como casi toda la química de laboratorio ocurre en recipientes abiertos a la atmósfera, es decir a presión constante, medir calor equivale a medir ΔH. En una bomba calorimétrica, que es de volumen constante, lo que se mide es ΔU.']}
+   ]}}
+  ]},
   {t:'Espontaneidad: los cuatro casos',b:[
    {eq:EQ.gibbs},
    {tabla:{th:['ΔH','ΔS','¿Espontáneo?','Ejemplo'],tr:[
@@ -198,7 +224,13 @@ G.push(
     'A 1200 K: ΔG° = 178 300 − 1200 × 160.6 = 178 300 − 192 720 = <b>−14 420 J/mol</b>. Ya espontánea.',
     'Constante de equilibrio a 1200 K: ln K = −ΔG°/RT = 14 420/(8.314 × 1200) = 1.445 ⇒ K = <b>4.2</b>, es decir p(CO₂) ≈ 4.2 bar.'],
  r:'La calcinación se vuelve espontánea por encima de unos 1110 K (837 °C), que es el orden de temperatura real de un horno de cal.',
- x:'Pasar ΔS de J a kJ, o no pasarlo: la mezcla de unidades es el error numérico dominante del tema. Y recordar que ΔG° &gt; 0 <b>no</b> significa que la reacción no ocurra en absoluto: significa que en el equilibrio predominan los reactivos.'}}]},
+ x:'Pasar ΔS de J a kJ, o no pasarlo: la mezcla de unidades es el error numérico dominante del tema. Y recordar que ΔG° &gt; 0 <b>no</b> significa que la reacción no ocurra en absoluto: significa que en el equilibrio predominan los reactivos.'}},
+   {truco:{t:'Los cuatro casos en una frase cada uno',
+  c:'Mira los signos de ΔH y ΔS y no necesitas la tabla. <b>ΔH negativo y ΔS positivo: siempre espontánea</b>, los dos empujan igual. <b>ΔH positivo y ΔS negativo: nunca</b>. <b>Los dos negativos: solo en frío</b>, porque la entalpía manda cuando T es pequeña. <b>Los dos positivos: solo en caliente</b>, porque el término TΔS crece con T hasta ganar. En los dos últimos existe una temperatura de cruce, y vale <b>T = ΔH/ΔS</b>.',
+  x:'ΔG° &gt; 0 <b>no</b> significa que la reacción no ocurra: significa que en el equilibrio predominan los reactivos. Y ΔG° negativo no garantiza que avance ahora mismo, porque el sentido real lo decide ΔG = ΔG° + RT·ln Q con las concentraciones del momento.'}},
+   {truco:{t:'Anclas numéricas que ahorran calculadora',
+  c:'A 25 °C, <b>cada década de K vale unos 5.7 kJ/mol</b> de ΔG°. Así que K = 10 son −5.7, K = 10⁶ son −34 y K = 10⁻³ son +17. Y el signo es inmediato: <b>K mayor que 1 da ΔG° negativo</b>. Si una opción te ofrece ΔG° = −200 kJ/mol para K = 100, ya sabes que está mal sin calcular nada.',
+  x:'Pasar ΔS de J a kJ. ΔH suele venir en kJ/mol y ΔS en J/mol·K: si no divides entre mil, el término TΔS sale mil veces mayor y el signo de ΔG casi siempre te queda invertido.'}}]},
   {t:'Equilibrio y velocidad son preguntas distintas',b:[
    {p:['Le Chatelier con precisión. La <b>concentración</b> y el <b>volumen</b> desplazan la posición del equilibrio pero no cambian K. La <b>temperatura</b> es la única que cambia el valor de K: trata al calor como reactivo si la reacción es endotérmica y como producto si es exotérmica, de modo que calentar una exotérmica desplaza hacia <b>reactivos</b>.']},
    {ul:['Añadir un gas inerte a volumen constante <b>no desplaza nada</b>: las presiones parciales de las especies reactivas no cambian. Es el distractor clásico.',
@@ -231,7 +263,14 @@ G.push(
     'Es decir E<sub>a</sub> ≈ <b>91.8 kJ/mol</b>, un valor típico de reacción en disolución.',
     'Con ese dato, el factor preexponencial: ln A = ln k₁ + E<sub>a</sub>/RT₁ = −8.198 + 37.04 = 28.84 ⇒ A ≈ 3.4×10¹² s⁻¹.'],
  r:'E<sub>a</sub> = 91.8 kJ/mol. Subir 30 °C multiplicó la velocidad por casi 30.',
- x:'La regla de que “la velocidad se duplica cada 10 °C” solo se cumple para E<sub>a</sub> cercana a 50 kJ/mol cerca de temperatura ambiente. Con 92 kJ/mol el factor por cada 10 °C es cercano a 3, y por eso aquí 30 °C dieron casi un factor 30 en lugar de 8.'}}]},
+ x:'La regla de que “la velocidad se duplica cada 10 °C” solo se cumple para E<sub>a</sub> cercana a 50 kJ/mol cerca de temperatura ambiente. Con 92 kJ/mol el factor por cada 10 °C es cercano a 3, y por eso aquí 30 °C dieron casi un factor 30 en lugar de 8.'}},
+   {fig:FIG.ordenes},
+   {truco:{t:'Identificar el orden en diez segundos',
+  c:'No hace falta ajustar nada. Si te dan datos de concentración contra tiempo, <b>grafica las tres y quédate con la que salga recta</b>: [A] para orden cero, ln[A] para orden uno, 1/[A] para orden dos. Si en cambio te dan velocidades iniciales, usa v₂/v₁ = ([A]₂/[A]₁)<sup>n</sup> y despeja n: <b>duplicar y que se multiplique por 2 es orden 1, por 4 es orden 2, por 8 es orden 3</b>.',
+  x:'El orden es <b>empírico</b>: no se lee de los coeficientes de la ecuación balanceada, salvo que la reacción sea elemental. Una reacción que en el papel consume dos moles de A puede ser de orden uno en A.'}},
+   {truco:{t:'Las unidades de k te dicen el orden',
+  c:'La velocidad siempre va en M/s, así que las unidades de k se ajustan para que cuadre: <b>M/s para orden cero, s⁻¹ para orden uno, M⁻¹s⁻¹ para orden dos</b>. La regla general es M<sup>1−n</sup>s⁻¹. Si en un problema te dan k en s⁻¹ y no te dicen el orden, ya lo sabes: es uno.',
+  x:'Solo la vida media del <b>orden uno</b> es independiente de la concentración inicial. En orden cero el doble de concentración tarda el doble en consumirse a la mitad, y en orden dos tarda la mitad.'}}]},
   {t:'Superficies, adsorción y coloides',b:[
    {p:['La espontaneidad no se decide por el signo de ΔH. Disolver una sal que <b>enfría</b> el recipiente es endotérmico y aun así ocurre, porque el aumento de desorden al dispersarse soluto y disolvente hace que TΔS supere a ΔH. Confundir endotérmico con no espontáneo es el error conceptual más repetido del módulo.']},
    {p:['Con <b>ΔH negativo y ΔS negativo</b> la entalpía favorece y la entropía se opone, y como el término entrópico va multiplicado por T, el proceso es espontáneo <b>solo por debajo de T = ΔH/ΔS</b>. Con ambos positivos ocurre lo contrario: solo por encima de esa temperatura de cruce.']},

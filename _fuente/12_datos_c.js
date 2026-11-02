@@ -66,7 +66,13 @@ G.push(
     'r* = 2 × 1.5/1.68×10⁹ = <b>1.8 nm</b>: tres veces menor.',
     'Y la barrera ΔG* va como 1/ΔG<sub>v</sub>², así que al triplicar la fuerza impulsora la barrera cae por un factor nueve, y como J es exponencial en ella, la velocidad de nucleación se dispara.'],
  r:'Con S = 10 el núcleo crítico mide 5.4 nm; con S = 1000 mide 1.8 nm y nuclean muchísimos más núcleos a la vez.',
- x:'La consecuencia práctica es la receta de LaMer: para obtener partículas <b>pequeñas y monodispersas</b> hay que alcanzar una sobresaturación alta de golpe (inyección caliente), consumir el precursor en un estallido breve y dejar que el crecimiento ocurra después, ya por debajo del umbral de nucleación. Añadir precursor lentamente solapa ambas etapas y ensancha la distribución.'}}]},
+ x:'La consecuencia práctica es la receta de LaMer: para obtener partículas <b>pequeñas y monodispersas</b> hay que alcanzar una sobresaturación alta de golpe (inyección caliente), consumir el precursor en un estallido breve y dejar que el crecimiento ocurra después, ya por debajo del umbral de nucleación. Añadir precursor lentamente solapa ambas etapas y ensancha la distribución.'}},
+   {truco:{t:'LaMer en una sola idea',
+  c:'Todo el modelo se resume en <b>separar en el tiempo la nucleación del crecimiento</b>. Un estallido corto de nucleación hace que todos los núcleos nazcan a la vez, y como después solo crecen, <b>todos tienen la misma edad y acaban del mismo tamaño</b>. La monodispersidad no se consigue controlando el crecimiento: se consigue comprimiendo la nucleación.',
+  x:'Añadir el precursor despacio parece más controlado y es justo lo contrario: solapa las etapas II y III, de modo que unos núcleos llevan ventaja sobre otros y la distribución se ensancha. Lo que funciona es la <b>inyección caliente</b>, rápida y de golpe.'}},
+   {truco:{t:'La regla contraintuitiva de la forma',
+  c:'<b>La cara que crece rápido desaparece; la lenta sobrevive.</b> Al añadir un agente que se adsorbe sobre una familia de caras, esa familia se frena y por eso <b>domina</b> la forma final. Así el CTAB da nanovarillas de oro y la PVP da nanocubos de plata.',
+  x:'La intuición dice que la cara que más crece es la que más se ve. Es al revés: al crecer, esa cara se cierra sobre sí misma y se elimina del poliedro.'}}]},
   {t:'Rutas químicas: qué controla cada una',b:[
    {tabla:{th:['Ruta','Fuerte en','Debilidad'],tr:[
      ['Reducción en disolución','Control fino de tamaño y forma en metales nobles','No sirve para óxidos ni alta temperatura'],
@@ -134,7 +140,13 @@ G.push(
      ['Área superficial accesible','BET con N₂ a 77 K','—'],
      ['Comportamiento térmico','TGA (masa) / DSC (energía)','Solo DSC ve la Tg']]}},
    {p:['Y la regla que cierra el módulo: <b>ninguna técnica sola caracteriza un material</b>. Un trabajo serio combina al menos difracción, microscopía y una espectroscopía, porque cada una tiene un punto ciego que otra cubre. La secuencia lógica es no destructivo antes que destructivo, y estructural antes que cuantificación fina.']}
-  ]},
+  ,
+   {truco:{t:'Qué técnica, según lo que te pregunten',
+  c:'Organiza por la pregunta y no por la técnica. <b>¿Qué fase es?</b> difracción. <b>¿Qué elementos tiene?</b> EDS, o EELS si son ligeros o necesitas resolución nanométrica. <b>¿En qué estado de oxidación?</b> XPS. <b>¿Qué forma y tamaño?</b> TEM o SEM. <b>¿Qué tamaño en suspensión?</b> DLS. <b>¿Cuánta área?</b> BET. <b>¿Qué grupos funcionales?</b> infrarrojo, o Raman si la muestra está en agua. <b>¿Qué estructura molecular?</b> resonancia magnética nuclear. <b>¿Cuánto recubrimiento?</b> termogravimetría.',
+  x:'Casi ninguna pregunta se contesta con una sola técnica. Si te piden identificar un material desconocido, la respuesta correcta suele ser la que <b>más acota</b> primero, no la más potente.'}},
+   {truco:{t:'Cómo leer cualquier gráfica de caracterización',
+  c:'Casi todas se leen con tres preguntas. <b>Dónde está el pico</b> te da la identidad: el ángulo en difracción, el número de onda en infrarrojo, el potencial en voltamperometría. <b>Cuán ancho es</b> te da el tamaño o el desorden: Scherrer en difracción, la dispersión en DLS. <b>Cuán alto es</b> te da la cantidad: la intensidad relativa, el área bajo el pico, el escalón de masa.',
+  x:'Posición, anchura y altura responden preguntas <b>distintas</b>. Si las posiciones coinciden con la referencia pero las intensidades no, la fase es la correcta y lo que cambia es la orientación de los cristalitos, no el material.'}}]},
   {t:'Difracción: tres medidas, tres informaciones',b:[
    {eq:EQ.scherrer},
    {p:['<b>El error más frecuente del módulo</b>: en Bragg, θ es la mitad del 2θ que reporta el equipo. Olvidarlo cambia el resultado por completo.']},

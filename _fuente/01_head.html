@@ -325,6 +325,20 @@ details.deep>summary:focus-visible,details.prob>summary:focus-visible,details.ca
 /* en el mapa el foco va sobre el rectángulo, no sobre el grupo */
 .mnodo:focus-visible{outline:none}
 .mnodo:focus-visible rect{stroke:var(--accent);stroke-width:3}
+
+/* ---- TRUCO y TRAMPA ---- */
+.truco{margin:16px 0;border:1px solid var(--m7);border-radius:10px;background:var(--m7-bg);padding:14px 16px 15px}
+.tr-chip{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;background:var(--m7);color:#fff;border-radius:4px;padding:3px 8px;margin-bottom:9px}
+.tr-chip-x{background:var(--bad);margin:0 8px 0 0;vertical-align:1px}
+.tr-t{font-weight:700;font-size:1rem;line-height:1.45;color:var(--ink);margin-bottom:6px}
+.tr-c{font-size:.93rem;line-height:var(--lh);color:var(--ink)}
+.tr-c b{color:var(--m7)}
+.tr-x{margin-top:12px;padding-top:11px;border-top:1px solid var(--m7);font-size:.89rem;line-height:1.6;color:var(--ink)}
+.tr-x b{color:var(--bad)}
+/* tip dentro de un reactivo contestado */
+.qtip{margin-top:10px;border-left:3px solid var(--m7);background:var(--m7-bg);border-radius:0 8px 8px 0;padding:10px 13px;font-size:.88rem;line-height:1.6;color:var(--ink)}
+.qtip .tr-chip{margin-bottom:5px}
+.qtip b{color:var(--m7)}
 </style>
 </head>
 <body>

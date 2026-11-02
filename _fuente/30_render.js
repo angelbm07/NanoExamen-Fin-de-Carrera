@@ -33,6 +33,10 @@ function bloque(b,mid){
     '<ol class="ppasos">'+b.prob.p.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'+
     '<div class="pres"><b>Resultado. </b>'+b.prob.r+'</div>'+
     (b.prob.x?'<div class="ptrampa"><b>La trampa: </b>'+b.prob.x+'</div>':'')+'</div></details>');
+  if(b.truco)out.push('<div class="truco"><span class="tr-chip">Truco</span>'+
+    (b.truco.t?'<div class="tr-t">'+b.truco.t+'</div>':'')+
+    '<div class="tr-c">'+b.truco.c+'</div>'+
+    (b.truco.x?'<div class="tr-x"><span class="tr-chip tr-chip-x">Trampa</span>'+b.truco.x+'</div>':'')+'</div>');
   if(b.caso){
     var C=b.caso;
     out.push('<div class="caso"><div class="ftit">Caso de caracterización</div>'+
