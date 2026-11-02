@@ -42,14 +42,18 @@ FIG.derivacion={t:'De dónde sale cada ecuación de termodinámica',svg:
  caja(146,248,120,40,'ΔG° = −RT ln K','m9','en el equilibrio');
  caja(280,248,120,40,'ΔG° = −nFE°','m9','celda electroquímica');
  caja(414,248,114,40,'(∂G/∂P)_T = V','m9','Maxwell');
- flecha(448,206,70,248,''); flecha(448,206,205,248,''); flecha(448,206,338,248,''); flecha(470,206,470,248,'');
+ /* bus horizontal en vez de cuatro diagonales que se cruzan */
+ s+='<path class="sl2" d="M448,206 L448,224 M70,224 L470,224"/>';
+ [70,205,338,470].forEach(function(x){ flecha(x,224,x,248,'') });
 
  s+='<text x="12" y="316" class="txs" style="font-size:8.5px;letter-spacing:.09em">CASOS PARTICULARES DE LA PRIMERA LEY</text>';
  caja(12,324,120,40,'Isotérmico','m6','ΔU = 0 · q = −w');
  caja(146,324,120,40,'Isobárico','m6','q_P = ΔH');
  caja(280,324,120,40,'Isocórico','m6','w = 0 · q_V = ΔU');
  caja(414,324,114,40,'Adiabático','m6','q = 0 · ΔU = w');
- flecha(132,60,70,324,''); flecha(132,60,205,324,''); flecha(132,60,338,324,''); flecha(132,60,470,324,'');
+ /* la primera ley baja por la izquierda y reparte al pie */
+ s+='<path class="sl2" d="M132,60 L132,70 M132,70 L4,70 M4,70 L4,300 M4,300 L470,300"/>';
+ [70,205,338,470].forEach(function(x){ flecha(x,300,x,324,'') });
  return s;
 })()+'</svg>',
 pie:'<b>No son veinte ecuaciones: son dos leyes y tres definiciones.</b> Cada caja de abajo sale de diferenciar una de arriba. Si en el examen te bloqueas con una fórmula, reconstruye la cadena desde dU = δq + δw y desde G = H − TS, que son las dos que sí conviene saberse de memoria. Las flechas al pie son la primera ley aplicada a un proceso en el que algo se mantiene constante, que es de donde salen los cuatro casos que más se preguntan.'};
