@@ -325,6 +325,20 @@ details.deep>summary:focus-visible,details.prob>summary:focus-visible,details.ca
 /* en el mapa el foco va sobre el rectángulo, no sobre el grupo */
 .mnodo:focus-visible{outline:none}
 .mnodo:focus-visible rect{stroke:var(--accent);stroke-width:3}
+
+/* ---- TRUCO y TRAMPA ---- */
+.truco{margin:16px 0;border:1px solid var(--m7);border-radius:10px;background:var(--m7-bg);padding:14px 16px 15px}
+.tr-chip{display:inline-block;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;background:var(--m7);color:#fff;border-radius:4px;padding:3px 8px;margin-bottom:9px}
+.tr-chip-x{background:var(--bad);margin:0 8px 0 0;vertical-align:1px}
+.tr-t{font-weight:700;font-size:1rem;line-height:1.45;color:var(--ink);margin-bottom:6px}
+.tr-c{font-size:.93rem;line-height:var(--lh);color:var(--ink)}
+.tr-c b{color:var(--m7)}
+.tr-x{margin-top:12px;padding-top:11px;border-top:1px solid var(--m7);font-size:.89rem;line-height:1.6;color:var(--ink)}
+.tr-x b{color:var(--bad)}
+/* tip dentro de un reactivo contestado */
+.qtip{margin-top:10px;border-left:3px solid var(--m7);background:var(--m7-bg);border-radius:0 8px 8px 0;padding:10px 13px;font-size:.88rem;line-height:1.6;color:var(--ink)}
+.qtip .tr-chip{margin-bottom:5px}
+.qtip b{color:var(--m7)}
 </style>
 </head>
 <body>
@@ -946,6 +960,111 @@ var MAPA={
 </script>
 <script>
 /* ============================================================
+   TRUCOS DE LOS REACTIVOS
+   Cada clave es un concepto; el motor los engancha al reactivo
+   por una frase distintiva del enunciado. Así un mismo atajo
+   sirve a varias preguntas sin duplicar texto.
+   ============================================================ */
+var TIPS={
+
+/* ---------- concentración y preparación ---------- */
+dilucion:'<b>Factor de dilución = razón de concentraciones.</b> De 2.0 M a 0.10 M el factor es 20, así que el volumen de madre es el final entre 20. En serie los factores se <b>multiplican</b>, no se suman: tres pasos de 25 dan 15 625.',
+molaridad:'<b>MolaRidad lleva R de litRo</b> de disolución; molalidad lleva kilogramo de disolvente. Para pasar de una a otra siempre hace falta la <b>densidad de la disolución</b>.',
+ppm:'En agua diluida <b>1 ppm = 1 mg/L</b>, pero solo porque la densidad vale 1 g/mL. En otro disolvente esa equivalencia se cae.',
+cifras:'<b>Suma y resta: manda el menor número de decimales. Multiplicación y división: manda el menor número de cifras significativas.</b> Son dos reglas distintas y confundirlas es el error más barato de evitar.',
+
+/* ---------- estadística del dato ---------- */
+exactitud:'<b>Exactitud es dar en el centro; precisión es agrupar los tiros.</b> Réplicas juntas pero desviadas significa error <b>sistemático</b>, y ese no se arregla promediando más. Réplicas dispersas con media correcta es error <b>aleatorio</b>, y ese sí baja con √n.',
+lod:'<b>LOD = 3σ del blanco entre la pendiente.</b> Solo hay dos palancas: bajar el ruido o subir la sensibilidad. Más réplicas mejoran la precisión pero <b>no mueven el umbral de detección</b>.',
+matriz:'<b>R² alto no es sinónimo de exacto.</b> R² mide el ajuste de los estándares a una recta, nada más. Si la muestra tiene matriz distinta, el ajuste sigue bonito y el resultado sale sesgado: eso se arregla con <b>adición de estándar</b>.',
+pvalor:'<b>El valor p dice si el efecto existe; el tamaño del efecto dice si importa.</b> Con n grande, diferencias minúsculas alcanzan significancia. Siempre compara la magnitud contra la variabilidad real del proceso.',
+
+/* ---------- equilibrio y termodinámica ---------- */
+gibbs:'<b>ΔG = ΔH − TΔS, y los cuatro casos salen de los signos.</b> Ambos a favor: siempre. Ambos en contra: nunca. Los dos negativos: solo en frío. Los dos positivos: solo en caliente. La temperatura de cruce es <b>T = ΔH/ΔS</b>.',
+gibbsK:'<b>Cada década de K vale unos 5.7 kJ/mol a 25 °C.</b> K &gt; 1 da ΔG° negativo. Con ese ancla puedes descartar opciones sin calculadora.',
+unidadesS:'<b>ΔH viene en kJ y ΔS en J.</b> Si no divides ΔS entre mil, el término TΔS sale mil veces mayor y el signo de ΔG te queda invertido. Es el error numérico más frecuente del módulo.',
+quociente:'<b>ΔG° describe el estándar; ΔG = ΔG° + RT·ln Q describe tu matraz.</b> Con mucho producto y poco reactivo, Q es enorme y la reacción puede ir hacia atrás aunque ΔG° sea negativo.',
+leChatelier:'<b>Solo la temperatura cambia el valor de K.</b> Concentración, volumen y catalizador mueven la posición del equilibrio sin tocar K. En una exotérmica el calor actúa como producto: calentar baja K.',
+estadoProceso:'<b>Si el sistema lo <i>tiene</i>, es función de estado; si lo <i>intercambia</i>, es de proceso.</b> Tiene U, S, V. Intercambia calor y trabajo. Por eso ΔU es igual por cualquier camino aunque q y w se repartan distinto.',
+adiabatico:'<b>Adiabático no es isotérmico.</b> Adiabático es q = 0; al expandirse, el gas paga el trabajo con su energía interna y <b>se enfría</b>. Por eso la adiabata cae más rápido que la isoterma en el diagrama P-V.',
+entalpia:'<b>q a presión constante es ΔH; q a volumen constante es ΔU.</b> Como casi toda la química de laboratorio ocurre en recipiente abierto, medir calor equivale a medir ΔH. En bomba calorimétrica mides ΔU.',
+
+/* ---------- cinética ---------- */
+orden:'<b>Grafica las tres y quédate con la que dé recta:</b> [A] es orden cero, ln[A] es orden uno, 1/[A] es orden dos. Con velocidades iniciales, duplicar y que se multiplique por 2, 4 u 8 da orden 1, 2 o 3.',
+unidadesK:'<b>Las unidades de k delatan el orden:</b> M/s es cero, s⁻¹ es uno, M⁻¹s⁻¹ es dos. La regla general es M<sup>1−n</sup>s⁻¹.',
+vidamedia:'<b>Solo en orden uno la vida media no depende de la concentración inicial.</b> Por eso la desintegración radiactiva y la farmacocinética se modelan así. En orden dos, más concentrado significa vida media más corta.',
+arrhenius:'<b>En ln k contra 1/T la pendiente es −Ea/R.</b> Más inclinada significa mayor barrera y por tanto más sensible a la temperatura. Y la temperatura va en <b>kelvin</b>, siempre.',
+catalizador:'<b>El catalizador baja la barrera en los dos sentidos por igual.</b> Acelera la llegada al equilibrio pero no mueve dónde está: ΔG° y K quedan intactos.',
+
+/* ---------- coligativas y superficies ---------- */
+coligativas:'<b>Las coligativas cuentan partículas, no identidad.</b> Por eso el factor i: glucosa 1, NaCl 2, CaCl₂ 3. Omitirlo es el distractor diseñado en casi todos estos problemas.',
+kelvin:'<b>Lo pequeño es más soluble y tiene más presión de vapor.</b> De ahí sale la maduración de Ostwald: las gotas chicas se disuelven y alimentan a las grandes sin llegar a tocarse.',
+dlvo:'<b>Sal comprime la doble capa y tumba la barrera.</b> Por eso un coloide estable en agua destilada se agrega en medio fisiológico. La solución no es más carga: es estabilización <b>estérica</b> con polímero.',
+zeta:'<b>Regla práctica: |ζ| mayor que 30 mV, la suspensión aguanta.</b> El punto isoeléctrico es donde la carga neta se anula y la estabilidad es mínima: formula lejos de ahí.',
+
+/* ---------- nanoescala y síntesis ---------- */
+superficie:'<b>Tres potencias distintas, no las mezcles:</b> la fracción superficial y el área por gramo van como <b>1/R</b>, pero el número de partículas por gramo va como <b>1/R³</b>.',
+lamer:'<b>Monodispersidad = nucleación corta, crecimiento largo.</b> Si todos los núcleos nacen a la vez tienen la misma edad y acaban iguales. Añadir precursor despacio solapa las etapas y ensancha la distribución.',
+forma:'<b>La cara que crece rápido desaparece; la lenta sobrevive.</b> Por eso pasivar una familia de caras hace que esa familia <b>domine</b> la forma final.',
+rcritico:'<b>Más sobresaturación baja r* y hunde la barrera.</b> Por eso nuclean muchos más núcleos y cada partícula sale más pequeña: el mismo material repartido entre más piezas.',
+
+/* ---------- estructura y bandas ---------- */
+lambda:'<b>λ = 1240/E con E en eV.</b> Fija dos anclas y no necesitas más: <b>1240 nm es 1 eV, 620 nm es 2 eV</b>. Media longitud de onda es doble energía.',
+colorAbs:'<b>En absorción ves el complementario; en emisión ves lo emitido.</b> Un sólido que absorbe por debajo de 517 nm se ve amarillo-naranja, no verde. Un LED de 2.7 eV emite azul y se ve azul.',
+celda:'<b>Átomos por celda: 1, 2 y 4 para SC, BCC y FCC.</b> Vértice aporta 1/8, cara 1/2, cuerpo entero. Y no lo confundas con el número de coordinación, que es 6, 8 y 12.',
+unidadesDens:'<b>Convierte el parámetro de red a centímetros ANTES de elevar al cubo.</b> 1 nm = 10⁻⁷ cm, y al cubo 10⁻²¹. Saltarse esto desvía el resultado exactamente por 10⁶.',
+bragg:'<b>θ es la mitad del 2θ que reporta el equipo.</b> Es el error número uno del módulo. Y en Scherrer, β va en <b>radianes</b> y con el ensanchamiento instrumental ya restado.',
+fermi:'<b>Dopar no abre ni cierra el gap: mueve el nivel de Fermi.</b> Tipo n lo sube hacia conducción, tipo p lo baja hacia valencia. Y al unir p con n, los niveles de Fermi se igualan y las bandas se doblan: eso es toda la unión.',
+confinamiento:'<b>El confinamiento va como 1/L².</b> Partir el tamaño a la mitad cuadruplica el término: el punto cuántico pequeño emite más al <b>azul</b>.',
+
+/* ---------- caracterización ---------- */
+cristalito:'<b>Cristalito no es partícula.</b> Scherrer ve el dominio coherente; el TEM ve el objeto. Si el TEM da mucho más, la partícula es policristalina.',
+dlsTem:'<b>DLS mide en suspensión y pondera por intensidad, que va con d⁶.</b> Siempre sale mayor que el TEM, que mide el núcleo seco. Que sea diez veces mayor ya indica agregación.',
+tecnica:'<b>Organiza por la pregunta, no por la técnica.</b> Fase, difracción. Elementos, EDS. Estado de oxidación, XPS. Tamaño en seco, TEM. Tamaño en suspensión, DLS. Área, BET. Grupos funcionales, infrarrojo o Raman si hay agua. Estructura molecular, resonancia.',
+grafica:'<b>Tres preguntas sirven para casi cualquier gráfica:</b> dónde está el pico da la identidad, cuán ancho es da el tamaño o el desorden, cuán alto es da la cantidad.',
+tga:'<b>Cada escalón del TGA es otra cosa.</b> Hasta 150 °C, agua y disolvente. De 200 a 450 °C, orgánicos. Por encima de 600 °C, el propio inorgánico. Sumarlos todos como «recubrimiento» es el error previsto.',
+dsc:'<b>Escalón sin pico es transición vítrea</b>, porque es de segundo orden y no tiene calor latente. Pico endotérmico es fusión; exotérmico al calentar es cristalización en frío, y no se repite en el segundo barrido.',
+uvvis:'<b>El borde de absorción da el gap y la banda de plasmón da el estado del coloide.</b> Oro esférico cerca de 520 nm; si se corre al rojo y se ensancha, hay agregación.',
+
+/* ---------- electroquímica ---------- */
+anodo:'<b>La oxidación siempre en el ánodo, en cualquier celda.</b> Lo que cambia es el signo: ánodo negativo en la galvánica, positivo en la electrolítica, porque ahí la fuente externa impone la polaridad.',
+nernst:'<b>El coeficiente 0.0592 solo vale a 25 °C</b> y a 37 °C sube a 0.0616. Pendiente de 59 mV por década para un ion monovalente y 29.6 para uno divalente. Y acuérdate de <b>dividir entre n</b>.',
+faraday:'<b>El paso que más se falla es n</b>, los electrones por ion: dos para Cu²⁺, tres para Al³⁺. Y la eficiencia faradaica se <b>divide</b>, no se multiplica: si solo sirve el 92 % de la carga, hace falta más.',
+ecelda:'<b>E° = E°cátodo − E°ánodo, con los dos tomados como reducción.</b> No se invierte el signo ni se multiplica por coeficientes: el potencial es <b>intensivo</b>.',
+randles:'<b>i_p proporcional a √v significa que la especie difunde; proporcional a v significa que está adsorbida.</b> Multiplica la velocidad por cuatro y mira si la corriente se duplica o se cuadruplica.',
+rct:'<b>El diámetro del semicírculo de Nyquist es R_ct</b>, inversamente proporcional a i₀. Semicírculo pequeño, cinética rápida. El corte a alta frecuencia es la resistencia del electrolito.',
+corrosion:'<b>En medio neutro aireado, el cátodo reduce oxígeno, no protones.</b> Por eso airear o agitar <b>acelera</b> la corrosión en lugar de frenarla.',
+
+/* ---------- escalamiento y proceso ---------- */
+escalaAV:'<b>El calor se genera con el volumen y se disipa con el área.</b> Al escalar, A/V cae como 1/L: por eso una reacción exotérmica que iba bien en 50 mL se descontrola en 500 L sin cambiar la química.',
+criterios:'<b>Los criterios de escalamiento son incompatibles entre sí: hay que elegir.</b> Conservar P/V baja las revoluciones pero <b>sube</b> la velocidad de punta. Elige según lo que limite: mezclado, esfuerzo cortante o régimen de flujo.',
+propagacion:'<b>En potencias, la incertidumbre relativa se multiplica por el exponente.</b> Un 4 % en el radio son 8 % en el área y 12 % en el volumen. Por eso medir bien el tamaño rinde tanto.',
+reactores:'<b>Para orden positivo, el PFR siempre necesita menos volumen que el CSTR.</b> El CSTR trabaja todo él a la concentración de salida, que es la más baja y por tanto la más lenta.',
+vpn:'<b>El periodo de recuperación simple no descuenta y siempre sale optimista.</b> Un VPN positivo pero pequeño significa proyecto sensible: comprueba cuánto puede caer el flujo antes de volverse negativo.',
+
+/* ---------- formulación ---------- */
+hlb:'<b>HLB bajo (3 a 6) da agua en aceite; alto (8 a 18) da aceite en agua.</b> La mezcla es el promedio ponderado por <b>fracción másica</b>. Y por Bancroft, la fase donde el surfactante es más soluble acaba siendo la continua.',
+stokes:'<b>La velocidad de cremado va con el cuadrado del radio.</b> Partir las gotas a la mitad frena la separación por cuatro; dividirlas entre diez, por cien. Mucho más eficaz que espesar la fase continua.',
+inestabilidad:'<b>Si agitando se recupera, fue cremado o floculación.</b> Si no, hubo coalescencia o maduración de Ostwald. Cada una se combate distinto y la reversibilidad es la prueba que las separa.',
+/* ---------- química orgánica y bioquímica ---------- */
+redox:'<b>En volumetría redox la relación sale de igualar electrones, no de los coeficientes.</b> El permanganato gana 5 y el Fe²⁺ cede 1, así que la relación es <b>1 a 5</b>. Usar 1:1 es el distractor que siempre está ahí.',
+buffer:'<b>Elige el ácido cuyo pK<sub>a</sub> esté a menos de una unidad del pH objetivo.</b> En pH = pK<sub>a</sub> la capacidad es máxima porque hay tanto ácido como base conjugada. Más lejos, harían falta razones extremas donde ya casi no amortigua.',
+isomeria:'<b>Los enantiómeros son idénticos en todo salvo el signo de rotación.</b> Si dos isómeros tienen <b>puntos de fusión distintos</b>, no son enantiómeros: son diastereómeros, y por eso se pueden separar por métodos normales.',
+mecanismo:'<b>El mecanismo decide el producto, no la fórmula.</b> HBr sin peróxidos va por vía iónica y sigue Markovnikov; con peróxidos pasa a radicalario y da la regioselectividad <b>opuesta</b>. Mismo reactivo, producto contrario.',
+sn:'<b>Sustrato terciario manda SN1; primario manda SN2.</b> En el secundario decide el reactivo: base fuerte y calor empujan a eliminación, nucleófilo bueno sin base empuja a sustitución. SN1 racemiza, SN2 invierte.',
+inhibidor:'<b>Mira qué parámetro cambió:</b> K<sub>m</sub> sube y V<sub>max</sub> igual es <b>competitivo</b> y se vence con más sustrato; V<sub>max</sub> baja y K<sub>m</sub> igual es <b>no competitivo</b> y no se vence nunca.',
+carothers:'<b>En policondensación el peso solo se dispara al final.</b> X̄<sub>n</sub> = 1/(1−p): al 92 % apenas da 12, y para llegar a 100 hace falta 99 %. Por eso la estequiometría tiene que ser exactísima.',
+quiral:'<b>El cuerpo es quiral, así que los dos enantiómeros no son el mismo fármaco.</b> Uno puede dar el efecto y el otro unirse a otro blanco. En entorno aquiral, en cambio, sus propiedades físicas son idénticas.',
+aromatica:'<b>Activante va con orto-para; desactivante va con meta.</b> Van siempre juntos. Un grupo que retira densidad desactiva el anillo y además dirige a meta, porque desestabiliza más el arenio en orto y para.',
+miller:'<b>Toma recíprocos y reduce a enteros mínimos.</b> El recíproco existe para que un plano paralelo a un eje, que lo corta en el infinito, dé índice <b>cero</b> en vez de infinito. Nunca llevan fracciones y el orden de los ejes importa.',
+polaridad:'<b>El momento dipolar es una suma vectorial.</b> Enlaces muy polares con geometría simétrica se cancelan: CCl₄ es apolar y CHCl₃ no, con los mismos enlaces. Lo que decide es la <b>simetría</b>.',
+conformal:'<b>Línea de vista contra reacción superficial.</b> Evaporación y sputtering depositan donde llega el flujo y dejan sombras; CVD y sobre todo ALD reaccionan sobre toda la superficie accesible y recubren el fondo del poro.',
+poiseuille:'<b>El caudal va con la CUARTA potencia del radio.</b> Media el radio y el caudal cae a 1/16. Esa sensibilidad explica por qué el canal más estrecho domina la resistencia de toda la red.',
+lipinski:'<b>La regla de cinco es una heurística sobre absorción oral pasiva</b>, no un juicio de toxicidad. Violarla no descarta el compuesto: cambia la vía o el vehículo.'
+};
+</script>
+<script>
+/* ============================================================
    FIGURAS · SVG dibujadas a medida, sin dependencias externas.
    Usan las variables de color del tema, así que se adaptan solas.
    ============================================================ */
@@ -1263,6 +1382,92 @@ FIG.tafel={t:'Curva de Tafel y densidad de corriente de intercambio',svg:
 pie:'En la región de Tafel, η = a + b·log|i|: la pendiente <b>b</b> informa sobre el mecanismo y el número de electrones del paso lento, y la extrapolación a η = 0 da la <b>densidad de corriente de intercambio i₀</b>, que mide la actividad intrínseca del electrocatalizador. Un i₀ mayor desplaza toda la curva <b>a la derecha</b>: a igual sobrepotencial se obtiene más corriente, o equivalentemente la misma corriente con menos energía desperdiciada. Comparar catalizadores por el sobrepotencial necesario para alcanzar 10 mA/cm² es la convención en electrólisis de agua.'};
 
 </script><script>
+/* ============================================================
+   FIGURAS DE DERIVACIÓN Y DE ÓRDENES DE REACCIÓN
+   La idea no es memorizar veinte ecuaciones sino ver de dónde
+   sale cada una: dos leyes, tres definiciones y lo demás cae.
+   ============================================================ */
+
+FIG.derivacion={t:'De dónde sale cada ecuación de termodinámica',svg:
+'<svg viewBox="0 0 540 400" role="img" aria-label="Árbol que deriva las ecuaciones de la termodinámica desde la primera ley y las definiciones">'+
+(function(){
+ var s='';
+ function caja(x,y,w,hh,txt,col,sub){
+   s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" rx="7" fill="var(--'+col+'-bg)" stroke="var(--'+col+')" stroke-width="1.4"/>'+
+      '<text x="'+(x+w/2)+'" y="'+(y+(sub?16:hh/2+4))+'" text-anchor="middle" class="txm" style="font-size:11px;font-weight:700" fill="var(--'+col+')">'+txt+'</text>';
+   if(sub)s+='<text x="'+(x+w/2)+'" y="'+(y+30)+'" text-anchor="middle" class="txs" style="font-size:9px">'+sub+'</text>';
+ }
+ function flecha(x1,y1,x2,y2,et){
+   s+='<path class="sl2" d="M'+x1+','+y1+' L'+x2+','+y2+'" marker-end="url(#fd)"/>';
+   if(et)s+='<text x="'+((x1+x2)/2+5)+'" y="'+((y1+y2)/2-3)+'" class="txs" style="font-size:8.5px">'+et+'</text>';
+ }
+ s+='<defs><marker id="fd" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">'+
+    '<path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-dim)"/></marker></defs>';
+
+ s+='<text x="12" y="14" class="txs" style="font-size:8.5px;letter-spacing:.09em">PUNTO DE PARTIDA</text>';
+ caja(12,22,240,38,'dU = δq + δw','m5','primera ley · la energía se conserva');
+ caja(282,22,246,38,'dS = δq_rev / T','m5','segunda ley · define la entropía');
+
+ s+='<text x="12" y="88" class="txs" style="font-size:8.5px;letter-spacing:.09em">TRES DEFINICIONES, NADA MÁS</text>';
+ caja(12,96,160,34,'H = U + PV','m4');
+ caja(190,96,160,34,'A = U − TS','m4');
+ caja(368,96,160,34,'G = H − TS','m4');
+ flecha(132,60,92,96); flecha(132,60,270,96); flecha(405,60,448,96);
+
+ s+='<text x="12" y="164" class="txs" style="font-size:8.5px;letter-spacing:.09em">SE DIFERENCIAN Y SALEN SOLAS</text>';
+ caja(12,172,160,34,'dH = TdS + VdP','m11');
+ caja(190,172,160,34,'dA = −SdT − PdV','m11');
+ caja(368,172,160,34,'dG = −SdT + VdP','m11');
+ flecha(92,130,92,172); flecha(270,130,270,172); flecha(448,130,448,172);
+
+ s+='<text x="12" y="240" class="txs" style="font-size:8.5px;letter-spacing:.09em">Y DE AHÍ, TODO LO QUE USAS</text>';
+ caja(12,248,120,40,'ΔG = ΔH − TΔS','m9','a T constante');
+ caja(146,248,120,40,'ΔG° = −RT ln K','m9','en el equilibrio');
+ caja(280,248,120,40,'ΔG° = −nFE°','m9','celda electroquímica');
+ caja(414,248,114,40,'(∂G/∂P)_T = V','m9','Maxwell');
+ flecha(448,206,70,248,''); flecha(448,206,205,248,''); flecha(448,206,338,248,''); flecha(470,206,470,248,'');
+
+ s+='<text x="12" y="316" class="txs" style="font-size:8.5px;letter-spacing:.09em">CASOS PARTICULARES DE LA PRIMERA LEY</text>';
+ caja(12,324,120,40,'Isotérmico','m6','ΔU = 0 · q = −w');
+ caja(146,324,120,40,'Isobárico','m6','q_P = ΔH');
+ caja(280,324,120,40,'Isocórico','m6','w = 0 · q_V = ΔU');
+ caja(414,324,114,40,'Adiabático','m6','q = 0 · ΔU = w');
+ flecha(132,60,70,324,''); flecha(132,60,205,324,''); flecha(132,60,338,324,''); flecha(132,60,470,324,'');
+ return s;
+})()+'</svg>',
+pie:'<b>No son veinte ecuaciones: son dos leyes y tres definiciones.</b> Cada caja de abajo sale de diferenciar una de arriba. Si en el examen te bloqueas con una fórmula, reconstruye la cadena desde dU = δq + δw y desde G = H − TS, que son las dos que sí conviene saberse de memoria. Las flechas al pie son la primera ley aplicada a un proceso en el que algo se mantiene constante, que es de donde salen los cuatro casos que más se preguntan.'};
+
+FIG.ordenes={t:'Los tres órdenes de reacción y la recta que delata a cada uno',svg:
+'<svg viewBox="0 0 540 240" role="img" aria-label="Comparación de las linealizaciones de orden cero, uno y dos">'+
+(function(){
+ var s='',P=[
+  ['Orden 0','[A] contra t','m2','[A] = [A]₀ − kt','k en M/s','t½ = [A]₀/2k'],
+  ['Orden 1','ln[A] contra t','m5','ln[A] = ln[A]₀ − kt','k en s⁻¹','t½ = 0.693/k'],
+  ['Orden 2','1/[A] contra t','m10','1/[A] = 1/[A]₀ + kt','k en M⁻¹s⁻¹','t½ = 1/(k[A]₀)']
+ ];
+ P.forEach(function(p,i){
+  var x=12+i*178, col=p[2];
+  s+='<rect x="'+x+'" y="10" width="162" height="220" rx="8" fill="var(--surface)" stroke="var(--'+col+')" stroke-width="1.3"/>';
+  s+='<text x="'+(x+12)+'" y="30" class="txm" style="font-size:12px;font-weight:700" fill="var(--'+col+')">'+p[0]+'</text>';
+  /* mini gráfica: recta descendente para 0 y 1, ascendente para 2 */
+  var gx=x+22, gy=46, gw=118, gh=74;
+  s+='<path class="sl2" d="M'+gx+','+(gy+gh)+' L'+(gx+gw)+','+(gy+gh)+'"/>'+
+     '<path class="sl2" d="M'+gx+','+gy+' L'+gx+','+(gy+gh)+'"/>';
+  var d=(i===2)?('M'+(gx+6)+','+(gy+gh-8)+' L'+(gx+gw-6)+','+(gy+10))
+               :('M'+(gx+6)+','+(gy+10)+' L'+(gx+gw-6)+','+(gy+gh-8));
+  s+='<path d="'+d+'" fill="none" stroke="var(--'+col+')" stroke-width="2.4"/>';
+  s+='<text x="'+(gx-4)+'" y="'+(gy+4)+'" class="txs" style="font-size:8px" text-anchor="end">'+(i===2?'1/[A]':(i===1?'ln[A]':'[A]'))+'</text>';
+  s+='<text x="'+(gx+gw)+'" y="'+(gy+gh+11)+'" class="txs" style="font-size:8px" text-anchor="end">t</text>';
+  s+='<text x="'+(x+12)+'" y="'+(gy+gh+30)+'" class="txs" style="font-size:9px;font-weight:700">'+p[1]+' da recta</text>';
+  s+='<text x="'+(x+12)+'" y="'+(gy+gh+46)+'" class="txm" style="font-size:9px">'+p[3]+'</text>';
+  s+='<text x="'+(x+12)+'" y="'+(gy+gh+60)+'" class="txs" style="font-size:8.5px">'+p[4]+'</text>';
+  s+='<text x="'+(x+12)+'" y="'+(gy+gh+74)+'" class="txm" style="font-size:9px" fill="var(--'+col+')">'+p[5]+'</text>';
+ });
+ return s;
+})()+'</svg>',
+pie:'<b>El método es siempre el mismo: grafica las tres y quédate con la que da recta.</b> La pendiente de esa recta es ±k, y el signo lo dice la forma de la ecuación. Fíjate en el detalle que más se pregunta: la vida media del <b>orden uno es la única que no depende de la concentración inicial</b>, y por eso la desintegración radiactiva y casi toda la farmacocinética se modelan así.'};
+</script>
+<script>
 var G=[
 /* ===================== M2 ===================== */
 {id:'M2',nom:'Análisis químico',sesion:'Sesión 3 del taller',
@@ -1291,7 +1496,13 @@ var G=[
     'Primera etapa: 2.50 mL de 12.0 M llevados a 100 mL ⇒ C = 12.0 × (2.50/100) = <b>0.300 M</b>.',
     'Segunda etapa, factor 20: V₁ = (0.0150 × 250)/0.300 = <b>12.5 mL</b> de la intermedia llevados a 250 mL.'],
  r:'Dos etapas: 2.50 mL de madre a 100 mL, y de ahí 12.5 mL a 250 mL. Concentración final 0.0150 M.',
- x:'El factor de dilución total es el <b>producto</b> de los factores de cada etapa, no su suma. Y la incertidumbre relativa también se acumula: cada etapa añade la suya en cuadratura, así que repartir en dos pasos razonables es mejor que forzar una medida de 0.31 mL con una pipeta de 1 mL.'}}]},
+ x:'El factor de dilución total es el <b>producto</b> de los factores de cada etapa, no su suma. Y la incertidumbre relativa también se acumula: cada etapa añade la suya en cuadratura, así que repartir en dos pasos razonables es mejor que forzar una medida de 0.31 mL con una pipeta de 1 mL.'}},
+   {truco:{t:'Molaridad o molalidad: mira el denominador',
+  c:'<b>MolaRidad lleva R de litRo de disolución</b>; molalidad lleva kilogramo de disolvente. Dos consecuencias que el examen explota: la molaridad <b>cambia con la temperatura</b> porque el volumen se dilata, y la molalidad no. Por eso las propiedades coligativas, que se miden congelando y hirviendo, se expresan siempre en molalidad.',
+  x:'Pasar de una a otra <b>exige la densidad de la disolución</b>, no la del soluto ni la del disolvente. Si un problema te da densidad, casi siempre es para esa conversión.'}},
+   {truco:{t:'Diluciones sin despejar nada',
+  c:'En C₁V₁ = C₂V₂ el <b>factor de dilución</b> es la razón entre concentraciones, y el volumen de madre es el final dividido entre ese factor. De 2.0 M a 0.10 M el factor es 20, así que para 500 mL tomas 500/20 = 25 mL. En diluciones en serie los factores se <b>multiplican</b>: tres pasos de 1 a 25 dan 25³ = 15 625, no 75.',
+  x:'En disolución acuosa diluida 1 ppm equivale a 1 mg/L <b>solo porque la densidad vale 1 g/mL</b>. En un disolvente orgánico o en una salmuera concentrada esa equivalencia deja de valer.'}}]},
   {t:'Exactitud, precisión y tratamiento del dato',b:[
    {p:['<b>Exactitud</b> es cercanía al valor verdadero; <b>precisión</b> es cercanía entre réplicas. Son independientes, y la combinación observada dice qué error domina y por tanto qué hacer.']},
    {tabla:{th:['Lo que observas','Error dominante','Qué procede'],tr:[
@@ -1742,6 +1953,32 @@ G.push(
  ['i ≈ número de iones por fórmula','<b>Factor de van’t Hoff</b>: glucosa 1, NaCl 2, CaCl₂ 3. Omitirlo es el error clásico.','adimensional'],
  ['P<sub>A</sub> = x<sub>A</sub>·P°<sub>A</sub>','<b>Ley de Raoult</b>: el soluto no volátil baja la presión de vapor del disolvente.','']
 ]}]},
+  {t:'Funciones de estado, funciones de proceso y los cuatro procesos',b:[
+   {p:['La distinción que ordena todo el módulo: una <b>función de estado</b> depende solo de dónde estás, no de cómo llegaste. U, H, S, G, A, T, P y V son de estado. Una <b>función de proceso</b> depende del camino recorrido: calor y trabajo lo son, y por eso se escriben δq y δw con delta curva en vez de dq y dw.']},
+   {truco:{t:'Cómo distinguirlas sin pensarlo',
+     c:'Pregúntate: <b>¿puedo decir cuánto tiene el sistema <i>ahora mismo</i>?</b> Un sistema <i>tiene</i> energía interna, entropía y volumen: son de estado. Un sistema no <i>tiene</i> calor ni trabajo; los <b>intercambia</b> mientras algo ocurre. Por eso se habla de «el calor absorbido en el proceso» y nunca de «el calor del sistema».',
+     x:'ΔU es de estado aunque q y w no lo sean. Dos caminos distintos entre los mismos dos puntos dan <b>el mismo ΔU</b> pero <b>distinto q y distinto w</b>, repartidos de otra forma. Esa es exactamente la pregunta que el examen disfraza de problema de ciclos.'}},
+   {fig:FIG.derivacion},
+   {p:['Los <b>cuatro procesos</b> salen de aplicar la primera ley cuando algo se mantiene constante. Conviene tenerlos en una sola tabla, porque la pregunta típica da un proceso y pide qué magnitud vale cero.']},
+   {tabla:{th:['Proceso','Qué se mantiene','Qué vale cero','Qué queda'],tr:[
+     ['Isotérmico','T constante','ΔU = 0 (gas ideal)','q = −w'],
+     ['Isobárico','P constante','—','q<sub>P</sub> = ΔH'],
+     ['Isocórico','V constante','w = 0','q<sub>V</sub> = ΔU'],
+     ['Adiabático','sin intercambio de calor','q = 0','ΔU = w']
+   ]}},
+   {truco:{t:'Isoterma contra adiabata en el diagrama P-V',
+     c:'Las dos bajan, pero <b>la adiabata cae más rápido</b>. Razón física en una frase: al expandirse sin recibir calor, el gas paga el trabajo con su propia energía interna, <b>se enfría</b>, y un gas más frío a ese volumen tiene menos presión. La isoterma se mantiene a temperatura fija porque sí recibe calor del entorno. Matemáticamente, PV<sup>γ</sup> = constante con γ &gt; 1 frente a PV = constante.',
+     x:'«Adiabático» no significa «a temperatura constante»: significa <b>sin intercambio de calor</b>. En una expansión adiabática la temperatura <b>baja</b>. Confundir adiabático con isotérmico es de los errores más caros del módulo, porque invierte el signo de casi todo lo que calcules después.'}},
+   {p:['Para un gas ideal en proceso adiabático reversible se cumplen las tres relaciones equivalentes PV<sup>γ</sup> = cte, TV<sup>γ−1</sup> = cte y TP<sup>(1−γ)/γ</sup> = cte, con γ = C<sub>P</sub>/C<sub>V</sub>. Vale 1.67 para un gas monoatómico y 1.40 para uno diatómico, y ese dato suele venir dado.']},
+   {truco:{t:'El signo del trabajo, de una vez por todas',
+     c:'Con el convenio de la IUPAC, que es el que usa el examen, <b>dU = δq + δw</b>. El trabajo es positivo cuando se hace <b>sobre</b> el sistema, es decir al comprimirlo. Regla de una línea: <b>comprimir suma, expandir resta</b>. Si el gas se expande, w = −P·ΔV es negativo porque el sistema gasta energía empujando al entorno.',
+     x:'Hay libros que escriben dU = q − w con el trabajo definido al revés. Si una opción del examen parece correcta pero con el signo cambiado, revisa qué convenio usa el enunciado antes de dudar de tu cálculo.'}},
+   {deep:{t:'Por qué el calor a presión constante es exactamente ΔH',b:[
+     {p:['De la primera ley, ΔU = q + w. A presión constante y con solo trabajo de expansión, w = −PΔV, así que q<sub>P</sub> = ΔU + PΔV.']},
+     {p:['Y por definición H = U + PV, de modo que a presión constante ΔH = ΔU + PΔV. Los dos miembros derechos son idénticos: <b>q<sub>P</sub> = ΔH</b>.']},
+     {p:['Esa es toda la razón de que exista la entalpía: como casi toda la química de laboratorio ocurre en recipientes abiertos a la atmósfera, es decir a presión constante, medir calor equivale a medir ΔH. En una bomba calorimétrica, que es de volumen constante, lo que se mide es ΔU.']}
+   ]}}
+  ]},
   {t:'Espontaneidad: los cuatro casos',b:[
    {eq:EQ.gibbs},
    {tabla:{th:['ΔH','ΔS','¿Espontáneo?','Ejemplo'],tr:[
@@ -1773,7 +2010,13 @@ G.push(
     'A 1200 K: ΔG° = 178 300 − 1200 × 160.6 = 178 300 − 192 720 = <b>−14 420 J/mol</b>. Ya espontánea.',
     'Constante de equilibrio a 1200 K: ln K = −ΔG°/RT = 14 420/(8.314 × 1200) = 1.445 ⇒ K = <b>4.2</b>, es decir p(CO₂) ≈ 4.2 bar.'],
  r:'La calcinación se vuelve espontánea por encima de unos 1110 K (837 °C), que es el orden de temperatura real de un horno de cal.',
- x:'Pasar ΔS de J a kJ, o no pasarlo: la mezcla de unidades es el error numérico dominante del tema. Y recordar que ΔG° &gt; 0 <b>no</b> significa que la reacción no ocurra en absoluto: significa que en el equilibrio predominan los reactivos.'}}]},
+ x:'Pasar ΔS de J a kJ, o no pasarlo: la mezcla de unidades es el error numérico dominante del tema. Y recordar que ΔG° &gt; 0 <b>no</b> significa que la reacción no ocurra en absoluto: significa que en el equilibrio predominan los reactivos.'}},
+   {truco:{t:'Los cuatro casos en una frase cada uno',
+  c:'Mira los signos de ΔH y ΔS y no necesitas la tabla. <b>ΔH negativo y ΔS positivo: siempre espontánea</b>, los dos empujan igual. <b>ΔH positivo y ΔS negativo: nunca</b>. <b>Los dos negativos: solo en frío</b>, porque la entalpía manda cuando T es pequeña. <b>Los dos positivos: solo en caliente</b>, porque el término TΔS crece con T hasta ganar. En los dos últimos existe una temperatura de cruce, y vale <b>T = ΔH/ΔS</b>.',
+  x:'ΔG° &gt; 0 <b>no</b> significa que la reacción no ocurra: significa que en el equilibrio predominan los reactivos. Y ΔG° negativo no garantiza que avance ahora mismo, porque el sentido real lo decide ΔG = ΔG° + RT·ln Q con las concentraciones del momento.'}},
+   {truco:{t:'Anclas numéricas que ahorran calculadora',
+  c:'A 25 °C, <b>cada década de K vale unos 5.7 kJ/mol</b> de ΔG°. Así que K = 10 son −5.7, K = 10⁶ son −34 y K = 10⁻³ son +17. Y el signo es inmediato: <b>K mayor que 1 da ΔG° negativo</b>. Si una opción te ofrece ΔG° = −200 kJ/mol para K = 100, ya sabes que está mal sin calcular nada.',
+  x:'Pasar ΔS de J a kJ. ΔH suele venir en kJ/mol y ΔS en J/mol·K: si no divides entre mil, el término TΔS sale mil veces mayor y el signo de ΔG casi siempre te queda invertido.'}}]},
   {t:'Equilibrio y velocidad son preguntas distintas',b:[
    {p:['Le Chatelier con precisión. La <b>concentración</b> y el <b>volumen</b> desplazan la posición del equilibrio pero no cambian K. La <b>temperatura</b> es la única que cambia el valor de K: trata al calor como reactivo si la reacción es endotérmica y como producto si es exotérmica, de modo que calentar una exotérmica desplaza hacia <b>reactivos</b>.']},
    {ul:['Añadir un gas inerte a volumen constante <b>no desplaza nada</b>: las presiones parciales de las especies reactivas no cambian. Es el distractor clásico.',
@@ -1806,7 +2049,14 @@ G.push(
     'Es decir E<sub>a</sub> ≈ <b>91.8 kJ/mol</b>, un valor típico de reacción en disolución.',
     'Con ese dato, el factor preexponencial: ln A = ln k₁ + E<sub>a</sub>/RT₁ = −8.198 + 37.04 = 28.84 ⇒ A ≈ 3.4×10¹² s⁻¹.'],
  r:'E<sub>a</sub> = 91.8 kJ/mol. Subir 30 °C multiplicó la velocidad por casi 30.',
- x:'La regla de que “la velocidad se duplica cada 10 °C” solo se cumple para E<sub>a</sub> cercana a 50 kJ/mol cerca de temperatura ambiente. Con 92 kJ/mol el factor por cada 10 °C es cercano a 3, y por eso aquí 30 °C dieron casi un factor 30 en lugar de 8.'}}]},
+ x:'La regla de que “la velocidad se duplica cada 10 °C” solo se cumple para E<sub>a</sub> cercana a 50 kJ/mol cerca de temperatura ambiente. Con 92 kJ/mol el factor por cada 10 °C es cercano a 3, y por eso aquí 30 °C dieron casi un factor 30 en lugar de 8.'}},
+   {fig:FIG.ordenes},
+   {truco:{t:'Identificar el orden en diez segundos',
+  c:'No hace falta ajustar nada. Si te dan datos de concentración contra tiempo, <b>grafica las tres y quédate con la que salga recta</b>: [A] para orden cero, ln[A] para orden uno, 1/[A] para orden dos. Si en cambio te dan velocidades iniciales, usa v₂/v₁ = ([A]₂/[A]₁)<sup>n</sup> y despeja n: <b>duplicar y que se multiplique por 2 es orden 1, por 4 es orden 2, por 8 es orden 3</b>.',
+  x:'El orden es <b>empírico</b>: no se lee de los coeficientes de la ecuación balanceada, salvo que la reacción sea elemental. Una reacción que en el papel consume dos moles de A puede ser de orden uno en A.'}},
+   {truco:{t:'Las unidades de k te dicen el orden',
+  c:'La velocidad siempre va en M/s, así que las unidades de k se ajustan para que cuadre: <b>M/s para orden cero, s⁻¹ para orden uno, M⁻¹s⁻¹ para orden dos</b>. La regla general es M<sup>1−n</sup>s⁻¹. Si en un problema te dan k en s⁻¹ y no te dicen el orden, ya lo sabes: es uno.',
+  x:'Solo la vida media del <b>orden uno</b> es independiente de la concentración inicial. En orden cero el doble de concentración tarda el doble en consumirse a la mitad, y en orden dos tarda la mitad.'}}]},
   {t:'Superficies, adsorción y coloides',b:[
    {p:['La espontaneidad no se decide por el signo de ΔH. Disolver una sal que <b>enfría</b> el recipiente es endotérmico y aun así ocurre, porque el aumento de desorden al dispersarse soluto y disolvente hace que TΔS supere a ΔH. Confundir endotérmico con no espontáneo es el error conceptual más repetido del módulo.']},
    {p:['Con <b>ΔH negativo y ΔS negativo</b> la entalpía favorece y la entropía se opone, y como el término entrópico va multiplicado por T, el proceso es espontáneo <b>solo por debajo de T = ΔH/ΔS</b>. Con ambos positivos ocurre lo contrario: solo por encima de esa temperatura de cruce.']},
@@ -1919,7 +2169,13 @@ G.push(
     'r* = 2 × 1.5/1.68×10⁹ = <b>1.8 nm</b>: tres veces menor.',
     'Y la barrera ΔG* va como 1/ΔG<sub>v</sub>², así que al triplicar la fuerza impulsora la barrera cae por un factor nueve, y como J es exponencial en ella, la velocidad de nucleación se dispara.'],
  r:'Con S = 10 el núcleo crítico mide 5.4 nm; con S = 1000 mide 1.8 nm y nuclean muchísimos más núcleos a la vez.',
- x:'La consecuencia práctica es la receta de LaMer: para obtener partículas <b>pequeñas y monodispersas</b> hay que alcanzar una sobresaturación alta de golpe (inyección caliente), consumir el precursor en un estallido breve y dejar que el crecimiento ocurra después, ya por debajo del umbral de nucleación. Añadir precursor lentamente solapa ambas etapas y ensancha la distribución.'}}]},
+ x:'La consecuencia práctica es la receta de LaMer: para obtener partículas <b>pequeñas y monodispersas</b> hay que alcanzar una sobresaturación alta de golpe (inyección caliente), consumir el precursor en un estallido breve y dejar que el crecimiento ocurra después, ya por debajo del umbral de nucleación. Añadir precursor lentamente solapa ambas etapas y ensancha la distribución.'}},
+   {truco:{t:'LaMer en una sola idea',
+  c:'Todo el modelo se resume en <b>separar en el tiempo la nucleación del crecimiento</b>. Un estallido corto de nucleación hace que todos los núcleos nazcan a la vez, y como después solo crecen, <b>todos tienen la misma edad y acaban del mismo tamaño</b>. La monodispersidad no se consigue controlando el crecimiento: se consigue comprimiendo la nucleación.',
+  x:'Añadir el precursor despacio parece más controlado y es justo lo contrario: solapa las etapas II y III, de modo que unos núcleos llevan ventaja sobre otros y la distribución se ensancha. Lo que funciona es la <b>inyección caliente</b>, rápida y de golpe.'}},
+   {truco:{t:'La regla contraintuitiva de la forma',
+  c:'<b>La cara que crece rápido desaparece; la lenta sobrevive.</b> Al añadir un agente que se adsorbe sobre una familia de caras, esa familia se frena y por eso <b>domina</b> la forma final. Así el CTAB da nanovarillas de oro y la PVP da nanocubos de plata.',
+  x:'La intuición dice que la cara que más crece es la que más se ve. Es al revés: al crecer, esa cara se cierra sobre sí misma y se elimina del poliedro.'}}]},
   {t:'Rutas químicas: qué controla cada una',b:[
    {tabla:{th:['Ruta','Fuerte en','Debilidad'],tr:[
      ['Reducción en disolución','Control fino de tamaño y forma en metales nobles','No sirve para óxidos ni alta temperatura'],
@@ -1987,7 +2243,13 @@ G.push(
      ['Área superficial accesible','BET con N₂ a 77 K','—'],
      ['Comportamiento térmico','TGA (masa) / DSC (energía)','Solo DSC ve la Tg']]}},
    {p:['Y la regla que cierra el módulo: <b>ninguna técnica sola caracteriza un material</b>. Un trabajo serio combina al menos difracción, microscopía y una espectroscopía, porque cada una tiene un punto ciego que otra cubre. La secuencia lógica es no destructivo antes que destructivo, y estructural antes que cuantificación fina.']}
-  ]},
+  ,
+   {truco:{t:'Qué técnica, según lo que te pregunten',
+  c:'Organiza por la pregunta y no por la técnica. <b>¿Qué fase es?</b> difracción. <b>¿Qué elementos tiene?</b> EDS, o EELS si son ligeros o necesitas resolución nanométrica. <b>¿En qué estado de oxidación?</b> XPS. <b>¿Qué forma y tamaño?</b> TEM o SEM. <b>¿Qué tamaño en suspensión?</b> DLS. <b>¿Cuánta área?</b> BET. <b>¿Qué grupos funcionales?</b> infrarrojo, o Raman si la muestra está en agua. <b>¿Qué estructura molecular?</b> resonancia magnética nuclear. <b>¿Cuánto recubrimiento?</b> termogravimetría.',
+  x:'Casi ninguna pregunta se contesta con una sola técnica. Si te piden identificar un material desconocido, la respuesta correcta suele ser la que <b>más acota</b> primero, no la más potente.'}},
+   {truco:{t:'Cómo leer cualquier gráfica de caracterización',
+  c:'Casi todas se leen con tres preguntas. <b>Dónde está el pico</b> te da la identidad: el ángulo en difracción, el número de onda en infrarrojo, el potencial en voltamperometría. <b>Cuán ancho es</b> te da el tamaño o el desorden: Scherrer en difracción, la dispersión en DLS. <b>Cuán alto es</b> te da la cantidad: la intensidad relativa, el área bajo el pico, el escalón de masa.',
+  x:'Posición, anchura y altura responden preguntas <b>distintas</b>. Si las posiciones coinciden con la referencia pero las intensidades no, la fase es la correcta y lo que cambia es la orientación de los cristalitos, no el material.'}}]},
   {t:'Difracción: tres medidas, tres informaciones',b:[
    {eq:EQ.scherrer},
    {p:['<b>El error más frecuente del módulo</b>: en Bragg, θ es la mitad del 2θ que reporta el equipo. Olvidarlo cambia el resultado por completo.']},
@@ -3530,6 +3792,148 @@ QUIZ.push(
 );
 </script>
 <script>
+/* ---------- Reactivos numéricos de concentración y de termodinámica ----------
+   Los dos bloques que Ángel espera que pesen más en el examen.
+------------------------------------------------------------------------------- */
+QUIZ.push(
+
+/* ===== concentración ===== */
+{tag:'M2',q:'Disuelves 18.0 g de glucosa (M = 180.0 g/mol) en 250.0 g de agua. ¿Cuál es la molalidad de la disolución resultante?',opts:['0.0720 m','0.400 m','0.100 m','4.00 m'],correct:1,exp:'n = 18.0/180.0 = 0.100 mol. La molalidad usa kilogramos de <b>disolvente</b>: 0.2500 kg. m = 0.100/0.2500 = 0.400 mol/kg. Si hubieras usado la masa total de disolución (268 g) saldría 0.373, que es el error típico.'},
+{tag:'M2',q:'Una disolución acuosa de ácido sulfúrico al 96.0 % en masa tiene una densidad de 1.84 g/mL. ¿Cuál es su molaridad, sabiendo que M = 98.08 g/mol?',opts:['18.0 M','9.79 M','0.980 M','1.80 M'],correct:0,exp:'En un litro hay 1840 g de disolución, de los cuales el 96 % son 1766 g de H₂SO₄. n = 1766/98.08 = 18.0 mol en un litro, es decir 18.0 M. El camino es siempre el mismo: <b>densidad para pasar de volumen a masa, porcentaje para aislar el soluto, masa molar para llegar a moles</b>.'},
+{tag:'M2',q:'Mezclas 120 mL de NaCl 0.250 M con 80 mL de NaCl 0.500 M y supones volúmenes aditivos. ¿Qué molaridad tiene la mezcla final?',opts:['0.750 M','0.300 M','0.350 M','0.375 M'],correct:2,exp:'Suma moles y divide entre el volumen total: (0.120 × 0.250) + (0.080 × 0.500) = 0.0300 + 0.0400 = 0.0700 mol en 0.200 L, es decir 0.350 M. Promediar las concentraciones sin ponderar por volumen da 0.375 y es el distractor previsto.'},
+{tag:'M2',q:'Una disolución contiene 2.00 mol de etanol y 8.00 mol de agua. ¿Cuál es la fracción molar del etanol en esa mezcla?',opts:['2.00','0.200','0.250','0.800'],correct:1,exp:'x = n(etanol)/n(total) = 2.00/(2.00 + 8.00) = 0.200. El denominador son los moles <b>totales</b>, no los del disolvente: usar 2/8 = 0.250 es el error que el distractor recoge. Las fracciones molares de todos los componentes suman 1.'},
+{tag:'M2',q:'Necesitas 2.00 L de disolución de KOH 0.150 M y dispones del reactivo sólido con 85.0 % de pureza. M(KOH) = 56.11 g/mol. ¿Cuánto sólido pesas?',opts:['19.8 g','16.8 g','14.3 g','23.3 g'],correct:0,exp:'n = 2.00 × 0.150 = 0.300 mol, que son 0.300 × 56.11 = 16.83 g de KOH puro. Como el sólido es 85 % puro hay que pesar <b>más</b>: 16.83/0.850 = 19.8 g. La pureza se <b>divide</b>, y multiplicarla es el error que deja el 14.3.'},
+{tag:'M2',q:'Preparas una disolución diluyendo 10.0 mL de HNO₃ 15.8 M hasta 1.00 L y después tomas 25.0 mL de esa disolución y los llevas a 500 mL. ¿Qué concentración final tienes?',opts:['1.58×10⁻² M','3.95×10⁻³ M','0.158 M','7.90×10⁻³ M'],correct:3,exp:'Primera etapa: 15.8 × (10.0/1000) = 0.158 M. Segunda: 0.158 × (25.0/500) = 7.90×10⁻³ M. Los factores de dilución se <b>multiplican</b>: 100 × 20 = 2000, y 15.8/2000 da el mismo resultado.'},
+
+/* ===== termodinámica numérica ===== */
+{tag:'M5',q:'Una reacción tiene ΔH° = −57.2 kJ/mol y ΔS° = −175 J/mol·K. ¿Por encima de qué temperatura deja de ser espontánea en condiciones estándar?',opts:['327 K','0.327 K','3270 K','127 K'],correct:0,exp:'Con ambos signos negativos es el caso «espontánea solo en frío». La temperatura de cruce es T = ΔH°/ΔS° = 57 200/175 = 327 K, unos 54 °C. <b>Pasar ΔS de J a kJ, o no pasarlo, mueve el resultado por mil</b>, que es justo lo que ofrecen dos de los distractores.'},
+{tag:'M5',q:'Un gas ideal monoatómico se expande adiabática y reversiblemente desde 300 K hasta duplicar su volumen. Con γ = 1.67, ¿qué temperatura final alcanza?',opts:['477 K','150 K','189 K','300 K'],correct:2,exp:'En adiabático reversible TV^(γ−1) = constante, así que T₂ = T₁·(V₁/V₂)^(γ−1) = 300 × (1/2)^0.67 = 300 × 0.629 = 189 K. <b>El gas se enfría al expandirse</b> porque paga el trabajo con su propia energía interna. Que la temperatura no cambie es el error de confundir adiabático con isotérmico.'},
+{tag:'M5',q:'Dos moles de gas ideal se expanden isotérmicamente y de forma reversible a 298 K desde 5.00 L hasta 20.0 L. ¿Cuánto trabajo realiza el sistema sobre el entorno?',opts:['3.44 kJ','13.7 kJ','0 kJ','6.87 kJ'],correct:3,exp:'w = nRT·ln(V₂/V₁) = 2 × 8.314 × 298 × ln 4 = 4955 × 1.386 = 6868 J. Como es isotérmico y el gas es ideal, ΔU = 0 y por tanto <b>q = −w</b>: todo el calor absorbido se convierte en trabajo. Olvidar los dos moles da justo la mitad.'},
+{tag:'M5',q:'La constante de equilibrio de una reacción vale 2.5×10⁻³ a 298 K. ¿Cuánto vale su energía libre estándar de reacción a esa temperatura?',opts:['−14.9 kJ/mol','+6.2 kJ/mol','−34.3 kJ/mol','+14.9 kJ/mol'],correct:3,exp:'ΔG° = −RT·ln K = −8.314 × 298 × ln(2.5×10⁻³) = −2478 × (−5.99) = +14 840 J/mol. <b>K menor que 1 da ΔG° positivo</b>, y con el ancla de 5.7 kJ por década lo puedes estimar: 2.6 décadas por debajo de 1 son unos +15 kJ/mol.'},
+{tag:'M5',q:'Una reacción de primer orden consume el 75 % del reactivo en 40.0 minutos a temperatura constante. ¿Cuánto vale su tiempo de vida media?',opts:['30.0 min','10.0 min','20.0 min','40.0 min'],correct:2,exp:'Consumir el 75 % deja el 25 %, es decir <b>dos vidas medias</b> seguidas: de 100 a 50 y de 50 a 25. Por tanto t½ = 40.0/2 = 20.0 min. Pensar en potencias de dos evita tener que usar logaritmos en la mayoría de estos problemas.'},
+{tag:'M5',q:'Se funden 36.0 g de hielo a 0 °C y presión atmosférica, con ΔH de fusión de 6.01 kJ/mol. ¿Cuánto cambia la entropía del sistema en ese proceso?',opts:['+22.0 J/K','−44.0 J/K','+12.0 kJ/K','+44.0 J/K'],correct:3,exp:'n = 36.0/18.0 = 2.00 mol. En el equilibrio de fases ΔG = 0, de modo que ΔS = ΔH/T = (2.00 × 6010)/273.15 = 44.0 J/K. Positivo porque el líquido está más desordenado que el sólido. <b>Usar 0 en lugar de 273.15 K es una división por cero.</b>'},
+{tag:'M5',q:'Al calentar una reacción de 300 a 320 K su constante de velocidad se triplica. ¿Qué energía de activación tiene, con R = 8.314 J/mol·K?',opts:['131 kJ/mol','43.9 kJ/mol','2.74 kJ/mol','87.8 kJ/mol'],correct:1,exp:'Ea = R·ln(k₂/k₁)/(1/T₁ − 1/T₂) = 8.314 × ln 3/(1/300 − 1/320) = 8.314 × 1.0986/2.083×10⁻⁴ = 43 840 J/mol. <b>La temperatura va en kelvin</b> y la diferencia de inversos sale del orden de 10⁻⁴: si te sale 10⁻², revisa.'},
+{tag:'M5',q:'Una muestra de 1.00 mol de gas ideal se calienta a volumen constante y absorbe 1.50 kJ de calor. ¿Cuánto valen el trabajo y el cambio de energía interna?',opts:['w = 0 y ΔU = −1.50 kJ','w = 0 y ΔU = +1.50 kJ','w = −1.50 kJ y ΔU = 0','w = +1.50 kJ y ΔU = 0'],correct:1,exp:'A volumen constante no hay trabajo de expansión, así que w = 0 y la primera ley se reduce a <b>ΔU = q<sub>V</sub></b>. Ese es el motivo de que la bomba calorimétrica, que es de volumen constante, mida ΔU y no ΔH.'},
+{tag:'M5',q:'La disolución de un sólido iónico en agua presenta ΔH = +25.0 kJ/mol y ΔS = +95.0 J/mol·K. ¿Es espontánea a 25 °C y qué término manda?',opts:['Sí, manda el término TΔS','No, manda el término ΔH','Sí, manda el término ΔH','No, los dos se cancelan'],correct:0,exp:'ΔG = 25 000 − 298 × 95.0 = 25 000 − 28 310 = −3310 J/mol. Negativo, así que es espontánea, y lo es <b>pese a ser endotérmica</b>: la fuerza impulsora es el aumento de desorden al pasar de una red ordenada a iones dispersos. Es el caso del nitrato de amonio, que enfría el vaso al disolverse.'},
+{tag:'M5',q:'Se comprime isotérmicamente un gas ideal a 350 K y el entorno realiza 4.20 kJ de trabajo sobre él. ¿Cuánto calor intercambia el gas con el entorno?',opts:['Cede 4.20 kJ','Absorbe 4.20 kJ','No intercambia calor','Cede 8.40 kJ'],correct:0,exp:'Isotérmico en gas ideal significa ΔU = 0, así que de ΔU = q + w sale q = −w = −4.20 kJ: el gas <b>cede</b> ese calor al entorno. El convenio es que w positivo es trabajo hecho <b>sobre</b> el sistema, y comprimir suma.'},
+{tag:'M5',q:'Una reacción en fase gas tiene ΔG° = −18.0 kJ/mol a 298 K y se prepara una mezcla con Q = 1.0×10⁵. ¿Hacia dónde evoluciona el sistema?',opts:['No se puede determinar','Hacia reactivos','Hacia productos','Está en equilibrio'],correct:1,exp:'ΔG = ΔG° + RT·ln Q = −18 000 + 2478 × ln(10⁵) = −18 000 + 28 530 = +10 530 J/mol. Positivo, de modo que avanza <b>hacia atrás</b> pese a que ΔG° es negativo. Demuestra que el sentido real lo decide Q, no el valor estándar.'},
+{tag:'M5',q:'Se mide la entalpía de una reacción a presión constante en un calorímetro abierto y da −120 kJ/mol, con una disminución de 2.0 mol de gas a 298 K. ¿Cuánto vale ΔU?',opts:['−120 kJ/mol','−240 kJ/mol','−115 kJ/mol','−125 kJ/mol'],correct:2,exp:'ΔH = ΔU + Δn·RT, así que ΔU = ΔH − Δn·RT = −120 000 − (−2.0 × 8.314 × 298) = −120 000 + 4955 = −115 kJ/mol. Con Δn negativo el término corrige <b>hacia arriba</b>. Cuando no hay cambio en moles de gas, ΔH y ΔU coinciden.'}
+);
+</script>
+<script>
+/* ============================================================
+   ENGANCHE DE TRUCOS A REACTIVOS
+   Reglas en orden: la primera que casa gana. Cada regla es
+   [clave del truco, expresión que debe aparecer en enunciado,
+   opciones o explicación].
+   ============================================================ */
+(function(){
+  var REGLAS=[
+   /* concentración */
+   ['dilucion',     /dilu|madre|C₁V₁|aforad/i],
+   ['molaridad',    /molalidad|molaridad|mol por litro|mol\/L|crioscóp/i],
+   ['ppm',          /ppm|partes por mill|mg\/L/i],
+   ['cifras',       /cifras significativas|decimales|redonde/i],
+   /* dato */
+   ['exactitud',    /exactitud|precisi[óo]n|réplicas|prueba Q|sistemático|aleatorio/i],
+   ['lod',          /límite de detección|LOD|LOQ|ruido del blanco/i],
+   ['matriz',       /R²|efecto de matriz|adición de estándar|calibración/i],
+   ['pvalor',       /valor p|p = 0|significan|ANOVA|réplicas por grupo/i],
+   /* termo */
+   ['estadoProceso',/función de estado|funciones de estado|función de proceso|camino/i],
+   ['adiabatico',   /adiab|isoterm|isobár|isocór|PV\^|γ/i],
+   ['entalpia',     /presión constante|volumen constante|bomba calorim|entalp/i],
+   ['unidadesS',    /entropía|ΔS°?\b/],
+   ['gibbsK',       /ln K|constante de equilibrio|K =|ΔG° = −RT/i],
+   ['quociente',    /cociente de reacción|sentido inverso|\bQ es\b|valor de Q/i],
+   ['leChatelier',  /Le Ch[aâ]telier|desplaza(r|rse)? (hacia|el equilibrio)|gas inerte|recipiente rígido/i],
+   ['gibbs',        /ΔG|energía libre|espontáne|temperatura de cruce|ΔH y ΔS/i],
+   /* cinética · de lo específico a lo general */
+   ['vidamedia',    /vida media|t½|semivida/i],
+   ['unidadesK',    /unidades de k|M⁻¹s⁻¹/],
+   ['orden',        /orden de (la )?reacci|primer orden|segundo orden|orden cero|velocidad inicial|1\/\[A\]|linealiza/i],
+   ['arrhenius',    /Arrhenius|energía de activación|\bE_?a\b|ln\s*\(?k[₂2]?/],
+   ['catalizador',  /catalizador|electrocatalizador|catálisis/i],
+
+   /* coligativas y superficie */
+   ['coligativas',  /coligativ|crioscóp|ebulloscóp|van.t Hoff|punto de fusión de la disoluc|presión osmótica/i],
+   ['kelvin',       /Ostwald|Kelvin|curvatura|presión de vapor de una gota/i],
+   ['dlvo',         /DLVO|doble capa|fuerza iónica|medio fisiológico|agrega/i],
+   ['zeta',         /potencial zeta|isoeléctrico/i],
+   /* nano */
+   ['superficie',   /área específica|fracción de átomos|superficie a volumen|m²\/g/i],
+   ['rcritico',     /radio crítico|\br\*|sobresaturación/],
+   ['lamer',        /LaMer|monodispers|inyección caliente|nucleación/i],
+   ['forma',        /director de forma|nanovarilla|nanocubo|morfología|caras cristalin/i],
+   /* estructura */
+   ['colorAbs',     /de qué color|se ve de|color percibido|complementario|emite (en|más)/i],
+   ['lambda',       /1240|longitud de onda|nm.*eV|eV.*nm|brecha|gap/i],
+   ['unidadesDens', /densidad teórica|g\/cm³|parámetro de red/i],
+   ['celda',        /átomos por celda|\bFCC\b|\bBCC\b|celda unitaria|empaquetamiento|número de coordinación/],
+   ['cristalito',   /cristalito|dominio coherente/i],
+   ['bragg',        /Bragg|2θ|difracción|Scherrer|espaciado/i],
+   ['fermi',        /Fermi|dopaj|tipo n|tipo p|unión p-n/i],
+   ['confinamiento',/confinamiento|punto[s]? cuántico/i],
+   /* caracterización */
+   ['dlsTem',       /DLS|hidrodinámico|dispersión dinámica/i],
+   ['tga',          /TGA|termogravim|pérdida de masa/i],
+   ['dsc',          /DSC|transición vítrea|Tg|endotérm|exotérm/i],
+   ['uvvis',        /UV-Vis|plasmón|borde de absorción/i],
+   ['tecnica',      /qué técnica|técnica elige|técnica usa|técnica aplica|técnica es la adecuada|técnica te lo|qué instrumento/i],
+   ['grafica',      /gráfica|difractograma|termograma|voltamperograma|isoterma de adsorción|Nyquist/i],
+   /* electro */
+   ['faraday',      /Faraday|electroliz|electrodepos|eficiencia faradaica|anodiz/i],
+   ['nernst',       /Nernst|0.0592|mV por década|electrodo selectivo|celda de concentración/i],
+   ['ecelda',       /E°|potencial estándar|galvánica|pila/i],
+   ['randles',      /Randles|velocidad de barrido|voltamperometría cíclica|i_p/i],
+   ['rct',          /impedancia|R_ct|semicírculo/i],
+   ['corrosion',    /corrosión|ánodo de sacrificio|Pilling|herrumbre|niebla salina/i],
+   ['anodo',        /ánodo|cátodo|puente salino|electrólisis/i],
+   /* proceso */
+   ['criterios',    /P\/V|velocidad de punta|impulsor|similarid|escalamiento conserv/i],
+   ['escalaAV',     /escal|planta piloto|descontrol[oa] térmic/i],
+   ['propagacion',  /incertidumbre|propaga/i],
+   ['reactores',    /\bCSTR\b|\bPFR\b|tiempo espacial|conversión (global|por paso)/],
+   ['vpn',          /\bVPN\b|\bTIR\b|periodo de recuperación|punto de equilibrio|tasa de descuento|seis décimos/i],
+   ['tecnica',      /\bXPS\b|\bEDS\b|\bBET\b|\bAFM\b|\bSEM\b|\bTEM\b|\bICP\b|\bRaman\b|infrarrojo|resonancia magnética|cromatograf/],
+   ['grafica',      /espectro|pico|banda a \d|curva/i],
+   /* orgánica, bioquímica y los que faltaban */
+   ['redox',        /KMnO|permanganato|Fe²⁺|volumetría redox|igualar electrones/],
+   ['buffer',       /amortigua|buffer|tampón|pK[a₍]|Henderson/i],
+   ['isomeria',     /enantiómer|diastereómer|isómer|meso\b|ópticamente activ/i],
+   ['mecanismo',    /peróxido|Markovnikov|radicalario|regioselect/i],
+   ['sn',           /SN1|SN2|\bE2\b|halogenuro|terc-butilo|solvólisis/],
+   ['inhibidor',    /inhibidor|Vmax|V_?max|Michaelis/i],
+   ['carothers',    /Carothers|policondensa|grado de polimerizaci|polidispersid/i],
+   ['quiral',       /quiral|racémic|estereogénic/i],
+   ['aromatica',    /anillo aromático|nitrar|orto|meta\b|arenio|sustitución electrofílica/i],
+   ['miller',       /Miller|plano cristalográfico|índices \(|\(210\)|corta al eje/i],
+   ['polaridad',    /momento dipolar|apolar|simetría de la geometría/i],
+   ['conformal',    /conformal|ALD|sputtering|línea de vista|cobertura de escalón|recubres/i],
+   ['poiseuille',   /Hagen|Poiseuille|microcanal|caudal/i],
+   /* formulación */
+   ['hlb',          /HLB|Bancroft|emulsión de aceite|surfactante/i],
+   ['stokes',       /cremado|Stokes|sedimenta/i],
+   ['inestabilidad',/coalescencia|floculación|dos capas|agitar(la)? se recupera|reversib/i],
+   ['lipinski',     /Lipinski|logP|biodisponibilidad|absorción oral/i]
+  ];
+
+  var n=0, porClave={};
+  QUIZ.forEach(function(q){
+    if(q.tip)return;                               /* respeta los escritos a mano */
+    var texto=q.q+' '+q.opts.join(' ')+' '+q.exp;
+    for(var i=0;i<REGLAS.length;i++){
+      if(REGLAS[i][1].test(texto)){
+        var k=REGLAS[i][0];
+        if(TIPS[k]){ q.tip=TIPS[k]; n++; porClave[k]=(porClave[k]||0)+1 }
+        break;
+      }
+    }
+  });
+  window.__tipsAplicados={total:n, de:QUIZ.length, porClave:porClave};
+})();
+</script>
+<script>
 /* ============================================================
    RENDER
    ============================================================ */
@@ -3564,6 +3968,10 @@ function bloque(b,mid){
     '<ol class="ppasos">'+b.prob.p.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'+
     '<div class="pres"><b>Resultado. </b>'+b.prob.r+'</div>'+
     (b.prob.x?'<div class="ptrampa"><b>La trampa: </b>'+b.prob.x+'</div>':'')+'</div></details>');
+  if(b.truco)out.push('<div class="truco"><span class="tr-chip">Truco</span>'+
+    (b.truco.t?'<div class="tr-t">'+b.truco.t+'</div>':'')+
+    '<div class="tr-c">'+b.truco.c+'</div>'+
+    (b.truco.x?'<div class="tr-x"><span class="tr-chip tr-chip-x">Trampa</span>'+b.truco.x+'</div>':'')+'</div>');
   if(b.caso){
     var C=b.caso;
     out.push('<div class="caso"><div class="ftit">Caso de caracterización</div>'+
@@ -3886,6 +4294,7 @@ function crearQuiz(cont,fuente,opc){
     });
     h+='<div class="explain'+(ya?' show':'')+'"><b>'+
        (ya?(resp[i]===q.correct?'Correcto. ':'No. '):'')+'</b>'+q.exp+'</div>';
+    if(ya&&q.tip)h+='<div class="qtip"><span class="tr-chip">Truco</span><div>'+q.tip+'</div></div>';
     h+='<div class="qnav">'+
        '<button class="btn ghost" data-nav="prev"'+(i===0?' disabled':'')+'>← Anterior</button>'+
        (i<orden.length-1?'<button class="btn" data-nav="next">Siguiente →</button>'
@@ -3978,6 +4387,7 @@ function crearQuiz(cont,fuente,opc){
       });
       if(resp[k]===null)h+='<div class="explain show"><b>Sin contestar. </b>'+q.exp+'</div>';
       else h+='<div class="explain show">'+q.exp+'</div>';
+      if(q.tip)h+='<div class="qtip"><span class="tr-chip">Truco</span><div>'+q.tip+'</div></div>';
       h+='</div>';
     });
     h+='</div><div class="btn-row"><button class="btn ghost" data-nav2="back">← Volver al resultado</button></div>';
